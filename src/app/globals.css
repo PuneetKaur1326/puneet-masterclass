@@ -1,0 +1,275 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-dm-sans);
+  --font-mono: var(--font-dm-sans);
+
+  --color-background: #ffffff;
+  --color-foreground: #111827;
+  --color-primary: #F4B400; 
+  --color-primary-foreground: #111827;
+  --color-secondary: #F3F4F6;
+  --color-secondary-foreground: #111827;
+  --color-accent: #FFC72C; 
+  --color-accent-foreground: #111827;
+  --color-muted: #F9FAFB;
+  --color-muted-foreground: #4B5563;
+  --color-card: #ffffff;
+  --color-card-foreground: #111827;
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-input: #F3F4F6;
+  --color-ring: #F4B400;
+  
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-3xl: 2.5rem;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+  }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-muted);
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+  }
+}
+
+@layer utilities {
+  .line-reveal {
+    overflow: hidden;
+    display: block;
+  }
+
+  .line-reveal > span {
+    display: block;
+    transform: translateY(105%);
+  }
+
+  .hover-lift {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-5px);
+  }
+
+  .text-hero-xl {
+    font-size: clamp(1.5rem, 4.5vw, 4.5rem);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+  }
+
+  .text-section-xl {
+    font-size: clamp(1.1rem, 2.5vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+
+  .gradient-amber {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 60%, #FDE68A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .card-glow {
+    transition: box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .card-glow:hover {
+    box-shadow: 0 0 40px rgba(244, 180, 0, 0.15), 0 20px 60px rgba(0, 0, 0, 0.4);
+    transform: translateY(-4px);
+  }
+
+  .diagonal-rays {
+    background: linear-gradient(
+      135deg,
+      transparent 35%,
+      rgba(244, 180, 0, 0.04) 42%,
+      rgba(255, 199, 44, 0.08) 50%,
+      rgba(244, 180, 0, 0.04) 58%,
+      transparent 65%
+    );
+    background-size: 300% 300%;
+    animation: rays 10s infinite linear;
+  }
+
+  .blob-primary {
+    background: radial-gradient(ellipse at center, rgba(244, 180, 0, 0.12) 0%, transparent 70%);
+    filter: blur(60px);
+  }
+
+  .blob-accent {
+    background: radial-gradient(ellipse at center, rgba(255, 199, 44, 0.08) 0%, transparent 70%);
+    filter: blur(80px);
+  }
+
+  .noise-overlay::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.02;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+  }
+
+  .faq-item-active .faq-answer {
+    max-height: 300px;
+    padding-bottom: 1.5rem;
+  }
+
+  .faq-item-active .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq-chevron {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .scroll-reveal-item {
+    opacity: 1;
+    transform: none;
+  }
+
+  .nav-scrolled {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-border);
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .outcome-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .outcome-card:hover {
+    border-color: rgba(244, 180, 0, 0.4);
+    box-shadow: 0 0 30px rgba(244, 180, 0, 0.08);
+    transform: translateY(-3px);
+  }
+
+  .pricing-card-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pricing-card-shine::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      from 0deg at 50% 50%,
+      transparent 0deg,
+      rgba(244, 180, 0, 0.06) 60deg,
+      transparent 120deg
+    );
+    animation: spin-slow 12s linear infinite;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  .be-border {
+    border-color: var(--color-border);
+  }
+}
+
+@keyframes rays {
+  0% { background-position: 200% 0%; }
+  100% { background-position: -200% 0%; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50% { transform: translateY(-12px) rotate(2deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes bounce-arrow {
+  0%, 100% { transform: translateY(0) translateX(-50%); }
+  50% { transform: translateY(8px) translateX(-50%); }
+}
+
+.float-card {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+.bounce-arrow {
+  animation: bounce-arrow 2s ease-in-out infinite;
+}
+
+.pulse-dot {
+  animation: pulse-glow 2s ease-in-out infinite;
+}

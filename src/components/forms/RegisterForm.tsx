@@ -69,6 +69,7 @@ type FormValues = z.infer<typeof formSchema>
 export function RegisterForm() {
   const [isPending, startTransition] = useTransition()
   const [errorMsg, setErrorMsg] = useState("")
+  const [testSuccess, setTestSuccess] = useState<{orderId: string, paymentId: string} | null>(null)
 
   const {
     register,
@@ -166,7 +167,10 @@ export function RegisterForm() {
               });
               const verifyData = await verifyRes.json();
               if (verifyData.success) {
-                window.location.href = "/thank-you";
+                setTestSuccess({
+                  orderId: response.razorpay_order_id,
+                  paymentId: response.razorpay_payment_id
+                });
               } else {
                 setErrorMsg(verifyData.error || "Payment verification failed. Please contact support.");
               }
@@ -199,6 +203,31 @@ export function RegisterForm() {
 
   const inputClassName = "w-full min-h-[3.5rem] px-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500/50 focus:bg-white transition-all text-base";
   const labelClassName = "block text-sm font-semibold text-gray-900 mb-2";
+
+  if (testSuccess) {
+    return (
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="p-8 bg-white border border-gray-100 rounded-2xl shadow-xl text-center space-y-6"
+      >
+        <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+        </div>
+        <h3 className="text-2xl font-bold text-gray-900">Test Payment Successful</h3>
+        <div className="bg-gray-50 rounded-xl p-4 text-left space-y-2 border border-gray-100">
+          <p className="text-sm font-mono text-gray-600"><span className="font-semibold text-gray-900">Razorpay Order ID:</span> {testSuccess.orderId}</p>
+          <p className="text-sm font-mono text-gray-600"><span className="font-semibold text-gray-900">Razorpay Payment ID:</span> {testSuccess.paymentId}</p>
+        </div>
+        <button 
+          onClick={() => setTestSuccess(null)}
+          className="mt-6 px-6 py-2 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors"
+        >
+          Reset Test Form
+        </button>
+      </motion.div>
+    )
+  }
 
   return (
     <motion.form 

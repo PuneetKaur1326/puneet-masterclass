@@ -31,9 +31,9 @@ export async function POST(req: Request) {
       key_secret: keySecret,
     });
 
-    // Enforce 9900 paise strictly on the server
+    // Enforce 100 paise (1 INR) strictly on the server for WhatsApp live testing
     const options = {
-      amount: "9900",
+      amount: "100",
       currency: "INR",
       receipt: registrationId,
       notes: {

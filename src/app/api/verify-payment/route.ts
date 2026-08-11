@@ -1,14 +1,15 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
+import { MetaWhatsAppService } from '@/services/whatsapp/meta';
 
 export async function POST(req: Request) {
   const requestId = Math.random().toString(36).substring(7);
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = await req.json();
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, phone, name } = await req.json();
 
-    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature || !phone) {
       return NextResponse.json(
-        { error: 'Missing required signature fields' },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
@@ -31,9 +32,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
     }
 
-    console.log(`[VERIFY PAYMENT API - ${requestId}] Signature verified successfully for TEST payment ${razorpay_payment_id}.`);
+    console.log(`[VERIFY PAYMENT API - ${requestId}] Signature verified successfully for payment ${razorpay_payment_id}.`);
 
-    // TEST MODE: Do not update Google Sheets or trigger WhatsApp. Just return success.
+    // Live WhatsApp testing
+    console.log(`[VERIFY PAYMENT API - ${requestId}] Triggering Meta WhatsApp API to ${phone}...`);
+    try {
+      await MetaWhatsAppService.sendConfirmation(phone, name || "User");
+    } catch (waError) {
+      console.error(`[VERIFY PAYMENT API - ${requestId}] WhatsApp trigger failed:`, waError);
+      // We don't fail the whole request just because WhatsApp failed
+    }
+
     return NextResponse.json({ success: true }, { status: 200 });
 
   } catch (error: any) {

@@ -183,6 +183,11 @@ export function RegisterForm() {
             email: data.email,
             contact: data.phone,
           },
+          modal: {
+            ondismiss: function() {
+              setErrorMsg("Payment cancelled by user.");
+            }
+          },
           theme: {
             color: "#d97706",
           },
@@ -377,7 +382,7 @@ export function RegisterForm() {
               </>
             ) : (
               <>
-                <span className="tracking-wide">Register & Pay ₹99</span>
+                <span className="tracking-wide">Register & Pay ₹1</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
               </>
             )}

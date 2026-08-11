@@ -1,18 +1,45 @@
-const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN || '';
-const META_PHONE_NUMBER_ID = process.env.META_PHONE_NUMBER_ID || '';
+import { NextResponse } from 'next/server';
 
 export class MetaWhatsAppService {
   /**
-   * Send WhatsApp Message via Meta Cloud API
-   * 
-   * @param to Phone number with country code (e.g. 91XXXXXXXXXX)
-   * @param templateName The name of the template configured in Meta Business Manager
-   * @param languageCode The language code (e.g., 'en_US')
-   * @param components Array of components for the template (header, body, buttons)
+   * Helper to normalize Indian phone numbers securely to 91XXXXXXXXXX
    */
-  static async sendTemplateMessage(to: string, templateName: string, languageCode: string, components: any[]) {
-    // Meta expects destination without '+'
-    const cleanDestination = to.replace('+', '');
+  private static formatPhoneNumber(phone: string): string {
+    // Remove all non-numeric characters
+    let cleaned = phone.replace(/\D/g, '');
+    
+    // If it's a 10-digit number, assume it's an Indian number and prepend 91
+    if (cleaned.length === 10) {
+      cleaned = '91' + cleaned;
+    }
+    
+    // If it starts with 0 and is 11 digits (e.g., 09876543210), remove 0 and prepend 91
+    if (cleaned.length === 11 && cleaned.startsWith('0')) {
+      cleaned = '91' + cleaned.substring(1);
+    }
+
+    return cleaned;
+  }
+
+  /**
+   * Send WhatsApp Message via Meta Cloud API
+   */
+  static async sendTemplateMessage(
+    to: string,
+    templateName: string,
+    languageCode: string,
+    components: any[]
+  ) {
+    const WHATSAPP_ACCESS_TOKEN = process.env.WHATSAPP_ACCESS_TOKEN;
+    const WHATSAPP_PHONE_NUMBER_ID = process.env.WHATSAPP_PHONE_NUMBER_ID;
+    const META_GRAPH_VERSION = process.env.META_GRAPH_VERSION || 'v19.0';
+
+    if (!WHATSAPP_ACCESS_TOKEN || !WHATSAPP_PHONE_NUMBER_ID) {
+      console.error('[WhatsApp API] Missing WHATSAPP_ACCESS_TOKEN or WHATSAPP_PHONE_NUMBER_ID');
+      return null;
+    }
+
+    const cleanDestination = this.formatPhoneNumber(to);
 
     const payload = {
       messaging_product: "whatsapp",
@@ -29,10 +56,10 @@ export class MetaWhatsAppService {
     };
 
     try {
-      const response = await fetch(`https://graph.facebook.com/v19.0/${META_PHONE_NUMBER_ID}/messages`, {
+      const response = await fetch(`https://graph.facebook.com/${META_GRAPH_VERSION}/${WHATSAPP_PHONE_NUMBER_ID}/messages`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${META_ACCESS_TOKEN}`,
+          'Authorization': `Bearer ${WHATSAPP_ACCESS_TOKEN}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
@@ -41,12 +68,14 @@ export class MetaWhatsAppService {
       const data = await response.json();
       
       if (!response.ok) {
+        console.error('[WhatsApp API] Failed to send message. Response:', JSON.stringify(data));
         throw new Error(data.error?.message || 'Failed to send Meta WhatsApp message');
       }
 
+      console.log(`[WhatsApp API] Successfully sent message to ${cleanDestination}. Message ID: ${data.messages?.[0]?.id}`);
       return data;
     } catch (error) {
-      console.error('Meta WhatsApp Send Message Error:', error);
+      console.error('[WhatsApp API] Send Message Error:', error);
       // Don't break the main flow if WhatsApp fails
       return null;
     }
@@ -56,22 +85,33 @@ export class MetaWhatsAppService {
    * Helper to send Registration Confirmation
    */
   static async sendConfirmation(phone: string, name: string) {
-    const meetLink = process.env.GOOGLE_MEET_LINK || 'Link provided soon';
-    const firstName = name.split(' ')[0];
+    const templateName = process.env.WHATSAPP_CONFIRMATION_TEMPLATE;
+    const languageCode = process.env.WHATSAPP_TEMPLATE_LANGUAGE || 'en';
+    const meetLink = process.env.WORKSHOP_JOIN_URL;
 
-    // Assuming template takes parameters for body (e.g., {{1}} Name, {{2}} Date, {{3}} Time, {{4}} Link)
+    if (!templateName) {
+      console.error('[WhatsApp API] WHATSAPP_CONFIRMATION_TEMPLATE is not configured');
+      return null;
+    }
+
+    if (!meetLink) {
+      console.error('[WhatsApp API] WORKSHOP_JOIN_URL is not configured');
+      return null;
+    }
+
+    const firstName = name.trim().split(' ')[0];
+
+    // As per user example: parameters for customer name and workshop link
     const components = [
       {
         type: "body",
         parameters: [
           { type: "text", text: firstName },
-          { type: "text", text: "Upcoming Sunday" },
-          { type: "text", text: "11:00 AM IST" },
           { type: "text", text: meetLink }
         ]
       }
     ];
 
-    return this.sendTemplateMessage(phone, "registration_confirmation", "en", components);
+    return this.sendTemplateMessage(phone, templateName, languageCode, components);
   }
 }

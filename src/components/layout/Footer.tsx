@@ -110,7 +110,7 @@ export default function Footer() {
             <div className="flex flex-col gap-4">
               <h4 className="text-sm font-bold text-foreground uppercase tracking-widest mb-2">Quick Links</h4>
               <a href="/#discover" className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium">Workshop</a>
-              <a href="https://rzp.io/rzp/J6xwaRTb" className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium">Register</a>
+              <a href="/register" className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium">Register</a>
               <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium">Contact</Link>
             </div>
             

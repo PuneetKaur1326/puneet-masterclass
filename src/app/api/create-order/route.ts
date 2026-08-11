@@ -3,11 +3,11 @@ import Razorpay from 'razorpay';
 
 export async function POST(req: Request) {
   try {
-    const { amount, currency = 'INR', receipt = 'receipt#1' } = await req.json();
+    const { registrationId, fullName, email, phone } = await req.json();
 
-    if (!amount || amount < 100) {
+    if (!registrationId) {
       return NextResponse.json(
-        { error: 'Amount must be at least 100 paise' },
+        { error: 'Missing registrationId' },
         { status: 400 }
       );
     }
@@ -24,10 +24,17 @@ export async function POST(req: Request) {
       key_secret: process.env.RAZORPAY_KEY_SECRET,
     });
 
+    // Enforce 9900 paise strictly on the server
     const options = {
-      amount: amount.toString(), // razorpay takes string/number
-      currency,
-      receipt,
+      amount: "9900",
+      currency: "INR",
+      receipt: registrationId,
+      notes: {
+        registrationId: registrationId,
+        fullName: fullName || "",
+        email: email || "",
+        phone: phone || ""
+      }
     };
 
     const order = await razorpay.orders.create(options);

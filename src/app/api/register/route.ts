@@ -1,6 +1,15 @@
 import { NextResponse } from "next/server";
 import { submitRegistration, GoogleSheetPayload } from "@/lib/googleSheets";
 
+function generateRegistrationId() {
+  const date = new Date();
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  const randomSuffix = Math.floor(1000 + Math.random() * 9000); // 4 digit random number
+  return `REG-${yyyy}${mm}${dd}-${randomSuffix}`;
+}
+
 export async function POST(req: Request) {
   const requestId = Math.random().toString(36).substring(7);
   try {
@@ -35,25 +44,26 @@ export async function POST(req: Request) {
       );
     }
 
+    const registrationId = generateRegistrationId();
+
     const payload: GoogleSheetPayload = {
-      action: "insert",
+      action: "register",
+      registrationId,
       fullName,
       email,
       phone,
       occupation,
       goal,
       challenge: challenge || "",
-      paymentStatus: "Pending",
-      transactionId: "",
-      whatsappStatus: "Pending",
     };
 
-    console.log(`[REGISTER API - ${requestId}] Submitting to Google Apps Script for phone: ${phone}`);
+    console.log(`[REGISTER API - ${requestId}] Submitting to Google Apps Script for phone: ${phone}, ID: ${registrationId}`);
     const result = await submitRegistration(payload, requestId);
 
     if (result.success) {
       console.log(`[REGISTER API - ${requestId}] Google Apps Script response: success`);
-      return NextResponse.json({ success: true });
+      // Return registrationId back to frontend so it can be passed to create-order
+      return NextResponse.json({ success: true, registrationId });
     } else {
       console.error(`[REGISTER API - ${requestId}] Google Apps Script response: failed - ${result.message}`);
       return NextResponse.json(

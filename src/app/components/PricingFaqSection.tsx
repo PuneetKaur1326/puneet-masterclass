@@ -92,7 +92,7 @@ export default function PricingFaqSection() {
                   A small investment for an idea that can change the way your audience remembers your brand.
                 </p>
 
-                <a href="https://rzp.io/rzp/J6xwaRTb" className="w-full hover-lift group relative overflow-hidden bg-primary text-primary-foreground py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all">
+                <a href="/register" className="w-full hover-lift group relative overflow-hidden bg-primary text-primary-foreground py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all">
                     <span className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                     <Ticket className="w-5 h-5 relative z-10" />
                     <span className="relative z-10 uppercase tracking-widest">Join Now</span>

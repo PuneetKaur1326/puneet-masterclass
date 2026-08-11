@@ -115,6 +115,8 @@ export function RegisterForm() {
           return;
         }
 
+        const registrationId = sheetResult.registrationId;
+
         // 2. Load Razorpay Script
         const isRazorpayLoaded = await loadRazorpayScript();
         if (!isRazorpayLoaded) {
@@ -123,10 +125,15 @@ export function RegisterForm() {
         }
 
         // 3. Create Order
-        const orderResponse = await fetch('/api/razorpay/create-order', {
+        const orderResponse = await fetch('/api/create-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ amount: 9900 }), // 99 INR in paise
+          body: JSON.stringify({ 
+            registrationId,
+            fullName: data.fullName,
+            email: data.email,
+            phone: data.phone
+          }),
         });
         const orderData = await orderResponse.json();
 
@@ -145,7 +152,7 @@ export function RegisterForm() {
           order_id: orderData.order_id,
           handler: async function (response: any) {
             try {
-              const verifyRes = await fetch('/api/razorpay/verify', {
+              const verifyRes = await fetch('/api/verify-payment', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -341,7 +348,7 @@ export function RegisterForm() {
               </>
             ) : (
               <>
-                <span className="tracking-wide">Continue to Payment</span>
+                <span className="tracking-wide">Register & Pay ₹99</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
               </>
             )}

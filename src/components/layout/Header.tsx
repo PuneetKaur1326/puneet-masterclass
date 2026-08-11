@@ -61,7 +61,7 @@ export default function Header() {
             About
           </button>
           <a
-            href="https://rzp.io/rzp/J6xwaRTb"
+            href="/register"
             className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-bold uppercase tracking-widest hover:bg-accent transition-all duration-300 text-[10px]"
           >
             Join for ₹99
@@ -101,7 +101,7 @@ export default function Header() {
             About Puneet
           </button>
           <a
-            href="https://rzp.io/rzp/J6xwaRTb"
+            href="/register"
             onClick={() => setMenuOpen(false)}
             className="mt-4 px-10 py-5 bg-primary text-primary-foreground rounded-lg font-bold uppercase tracking-widest text-sm hover:bg-accent transition-all text-center block"
           >

@@ -63,12 +63,12 @@ export default async function PaymentFailedPage({
               </div>
 
               <div className="flex flex-col gap-4">
-                <Button asChild size="lg" className="w-full font-bold bg-[var(--color-foreground)] text-white hover:bg-[var(--color-foreground)]/90">
-                  <Link href="https://rzp.io/rzp/J6xwaRTb">
-                    <RefreshCcw className="w-4 h-4 mr-2" />
-                    Try Again
-                  </Link>
-                </Button>
+                <Link href="/register" className="w-full">
+                  <div className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white rounded-lg font-bold transition-all w-full shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2 group">
+                    <span>Try Again</span>
+                    <RefreshCcw className="w-4 h-4 group-hover:rotate-180 transition-transform duration-500" />
+                  </div>
+                </Link>
                 
                 <Button asChild variant="ghost" className="w-full text-[var(--color-muted-foreground)]">
                   <Link href="/">

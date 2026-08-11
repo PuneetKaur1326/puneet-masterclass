@@ -5,7 +5,7 @@ import { MetaWhatsAppService } from '@/services/whatsapp/meta';
 export async function POST(req: Request) {
   const requestId = Math.random().toString(36).substring(7);
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, phone, name } = await req.json();
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, phone, name, amount } = await req.json();
 
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature || !phone) {
       return NextResponse.json(
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     console.log(`[VERIFY PAYMENT API - ${requestId}] Triggering Meta WhatsApp API...`);
     let waDiagnostic: any = { triggered: false };
     try {
-      const waResult = await MetaWhatsAppService.sendConfirmation(phone, name || "User");
+      const waResult = await MetaWhatsAppService.sendConfirmation(phone, name || "User", amount || "₹1");
       if (waResult) {
         waDiagnostic = {
           triggered: true,

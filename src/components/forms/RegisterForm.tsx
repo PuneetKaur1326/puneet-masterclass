@@ -163,6 +163,7 @@ export function RegisterForm() {
                   phone: data.phone,
                   email: data.email,
                   name: data.fullName,
+                  amount: "₹1",
                 }),
               });
               const verifyData = await verifyRes.json();

@@ -77,7 +77,7 @@ export async function POST(req: Request) {
           waResult = { status: 'rejected' };
           whatsappStatus = 'Skipped';
         } else {
-          waResult = await MetaWhatsAppService.sendConfirmation(`+91${phone}`, decodedName);
+          waResult = await MetaWhatsAppService.sendConfirmation(`+91${phone}`, decodedName, "₹99");
           if (!waResult) {
             waResult = { status: 'rejected' };
           } else {

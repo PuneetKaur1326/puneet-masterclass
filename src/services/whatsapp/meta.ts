@@ -90,29 +90,31 @@ export class MetaWhatsAppService {
 
   /**
    * Helper to send Registration Confirmation
+   * Template: payment_confirmation_1
+   * Parameters: {{1}} = attendee name, {{2}} = payment amount, {{3}} = workshop name
    */
-  static async sendConfirmation(phone: string, name: string) {
+  static async sendConfirmation(phone: string, name: string, amount: string) {
     const templateName = process.env.WHATSAPP_CONFIRMATION_TEMPLATE;
-    const languageCode = process.env.WHATSAPP_TEMPLATE_LANGUAGE || 'en';
-    const meetLink = process.env.WORKSHOP_JOIN_URL;
+    const languageCode = process.env.WHATSAPP_TEMPLATE_LANGUAGE || 'en_US';
+    const workshopName = process.env.WORKSHOP_NAME || 'The Psychology Behind Writing';
 
     if (!templateName) {
       return { success: false, error: 'WHATSAPP_CONFIRMATION_TEMPLATE is not configured' };
     }
 
-    if (!meetLink) {
-      return { success: false, error: 'WORKSHOP_JOIN_URL is not configured' };
-    }
-
     const firstName = name.trim().split(' ')[0];
 
-    // As per user example: parameters for customer name and workshop link
+    // Template payment_confirmation_1:
+    // {{1}} = attendee name
+    // {{2}} = payment amount
+    // {{3}} = workshop name
     const components = [
       {
         type: "body",
         parameters: [
           { type: "text", text: firstName },
-          { type: "text", text: meetLink }
+          { type: "text", text: amount },
+          { type: "text", text: workshopName }
         ]
       }
     ];

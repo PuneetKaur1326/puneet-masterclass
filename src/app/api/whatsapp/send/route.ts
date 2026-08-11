@@ -25,7 +25,7 @@ export async function POST(req: Request) {
 
     // 3. Send Message
     console.log(`[WhatsApp Send API] Triggering test send to ${phoneNumber}`);
-    const result = await MetaWhatsAppService.sendConfirmation(phoneNumber, testName);
+    const result = await MetaWhatsAppService.sendConfirmation(phoneNumber, testName, "₹99");
 
     if (!result) {
       return NextResponse.json(

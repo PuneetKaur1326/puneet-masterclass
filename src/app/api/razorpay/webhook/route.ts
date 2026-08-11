@@ -94,7 +94,7 @@ export async function POST(req: Request) {
                 whatsappStatus = 'Skipped';
               } else {
                 const decodedName = decodeURIComponent(name);
-                await MetaWhatsAppService.sendConfirmation(formattedPhone, decodedName);
+                await MetaWhatsAppService.sendConfirmation(formattedPhone, decodedName, "₹99");
                 if (email) {
                     await EmailService.sendConfirmation(decodeURIComponent(email), decodedName).catch(e => console.error(e));
                 }

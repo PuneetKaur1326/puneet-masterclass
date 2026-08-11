@@ -166,6 +166,7 @@ export function RegisterForm() {
                 }),
               });
               const verifyData = await verifyRes.json();
+              console.log("[Payment Verification Diagnostics]:", verifyData);
               if (verifyData.success) {
                 setTestSuccess({
                   orderId: response.razorpay_order_id,

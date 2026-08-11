@@ -21,9 +21,6 @@ export class MetaWhatsAppService {
     return cleaned;
   }
 
-  /**
-   * Send WhatsApp Message via Meta Cloud API
-   */
   static async sendTemplateMessage(
     to: string,
     templateName: string,
@@ -35,8 +32,10 @@ export class MetaWhatsAppService {
     const META_GRAPH_VERSION = process.env.META_GRAPH_VERSION || 'v19.0';
 
     if (!WHATSAPP_ACCESS_TOKEN || !WHATSAPP_PHONE_NUMBER_ID) {
-      console.error('[WhatsApp API] Missing WHATSAPP_ACCESS_TOKEN or WHATSAPP_PHONE_NUMBER_ID');
-      return null;
+      return {
+        success: false,
+        error: 'Missing WHATSAPP_ACCESS_TOKEN or WHATSAPP_PHONE_NUMBER_ID'
+      };
     }
 
     const cleanDestination = this.formatPhoneNumber(to);
@@ -68,16 +67,24 @@ export class MetaWhatsAppService {
       const data = await response.json();
       
       if (!response.ok) {
-        console.error('[WhatsApp API] Failed to send message. Response:', JSON.stringify(data));
-        throw new Error(data.error?.message || 'Failed to send Meta WhatsApp message');
+        return {
+          success: false,
+          httpStatus: response.status,
+          error: data.error || data
+        };
       }
 
-      console.log(`[WhatsApp API] Successfully sent message to ${cleanDestination}. Message ID: ${data.messages?.[0]?.id}`);
-      return data;
-    } catch (error) {
-      console.error('[WhatsApp API] Send Message Error:', error);
-      // Don't break the main flow if WhatsApp fails
-      return null;
+      return {
+        success: true,
+        httpStatus: response.status,
+        messageId: data.messages?.[0]?.id,
+        data: data
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: 'Network or parse error: ' + error.message
+      };
     }
   }
 
@@ -90,13 +97,11 @@ export class MetaWhatsAppService {
     const meetLink = process.env.WORKSHOP_JOIN_URL;
 
     if (!templateName) {
-      console.error('[WhatsApp API] WHATSAPP_CONFIRMATION_TEMPLATE is not configured');
-      return null;
+      return { success: false, error: 'WHATSAPP_CONFIRMATION_TEMPLATE is not configured' };
     }
 
     if (!meetLink) {
-      console.error('[WhatsApp API] WORKSHOP_JOIN_URL is not configured');
-      return null;
+      return { success: false, error: 'WORKSHOP_JOIN_URL is not configured' };
     }
 
     const firstName = name.trim().split(' ')[0];

@@ -35,15 +35,37 @@ export async function POST(req: Request) {
     console.log(`[VERIFY PAYMENT API - ${requestId}] Signature verified successfully for payment ${razorpay_payment_id}.`);
 
     // Live WhatsApp testing
-    console.log(`[VERIFY PAYMENT API - ${requestId}] Triggering Meta WhatsApp API to ${phone}...`);
+    console.log(`[VERIFY PAYMENT API - ${requestId}] Triggering Meta WhatsApp API...`);
+    let waDiagnostic: any = { triggered: false };
     try {
-      await MetaWhatsAppService.sendConfirmation(phone, name || "User");
-    } catch (waError) {
+      const waResult = await MetaWhatsAppService.sendConfirmation(phone, name || "User");
+      if (waResult) {
+        waDiagnostic = {
+          triggered: true,
+          success: waResult.success,
+          httpStatus: waResult.httpStatus || null,
+          messageId: waResult.messageId || null,
+          error: waResult.error || null
+        };
+      } else {
+        waDiagnostic = { triggered: true, success: false, error: "sendConfirmation returned null" };
+      }
+    } catch (waError: any) {
       console.error(`[VERIFY PAYMENT API - ${requestId}] WhatsApp trigger failed:`, waError);
-      // We don't fail the whole request just because WhatsApp failed
+      waDiagnostic = { triggered: true, success: false, error: waError.message };
     }
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json({ 
+      success: true, 
+      diagnostics: {
+        paymentVerified: true,
+        whatsappTriggered: waDiagnostic.triggered,
+        whatsappSuccess: waDiagnostic.success,
+        whatsappHttpStatus: waDiagnostic.httpStatus,
+        whatsappMessageId: waDiagnostic.messageId,
+        whatsappError: waDiagnostic.error
+      }
+    }, { status: 200 });
 
   } catch (error: any) {
     console.error(`[VERIFY PAYMENT API - ${requestId}] Error:`, error);

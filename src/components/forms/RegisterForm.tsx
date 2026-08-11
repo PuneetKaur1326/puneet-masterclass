@@ -1,15 +1,27 @@
 "use client"
 
-import { useState, useTransition } from "react"
+import { useState, useTransition, useCallback } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { Loader2 } from "lucide-react"
-import { processRegistration } from "@/actions/register"
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 
-const loadRazorpayScript = () => {
+// ── Meta Pixel helper (client-side only) ───────────────────────────────────
+function firePixelEvent(eventName: string, params?: Record<string, any>) {
+  if (typeof window === "undefined") return;
+  const fbq = (window as any).fbq;
+  if (typeof fbq !== "function") return;
+  if (params) {
+    fbq("track", eventName, params);
+  } else {
+    fbq("track", eventName);
+  }
+}
+
+// ── Razorpay script loader ─────────────────────────────────────────────────
+const loadRazorpayScript = (): Promise<boolean> => {
   return new Promise((resolve) => {
     if (typeof window !== "undefined" && (window as any).Razorpay) {
       resolve(true);
@@ -23,6 +35,7 @@ const loadRazorpayScript = () => {
   });
 };
 
+// ── Form constants ─────────────────────────────────────────────────────────
 const occupationOptions = [
   "Student",
   "Business Owner",
@@ -66,10 +79,12 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>
 
+// ── Purchase event guard (prevents duplicate fires in same session) ─────────
+const firedPurchaseIds = new Set<string>();
+
 export function RegisterForm() {
   const [isPending, startTransition] = useTransition()
   const [errorMsg, setErrorMsg] = useState("")
-  const [testSuccess, setTestSuccess] = useState<{orderId: string, paymentId: string} | null>(null)
 
   const {
     register,
@@ -89,16 +104,14 @@ export function RegisterForm() {
     }
   })
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = useCallback((data: FormValues) => {
     setErrorMsg("")
     startTransition(async () => {
       try {
-        // 1. Submit to Google Sheets via Next.js API Route
+        // ── STEP 1: Register to Google Sheets (Pending) ──────────────────
         const sheetResponse = await fetch('/api/register', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             fullName: data.fullName,
             email: data.email,
@@ -116,24 +129,27 @@ export function RegisterForm() {
           return;
         }
 
-        const registrationId = sheetResult.registrationId;
+        const registrationId: string = sheetResult.registrationId;
 
-        // 2. Load Razorpay Script
+        // Fire Lead pixel after successful registration
+        firePixelEvent("Lead");
+
+        // ── STEP 2: Load Razorpay SDK ─────────────────────────────────────
         const isRazorpayLoaded = await loadRazorpayScript();
         if (!isRazorpayLoaded) {
-          setErrorMsg("Razorpay SDK failed to load. Are you online?");
+          setErrorMsg("Payment SDK failed to load. Please check your connection and try again.");
           return;
         }
 
-        // 3. Create Order
+        // ── STEP 3: Create Razorpay Order (₹99 enforced server-side) ─────
         const orderResponse = await fetch('/api/create-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
+          body: JSON.stringify({
             registrationId,
             fullName: data.fullName,
             email: data.email,
-            phone: data.phone
+            phone: data.phone,
           }),
         });
         const orderData = await orderResponse.json();
@@ -143,16 +159,20 @@ export function RegisterForm() {
           return;
         }
 
-        // 4. Open Razorpay Checkout
+        // Fire InitiateCheckout pixel
+        firePixelEvent("InitiateCheckout", { value: 99, currency: "INR" });
+
+        // ── STEP 4: Open Razorpay Standard Checkout ───────────────────────
         const options = {
-          key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, 
+          key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
           amount: orderData.amount,
           currency: orderData.currency,
           name: "Puneet Kaur Saluja",
-          description: "Workshop Registration",
+          description: "The Psychology Behind Writing — Live Masterclass",
           order_id: orderData.order_id,
           handler: async function (response: any) {
             try {
+              // ── STEP 5: Verify payment on the server ──────────────────
               const verifyRes = await fetch('/api/verify-payment', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -164,21 +184,29 @@ export function RegisterForm() {
                   phone: data.phone,
                   email: data.email,
                   name: data.fullName,
-                  amount: "₹1",
+                  amount: "₹99",
                 }),
               });
               const verifyData = await verifyRes.json();
-              console.log("[Payment Verification Diagnostics]:", verifyData);
+
               if (verifyData.success) {
-                setTestSuccess({
-                  orderId: response.razorpay_order_id,
-                  paymentId: response.razorpay_payment_id
-                });
+                // ── Fire Purchase pixel ONLY after server-side verification
+                if (!firedPurchaseIds.has(response.razorpay_payment_id)) {
+                  firedPurchaseIds.add(response.razorpay_payment_id);
+                  firePixelEvent("Purchase", {
+                    value: 99,
+                    currency: "INR",
+                    content_ids: [registrationId],
+                    content_type: "product",
+                  });
+                }
+                // Redirect to confirmation page
+                window.location.href = "/thank-you";
               } else {
                 setErrorMsg(verifyData.error || "Payment verification failed. Please contact support.");
               }
-            } catch (err) {
-              setErrorMsg("Payment verification error.");
+            } catch {
+              setErrorMsg("Payment verification error. Please contact support.");
             }
           },
           prefill: {
@@ -188,7 +216,7 @@ export function RegisterForm() {
           },
           modal: {
             ondismiss: function() {
-              setErrorMsg("Payment cancelled by user.");
+              setErrorMsg("Payment was not completed. Please try again.");
             }
           },
           theme: {
@@ -198,56 +226,30 @@ export function RegisterForm() {
 
         const paymentObject = new (window as any).Razorpay(options);
         paymentObject.on('payment.failed', function (response: any) {
-          setErrorMsg(response.error.description || "Payment failed");
+          setErrorMsg(response.error.description || "Payment failed. Please try again.");
         });
         paymentObject.open();
 
       } catch (error: any) {
-        console.error("Submission Error:", error);
         setErrorMsg("An unexpected error occurred. Please try again.");
       }
     })
-  }
+  }, [])
 
   const inputClassName = "w-full min-h-[3.5rem] px-4 rounded-xl border border-gray-200 bg-gray-50/50 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500/50 focus:bg-white transition-all text-base";
   const labelClassName = "block text-sm font-semibold text-gray-900 mb-2";
 
-  if (testSuccess) {
-    return (
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="p-8 bg-white border border-gray-100 rounded-2xl shadow-xl text-center space-y-6"
-      >
-        <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-        </div>
-        <h3 className="text-2xl font-bold text-gray-900">Test Payment Successful</h3>
-        <div className="bg-gray-50 rounded-xl p-4 text-left space-y-2 border border-gray-100">
-          <p className="text-sm font-mono text-gray-600"><span className="font-semibold text-gray-900">Razorpay Order ID:</span> {testSuccess.orderId}</p>
-          <p className="text-sm font-mono text-gray-600"><span className="font-semibold text-gray-900">Razorpay Payment ID:</span> {testSuccess.paymentId}</p>
-        </div>
-        <button 
-          onClick={() => setTestSuccess(null)}
-          className="mt-6 px-6 py-2 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors"
-        >
-          Reset Test Form
-        </button>
-      </motion.div>
-    )
-  }
-
   return (
-    <motion.form 
+    <motion.form
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
-      onSubmit={handleSubmit(onSubmit)} 
+      onSubmit={handleSubmit(onSubmit)}
       className="space-y-6"
     >
       <AnimatePresence>
         {errorMsg && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, height: 0, marginBottom: 0 }}
             animate={{ opacity: 1, height: "auto", marginBottom: 24 }}
             exit={{ opacity: 0, height: 0, marginBottom: 0 }}
@@ -385,7 +387,7 @@ export function RegisterForm() {
               </>
             ) : (
               <>
-                <span className="tracking-wide">Register & Pay ₹1</span>
+                <span className="tracking-wide">Register & Pay ₹99</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
               </>
             )}

@@ -6,61 +6,39 @@ export async function POST(req: Request) {
     const { registrationId, fullName, email, phone } = await req.json();
 
     if (!registrationId) {
-      return NextResponse.json(
-        { error: 'Missing registrationId' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Missing registrationId' }, { status: 400 });
     }
 
-    const keyId = process.env.RAZORPAY_KEY_ID || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+    const keyId = process.env.RAZORPAY_KEY_ID;
     const keySecret = process.env.RAZORPAY_KEY_SECRET;
 
     if (!keyId || !keySecret) {
-      return NextResponse.json(
-        { 
-          error: 'Razorpay credentials not configured.',
-          missingKeyId: !keyId,
-          missingKeySecret: !keySecret 
-        },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: 'Payment service not configured' }, { status: 500 });
     }
 
-    const razorpay = new Razorpay({
-      key_id: keyId,
-      key_secret: keySecret,
-    });
+    const razorpay = new Razorpay({ key_id: keyId, key_secret: keySecret });
 
-    // Enforce 100 paise (1 INR) strictly on the server for WhatsApp live testing
-    const options = {
-      amount: "100",
+    // Amount is always enforced server-side — never trust client input
+    const order = await razorpay.orders.create({
+      amount: "9900", // ₹99 in paise
       currency: "INR",
       receipt: registrationId,
       notes: {
-        registrationId: registrationId,
+        registrationId,
         fullName: fullName || "",
         email: email || "",
-        phone: phone || ""
-      }
-    };
-
-    const order = await razorpay.orders.create(options);
+        phone: phone || "",
+      },
+    });
 
     return NextResponse.json(
       { order_id: order.id, amount: order.amount, currency: order.currency },
       { status: 200 }
     );
   } catch (error: any) {
-    console.error('Razorpay Create Order Error:', error);
     if (error.statusCode === 401) {
-      return NextResponse.json(
-        { error: 'Authentication failed with Razorpay' },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: 'Authentication failed with payment provider' }, { status: 401 });
     }
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to create order' }, { status: 500 });
   }
 }

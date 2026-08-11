@@ -1,20 +1,25 @@
 import { ShieldCheck } from "lucide-react"
 import { RegisterForm } from "@/components/forms/RegisterForm"
+import type { Metadata } from "next"
+import ViewContentPixel from "@/components/pixels/ViewContentPixel"
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Secure Registration | The Psychology Behind Writing',
-  description: 'Reserve your seat for the live masterclass.',
+  description: 'Reserve your seat for The Psychology Behind Writing — Live Masterclass by Puneet Kaur Saluja. Only ₹99.',
 }
 
 export default function RegisterPage() {
   return (
     <main className="min-h-screen bg-[#FAFAFA] flex items-center justify-center py-12 md:py-24 relative overflow-hidden">
+      {/* Fire Meta Pixel ViewContent on page load */}
+      <ViewContentPixel />
+
       {/* Subtle Premium Background Elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-amber-500/10 to-transparent blur-[120px] pointer-events-none" />
-      
+
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <div className="max-w-xl mx-auto w-full relative">
-          
+
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-500/20 bg-amber-500/10 text-amber-700 text-xs font-bold uppercase tracking-widest mb-6 relative overflow-hidden">
               <span className="relative z-10 flex items-center gap-2">
@@ -22,11 +27,11 @@ export default function RegisterPage() {
                 Secure Registration
               </span>
             </div>
-            
+
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-gray-900 leading-tight">
               Reserve Your Seat
             </h1>
-            
+
             <p className="text-lg text-gray-500 max-w-md mx-auto leading-relaxed">
               Fill in your details below to proceed to the secure checkout.
             </p>

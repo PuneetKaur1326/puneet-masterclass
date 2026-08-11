@@ -2,12 +2,10 @@ import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { MetaWhatsAppService } from '@/services/whatsapp/meta';
 
-// Helper: POST to Google Sheets webhook safely
+// ── Google Sheets webhook helper ───────────────────────────────────────────
 async function callSheetWebhook(payload: object, label: string): Promise<{ ok: boolean; body: any }> {
   const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK;
-  if (!webhookUrl) {
-    return { ok: false, body: { error: 'GOOGLE_SHEET_WEBHOOK not configured' } };
-  }
+  if (!webhookUrl) return { ok: false, body: { error: 'GOOGLE_SHEET_WEBHOOK not configured' } };
   try {
     const res = await fetch(webhookUrl, {
       method: 'POST',
@@ -17,10 +15,8 @@ async function callSheetWebhook(payload: object, label: string): Promise<{ ok: b
     const text = await res.text();
     let body: any;
     try { body = JSON.parse(text); } catch { body = text; }
-    console.log(`[SHEET WEBHOOK - ${label}] HTTP ${res.status}:`, body);
     return { ok: res.ok, body };
   } catch (err: any) {
-    console.error(`[SHEET WEBHOOK - ${label}] Network error:`, err.message);
     return { ok: false, body: { error: err.message } };
   }
 }
@@ -42,10 +38,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // ── STEP 1: Verify Razorpay Signature ─────────────────────────────────────
+    // ── STEP 1: Verify Razorpay Signature ─────────────────────────────────
     const secret = process.env.RAZORPAY_KEY_SECRET;
     if (!secret) {
-      console.error(`[VERIFY - ${requestId}] RAZORPAY_KEY_SECRET not configured.`);
       return NextResponse.json({ error: 'Server misconfiguration' }, { status: 500 });
     }
 
@@ -56,82 +51,51 @@ export async function POST(req: Request) {
       .digest('hex');
 
     if (expectedSignature !== razorpay_signature) {
-      console.error(`[VERIFY - ${requestId}] Invalid signature.`);
-      return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
+      return NextResponse.json({ error: 'Payment verification failed' }, { status: 400 });
     }
 
-    console.log(`[VERIFY - ${requestId}] Signature OK for payment ${razorpay_payment_id}.`);
-
-    // ── STEP 2: Update Google Sheets — payment_update ─────────────────────────
-    let sheetPaymentDiag: any = { sent: false };
-    if (!registrationId) {
-      sheetPaymentDiag = { sent: false, error: 'registrationId missing from request' };
-    } else {
-      const paymentTimestamp = new Date().toISOString();
-      const sheetPayload = {
+    // ── STEP 2: Google Sheets — payment_update ─────────────────────────────
+    if (registrationId) {
+      await callSheetWebhook({
         action: 'payment_update',
         registrationId,
         paymentStatus: 'Paid',
         razorpayOrderId: razorpay_order_id,
         razorpayPaymentId: razorpay_payment_id,
-        paymentTimestamp,
-      };
-      console.log(`[VERIFY - ${requestId}] Calling sheet webhook: payment_update for ${registrationId}`);
-      const result = await callSheetWebhook(sheetPayload, `payment_update-${requestId}`);
-      sheetPaymentDiag = { sent: true, ok: result.ok, response: result.body };
+        paymentTimestamp: new Date().toISOString(),
+      }, `payment_update-${requestId}`);
     }
 
-    // ── STEP 3: Send WhatsApp Confirmation ────────────────────────────────────
-    let waDiag: any = { triggered: false };
+    // ── STEP 3: Send WhatsApp Confirmation ────────────────────────────────
+    let whatsappMessageId: string | null = null;
+    let whatsappStatus = 'Failed';
     try {
-      console.log(`[VERIFY - ${requestId}] Triggering WhatsApp to ${phone.slice(0, 6)}****...`);
-      const waResult = await MetaWhatsAppService.sendConfirmation(phone, name || 'User', amount || '₹1');
-      if (waResult) {
-        waDiag = {
-          triggered: true,
-          success: waResult.success,
-          httpStatus: waResult.httpStatus || null,
-          messageId: waResult.messageId || null,
-          error: waResult.error || null,
-        };
-      } else {
-        waDiag = { triggered: true, success: false, error: 'sendConfirmation returned null' };
+      const waResult = await MetaWhatsAppService.sendConfirmation(
+        phone,
+        name || 'Attendee',
+        amount || '₹99'
+      );
+      if (waResult?.success) {
+        whatsappStatus = 'Sent';
+        whatsappMessageId = waResult.messageId || null;
       }
-    } catch (waError: any) {
-      console.error(`[VERIFY - ${requestId}] WhatsApp failed:`, waError.message);
-      waDiag = { triggered: true, success: false, error: waError.message };
+    } catch {
+      whatsappStatus = 'Failed';
     }
 
-    // ── STEP 4: Update Google Sheets — whatsapp_update ────────────────────────
-    let sheetWaDiag: any = { sent: false };
-    if (registrationId && waDiag.triggered) {
-      const waPayload = {
+    // ── STEP 4: Google Sheets — whatsapp_update ────────────────────────────
+    if (registrationId) {
+      await callSheetWebhook({
         action: 'whatsapp_update',
         registrationId,
-        whatsappStatus: waDiag.success ? 'Sent' : 'Failed',
-        whatsappMessageId: waDiag.messageId || '',
-      };
-      console.log(`[VERIFY - ${requestId}] Calling sheet webhook: whatsapp_update for ${registrationId}`);
-      const result = await callSheetWebhook(waPayload, `whatsapp_update-${requestId}`);
-      sheetWaDiag = { sent: true, ok: result.ok, response: result.body };
+        whatsappStatus,
+        whatsappMessageId: whatsappMessageId || '',
+      }, `whatsapp_update-${requestId}`);
     }
 
-    return NextResponse.json({
-      success: true,
-      diagnostics: {
-        paymentVerified: true,
-        sheetPaymentUpdate: sheetPaymentDiag,
-        whatsappTriggered: waDiag.triggered,
-        whatsappSuccess: waDiag.success,
-        whatsappHttpStatus: waDiag.httpStatus,
-        whatsappMessageId: waDiag.messageId,
-        whatsappError: waDiag.error,
-        sheetWhatsappUpdate: sheetWaDiag,
-      },
-    }, { status: 200 });
+    return NextResponse.json({ success: true }, { status: 200 });
 
   } catch (error: any) {
-    console.error(`[VERIFY - ${requestId}] Unhandled error:`, error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

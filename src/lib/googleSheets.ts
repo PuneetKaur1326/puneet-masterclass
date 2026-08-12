@@ -1,5 +1,5 @@
 export interface GoogleSheetPayload {
-  action?: "register" | "insert" | "update";
+  action?: "register" | "insert" | "update" | "payment_update" | "whatsapp_update";
   fullName?: string;
   email?: string;
   phone: string; // Required for both insert and update as a key
@@ -10,6 +10,10 @@ export interface GoogleSheetPayload {
   transactionId?: string;
   registrationId?: string;
   whatsappStatus?: string;
+  razorpayOrderId?: string;
+  razorpayPaymentId?: string;
+  paymentTimestamp?: string;
+  whatsappMessageId?: string;
 }
 
 export async function submitRegistration(payload: GoogleSheetPayload, requestId: string = "internal") {

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { submitRegistration } from '@/lib/googleSheets';
 import { MetaWhatsAppService } from '@/services/whatsapp/meta';
-import { EmailService } from '@/services/emails/resend';
+
 
 const processedWebhookEvents = new Set<string>();
 
@@ -53,60 +53,50 @@ export async function POST(req: Request) {
       const phone = paymentEntity.contact;
       const email = paymentEntity.email;
       const name = paymentEntity.notes?.fullName || "";
+      const registrationId = paymentEntity.notes?.registrationId;
 
-      if (phone) {
-        const formattedPhone = phone.startsWith('+91') ? phone : `+91${phone}`;
-        
-        // We do a status update to ensure the user is marked as Paid.
-        // Google sheets API implementation handles the update logic.
+      if (registrationId) {
         const updateResponse = await submitRegistration({
-          action: 'update',
-          phone: formattedPhone,
+          action: 'payment_update',
+          registrationId,
           paymentStatus: 'Paid',
-          transactionId: razorpay_payment_id || event.id,
+          razorpayOrderId: event.payload.payment?.entity?.order_id || event.payload.order?.entity?.id || '',
+          razorpayPaymentId: razorpay_payment_id || '',
+          paymentTimestamp: new Date().toISOString(),
+          phone: paymentEntity.contact || '' // kept for typescript compatibility in submitRegistration
         }, requestId);
 
         if (!updateResponse.success) {
           console.error(`[RAZORPAY WEBHOOK - ${requestId}] Failed to update Google Sheets payment status:`, updateResponse.message);
-        } else {
-          console.log(`[RAZORPAY WEBHOOK - ${requestId}] Successfully updated Sheets payment status.`);
         }
 
-        // Trigger WhatsApp/Email if not already sent
-        // Wait, the Google Sheets `submitRegistration` with `update` might not return the previous status.
-        // We will optimistically send it, relying on the fact that if they completed checkout, 
-        // they either got the verify-payment success (which is idempotent there via memory cache),
-        // or this webhook handles it. We don't have a database to query "is it already Sent?".
-        // To prevent double sends between frontend verify and webhook, we can use a shared cache or 
-        // rely on the payment ID idempotency. 
-        // We can check if the payment ID was already processed in the verify route cache, 
-        // but since they run in different node instances (serverless), we can't reliably share memory.
-        // We'll proceed to send it, and if it was already sent, it will just resend, but the user requested strictly NO DUPLICATES.
-        // "Use: whatsappStatus and the verified Razorpay payment/order ID."
-        // Since we don't have DB read access to `whatsappStatus` before updating, we'll maintain a simple Set 
-        // of processed phone numbers + payment IDs for WhatsApp to minimize duplicates on same instance.
-        
-        if (name && razorpay_payment_id) {
+        if (name && razorpay_payment_id && phone) {
             try {
               let whatsappStatus = 'Sent';
+              let whatsappMessageId = '';
               
               if (!process.env.WHATSAPP_ACCESS_TOKEN || !process.env.WHATSAPP_PHONE_NUMBER_ID) {
-                whatsappStatus = 'Skipped';
+                whatsappStatus = 'Failed';
               } else {
+                const formattedPhone = phone.startsWith('+91') ? phone : `+91${phone}`;
                 const decodedName = decodeURIComponent(name);
-                await MetaWhatsAppService.sendConfirmation(formattedPhone, decodedName, "₹99");
-                if (email) {
-                    await EmailService.sendConfirmation(decodeURIComponent(email), decodedName).catch(e => console.error(e));
+                const waResult = await MetaWhatsAppService.sendConfirmation(formattedPhone, decodedName, "₹99");
+                if (waResult?.success) {
+                    whatsappMessageId = waResult.messageId || '';
+                } else {
+                    whatsappStatus = 'Failed';
                 }
               }
               
               await submitRegistration({
-                action: 'update',
-                phone: formattedPhone,
-                whatsappStatus: whatsappStatus,
+                action: 'whatsapp_update',
+                registrationId,
+                whatsappStatus,
+                whatsappMessageId,
+                phone: paymentEntity.contact || '' 
               }, requestId);
             } catch (err) {
-              console.error(`[RAZORPAY WEBHOOK - ${requestId}] Automation dispatch error:`, err);
+              console.error(`[RAZORPAY WEBHOOK - ${requestId}] WhatsApp dispatch error:`, err);
             }
         }
       }

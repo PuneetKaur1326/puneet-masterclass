@@ -69,7 +69,8 @@ export default function PricingFaqSection() {
               
               <div className="md:w-3/5 p-10 md:p-14 border-b md:border-b-0 md:border-r border-border bg-card/50 backdrop-blur-sm">
                 <h3 className="text-xl font-bold mb-8 text-foreground leading-tight">
-                  The Psychology Behind Writing — Live Workshop
+                  The Psychology Behind Writing — Live Workshop<br />
+                  <span className="text-primary text-base mt-2 block">16 August 2026, 11:00 AM IST</span>
                 </h3>
                 
                 <div className="space-y-5">

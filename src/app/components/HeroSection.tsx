@@ -21,7 +21,7 @@ export default function HeroSection() {
           {/* Content */}
           <div className="max-w-2xl scroll-reveal-item">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-8 pulse-dot">
-              A Live Online Masterclass
+              16 August 2026 • 11:00 AM IST
             </div>
 
             <h1 className="text-hero-xl font-bold mb-6 text-foreground">

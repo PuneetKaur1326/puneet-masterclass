@@ -23,9 +23,12 @@ export default function DiscoverSection() {
           <h2 className="text-section-xl font-bold mb-6 text-foreground">
             What You'll Discover
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
+          <p className="text-xl text-muted-foreground leading-relaxed mb-10">
             By the end of this session, you'll look at marketing completely differently.
           </p>
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-foreground text-background font-black text-sm uppercase tracking-widest shadow-2xl">
+             📅 16 August 2026 • 11:00 AM IST
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">

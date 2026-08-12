@@ -20,7 +20,8 @@ export default function HeroSection() {
           
           {/* Content */}
           <div className="max-w-2xl scroll-reveal-item">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-8 pulse-dot">
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-amber-500 text-white font-black text-sm uppercase tracking-widest mb-8 shadow-lg shadow-amber-500/30">
+              <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
               16 August 2026 • 11:00 AM IST
             </div>
 

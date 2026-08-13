@@ -121,4 +121,50 @@ export class MetaWhatsAppService {
 
     return this.sendTemplateMessage(phone, templateName, languageCode, components);
   }
+
+  /**
+   * Helper to send 48-hour Reminder
+   * Template: from WHATSAPP_REMINDER_TEMPLATE env (default: reminder)
+   * Parameters: {{1}} = attendee name
+   */
+  static async sendReminder(phone: string, name: string) {
+    const templateName = process.env.WHATSAPP_REMINDER_TEMPLATE || 'reminder';
+    const languageCode = process.env.WHATSAPP_TEMPLATE_LANGUAGE || 'en'; // Usually en for custom templates unless specified
+    const firstName = name.trim().split(' ')[0];
+
+    const components = [
+      {
+        type: "body",
+        parameters: [
+          { type: "text", text: firstName }
+        ]
+      }
+    ];
+
+    return this.sendTemplateMessage(phone, templateName, languageCode, components);
+  }
+
+  /**
+   * Helper to send 1-hour Webinar Link
+   * Template: from WHATSAPP_WEBINAR_LINK_TEMPLATE env (default: webinar_link)
+   * Parameters: {{1}} = attendee name, {{2}} = time, {{3}} = URL
+   */
+  static async sendWebinarLink(phone: string, name: string, time: string, url: string) {
+    const templateName = process.env.WHATSAPP_WEBINAR_LINK_TEMPLATE || 'webinar_link';
+    const languageCode = process.env.WHATSAPP_TEMPLATE_LANGUAGE || 'en';
+    const firstName = name.trim().split(' ')[0];
+
+    const components = [
+      {
+        type: "body",
+        parameters: [
+          { type: "text", text: firstName },
+          { type: "text", text: time },
+          { type: "text", text: url }
+        ]
+      }
+    ];
+
+    return this.sendTemplateMessage(phone, templateName, languageCode, components);
+  }
 }

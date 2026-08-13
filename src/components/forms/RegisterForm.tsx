@@ -20,6 +20,18 @@ function firePixelEvent(eventName: string, params?: Record<string, any>) {
   }
 }
 
+// ── GA4 helper (client-side only) ───────────────────────────────────────────
+function fireGA4Event(eventName: string, params?: Record<string, any>) {
+  if (typeof window === "undefined") return;
+  const gtag = (window as any).gtag;
+  if (typeof gtag !== "function") return;
+  if (params) {
+    gtag('event', eventName, params);
+  } else {
+    gtag('event', eventName);
+  }
+}
+
 // ── Razorpay script loader ─────────────────────────────────────────────────
 const loadRazorpayScript = (): Promise<boolean> => {
   return new Promise((resolve) => {
@@ -133,6 +145,8 @@ export function RegisterForm() {
 
         // Fire Lead pixel after successful registration
         firePixelEvent("Lead");
+        // Fire GA4 sign_up event
+        fireGA4Event("sign_up", { method: "Google Sheets" });
 
         // ── STEP 2: Load Razorpay SDK ─────────────────────────────────────
         const isRazorpayLoaded = await loadRazorpayScript();
@@ -161,6 +175,8 @@ export function RegisterForm() {
 
         // Fire InitiateCheckout pixel
         firePixelEvent("InitiateCheckout", { value: 99, currency: "INR" });
+        // Fire GA4 begin_checkout event
+        fireGA4Event("begin_checkout", { value: 99, currency: "INR" });
 
         // ── STEP 4: Open Razorpay Standard Checkout ───────────────────────
         const options = {
@@ -198,6 +214,18 @@ export function RegisterForm() {
                     currency: "INR",
                     content_ids: [registrationId],
                     content_type: "product",
+                  });
+                  // Fire GA4 purchase event
+                  fireGA4Event("purchase", {
+                    transaction_id: response.razorpay_payment_id,
+                    value: 99,
+                    currency: "INR",
+                    items: [{
+                      item_id: "masterclass",
+                      item_name: "The Psychology Behind Writing — Live Masterclass",
+                      price: 99,
+                      quantity: 1
+                    }]
                   });
                 }
                 // Redirect to confirmation page

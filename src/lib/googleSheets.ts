@@ -14,6 +14,8 @@ export interface GoogleSheetPayload {
   razorpayPaymentId?: string;
   paymentTimestamp?: string;
   whatsappMessageId?: string;
+  reminderStatus?: string;
+  webinarLinkStatus?: string;
 }
 
 export async function submitRegistration(payload: GoogleSheetPayload, requestId: string = "internal") {
@@ -83,5 +85,52 @@ export async function submitRegistration(payload: GoogleSheetPayload, requestId:
     }
 
     return { success: false, message: errorMessage };
+  }
+}
+
+export async function getAttendees(requestId: string = "internal") {
+  const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK;
+  
+  if (!webhookUrl) {
+    throw new Error("GOOGLE_SHEET_WEBHOOK environment variable is not set.");
+  }
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
+    console.log(`[GoogleSheets API - ${requestId}] Sending get_all request...`);
+
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ action: "get_all" }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      throw new Error(`Google Apps Script responded with HTTP ${response.status}`);
+    }
+
+    const responseText = await response.text();
+    
+    if (responseText.trim().startsWith('<')) {
+      throw new Error("Received HTML response. The Apps Script likely requires authentication.");
+    }
+
+    try {
+      const data = JSON.parse(responseText);
+      return { success: true, data };
+    } catch (parseError) {
+      console.error(`[GoogleSheets API - ${requestId}] Failed to parse JSON response:`, responseText);
+      throw new Error("Received invalid JSON from Google Apps Script.");
+    }
+  } catch (error: any) {
+    console.error(`[GoogleSheets API - ${requestId}] Get Attendees Error:`, error);
+    return { success: false, message: error.message || "Failed to fetch attendees from Google Sheets." };
   }
 }

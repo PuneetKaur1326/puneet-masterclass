@@ -48,8 +48,12 @@ export async function POST(req: Request) {
 
     // Handle successful payment events
     if (event.event === 'payment.captured' || event.event === 'order.paid') {
-      const paymentEntity = event.event === 'payment.captured' ? event.payload.payment.entity : event.payload.order.entity;
-      const razorpay_payment_id = event.event === 'payment.captured' ? paymentEntity.id : null; 
+      const paymentEntity = event.payload.payment?.entity;
+      if (!paymentEntity) {
+        return NextResponse.json({ success: true, message: 'Missing payment entity' }, { status: 200 });
+      }
+
+      const razorpay_payment_id = paymentEntity.id; 
       const phone = paymentEntity.contact;
       const email = paymentEntity.email;
       const name = paymentEntity.notes?.fullName || "";
@@ -60,10 +64,10 @@ export async function POST(req: Request) {
           action: 'payment_update',
           registrationId,
           paymentStatus: 'Paid',
-          razorpayOrderId: event.payload.payment?.entity?.order_id || event.payload.order?.entity?.id || '',
+          razorpayOrderId: paymentEntity.order_id || event.payload.order?.entity?.id || '',
           razorpayPaymentId: razorpay_payment_id || '',
           paymentTimestamp: new Date().toISOString(),
-          phone: paymentEntity.contact || '' // kept for typescript compatibility in submitRegistration
+          phone: phone || '' 
         }, requestId);
 
         if (!updateResponse.success) {
@@ -82,7 +86,7 @@ export async function POST(req: Request) {
                 const decodedName = decodeURIComponent(name);
                 const waResult = await MetaWhatsAppService.sendConfirmation(formattedPhone, decodedName, "₹99");
                 if (waResult?.success) {
-                    whatsappMessageId = waResult.messageId || '';
+                    whatsappMessageId = (waResult as any).messageId || '';
                 } else {
                     whatsappStatus = 'Failed';
                 }

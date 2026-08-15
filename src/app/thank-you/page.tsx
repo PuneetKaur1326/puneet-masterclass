@@ -5,7 +5,7 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Registration Confirmed | The Psychology Behind Writing",
-  description: "Your seat is confirmed for The Psychology Behind Writing live masterclass on 16 August 2026.",
+  description: "Your seat is confirmed for The Psychology Behind Writing live masterclass on 23 August 2026.",
 }
 
 export default function ThankYouPage() {
@@ -39,7 +39,7 @@ export default function ThankYouPage() {
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">Date</div>
-                  <div className="text-gray-500 mt-0.5">Saturday, 16 August 2026</div>
+                  <div className="text-gray-500 mt-0.5">Sunday, 23 August 2026</div>
                 </div>
               </div>
 

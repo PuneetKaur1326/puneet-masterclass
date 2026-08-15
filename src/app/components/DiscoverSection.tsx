@@ -27,7 +27,7 @@ export default function DiscoverSection() {
             By the end of this session, you'll look at marketing completely differently.
           </p>
           <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-foreground text-background font-black text-sm uppercase tracking-widest shadow-2xl">
-             📅 16 August 2026 • 11:00 AM IST
+             📅 23 August 2026 • 11:00 AM IST
           </div>
         </div>
 

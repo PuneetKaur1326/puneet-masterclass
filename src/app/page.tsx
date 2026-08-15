@@ -12,6 +12,22 @@ export default function Page() {
       <Header />
       <main>
         <HeroSection />
+        
+        {/* Workshop Video Section */}
+        <section className="bg-background py-8 md:py-12 border-t border-border">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-border bg-black aspect-video relative">
+              <video 
+                src="Video H v4.mp4" 
+                controls 
+                preload="metadata"
+                className="w-full h-full object-contain"
+                poster="/images/hero/hero-new.png"
+              />
+            </div>
+          </div>
+        </section>
+
         <PainSection />
         <DiscoverSection />
         <MentorSection />

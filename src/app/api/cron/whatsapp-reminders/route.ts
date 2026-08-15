@@ -16,14 +16,14 @@ export async function GET(req: Request) {
 
   try {
     // 1. Calculate Timings
-    const dateStr = process.env.WORKSHOP_DATE || '16 August 2026';
+    const dateStr = process.env.WORKSHOP_DATE || '23 August 2026';
     const timeStr = process.env.WORKSHOP_TIME || '11:00 AM IST';
     const joinUrl = process.env.WORKSHOP_JOIN_URL || 'https://meet.google.com/default';
     
-    // Parse Date "16 August 2026 11:00 AM IST"
+    // Parse Date "23 August 2026 11:00 AM IST"
     // Clean IST and create a valid date string
     const cleanTimeStr = timeStr.replace('IST', '').trim();
-    // Assuming dateStr is '16 August 2026', cleanTimeStr is '11:00 AM'
+    // Assuming dateStr is '23 August 2026', cleanTimeStr is '11:00 AM'
     // Constructing date in IST timezone (Asia/Kolkata is +05:30)
     // To parse this properly in Node:
     const workshopDateTimeString = `${dateStr} ${cleanTimeStr} GMT+0530`; 

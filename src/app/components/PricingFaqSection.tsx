@@ -71,7 +71,7 @@ export default function PricingFaqSection() {
                 <h3 className="text-xl font-bold mb-6 text-foreground leading-tight">
                   The Psychology Behind Writing — Live Workshop<br />
                   <span className="inline-flex items-center gap-2 px-3 py-1.5 mt-4 rounded-md bg-amber-100 text-amber-800 text-sm font-bold uppercase tracking-wider">
-                    16 August 2026, 11:00 AM IST
+                    23 August 2026, 11:00 AM IST
                   </span>
                 </h3>
                 

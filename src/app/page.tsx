@@ -16,17 +16,15 @@ export default function Page() {
         {/* Workshop Video Section */}
         <section className="bg-background py-8 md:py-12 border-t border-border">
           <div className="container mx-auto px-4 max-w-4xl">
-            <div className="w-full rounded-2xl overflow-hidden shadow-2xl border border-border bg-black aspect-video relative flex items-center justify-center">
-              <video 
-                className="w-full h-full outline-none"
-                controls
-                preload="metadata"
-                controlsList="nodownload"
-                poster="/images/hero/hero-new.png"
-              >
-                <source src="https://drive.google.com/uc?export=download&id=1raJdpUbujLePIZwXtBgZGEvnG3eXtt-q" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+            <div className="w-full rounded-2xl overflow-hidden shadow-2xl border border-border bg-black aspect-video relative">
+              <iframe 
+                src="https://drive.google.com/file/d/1raJdpUbujLePIZwXtBgZGEvnG3eXtt-q/preview"
+                className="absolute top-0 left-0 h-full border-0"
+                style={{ width: '100%', minWidth: '100%' }}
+                allow="autoplay; fullscreen"
+                allowFullScreen
+                title="Workshop Video"
+              ></iframe>
             </div>
           </div>
         </section>

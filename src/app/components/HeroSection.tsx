@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import AppImage from '@/components/ui/AppImage';
 import { Ticket } from 'lucide-react';
 
 export default function HeroSection() {
@@ -54,15 +53,15 @@ export default function HeroSection() {
           </div>
 
           {/* Visual */}
-          <div className="relative scroll-reveal-item lg:block hidden">
-            <div className="float-card relative z-10 rounded-[2.5rem] overflow-hidden border border-border shadow-2xl card-glow bg-card aspect-[4/5]">
-              <AppImage 
-                src="/images/hero/hero-new.png" 
-                alt="Hero Illustration" 
-                fill 
-                priority 
-                className="object-cover opacity-90"
-              />
+          <div className="relative scroll-reveal-item w-full mt-10 lg:mt-0">
+            <div className="float-card relative z-10 rounded-2xl md:rounded-[2.5rem] overflow-hidden border border-border shadow-2xl card-glow bg-black aspect-video lg:aspect-[4/5] flex items-center justify-center">
+              <iframe 
+                src="https://www.youtube.com/embed/NoE0_t_EnAs?rel=0" 
+                title="Workshop Video"
+                className="absolute top-0 left-0 w-full h-full border-0"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowFullScreen
+              ></iframe>
             </div>
           </div>
 

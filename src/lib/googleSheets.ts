@@ -1,5 +1,5 @@
 export interface GoogleSheetPayload {
-  action?: "register" | "insert" | "update" | "payment_update" | "whatsapp_update";
+  action?: "registration" | "register" | "insert" | "update" | "payment_update" | "whatsapp_update";
   fullName?: string;
   email?: string;
   phone: string; // Required for both insert and update as a key
@@ -25,9 +25,9 @@ export async function submitRegistration(payload: GoogleSheetPayload, requestId:
     throw new Error("GOOGLE_SHEET_WEBHOOK environment variable is not set.");
   }
 
-  // Set default action to register if not provided
+  // Set default action to registration if not provided
   if (!payload.action) {
-    payload.action = "register";
+    payload.action = "registration";
   }
 
   try {

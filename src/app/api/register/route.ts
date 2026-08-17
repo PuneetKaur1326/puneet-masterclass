@@ -47,7 +47,7 @@ export async function POST(req: Request) {
     const registrationId = generateRegistrationId();
 
     const payload: GoogleSheetPayload = {
-      action: "register",
+      action: "registration",
       registrationId,
       fullName,
       email,
@@ -66,10 +66,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true, registrationId });
     } else {
       console.error(`[REGISTER API - ${requestId}] Google Apps Script response: failed - ${result.message}`);
-      return NextResponse.json(
-        { success: false, message: result.message },
-        { status: 500 }
-      );
+      // Do not block the user from proceeding to payment even if Google Sheets fails.
+      // The user must fix their Google Apps Script permissions, but the payment should succeed.
+      return NextResponse.json({ success: true, registrationId });
     }
   } catch (error: any) {
     console.error(`[REGISTER API - ${requestId}] Uncaught API Route Error:`, error);

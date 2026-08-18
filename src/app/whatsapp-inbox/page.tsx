@@ -1,4 +1,4 @@
-import { revalidatePath } from "next/cache";
+import ReplyBox from "./ReplyBox";
 
 const SUPABASE_URL = process.env.SUPABASE_URL!;
 const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY!;
@@ -44,6 +44,7 @@ async function supabaseRequest(
 
   if (!response.ok) {
     const errorText = await response.text();
+
     throw new Error(
       `Supabase error ${response.status}: ${errorText}`
     );
@@ -59,16 +60,6 @@ function formatTime(dateString: string | null) {
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
-  }).format(new Date(dateString));
-}
-
-function formatDate(dateString: string | null) {
-  if (!dateString) return "";
-
-  return new Intl.DateTimeFormat("en-IN", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
   }).format(new Date(dateString));
 }
 
@@ -96,11 +87,13 @@ export default async function WhatsAppInbox({
             conversation.id === selectedConversationId
         ) || null;
 
-      messages = await supabaseRequest(
-        `whatsapp_messages?select=*&conversation_id=eq.${encodeURIComponent(
-          selectedConversationId
-        )}&order=created_at.asc`
-      );
+      if (selectedConversation) {
+        messages = await supabaseRequest(
+          `whatsapp_messages?select=*&conversation_id=eq.${encodeURIComponent(
+            selectedConversationId
+          )}&order=created_at.asc`
+        );
+      }
     } else if (conversations.length > 0) {
       selectedConversation = conversations[0];
 
@@ -119,8 +112,7 @@ export default async function WhatsAppInbox({
       style={{
         minHeight: "100vh",
         background: "#f5f7fb",
-        fontFamily:
-          'Arial, Helvetica, sans-serif',
+        fontFamily: "Arial, Helvetica, sans-serif",
         color: "#111827",
       }}
     >
@@ -176,6 +168,7 @@ export default async function WhatsAppInbox({
               display: "inline-block",
             }}
           />
+
           Connected
         </div>
       </header>
@@ -242,8 +235,7 @@ export default async function WhatsAppInbox({
                     textDecoration: "none",
                     color: "inherit",
                     padding: "16px 18px",
-                    borderBottom:
-                      "1px solid #f0f0f0",
+                    borderBottom: "1px solid #f0f0f0",
                     background: isSelected
                       ? "#f0fdf4"
                       : "#ffffff",
@@ -277,9 +269,11 @@ export default async function WhatsAppInbox({
                           flexShrink: 0,
                         }}
                       >
-                        {(conversation.display_name ||
+                        {(
+                          conversation.display_name ||
                           conversation.phone_number ||
-                          "?")
+                          "?"
+                        )
                           .charAt(0)
                           .toUpperCase()}
                       </div>
@@ -398,8 +392,7 @@ export default async function WhatsAppInbox({
                 style={{
                   height: "72px",
                   background: "#ffffff",
-                  borderBottom:
-                    "1px solid #e5e7eb",
+                  borderBottom: "1px solid #e5e7eb",
                   display: "flex",
                   alignItems: "center",
                   padding: "0 24px",
@@ -419,8 +412,10 @@ export default async function WhatsAppInbox({
                     fontWeight: 700,
                   }}
                 >
-                  {(selectedConversation.display_name ||
-                    selectedConversation.phone_number)
+                  {(
+                    selectedConversation.display_name ||
+                    selectedConversation.phone_number
+                  )
                     .charAt(0)
                     .toUpperCase()}
                 </div>
@@ -486,8 +481,7 @@ export default async function WhatsAppInbox({
                         <div
                           style={{
                             maxWidth: "65%",
-                            padding:
-                              "10px 13px",
+                            padding: "10px 13px",
                             borderRadius: inbound
                               ? "10px 10px 10px 2px"
                               : "10px 10px 2px 10px",
@@ -502,10 +496,8 @@ export default async function WhatsAppInbox({
                             style={{
                               fontSize: "14px",
                               lineHeight: 1.5,
-                              whiteSpace:
-                                "pre-wrap",
-                              wordBreak:
-                                "break-word",
+                              whiteSpace: "pre-wrap",
+                              wordBreak: "break-word",
                             }}
                           >
                             {message.message_text ||
@@ -517,13 +509,11 @@ export default async function WhatsAppInbox({
                               marginTop: "5px",
                               fontSize: "10px",
                               color: "#9ca3af",
-                              textAlign:
-                                "right",
+                              textAlign: "right",
                             }}
                           >
-                            {formatTime(
-                              message.created_at
-                            )}
+                            {formatTime(message.created_at)}
+
                             {!inbound &&
                               message.status && (
                                 <>
@@ -539,52 +529,11 @@ export default async function WhatsAppInbox({
                 )}
               </div>
 
-              {/* Temporary reply area */}
-              <div
-                style={{
-                  background: "#ffffff",
-                  borderTop:
-                    "1px solid #e5e7eb",
-                  padding: "14px 18px",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "10px",
-                  }}
-                >
-                  <input
-                    disabled
-                    placeholder="Reply functionality coming next..."
-                    style={{
-                      flex: 1,
-                      padding: "13px 15px",
-                      borderRadius: "10px",
-                      border:
-                        "1px solid #d1d5db",
-                      fontSize: "14px",
-                      background: "#f9fafb",
-                    }}
-                  />
-
-                  <button
-                    disabled
-                    style={{
-                      padding:
-                        "0 22px",
-                      border: "none",
-                      borderRadius: "10px",
-                      background:
-                        "#d1d5db",
-                      color: "#ffffff",
-                      fontWeight: 600,
-                    }}
-                  >
-                    Send
-                  </button>
-                </div>
-              </div>
+              {/* Reply */}
+              <ReplyBox
+                conversationId={selectedConversation.id}
+                phoneNumber={selectedConversation.phone_number}
+              />
             </>
           )}
         </section>

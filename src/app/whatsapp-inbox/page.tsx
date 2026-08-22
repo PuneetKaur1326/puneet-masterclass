@@ -32,11 +32,15 @@ async function supabaseRequest(
   options: RequestInit = {}
 ) {
   if (!SUPABASE_URL) {
-    throw new Error("SUPABASE_URL is missing in Vercel.");
+    throw new Error(
+      "DIAGNOSTIC: SUPABASE_URL is missing."
+    );
   }
 
   if (!SUPABASE_SECRET_KEY) {
-    throw new Error("SUPABASE_SECRET_KEY is missing in Vercel.");
+    throw new Error(
+      "DIAGNOSTIC: SUPABASE_SECRET_KEY is missing."
+    );
   }
 
   const url = `${SUPABASE_URL}/rest/v1/${path}`;
@@ -56,19 +60,17 @@ async function supabaseRequest(
 
   if (!response.ok) {
     throw new Error(
-      `Supabase returned ${response.status} for ${path}\n\n${responseText}`
+      `DIAGNOSTIC: Supabase HTTP ${response.status}\n` +
+        `URL: ${url}\n` +
+        `Response: ${responseText}`
     );
   }
 
-  if (!responseText) {
-    return [];
-  }
-
   try {
-    return JSON.parse(responseText);
+    return responseText ? JSON.parse(responseText) : [];
   } catch {
     throw new Error(
-      `Supabase returned an invalid JSON response for ${path}:\n\n${responseText}`
+      `DIAGNOSTIC: Supabase returned invalid JSON:\n${responseText}`
     );
   }
 }
@@ -86,7 +88,9 @@ function formatTime(dateString: string | null) {
 export default async function WhatsAppInbox({
   searchParams,
 }: {
-  searchParams: Promise<{ conversation?: string }>;
+  searchParams: Promise<{
+    conversation?: string;
+  }>;
 }) {
   const params = await searchParams;
   const selectedConversationId = params.conversation;
@@ -104,7 +108,7 @@ export default async function WhatsAppInbox({
 
     if (!Array.isArray(conversations)) {
       throw new Error(
-        `Unexpected conversations response:\n${JSON.stringify(
+        `DIAGNOSTIC: Unexpected conversations response:\n${JSON.stringify(
           conversations,
           null,
           2
@@ -155,9 +159,21 @@ export default async function WhatsAppInbox({
           color: "#111827",
         }}
       >
-        <h1 style={{ margin: 0 }}>WhatsApp Inbox</h1>
+        <h1
+          style={{
+            margin: 0,
+            fontSize: "24px",
+          }}
+        >
+          WhatsApp Inbox
+        </h1>
 
-        <p style={{ color: "#6b7280" }}>
+        <p
+          style={{
+            color: "#6b7280",
+            marginTop: "8px",
+          }}
+        >
           There was a problem loading the inbox.
         </p>
 
@@ -179,6 +195,7 @@ export default async function WhatsAppInbox({
               whiteSpace: "pre-wrap",
               wordBreak: "break-word",
               fontSize: "13px",
+              lineHeight: 1.5,
             }}
           >
             {errorMessage}
@@ -248,6 +265,7 @@ export default async function WhatsAppInbox({
               display: "inline-block",
             }}
           />
+
           Connected
         </div>
       </header>
@@ -365,7 +383,11 @@ export default async function WhatsAppInbox({
                           .toUpperCase()}
                       </div>
 
-                      <div style={{ minWidth: 0 }}>
+                      <div
+                        style={{
+                          minWidth: 0,
+                        }}
+                      >
                         <div
                           style={{
                             fontWeight: 600,

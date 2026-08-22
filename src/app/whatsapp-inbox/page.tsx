@@ -105,6 +105,67 @@ export default async function WhatsAppInbox({
     }
   } catch (error) {
     console.error("WhatsApp Inbox error:", error);
+
+    const errorMessage =
+      error instanceof Error
+        ? error.message
+        : "Unknown error";
+
+    return (
+      <main
+        style={{
+          minHeight: "100vh",
+          padding: "40px",
+          fontFamily: "Arial, Helvetica, sans-serif",
+          background: "#f5f7fb",
+          color: "#111827",
+        }}
+      >
+        <h1
+          style={{
+            margin: 0,
+            fontSize: "24px",
+          }}
+        >
+          WhatsApp Inbox
+        </h1>
+
+        <p
+          style={{
+            color: "#6b7280",
+            marginTop: "6px",
+          }}
+        >
+          Manage your WhatsApp conversations
+        </p>
+
+        <div
+          style={{
+            marginTop: "24px",
+            padding: "20px",
+            background: "#fee2e2",
+            border: "1px solid #fecaca",
+            borderRadius: "10px",
+            color: "#991b1b",
+          }}
+        >
+          <strong>
+            Inbox data could not be loaded.
+          </strong>
+
+          <pre
+            style={{
+              marginTop: "12px",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              fontSize: "13px",
+            }}
+          >
+            {errorMessage}
+          </pre>
+        </div>
+      </main>
+    );
   }
 
   return (

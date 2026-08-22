@@ -1,7 +1,10 @@
 import ReplyBox from "./ReplyBox";
 
-const SUPABASE_URL = process.env.SUPABASE_URL!;
-const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY!;
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
 
 type Conversation = {
   id: string;
@@ -9,7 +12,7 @@ type Conversation = {
   display_name: string | null;
   last_message: string | null;
   last_message_at: string | null;
-  unread_count: number;
+  unread_count: number | null;
   updated_at: string;
 };
 
@@ -28,29 +31,46 @@ async function supabaseRequest(
   path: string,
   options: RequestInit = {}
 ) {
-  const response = await fetch(
-    `${SUPABASE_URL}/rest/v1/${path}`,
-    {
-      ...options,
-      headers: {
-        apikey: SUPABASE_SECRET_KEY,
-        Authorization: `Bearer ${SUPABASE_SECRET_KEY}`,
-        "Content-Type": "application/json",
-        ...(options.headers || {}),
-      },
-      cache: "no-store",
-    }
-  );
+  if (!SUPABASE_URL) {
+    throw new Error("SUPABASE_URL is missing in Vercel.");
+  }
+
+  if (!SUPABASE_SECRET_KEY) {
+    throw new Error("SUPABASE_SECRET_KEY is missing in Vercel.");
+  }
+
+  const url = `${SUPABASE_URL}/rest/v1/${path}`;
+
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      apikey: SUPABASE_SECRET_KEY,
+      Authorization: `Bearer ${SUPABASE_SECRET_KEY}`,
+      "Content-Type": "application/json",
+      ...(options.headers || {}),
+    },
+    cache: "no-store",
+  });
+
+  const responseText = await response.text();
 
   if (!response.ok) {
-    const errorText = await response.text();
-
     throw new Error(
-      `Supabase error ${response.status}: ${errorText}`
+      `Supabase returned ${response.status} for ${path}\n\n${responseText}`
     );
   }
 
-  return response.json();
+  if (!responseText) {
+    return [];
+  }
+
+  try {
+    return JSON.parse(responseText);
+  } catch {
+    throw new Error(
+      `Supabase returned an invalid JSON response for ${path}:\n\n${responseText}`
+    );
+  }
 }
 
 function formatTime(dateString: string | null) {
@@ -75,10 +95,22 @@ export default async function WhatsAppInbox({
   let messages: Message[] = [];
   let selectedConversation: Conversation | null = null;
 
+  let errorMessage = "";
+
   try {
     conversations = await supabaseRequest(
-      "whatsapp_conversations?select=*&order=updated_at.desc"
+      "whatsapp_conversations?select=id,phone_number,display_name,last_message,last_message_at,unread_count,updated_at&order=updated_at.desc"
     );
+
+    if (!Array.isArray(conversations)) {
+      throw new Error(
+        `Unexpected conversations response:\n${JSON.stringify(
+          conversations,
+          null,
+          2
+        )}`
+      );
+    }
 
     if (selectedConversationId) {
       selectedConversation =
@@ -89,7 +121,7 @@ export default async function WhatsAppInbox({
 
       if (selectedConversation) {
         messages = await supabaseRequest(
-          `whatsapp_messages?select=*&conversation_id=eq.${encodeURIComponent(
+          `whatsapp_messages?select=id,conversation_id,direction,message_type,message_text,whatsapp_message_id,status,created_at&conversation_id=eq.${encodeURIComponent(
             selectedConversationId
           )}&order=created_at.asc`
         );
@@ -98,7 +130,7 @@ export default async function WhatsAppInbox({
       selectedConversation = conversations[0];
 
       messages = await supabaseRequest(
-        `whatsapp_messages?select=*&conversation_id=eq.${encodeURIComponent(
+        `whatsapp_messages?select=id,conversation_id,direction,message_type,message_text,whatsapp_message_id,status,created_at&conversation_id=eq.${encodeURIComponent(
           conversations[0].id
         )}&order=created_at.asc`
       );
@@ -106,11 +138,13 @@ export default async function WhatsAppInbox({
   } catch (error) {
     console.error("WhatsApp Inbox error:", error);
 
-    const errorMessage =
+    errorMessage =
       error instanceof Error
         ? error.message
-        : "Unknown error";
+        : "Unknown error while loading WhatsApp Inbox.";
+  }
 
+  if (errorMessage) {
     return (
       <main
         style={{
@@ -121,22 +155,10 @@ export default async function WhatsAppInbox({
           color: "#111827",
         }}
       >
-        <h1
-          style={{
-            margin: 0,
-            fontSize: "24px",
-          }}
-        >
-          WhatsApp Inbox
-        </h1>
+        <h1 style={{ margin: 0 }}>WhatsApp Inbox</h1>
 
-        <p
-          style={{
-            color: "#6b7280",
-            marginTop: "6px",
-          }}
-        >
-          Manage your WhatsApp conversations
+        <p style={{ color: "#6b7280" }}>
+          There was a problem loading the inbox.
         </p>
 
         <div
@@ -149,9 +171,7 @@ export default async function WhatsAppInbox({
             color: "#991b1b",
           }}
         >
-          <strong>
-            Inbox data could not be loaded.
-          </strong>
+          <strong>Database request failed</strong>
 
           <pre
             style={{
@@ -177,7 +197,6 @@ export default async function WhatsAppInbox({
         color: "#111827",
       }}
     >
-      {/* Header */}
       <header
         style={{
           height: "72px",
@@ -229,12 +248,10 @@ export default async function WhatsAppInbox({
               display: "inline-block",
             }}
           />
-
           Connected
         </div>
       </header>
 
-      {/* Main inbox */}
       <div
         style={{
           display: "grid",
@@ -242,7 +259,6 @@ export default async function WhatsAppInbox({
           height: "calc(100vh - 72px)",
         }}
       >
-        {/* Conversation list */}
         <aside
           style={{
             background: "#ffffff",
@@ -280,7 +296,17 @@ export default async function WhatsAppInbox({
                 fontSize: "14px",
               }}
             >
-              No conversations yet.
+              <div>No conversations yet.</div>
+
+              <div
+                style={{
+                  marginTop: "12px",
+                  fontSize: "12px",
+                  color: "#9ca3af",
+                }}
+              >
+                Database returned 0 conversations.
+              </div>
             </div>
           ) : (
             conversations.map((conversation) => {
@@ -339,11 +365,7 @@ export default async function WhatsAppInbox({
                           .toUpperCase()}
                       </div>
 
-                      <div
-                        style={{
-                          minWidth: 0,
-                        }}
-                      >
+                      <div style={{ minWidth: 0 }}>
                         <div
                           style={{
                             fontWeight: 600,
@@ -399,7 +421,7 @@ export default async function WhatsAppInbox({
                         )}
                       </div>
 
-                      {conversation.unread_count > 0 && (
+                      {(conversation.unread_count || 0) > 0 && (
                         <span
                           style={{
                             display: "inline-flex",
@@ -426,7 +448,6 @@ export default async function WhatsAppInbox({
           )}
         </aside>
 
-        {/* Chat */}
         <section
           style={{
             display: "flex",
@@ -448,7 +469,6 @@ export default async function WhatsAppInbox({
             </div>
           ) : (
             <>
-              {/* Chat header */}
               <div
                 style={{
                   height: "72px",
@@ -503,7 +523,6 @@ export default async function WhatsAppInbox({
                 </div>
               </div>
 
-              {/* Messages */}
               <div
                 style={{
                   flex: 1,
@@ -590,7 +609,6 @@ export default async function WhatsAppInbox({
                 )}
               </div>
 
-              {/* Reply */}
               <ReplyBox
                 conversationId={selectedConversation.id}
                 phoneNumber={selectedConversation.phone_number}

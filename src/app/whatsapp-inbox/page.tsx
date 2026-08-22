@@ -32,18 +32,23 @@ async function supabaseRequest(
   options: RequestInit = {}
 ) {
   if (!SUPABASE_URL) {
-    throw new Error(
-      "DIAGNOSTIC: SUPABASE_URL is missing."
-    );
+    throw new Error("SUPABASE_URL is missing.");
   }
 
   if (!SUPABASE_SECRET_KEY) {
-    throw new Error(
-      "DIAGNOSTIC: SUPABASE_SECRET_KEY is missing."
-    );
+    throw new Error("SUPABASE_SECRET_KEY is missing.");
   }
 
   const url = `${SUPABASE_URL}/rest/v1/${path}`;
+
+  const keyType =
+    SUPABASE_SECRET_KEY.startsWith("sb_secret_")
+      ? "sb_secret"
+      : SUPABASE_SECRET_KEY.startsWith("sb_publishable_")
+      ? "sb_publishable"
+      : SUPABASE_SECRET_KEY.startsWith("eyJ")
+      ? "legacy_jwt"
+      : "unknown";
 
   const response = await fetch(url, {
     ...options,
@@ -60,19 +65,81 @@ async function supabaseRequest(
 
   if (!response.ok) {
     throw new Error(
-      `DIAGNOSTIC: Supabase HTTP ${response.status}\n` +
-        `URL: ${url}\n` +
-        `Response: ${responseText}`
+      `SUPABASE DIAGNOSTIC
+
+URL:
+${SUPABASE_URL}
+
+Key type:
+${keyType}
+
+HTTP status:
+${response.status}
+
+Response:
+${responseText}`
     );
   }
 
+  let parsed: unknown;
+
   try {
-    return responseText ? JSON.parse(responseText) : [];
+    parsed = responseText ? JSON.parse(responseText) : [];
   } catch {
     throw new Error(
-      `DIAGNOSTIC: Supabase returned invalid JSON:\n${responseText}`
+      `SUPABASE DIAGNOSTIC
+
+URL:
+${SUPABASE_URL}
+
+Key type:
+${keyType}
+
+HTTP status:
+${response.status}
+
+Invalid JSON response:
+${responseText}`
     );
   }
+
+  if (path.startsWith("whatsapp_conversations")) {
+    if (!Array.isArray(parsed)) {
+      throw new Error(
+        `SUPABASE DIAGNOSTIC
+
+URL:
+${SUPABASE_URL}
+
+Key type:
+${keyType}
+
+Unexpected response:
+${JSON.stringify(parsed, null, 2)}`
+      );
+    }
+
+    if (parsed.length === 0) {
+      throw new Error(
+        `SUPABASE DIAGNOSTIC
+
+URL:
+${SUPABASE_URL}
+
+Key type:
+${keyType}
+
+HTTP status:
+${response.status}
+
+REST API returned 0 conversations.
+
+The SQL Editor has 4 rows, so the production REST credentials/access are different from the SQL Editor access.`
+      );
+    }
+  }
+
+  return parsed;
 }
 
 function formatTime(dateString: string | null) {
@@ -98,17 +165,16 @@ export default async function WhatsAppInbox({
   let conversations: Conversation[] = [];
   let messages: Message[] = [];
   let selectedConversation: Conversation | null = null;
-
   let errorMessage = "";
 
   try {
-    conversations = await supabaseRequest(
+    conversations = (await supabaseRequest(
       "whatsapp_conversations?select=id,phone_number,display_name,last_message,last_message_at,unread_count,updated_at&order=updated_at.desc"
-    );
+    )) as Conversation[];
 
     if (!Array.isArray(conversations)) {
       throw new Error(
-        `DIAGNOSTIC: Unexpected conversations response:\n${JSON.stringify(
+        `Unexpected conversations response:\n${JSON.stringify(
           conversations,
           null,
           2
@@ -124,20 +190,20 @@ export default async function WhatsAppInbox({
         ) || null;
 
       if (selectedConversation) {
-        messages = await supabaseRequest(
+        messages = (await supabaseRequest(
           `whatsapp_messages?select=id,conversation_id,direction,message_type,message_text,whatsapp_message_id,status,created_at&conversation_id=eq.${encodeURIComponent(
             selectedConversationId
           )}&order=created_at.asc`
-        );
+        )) as Message[];
       }
     } else if (conversations.length > 0) {
       selectedConversation = conversations[0];
 
-      messages = await supabaseRequest(
+      messages = (await supabaseRequest(
         `whatsapp_messages?select=id,conversation_id,direction,message_type,message_text,whatsapp_message_id,status,created_at&conversation_id=eq.${encodeURIComponent(
           conversations[0].id
         )}&order=created_at.asc`
-      );
+      )) as Message[];
     }
   } catch (error) {
     console.error("WhatsApp Inbox error:", error);
@@ -159,21 +225,9 @@ export default async function WhatsAppInbox({
           color: "#111827",
         }}
       >
-        <h1
-          style={{
-            margin: 0,
-            fontSize: "24px",
-          }}
-        >
-          WhatsApp Inbox
-        </h1>
+        <h1 style={{ margin: 0 }}>WhatsApp Inbox</h1>
 
-        <p
-          style={{
-            color: "#6b7280",
-            marginTop: "8px",
-          }}
-        >
+        <p style={{ color: "#6b7280" }}>
           There was a problem loading the inbox.
         </p>
 
@@ -265,7 +319,6 @@ export default async function WhatsAppInbox({
               display: "inline-block",
             }}
           />
-
           Connected
         </div>
       </header>
@@ -383,11 +436,7 @@ export default async function WhatsAppInbox({
                           .toUpperCase()}
                       </div>
 
-                      <div
-                        style={{
-                          minWidth: 0,
-                        }}
-                      >
+                      <div style={{ minWidth: 0 }}>
                         <div
                           style={{
                             fontWeight: 600,

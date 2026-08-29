@@ -1,1467 +1,992 @@
 'use client';
 
-import Link from "next/link";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-
-const learningPoints = [
-  {
-    number: "01",
-    title: "CONTENT vs COMMUNICATION",
-    description:
-      "Why simply creating more content may not be solving your real problem.",
-  },
-  {
-    number: "02",
-    title: "THE PSYCHOLOGY OF ATTENTION",
-    description:
-      "What makes people stop instead of scroll.",
-  },
-  {
-    number: "03",
-    title: "EMOTIONAL POSITIONING",
-    description:
-      "How brands become relevant by reflecting what their audience actually feels.",
-  },
-  {
-    number: "04",
-    title: "BUILDING BRAND MEMORY",
-    description:
-      "How consistent communication can make your brand more familiar — and more trusted.",
-  },
-];
-
-const audience = [
-  {
-    title: "Coaches",
-    description: "Create content that communicates and sells your expertise.",
-  },
-  {
-    title: "Creators & Influencers",
-    description: "Build a personal brand people actually remember.",
-  },
-  {
-    title: "Tarot Readers & Consultants",
-    description: "Create stronger emotional connections with your audience.",
-  },
-  {
-    title: "SMEs & Business Owners",
-    description: "Make social media communication contribute to your business.",
-  },
-];
+import Link from 'next/link';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 
 export default function PsychologyBehindWritingPage() {
+  const learningPoints = [
+    {
+      number: '01',
+      title: 'WHY PEOPLE STOP',
+      question: 'What makes someone pause instead of scroll?',
+    },
+    {
+      number: '02',
+      title: 'WHY CONTENT FEELS RELEVANT',
+      question: 'How do you communicate what your audience is actually ready to hear?',
+    },
+    {
+      number: '03',
+      title: 'WHY EMOTION MATTERS',
+      question: 'How do what people think and feel influence how they respond?',
+    },
+    {
+      number: '04',
+      title: 'WHY SOME BRANDS ARE REMEMBERED',
+      question: 'How does communication create familiarity, recognition and memory?',
+    },
+  ];
+
+  const audience = [
+    'Coaches',
+    'Creators',
+    'Consultants',
+    'Service Providers',
+    'Tarot Readers',
+    'Business Owners',
+  ];
+
+  const faqs = [
+    {
+      question: 'Is this a writing workshop?',
+      answer:
+        "Not in the traditional sense. It's about the psychology behind communication, attention, relevance and brand memory.",
+    },
+    {
+      question: 'Do I need to be a professional writer?',
+      answer:
+        'No. If you use content to build a brand, business or practice, this is for you.',
+    },
+    {
+      question: 'Is this an Instagram growth webinar?',
+      answer:
+        "No. There are no algorithm hacks, viral formulas or posting schedules.",
+    },
+    {
+      question: 'I already use AI for content. Is this relevant?',
+      answer:
+        'Yes. AI can create the words. You still need to know what those words should communicate and why.',
+    },
+    {
+      question: 'Is it live?',
+      answer:
+        "Yes. It's a 2-hour live webinar on 06 September at 11 AM IST.",
+    },
+  ];
+
   return (
     <>
       <Header />
 
-      <main className="psychology-page">
-        {/* HERO */}
-        <section className="hero">
-          <div className="hero-glow hero-glow-one" />
-          <div className="hero-glow hero-glow-two" />
+      <main className="min-h-screen overflow-hidden bg-[#F8F6EF] text-[#171717]">
 
-          <div className="container hero-container">
-            <div className="eyebrow">
-              <span className="eyebrow-dot" />
-              2-HOUR LIVE WEBINAR
+        {/* =========================================================
+            HERO
+        ========================================================= */}
+        <section className="relative border-b border-black/10">
+          <div className="mx-auto max-w-7xl px-5 pb-20 pt-16 sm:px-8 lg:px-12 lg:pb-28 lg:pt-24">
+
+            <div className="mb-8 flex items-center gap-3">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#F4B400]" />
+              <span className="text-[10px] font-black uppercase tracking-[0.22em]">
+                2-HOUR LIVE WEBINAR
+              </span>
             </div>
 
-            <h1>
-              THE PSYCHOLOGY
-              <br />
-              <span>BEHIND WRITING</span>
-            </h1>
+            <div className="grid items-end gap-12 lg:grid-cols-[1.25fr_.75fr]">
 
-            <p className="hero-subtitle">
-              Stop creating content people scroll past.
-              <br />
-              Learn how to make your audience{" "}
-              <strong>stop, feel, remember & trust</strong> your brand.
-            </p>
+              <div>
+                <p className="mb-5 text-xs font-black uppercase tracking-[0.2em] text-black/45">
+                  THE PSYCHOLOGY BEHIND WRITING
+                </p>
 
-            <p className="hero-description">
-              A 2-hour live webinar by <strong>Puneet Kaur Saluja</strong> for
-              coaches, creators, influencers, tarot readers and business
-              owners who want their social media communication to actually
-              contribute to their brand and business.
-            </p>
+                <h1 className="max-w-5xl text-[clamp(3.7rem,9vw,8.5rem)] font-black leading-[0.79] tracking-[-0.075em]">
+                  YOUR CONTENT
+                  <br />
+                  DOESN&apos;T NEED
+                  <br />
+                  <span className="text-[#F4B400]">MORE IDEAS.</span>
+                </h1>
 
-            <div className="hero-cta">
-              <Link href="/register" className="primary-button">
-                RESERVE MY SEAT FOR ₹99
-                <span>→</span>
+                <div className="mt-8 max-w-3xl">
+                  <p className="text-[clamp(2rem,4vw,4rem)] font-black leading-[0.95] tracking-[-0.05em]">
+                    It needs to make
+                    <br />
+                    <span className="relative inline-block">
+                      people care.
+                      <span className="absolute -bottom-2 left-0 h-2 w-full bg-[#F4B400]" />
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              {/* Hero visual */}
+              <div className="relative">
+                <div className="relative overflow-hidden rounded-[2rem] border border-black/10 bg-[#171717] p-7 text-white shadow-2xl sm:p-9">
+
+                  <div className="mb-10 flex items-center justify-between">
+                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/45">
+                      THE QUESTION
+                    </span>
+
+                    <span className="rounded-full bg-[#F4B400] px-3 py-1 text-[9px] font-black text-black">
+                      ₹99
+                    </span>
+                  </div>
+
+                  <p className="text-sm font-bold uppercase tracking-[0.12em] text-white/45">
+                    Your next post:
+                  </p>
+
+                  <p className="mt-3 text-3xl font-black leading-none tracking-[-0.05em] sm:text-4xl">
+                    What should
+                    <br />
+                    I post?
+                  </p>
+
+                  <div className="my-7 flex items-center gap-3">
+                    <div className="h-px flex-1 bg-white/15" />
+                    <span className="text-xs text-[#F4B400]">OR</span>
+                    <div className="h-px flex-1 bg-white/15" />
+                  </div>
+
+                  <p className="text-sm font-bold uppercase tracking-[0.12em] text-white/45">
+                    A better question:
+                  </p>
+
+                  <p className="mt-3 text-3xl font-black leading-none tracking-[-0.05em] text-[#F4B400] sm:text-4xl">
+                    Why should
+                    <br />
+                    they care?
+                  </p>
+
+                  <div className="mt-10 border-t border-white/10 pt-5">
+                    <p className="text-xs leading-relaxed text-white/50">
+                      That shift is what this webinar is about.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="absolute -bottom-5 -left-4 hidden rotate-[-4deg] bg-[#F4B400] px-5 py-3 text-[10px] font-black uppercase tracking-[0.12em] shadow-xl sm:block">
+                  STOP → CONNECT → REMEMBER
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-12 grid gap-7 border-t border-black/10 pt-8 sm:grid-cols-[1fr_auto] sm:items-end">
+              <p className="max-w-2xl text-base leading-7 text-black/60 sm:text-lg">
+                A 2-hour LIVE webinar for people who want to use content to
+                build trust, attract clients and grow their business.
+              </p>
+
+              <div className="flex flex-col items-start gap-3 sm:items-end">
+                <Link
+                  href="/register"
+                  className="group inline-flex items-center gap-5 bg-[#171717] px-7 py-4 text-xs font-black uppercase tracking-wide text-white transition hover:-translate-y-1"
+                >
+                  I WANT MY CONTENT TO MAKE PEOPLE CARE
+                  <span className="text-xl transition group-hover:translate-x-1">
+                    →
+                  </span>
+                </Link>
+
+                <div className="flex gap-5 text-[10px] font-black uppercase tracking-[0.12em] text-black/45">
+                  <span>06 SEPTEMBER 2026</span>
+                  <span>11 AM IST</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================
+            PAIN
+        ========================================================= */}
+        <section className="bg-[#171717] text-white">
+          <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+
+            <div className="grid gap-14 lg:grid-cols-[.8fr_1.2fr] lg:gap-24">
+
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-[0.22em] text-[#F4B400]">
+                  THE REAL PROBLEM
+                </span>
+
+                <h2 className="mt-5 text-[clamp(3rem,6vw,6rem)] font-black leading-[0.86] tracking-[-0.065em]">
+                  You probably
+                  <br />
+                  don&apos;t have a
+                  <br />
+                  <span className="text-white/35">content problem.</span>
+                </h2>
+              </div>
+
+              <div className="flex flex-col justify-end">
+
+                <div className="space-y-1 text-xl font-bold sm:text-2xl">
+                  <p>You have ideas.</p>
+                  <p>You know your subject.</p>
+                  <p>You know you should post consistently.</p>
+                </div>
+
+                <div className="my-9 h-px bg-white/10" />
+
+                <p className="text-sm leading-7 text-white/50">
+                  And yet...
+                </p>
+
+                <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                  {['You publish.', 'Someone likes.', 'Someone comments.', 'Then... nothing.'].map(
+                    (item, index) => (
+                      <div
+                        key={item}
+                        className={`min-h-[100px] p-4 ${
+                          index === 3
+                            ? 'bg-[#F4B400] text-black'
+                            : 'border border-white/10 bg-white/[0.03]'
+                        }`}
+                      >
+                        <span className="text-[9px] font-black uppercase tracking-wider opacity-50">
+                          0{index + 1}
+                        </span>
+                        <p className="mt-5 text-sm font-black leading-tight">
+                          {item}
+                        </p>
+                      </div>
+                    )
+                  )}
+                </div>
+
+                <div className="mt-10">
+                  <p className="text-sm uppercase tracking-[0.15em] text-white/40">
+                    So you ask:
+                  </p>
+
+                  <p className="mt-2 text-2xl font-black tracking-[-0.04em] sm:text-3xl">
+                    “What should I post today?”
+                  </p>
+
+                  <p className="mt-7 text-sm text-white/40">
+                    But maybe the better question is:
+                  </p>
+
+                  <p className="mt-2 text-3xl font-black tracking-[-0.05em] text-[#F4B400] sm:text-4xl">
+                    “Why should my audience care?”
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================
+            A/B EXPERIMENT
+        ========================================================= */}
+        <section className="bg-[#F4B400]">
+          <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+
+            <div className="max-w-3xl">
+              <p className="text-[10px] font-black uppercase tracking-[0.22em] text-black/55">
+                LET&apos;S TEST SOMETHING
+              </p>
+
+              <h2 className="mt-4 text-[clamp(3rem,6vw,6rem)] font-black leading-[0.86] tracking-[-0.065em]">
+                Which one makes
+                <br />
+                you stop?
+              </h2>
+            </div>
+
+            <div className="mt-14 grid gap-4 md:grid-cols-2">
+
+              {/* A */}
+              <div className="relative min-h-[300px] rounded-[1.5rem] border-2 border-black/15 bg-[#F8F6EF] p-7 sm:p-10">
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-black text-xs font-black text-white">
+                  A
+                </span>
+
+                <p className="mt-12 max-w-md text-3xl font-black leading-[0.98] tracking-[-0.05em] sm:text-4xl">
+                  5 Content Writing Tips Every Business Owner Should Know
+                </p>
+
+                <span className="absolute bottom-7 right-7 text-[9px] font-black uppercase tracking-[0.15em] text-black/35">
+                  INFORMATION
+                </span>
+              </div>
+
+              {/* B */}
+              <div className="relative min-h-[300px] rounded-[1.5rem] bg-[#171717] p-7 text-white shadow-2xl sm:p-10">
+                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#F4B400] text-xs font-black text-black">
+                  B
+                </span>
+
+                <p className="mt-12 max-w-md text-3xl font-black leading-[0.98] tracking-[-0.05em] sm:text-4xl">
+                  Your content isn&apos;t boring.
+                  <br />
+                  <span className="text-[#F4B400]">
+                    Your audience just has no reason to care.
+                  </span>
+                </p>
+
+                <span className="absolute bottom-7 right-7 text-[9px] font-black uppercase tracking-[0.15em] text-white/35">
+                  ATTENTION
+                </span>
+              </div>
+            </div>
+
+            <div className="mx-auto mt-14 max-w-3xl text-center">
+              <p className="text-base leading-7 text-black/65 sm:text-lg">
+                If you paused at <strong>B</strong>, ask yourself why.
+              </p>
+
+              <p className="mt-4 text-xl font-black leading-tight sm:text-2xl">
+                The information didn&apos;t suddenly become more valuable.
+              </p>
+
+              <p className="mt-2 text-xl font-black leading-tight sm:text-2xl">
+                The message simply gave you a stronger reason to pay attention.
+              </p>
+
+              <div className="mx-auto mt-8 h-1 w-16 bg-black" />
+
+              <p className="mt-8 text-[clamp(1.7rem,4vw,3rem)] font-black leading-[0.95] tracking-[-0.05em]">
+                CONTENT ≠ COMMUNICATION
+              </p>
+
+              <p className="mx-auto mt-5 max-w-xl text-sm leading-6 text-black/55">
+                More content doesn&apos;t automatically create more impact.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================
+            AI
+        ========================================================= */}
+        <section className="bg-[#F8F6EF]">
+          <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+
+            <div className="grid gap-14 lg:grid-cols-[1fr_.9fr] lg:items-center">
+
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-[0.22em] text-black/40">
+                  WHY THIS MATTERS NOW
+                </span>
+
+                <h2 className="mt-5 text-[clamp(3.2rem,6vw,6.5rem)] font-black leading-[0.82] tracking-[-0.07em]">
+                  AI can write
+                  <br />
+                  your content.
+                  <br />
+                  <span className="text-[#F4B400]">But can it</span>
+                  <br />
+                  <span className="text-black/30">make people care?</span>
+                </h2>
+              </div>
+
+              <div>
+                <div className="grid grid-cols-2 gap-3">
+                  {['Captions', 'Hooks', 'Scripts', 'Ideas'].map((item) => (
+                    <div
+                      key={item}
+                      className="flex min-h-[100px] items-end border border-black/10 bg-white p-5"
+                    >
+                      <span className="text-lg font-black">{item}.</span>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-8 text-sm leading-7 text-black/55">
+                  AI can generate all of these in seconds.
+                </p>
+
+                <div className="my-7 h-px bg-black/10" />
+
+                <p className="text-sm font-black uppercase tracking-[0.12em]">
+                  But someone still has to answer:
+                </p>
+
+                <div className="mt-5 space-y-3">
+                  {[
+                    'What should I say?',
+                    'Why should I say it?',
+                    'What should my audience feel?',
+                    'What should they remember?',
+                  ].map((item) => (
+                    <div
+                      key={item}
+                      className="flex items-center gap-3 border-b border-black/10 pb-3"
+                    >
+                      <span className="h-2 w-2 rounded-full bg-[#F4B400]" />
+                      <span className="text-lg font-black tracking-[-0.02em]">
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-8 text-2xl font-black tracking-[-0.04em]">
+                  That&apos;s where the real skill lies.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================
+            WHAT YOU'LL LEARN
+        ========================================================= */}
+        <section className="bg-[#171717] text-white">
+          <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+
+            <div className="flex flex-col justify-between gap-7 border-b border-white/10 pb-10 md:flex-row md:items-end">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-[0.22em] text-[#F4B400]">
+                  INSIDE THE WEBINAR
+                </span>
+
+                <h2 className="mt-5 text-[clamp(3.2rem,6vw,6.5rem)] font-black leading-[0.82] tracking-[-0.07em]">
+                  You&apos;ll stop
+                  <br />
+                  looking at
+                  <br />
+                  <span className="text-white/35">content the same way.</span>
+                </h2>
+              </div>
+
+              <div className="text-right text-[10px] font-black uppercase tracking-[0.15em] text-white/35">
+                LIVE
+                <br />
+                2 HOURS
+              </div>
+            </div>
+
+            <div className="mt-10 divide-y divide-white/10">
+              {learningPoints.map((item) => (
+                <div
+                  key={item.number}
+                  className="grid gap-6 py-9 md:grid-cols-[80px_1fr_1fr] md:items-center"
+                >
+                  <span className="text-xs font-black text-[#F4B400]">
+                    {item.number}
+                  </span>
+
+                  <h3 className="text-xl font-black tracking-[-0.03em] sm:text-2xl">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-sm leading-6 text-white/45">
+                    {item.question}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-12 text-center">
+              <Link
+                href="/register"
+                className="inline-flex items-center gap-4 bg-[#F4B400] px-7 py-4 text-xs font-black uppercase tracking-wide text-black transition hover:-translate-y-1"
+              >
+                RESERVE MY SEAT — ₹99
+                <span className="text-xl">→</span>
               </Link>
             </div>
+          </div>
+        </section>
 
-            <div className="event-meta">
-              <div>
-                <span>DATE</span>
-                <strong>________________</strong>
+        {/* =========================================================
+            SAME MESSAGE / COMMUNICATION
+        ========================================================= */}
+        <section className="bg-[#EDE9DE]">
+          <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+
+            <div className="max-w-4xl">
+              <span className="text-[10px] font-black uppercase tracking-[0.22em] text-black/40">
+                SAME SUBJECT. DIFFERENT COMMUNICATION.
+              </span>
+
+              <h2 className="mt-5 text-[clamp(3rem,6vw,6rem)] font-black leading-[0.84] tracking-[-0.07em]">
+                The words matter.
+                <br />
+                <span className="text-black/30">But so does the way</span>
+                <br />
+                you enter the mind.
+              </h2>
+            </div>
+
+            <div className="mt-14 grid gap-4 md:grid-cols-2">
+
+              <div className="border border-black/10 bg-white p-7 sm:p-10">
+                <span className="text-[9px] font-black uppercase tracking-[0.18em] text-black/35">
+                  GENERIC
+                </span>
+
+                <p className="mt-10 text-2xl font-black leading-tight tracking-[-0.04em] sm:text-3xl">
+                  “I help businesses grow through strategic content.”
+                </p>
+
+                <div className="mt-12 flex items-center justify-between border-t border-black/10 pt-5">
+                  <span className="text-[9px] font-black uppercase tracking-[0.15em] text-black/35">
+                    Clear
+                  </span>
+
+                  <span className="text-[9px] font-black uppercase tracking-[0.15em] text-black/35">
+                    Forgettable?
+                  </span>
+                </div>
               </div>
 
-              <div>
-                <span>TIME</span>
-                <strong>________________</strong>
+              <div className="border-2 border-[#F4B400] bg-[#171717] p-7 text-white sm:p-10">
+                <span className="text-[9px] font-black uppercase tracking-[0.18em] text-[#F4B400]">
+                  ANOTHER WAY
+                </span>
+
+                <p className="mt-10 text-2xl font-black leading-tight tracking-[-0.04em] sm:text-3xl">
+                  “You&apos;re not struggling to create content.
+                  <br />
+                  <span className="text-[#F4B400]">
+                    You&apos;re struggling to make people care about it.”
+                  </span>
+                </p>
+
+                <div className="mt-12 flex items-center justify-between border-t border-white/10 pt-5">
+                  <span className="text-[9px] font-black uppercase tracking-[0.15em] text-white/35">
+                    Different entry point
+                  </span>
+
+                  <span className="text-[9px] font-black uppercase tracking-[0.15em] text-[#F4B400]">
+                    Why?
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mx-auto mt-12 max-w-2xl text-center">
+              <p className="text-lg font-black leading-tight sm:text-xl">
+                That&apos;s the kind of thinking we&apos;ll unpack during the webinar.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================
+            PUNEET
+        ========================================================= */}
+        <section className="bg-[#F8F6EF]">
+          <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+
+            <div className="grid gap-12 lg:grid-cols-[.7fr_1.3fr] lg:gap-20">
+
+              <div className="relative">
+                <div className="aspect-[4/5] overflow-hidden bg-[#171717]">
+                  <div className="flex h-full flex-col justify-between p-7 text-white sm:p-10">
+                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/35">
+                      PUNEET KAUR SALUJA
+                    </span>
+
+                    <div>
+                      <p className="text-[clamp(4rem,7vw,7rem)] font-black leading-[0.8] tracking-[-0.08em]">
+                        9
+                      </p>
+
+                      <p className="mt-2 text-xl font-black uppercase tracking-[-0.02em]">
+                        YEARS
+                      </p>
+
+                      <div className="mt-5 h-1 w-14 bg-[#F4B400]" />
+
+                      <p className="mt-5 max-w-xs text-sm leading-6 text-white/50">
+                        Writing • Advertising • Strategy • Consumer Insights •
+                        Brand Communication
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute -bottom-5 -right-3 bg-[#F4B400] px-5 py-4 shadow-xl">
+                  <span className="block text-[9px] font-black uppercase tracking-[0.15em]">
+                    FIRST PAID PROJECT
+                  </span>
+                  <strong className="mt-1 block text-2xl font-black">
+                    ₹500
+                  </strong>
+                </div>
               </div>
 
-              <div>
-                <span>DURATION</span>
-                <strong>2 HOURS</strong>
+              <div className="flex flex-col justify-center">
+                <span className="text-[10px] font-black uppercase tracking-[0.22em] text-black/40">
+                  WHY LEARN FROM PUNEET?
+                </span>
+
+                <h2 className="mt-5 text-[clamp(3rem,6vw,6rem)] font-black leading-[0.83] tracking-[-0.07em]">
+                  I&apos;ve spent 9 years
+                  <br />
+                  trying to answer
+                  <br />
+                  <span className="text-[#F4B400]">one question.</span>
+                </h2>
+
+                <p className="mt-9 text-[clamp(1.5rem,3vw,2.4rem)] font-black leading-[0.98] tracking-[-0.04em]">
+                  Why does one message make people stop...
+                  <br />
+                  while another dies after one scroll?
+                </p>
+
+                <p className="mt-8 max-w-2xl text-sm leading-7 text-black/55">
+                  My journey started with a ₹500 writing project. Since then,
+                  I&apos;ve worked across writing, freelancing, advertising,
+                  strategy, consumer insights and brand communication.
+                </p>
+
+                <div className="mt-8 border-l-4 border-[#F4B400] pl-5">
+                  <p className="text-lg font-black leading-tight">
+                    Writing isn&apos;t just about putting words together.
+                  </p>
+
+                  <p className="mt-2 text-lg font-black leading-tight text-black/45">
+                    It&apos;s about understanding the person reading them.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* THE REAL PROBLEM */}
-        <section className="problem-section">
-          <div className="container narrow">
-            <div className="section-label">THE REAL PROBLEM</div>
+        {/* =========================================================
+            WHO IT'S FOR
+        ========================================================= */}
+        <section className="bg-[#F4B400]">
+          <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:px-12 lg:py-28">
 
-            <h2>
-              You're not struggling because you need
-              <br />
-              <span>more content ideas.</span>
-            </h2>
-
-            <p className="lead">
-              You may be struggling because your content isn't communicating
-              the right thing to the right person.
-            </p>
-
-            <div className="problem-card">
-              <div className="problem-card-number">01</div>
+            <div className="grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
 
               <div>
-                <h3>Posting consistently isn't the same as building a memorable brand.</h3>
+                <span className="text-[10px] font-black uppercase tracking-[0.22em] text-black/50">
+                  THIS IS FOR YOU IF...
+                </span>
 
-                <p>
-                  Your audience is already surrounded by content. More posts,
-                  more reels and more captions don't automatically create more
-                  attention.
+                <h2 className="mt-5 text-[clamp(3rem,6vw,6rem)] font-black leading-[0.82] tracking-[-0.07em]">
+                  You use
+                  <br />
+                  content to
+                  <br />
+                  <span className="text-white">build something.</span>
+                </h2>
+              </div>
+
+              <div>
+                <p className="max-w-xl text-lg font-bold leading-7 text-black/65">
+                  If you&apos;ve ever thought any of these, you&apos;ll understand
+                  why this webinar exists:
+                </p>
+
+                <div className="mt-8 grid gap-2 sm:grid-cols-2">
+                  {[
+                    'I’m posting consistently but nothing is happening.',
+                    'People engage, but don’t enquire.',
+                    'My content sounds like everyone else’s.',
+                    'I know what I want to say, but I don’t know how to say it.',
+                  ].map((item) => (
+                    <div
+                      key={item}
+                      className="flex min-h-[120px] items-end bg-[#F8F6EF] p-5"
+                    >
+                      <p className="text-sm font-black leading-tight">
+                        “{item}”
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8 flex flex-wrap gap-2">
+                  {audience.map((item) => (
+                    <span
+                      key={item}
+                      className="border border-black/20 bg-black/5 px-4 py-2 text-[10px] font-black uppercase tracking-[0.12em]"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="mt-9 text-xl font-black leading-tight sm:text-2xl">
+                  You don&apos;t need another content calendar.
+                  <br />
+                  <span className="text-white">
+                    You need to understand your audience better.
+                  </span>
                 </p>
               </div>
             </div>
-
-            <div className="video-card">
-              <div className="video-icon">▶</div>
-
-              <div>
-                <span>WATCH THIS BEFORE YOU REGISTER</span>
-                <p>
-                  Because posting consistently isn't the same as building a
-                  memorable brand.
-                </p>
-              </div>
-            </div>
-
-            <Link href="/register" className="secondary-button">
-              JOIN THE WEBINAR FOR ₹99 →
-            </Link>
           </div>
         </section>
 
-        {/* WHY CONTENT GETS FORGOTTEN */}
-        <section className="attention-section">
-          <div className="container">
-            <div className="section-label">THE QUESTION</div>
+        {/* =========================================================
+            SHIFT
+        ========================================================= */}
+        <section className="bg-[#171717] text-white">
+          <div className="mx-auto max-w-5xl px-5 py-24 sm:px-8 lg:py-32">
 
-            <h2>
-              Why does some content get remembered...
-              <br />
-              <span>while the rest disappears after one scroll?</span>
-            </h2>
+            <div className="text-center">
+              <span className="text-[10px] font-black uppercase tracking-[0.22em] text-[#F4B400]">
+                THE REAL SHIFT
+              </span>
 
-            <div className="question-grid">
-              <div className="question-item">
-                <span>01</span>
-                <strong>Better design?</strong>
-              </div>
-
-              <div className="question-item">
-                <span>02</span>
-                <strong>More followers?</strong>
-              </div>
-
-              <div className="question-item">
-                <span>03</span>
-                <strong>More content?</strong>
-              </div>
-
-              <div className="question-item">
-                <span>04</span>
-                <strong>Better algorithms?</strong>
-              </div>
-            </div>
-
-            <div className="deeper-answer">
-              <p>Or something deeper?</p>
-
-              <h3>
-                THE PSYCHOLOGY
+              <h2 className="mt-5 text-[clamp(3rem,7vw,7rem)] font-black leading-[0.82] tracking-[-0.075em]">
+                FROM CREATING
                 <br />
-                BEHIND COMMUNICATION.
-              </h3>
-
-              <p className="deeper-copy">
-                Your audience today is <strong>overstimulated, distracted</strong>{" "}
-                and highly aware that they're being marketed to.
-              </p>
-
-              <p className="deeper-copy">
-                So simply "posting consistently" isn't enough anymore.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* POSITIONING */}
-        <section className="positioning-section">
-          <div className="container narrow">
-            <div className="section-label">THIS IS NOT ANOTHER WEBINAR</div>
-
-            <h2>
-              This is not another
-              <br />
-              <span>"Grow Your Instagram" webinar.</span>
-            </h2>
-
-            <div className="not-list">
-              <div>
-                <span>×</span>
-                <p>No viral hacks.</p>
-              </div>
-
-              <div>
-                <span>×</span>
-                <p>No random growth tricks.</p>
-              </div>
-
-              <div>
-                <span>×</span>
-                <p>No endless list of tools.</p>
-              </div>
-            </div>
-
-            <div className="communication-box">
-              <span>THIS WEBINAR IS ABOUT ONE THING:</span>
-
-              <h3>THE PSYCHOLOGY BEHIND COMMUNICATION.</h3>
-
-              <div className="communication-points">
-                <div>
-                  <strong>Clear</strong>
-                  <span>enough to understand.</span>
-                </div>
-
-                <div>
-                  <strong>Human</strong>
-                  <span>enough to connect.</span>
-                </div>
-
-                <div>
-                  <strong>Strong</strong>
-                  <span>enough to convince.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* WHAT YOU WILL LEARN */}
-        <section className="learn-section">
-          <div className="container">
-            <div className="section-label">INSIDE THE WEBINAR</div>
-
-            <h2>
-              What you'll
-              <br />
-              <span>learn</span>
-            </h2>
-
-            <div className="learning-grid">
-              {learningPoints.map((item) => (
-                <div className="learning-card" key={item.number}>
-                  <span className="card-number">{item.number}</span>
-
-                  <h3>{item.title}</h3>
-
-                  <p>{item.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* MENTOR */}
-        <section className="mentor-section">
-          <div className="container mentor-grid">
-            <div className="mentor-image">
-              <div className="mentor-image-placeholder">
-                <span>YOUR PHOTO</span>
-              </div>
-            </div>
-
-            <div className="mentor-content">
-              <div className="section-label">WHY LEARN FROM PUNEET?</div>
-
-              <h2>
-                9 YEARS OF
+                <span className="text-white/30">CONTENT</span>
                 <br />
-                <span>WRITING. STRATEGY.</span>
+                TO CREATING
                 <br />
-                ADVERTISING.
-              </h2>
-
-              <p>
-                Puneet started writing before AI became part of everyday
-                content creation.
-              </p>
-
-              <p>
-                From her first paid writing project of <strong>₹500</strong> to
-                working across writing, freelancing, advertising, strategy and
-                brand communication, her journey has been built around
-                understanding one thing:
-              </p>
-
-              <div className="mentor-question">
-                WHAT MAKES PEOPLE
-                <br />
-                <strong>PAY ATTENTION?</strong>
-              </div>
-
-              <div className="mentor-question second">
-                And more importantly:
-                <br />
-                <strong>WHAT MAKES THEM CARE?</strong>
-              </div>
-
-              <p>
-                The webinar is based on that experience — not just
-                content-production tricks.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* WHO IS THIS FOR */}
-        <section className="audience-section">
-          <div className="container">
-            <div className="section-label">IS THIS FOR YOU?</div>
-
-            <h2>
-              Who is this
-              <br />
-              <span>for?</span>
-            </h2>
-
-            <div className="audience-grid">
-              {audience.map((item, index) => (
-                <div className="audience-card" key={item.title}>
-                  <span>0{index + 1}</span>
-
-                  <h3>{item.title}</h3>
-
-                  <p>{item.description}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="better-question">
-              <p>If you're tired of asking:</p>
-
-              <h3>"What should I post today?"</h3>
-
-              <div className="arrow">↓</div>
-
-              <p>It's time to ask a much better question:</p>
-
-              <h2>
-                "What should my audience
-                <br />
-                <span>think, feel and remember?</span>"
+                <span className="text-[#F4B400]">COMMUNICATION.</span>
               </h2>
             </div>
-          </div>
-        </section>
 
-        {/* OFFER */}
-        <section className="offer-section">
-          <div className="container">
-            <div className="offer-card">
-              <div className="offer-top">
-                <div>
-                  <div className="section-label">THE OFFER</div>
-
-                  <h2>
-                    ₹99 TO CHANGE
-                    <br />
-                    THE WAY YOU
-                    <br />
-                    <span>LOOK AT CONTENT.</span>
-                  </h2>
-                </div>
-
-                <div className="price">
-                  <span>2-HOUR LIVE WEBINAR</span>
-                  <div className="old-price">₹999</div>
-                  <strong>₹99</strong>
-                </div>
-              </div>
-
-              <div className="offer-divider" />
-
-              <div className="offer-bottom">
-                <div>
-                  <span>THE PSYCHOLOGY BEHIND WRITING</span>
-                  <p>
-                    Learn why some communication makes people stop, connect
-                    and remember.
+            <div className="mx-auto mt-16 max-w-3xl">
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="border border-white/10 p-7">
+                  <span className="text-[9px] font-black uppercase tracking-[0.16em] text-white/35">
+                    BEFORE
+                  </span>
+                  <p className="mt-5 text-xl font-black">
+                    “What should I post?”
                   </p>
                 </div>
 
-                <Link href="/register" className="primary-button">
-                  YES, I WANT TO LEARN
-                  <span>→</span>
-                </Link>
+                <div className="border border-[#F4B400] bg-[#F4B400] p-7 text-black">
+                  <span className="text-[9px] font-black uppercase tracking-[0.16em] text-black/50">
+                    AFTER
+                  </span>
+                  <p className="mt-5 text-xl font-black">
+                    “Why would someone care about this?”
+                  </p>
+                </div>
+
+                <div className="border border-white/10 p-7">
+                  <span className="text-[9px] font-black uppercase tracking-[0.16em] text-white/35">
+                    BEFORE
+                  </span>
+                  <p className="mt-5 text-xl font-black">
+                    “What information should I give?”
+                  </p>
+                </div>
+
+                <div className="border border-white/10 p-7">
+                  <span className="text-[9px] font-black uppercase tracking-[0.16em] text-white/35">
+                    AFTER
+                  </span>
+                  <p className="mt-5 text-xl font-black">
+                    “What should they think, feel or remember?”
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* FINAL CTA */}
-        <section className="final-section">
-          <div className="container narrow">
-            <div className="section-label">ONE LAST QUESTION...</div>
+        {/* =========================================================
+            OFFER
+        ========================================================= */}
+        <section className="bg-[#F8F6EF]">
+          <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
 
-            <h2>
-              You can keep creating
-              <br />
-              <span>more content.</span>
-            </h2>
+            <div className="overflow-hidden bg-[#F4B400]">
 
-            <p>
-              Or you can learn <strong>why some communication</strong> makes
-              people stop, connect and remember.
-            </p>
+              <div className="grid lg:grid-cols-[1fr_auto]">
 
-            <div className="final-statement">
-              <p>Your content doesn't need to be louder.</p>
+                <div className="p-8 sm:p-12 lg:p-16">
+                  <span className="text-[10px] font-black uppercase tracking-[0.22em] text-black/50">
+                    THE WEBINAR
+                  </span>
 
-              <h3>
-                It needs to mean something
-                <br />
-                to the person reading it.
-              </h3>
+                  <h2 className="mt-6 text-[clamp(3.2rem,6vw,6.5rem)] font-black leading-[0.8] tracking-[-0.075em]">
+                    THE
+                    <br />
+                    PSYCHOLOGY
+                    <br />
+                    BEHIND
+                    <br />
+                    <span className="text-white">WRITING.</span>
+                  </h2>
+
+                  <div className="mt-10 flex flex-wrap gap-2">
+                    {[
+                      'Attention',
+                      'Relevance',
+                      'Emotion',
+                      'Communication',
+                      'Brand Memory',
+                    ].map((item) => (
+                      <span
+                        key={item}
+                        className="border border-black/15 bg-black/5 px-3 py-2 text-[9px] font-black uppercase tracking-[0.1em]"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex min-w-[280px] flex-col justify-between bg-[#171717] p-8 text-white sm:p-12 lg:min-w-[330px]">
+
+                  <div>
+                    <span className="text-[9px] font-black uppercase tracking-[0.18em] text-white/40">
+                      LIVE WEBINAR
+                    </span>
+
+                    <div className="mt-10">
+                      <p className="text-[10px] font-black uppercase tracking-[0.15em] text-white/40">
+                        DATE
+                      </p>
+                      <p className="mt-2 text-lg font-black">
+                        06 SEPTEMBER 2026
+                      </p>
+                    </div>
+
+                    <div className="mt-6">
+                      <p className="text-[10px] font-black uppercase tracking-[0.15em] text-white/40">
+                        TIME
+                      </p>
+                      <p className="mt-2 text-lg font-black">
+                        11 AM IST
+                      </p>
+                    </div>
+
+                    <div className="mt-6">
+                      <p className="text-[10px] font-black uppercase tracking-[0.15em] text-white/40">
+                        DURATION
+                      </p>
+                      <p className="mt-2 text-lg font-black">
+                        2 HOURS
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mt-12">
+                    <p className="text-[10px] font-black uppercase tracking-[0.15em] text-white/40">
+                      ENTRY
+                    </p>
+
+                    <p className="mt-1 text-6xl font-black tracking-[-0.07em] text-[#F4B400]">
+                      ₹99
+                    </p>
+
+                    <Link
+                      href="/register"
+                      className="mt-7 flex w-full items-center justify-between bg-[#F4B400] px-5 py-4 text-[10px] font-black uppercase tracking-wide text-black transition hover:bg-white"
+                    >
+                      RESERVE MY SEAT
+                      <span className="text-xl">→</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <Link href="/register" className="primary-button large">
-              RESERVE MY SEAT FOR ₹99
-              <span>→</span>
+            <p className="mx-auto mt-7 max-w-xl text-center text-sm leading-6 text-black/45">
+              2 hours. One new way of looking at the content you create.
+            </p>
+          </div>
+        </section>
+
+        {/* =========================================================
+            FINAL CTA
+        ========================================================= */}
+        <section className="relative bg-[#EDE9DE]">
+          <div className="mx-auto max-w-5xl px-5 py-28 text-center sm:px-8 lg:py-36">
+
+            <span className="text-[10px] font-black uppercase tracking-[0.22em] text-black/40">
+              ONE LAST QUESTION
+            </span>
+
+            <h2 className="mt-7 text-[clamp(3.5rem,8vw,8rem)] font-black leading-[0.8] tracking-[-0.08em]">
+              WHAT SHOULD
+              <br />
+              YOUR AUDIENCE
+              <br />
+              <span className="text-[#F4B400]">REMEMBER?</span>
+            </h2>
+
+            <p className="mx-auto mt-9 max-w-2xl text-lg leading-7 text-black/55">
+              You can keep asking “What should I post?”
+              <br />
+              Or start asking:
+            </p>
+
+            <p className="mx-auto mt-6 max-w-2xl text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.92] tracking-[-0.05em]">
+              “How do I make
+              <br />
+              <span className="text-black/35">what I say matter?”</span>
+            </p>
+
+            <Link
+              href="/register"
+              className="mt-12 inline-flex items-center gap-5 bg-[#171717] px-8 py-5 text-xs font-black uppercase tracking-wide text-white transition hover:-translate-y-1"
+            >
+              YES — I WANT MY CONTENT TO MAKE PEOPLE CARE
+              <span className="text-xl">→</span>
             </Link>
 
-            <div className="final-meta">
-              <span>Date: __________________</span>
-              <span>Time: __________________</span>
-              <span>2 Hours</span>
+            <div className="mt-7 flex flex-wrap justify-center gap-x-7 gap-y-2 text-[9px] font-black uppercase tracking-[0.15em] text-black/40">
+              <span>06 SEPTEMBER 2026</span>
+              <span>11 AM IST</span>
+              <span>2 HOURS • LIVE</span>
+              <span>₹99</span>
             </div>
           </div>
         </section>
+
+        {/* =========================================================
+            FAQ
+        ========================================================= */}
+        <section className="bg-[#171717] text-white">
+          <div className="mx-auto max-w-4xl px-5 py-24 sm:px-8 lg:py-28">
+
+            <div className="mb-12">
+              <span className="text-[10px] font-black uppercase tracking-[0.22em] text-[#F4B400]">
+                FAQ
+              </span>
+
+              <h2 className="mt-5 text-[clamp(3rem,6vw,5.5rem)] font-black leading-[0.85] tracking-[-0.07em]">
+                Before you
+                <br />
+                <span className="text-white/35">join.</span>
+              </h2>
+            </div>
+
+            <div className="divide-y divide-white/10">
+              {faqs.map((faq, index) => (
+                <details
+                  key={faq.question}
+                  className="group py-6"
+                >
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-6 text-base font-black sm:text-lg">
+                    <span>
+                      <span className="mr-4 text-[9px] text-[#F4B400]">
+                        0{index + 1}
+                      </span>
+                      {faq.question}
+                    </span>
+
+                    <span className="text-2xl font-normal text-white/40 transition group-open:rotate-45">
+                      +
+                    </span>
+                  </summary>
+
+                  <p className="max-w-2xl pt-5 pl-8 text-sm leading-7 text-white/45">
+                    {faq.answer}
+                  </p>
+                </details>
+              ))}
+            </div>
+
+            <div className="mt-14 border-t border-white/10 pt-10 text-center">
+              <Link
+                href="/register"
+                className="inline-flex items-center gap-4 bg-[#F4B400] px-7 py-4 text-xs font-black uppercase tracking-wide text-black transition hover:-translate-y-1"
+              >
+                RESERVE MY SEAT — ₹99
+                <span className="text-xl">→</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <Footer />
-
-      <style jsx global>{`
-        .psychology-page {
-          --ink: #171717;
-          --muted: #666;
-          --cream: #f7f4ed;
-          --paper: #fffdf8;
-          --accent: #f3c400;
-          --line: rgba(23, 23, 23, 0.12);
-          color: var(--ink);
-          background: var(--paper);
-          overflow: hidden;
-        }
-
-        .psychology-page * {
-          box-sizing: border-box;
-        }
-
-        .psychology-page .container {
-          width: min(1180px, calc(100% - 40px));
-          margin: 0 auto;
-          position: relative;
-          z-index: 2;
-        }
-
-        .psychology-page .narrow {
-          width: min(900px, calc(100% - 40px));
-        }
-
-        .psychology-page h1,
-        .psychology-page h2,
-        .psychology-page h3,
-        .psychology-page p {
-          margin-top: 0;
-        }
-
-        .psychology-page h1,
-        .psychology-page h2,
-        .psychology-page h3 {
-          letter-spacing: -0.045em;
-        }
-
-        .psychology-page a {
-          text-decoration: none;
-        }
-
-        .eyebrow,
-        .section-label {
-          font-size: 12px;
-          font-weight: 800;
-          letter-spacing: 0.16em;
-          text-transform: uppercase;
-        }
-
-        .eyebrow {
-          display: inline-flex;
-          align-items: center;
-          gap: 9px;
-          margin-bottom: 26px;
-          padding: 9px 13px;
-          border: 1px solid rgba(23, 23, 23, 0.18);
-          border-radius: 999px;
-          background: rgba(255, 255, 255, 0.55);
-        }
-
-        .eyebrow-dot {
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background: var(--accent);
-        }
-
-        .section-label {
-          color: #777;
-          margin-bottom: 20px;
-        }
-
-        .primary-button,
-        .secondary-button {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 18px;
-          min-height: 58px;
-          padding: 0 27px;
-          border-radius: 4px;
-          font-size: 13px;
-          font-weight: 900;
-          letter-spacing: 0.04em;
-          transition:
-            transform 180ms ease,
-            box-shadow 180ms ease;
-        }
-
-        .primary-button {
-          color: #111;
-          background: var(--accent);
-          box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-        }
-
-        .primary-button:hover,
-        .secondary-button:hover {
-          transform: translateY(-2px);
-        }
-
-        .primary-button span {
-          font-size: 20px;
-          line-height: 1;
-        }
-
-        .secondary-button {
-          color: var(--ink);
-          border: 1px solid var(--ink);
-          background: transparent;
-          margin-top: 28px;
-        }
-
-        /* HERO */
-
-        .hero {
-          position: relative;
-          min-height: 780px;
-          display: flex;
-          align-items: center;
-          padding: 110px 0 90px;
-          background:
-            radial-gradient(circle at 80% 25%, rgba(243, 196, 0, 0.16), transparent 28%),
-            linear-gradient(135deg, #f8f5ed 0%, #fffdf8 65%, #f2efe6 100%);
-        }
-
-        .hero-container {
-          text-align: center;
-        }
-
-        .hero h1 {
-          margin-bottom: 26px;
-          font-size: clamp(54px, 8vw, 105px);
-          line-height: 0.88;
-          font-weight: 950;
-        }
-
-        .hero h1 span {
-          color: transparent;
-          -webkit-text-stroke: 1.5px var(--ink);
-        }
-
-        .hero-subtitle {
-          max-width: 800px;
-          margin: 0 auto 24px;
-          font-size: clamp(20px, 2.4vw, 30px);
-          line-height: 1.35;
-          font-weight: 500;
-        }
-
-        .hero-subtitle strong {
-          font-weight: 900;
-        }
-
-        .hero-description {
-          max-width: 720px;
-          margin: 0 auto;
-          color: #666;
-          font-size: 16px;
-          line-height: 1.7;
-        }
-
-        .hero-cta {
-          margin-top: 34px;
-        }
-
-        .event-meta {
-          display: flex;
-          justify-content: center;
-          gap: 70px;
-          margin-top: 55px;
-        }
-
-        .event-meta div {
-          display: flex;
-          flex-direction: column;
-          gap: 7px;
-        }
-
-        .event-meta span {
-          color: #777;
-          font-size: 10px;
-          font-weight: 800;
-          letter-spacing: 0.16em;
-        }
-
-        .event-meta strong {
-          font-size: 13px;
-          letter-spacing: 0.04em;
-        }
-
-        .hero-glow {
-          position: absolute;
-          border-radius: 50%;
-          pointer-events: none;
-          filter: blur(2px);
-        }
-
-        .hero-glow-one {
-          width: 230px;
-          height: 230px;
-          top: 100px;
-          left: -110px;
-          border: 1px solid rgba(23, 23, 23, 0.08);
-        }
-
-        .hero-glow-two {
-          width: 160px;
-          height: 160px;
-          bottom: 80px;
-          right: -70px;
-          background: rgba(243, 196, 0, 0.12);
-        }
-
-        /* PROBLEM */
-
-        .problem-section {
-          padding: 130px 0;
-          background: #171717;
-          color: #fff;
-        }
-
-        .problem-section .section-label {
-          color: #aaa;
-        }
-
-        .problem-section h2 {
-          max-width: 850px;
-          font-size: clamp(42px, 6vw, 76px);
-          line-height: 0.98;
-          margin-bottom: 30px;
-        }
-
-        .problem-section h2 span {
-          color: var(--accent);
-        }
-
-        .lead {
-          max-width: 650px;
-          color: #bdbdbd;
-          font-size: 20px;
-          line-height: 1.6;
-        }
-
-        .problem-card {
-          display: grid;
-          grid-template-columns: 80px 1fr;
-          gap: 25px;
-          margin-top: 65px;
-          padding: 38px;
-          border: 1px solid rgba(255, 255, 255, 0.14);
-          background: rgba(255, 255, 255, 0.035);
-        }
-
-        .problem-card-number {
-          color: var(--accent);
-          font-size: 14px;
-          font-weight: 900;
-        }
-
-        .problem-card h3 {
-          max-width: 650px;
-          margin-bottom: 16px;
-          font-size: 27px;
-          line-height: 1.15;
-        }
-
-        .problem-card p {
-          max-width: 650px;
-          margin-bottom: 0;
-          color: #999;
-          line-height: 1.7;
-        }
-
-        .video-card {
-          display: flex;
-          align-items: center;
-          gap: 22px;
-          margin-top: 24px;
-          padding: 25px 30px;
-          border: 1px solid rgba(255, 255, 255, 0.14);
-          background: #222;
-        }
-
-        .video-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex: 0 0 auto;
-          width: 48px;
-          height: 48px;
-          border-radius: 50%;
-          color: #111;
-          background: var(--accent);
-          font-size: 13px;
-        }
-
-        .video-card span {
-          color: var(--accent);
-          font-size: 10px;
-          font-weight: 900;
-          letter-spacing: 0.15em;
-        }
-
-        .video-card p {
-          margin: 6px 0 0;
-          color: #aaa;
-          font-size: 14px;
-        }
-
-        .problem-section .secondary-button {
-          color: #fff;
-          border-color: rgba(255, 255, 255, 0.45);
-        }
-
-        /* ATTENTION */
-
-        .attention-section {
-          padding: 140px 0;
-          background: var(--cream);
-          text-align: center;
-        }
-
-        .attention-section h2 {
-          max-width: 1000px;
-          margin: 0 auto;
-          font-size: clamp(40px, 6vw, 72px);
-          line-height: 0.98;
-        }
-
-        .attention-section h2 span {
-          color: #888;
-        }
-
-        .question-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          margin-top: 70px;
-          border-top: 1px solid var(--line);
-          border-bottom: 1px solid var(--line);
-        }
-
-        .question-item {
-          display: flex;
-          flex-direction: column;
-          gap: 14px;
-          padding: 32px 15px;
-          border-right: 1px solid var(--line);
-        }
-
-        .question-item:last-child {
-          border-right: 0;
-        }
-
-        .question-item span {
-          color: #999;
-          font-size: 11px;
-          font-weight: 800;
-        }
-
-        .question-item strong {
-          font-size: 17px;
-        }
-
-        .deeper-answer {
-          max-width: 760px;
-          margin: 100px auto 0;
-        }
-
-        .deeper-answer > p:first-child {
-          margin-bottom: 16px;
-          color: #777;
-          font-size: 17px;
-        }
-
-        .deeper-answer h3 {
-          margin-bottom: 35px;
-          font-size: clamp(44px, 6vw, 76px);
-          line-height: 0.95;
-        }
-
-        .deeper-copy {
-          max-width: 650px;
-          margin: 12px auto;
-          color: #666;
-          font-size: 18px;
-          line-height: 1.6;
-        }
-
-        /* POSITIONING */
-
-        .positioning-section {
-          padding: 140px 0;
-          background: #fffdf8;
-        }
-
-        .positioning-section h2 {
-          font-size: clamp(42px, 6vw, 72px);
-          line-height: 0.97;
-          margin-bottom: 55px;
-        }
-
-        .positioning-section h2 span {
-          color: #888;
-        }
-
-        .not-list {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          border-top: 1px solid var(--line);
-          border-bottom: 1px solid var(--line);
-        }
-
-        .not-list div {
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          padding: 24px 10px;
-          border-right: 1px solid var(--line);
-        }
-
-        .not-list div:last-child {
-          border-right: 0;
-        }
-
-        .not-list span {
-          color: #999;
-          font-size: 22px;
-        }
-
-        .not-list p {
-          margin: 0;
-          font-size: 14px;
-        }
-
-        .communication-box {
-          margin-top: 70px;
-          padding: 55px;
-          background: #171717;
-          color: #fff;
-        }
-
-        .communication-box > span {
-          color: var(--accent);
-          font-size: 11px;
-          font-weight: 900;
-          letter-spacing: 0.15em;
-        }
-
-        .communication-box h3 {
-          max-width: 750px;
-          margin: 18px 0 50px;
-          font-size: clamp(35px, 5vw, 60px);
-          line-height: 0.98;
-        }
-
-        .communication-points {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 20px;
-        }
-
-        .communication-points div {
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
-          padding-top: 18px;
-          border-top: 1px solid rgba(255, 255, 255, 0.18);
-        }
-
-        .communication-points strong {
-          color: var(--accent);
-          font-size: 20px;
-        }
-
-        .communication-points span {
-          color: #aaa;
-          font-size: 14px;
-        }
-
-        /* LEARN */
-
-        .learn-section {
-          padding: 140px 0;
-          background: #f1eee6;
-        }
-
-        .learn-section h2 {
-          margin-bottom: 60px;
-          font-size: clamp(48px, 7vw, 88px);
-          line-height: 0.88;
-        }
-
-        .learn-section h2 span {
-          color: #888;
-        }
-
-        .learning-grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 2px;
-          background: var(--ink);
-          border: 2px solid var(--ink);
-        }
-
-        .learning-card {
-          min-height: 300px;
-          padding: 40px;
-          background: #fffdf8;
-        }
-
-        .card-number {
-          display: block;
-          margin-bottom: 55px;
-          color: #999;
-          font-size: 11px;
-          font-weight: 900;
-        }
-
-        .learning-card h3 {
-          margin-bottom: 15px;
-          font-size: 22px;
-        }
-
-        .learning-card p {
-          max-width: 430px;
-          margin: 0;
-          color: #666;
-          font-size: 15px;
-          line-height: 1.7;
-        }
-
-        /* MENTOR */
-
-        .mentor-section {
-          padding: 140px 0;
-          background: #171717;
-          color: #fff;
-        }
-
-        .mentor-grid {
-          display: grid;
-          grid-template-columns: 0.85fr 1.15fr;
-          gap: 90px;
-          align-items: center;
-        }
-
-        .mentor-image-placeholder {
-          aspect-ratio: 4 / 5;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background:
-            linear-gradient(145deg, #303030, #1c1c1c);
-          color: #777;
-          font-size: 11px;
-          font-weight: 900;
-          letter-spacing: 0.15em;
-        }
-
-        .mentor-content .section-label {
-          color: #aaa;
-        }
-
-        .mentor-content h2 {
-          margin-bottom: 35px;
-          font-size: clamp(40px, 5vw, 68px);
-          line-height: 0.92;
-        }
-
-        .mentor-content h2 span {
-          color: var(--accent);
-        }
-
-        .mentor-content > p {
-          max-width: 600px;
-          color: #aaa;
-          font-size: 16px;
-          line-height: 1.7;
-        }
-
-        .mentor-question {
-          margin: 35px 0;
-          padding-left: 25px;
-          border-left: 3px solid var(--accent);
-          color: #aaa;
-          font-size: 15px;
-          line-height: 1.5;
-        }
-
-        .mentor-question strong {
-          color: #fff;
-          font-size: 24px;
-        }
-
-        .mentor-question.second {
-          margin-top: 25px;
-        }
-
-        /* AUDIENCE */
-
-        .audience-section {
-          padding: 140px 0;
-          background: var(--cream);
-        }
-
-        .audience-section h2 {
-          margin-bottom: 60px;
-          font-size: clamp(48px, 7vw, 88px);
-          line-height: 0.88;
-        }
-
-        .audience-section h2 span {
-          color: #888;
-        }
-
-        .audience-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 15px;
-        }
-
-        .audience-card {
-          min-height: 280px;
-          padding: 28px;
-          border: 1px solid var(--line);
-          background: rgba(255, 255, 255, 0.42);
-        }
-
-        .audience-card > span {
-          color: #999;
-          font-size: 11px;
-          font-weight: 900;
-        }
-
-        .audience-card h3 {
-          margin: 65px 0 15px;
-          font-size: 20px;
-        }
-
-        .audience-card p {
-          margin: 0;
-          color: #666;
-          font-size: 14px;
-          line-height: 1.65;
-        }
-
-        .better-question {
-          margin-top: 120px;
-          text-align: center;
-        }
-
-        .better-question p {
-          color: #777;
-          font-size: 17px;
-        }
-
-        .better-question h3 {
-          margin: 20px 0;
-          font-size: clamp(30px, 4vw, 48px);
-        }
-
-        .arrow {
-          margin: 25px 0;
-          color: #aaa;
-          font-size: 28px;
-        }
-
-        .better-question h2 {
-          margin: 20px 0 0;
-          font-size: clamp(35px, 5vw, 60px);
-          line-height: 1;
-        }
-
-        .better-question h2 span {
-          color: #777;
-        }
-
-        /* OFFER */
-
-        .offer-section {
-          padding: 120px 0;
-          background: #171717;
-        }
-
-        .offer-card {
-          padding: 55px;
-          background: var(--accent);
-          color: #111;
-        }
-
-        .offer-top {
-          display: flex;
-          justify-content: space-between;
-          gap: 50px;
-        }
-
-        .offer-top .section-label {
-          color: rgba(17, 17, 17, 0.55);
-        }
-
-        .offer-card h2 {
-          margin: 0;
-          font-size: clamp(40px, 5.5vw, 70px);
-          line-height: 0.92;
-        }
-
-        .offer-card h2 span {
-          color: #fff;
-        }
-
-        .price {
-          min-width: 220px;
-          text-align: right;
-        }
-
-        .price > span {
-          display: block;
-          margin-bottom: 15px;
-          font-size: 10px;
-          font-weight: 900;
-          letter-spacing: 0.13em;
-        }
-
-        .old-price {
-          color: rgba(17, 17, 17, 0.5);
-          font-size: 24px;
-          text-decoration: line-through;
-        }
-
-        .price strong {
-          display: block;
-          font-size: clamp(65px, 8vw, 110px);
-          line-height: 0.9;
-          letter-spacing: -0.07em;
-        }
-
-        .offer-divider {
-          height: 1px;
-          margin: 50px 0 35px;
-          background: rgba(17, 17, 17, 0.2);
-        }
-
-        .offer-bottom {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 30px;
-        }
-
-        .offer-bottom > div > span {
-          font-size: 11px;
-          font-weight: 900;
-          letter-spacing: 0.12em;
-        }
-
-        .offer-bottom p {
-          max-width: 520px;
-          margin: 8px 0 0;
-          font-size: 15px;
-          line-height: 1.5;
-        }
-
-        .offer-bottom .primary-button {
-          background: #171717;
-          color: #fff;
-          white-space: nowrap;
-        }
-
-        /* FINAL */
-
-        .final-section {
-          padding: 150px 0;
-          text-align: center;
-          background: var(--paper);
-        }
-
-        .final-section h2 {
-          margin-bottom: 30px;
-          font-size: clamp(48px, 7vw, 88px);
-          line-height: 0.9;
-        }
-
-        .final-section h2 span {
-          color: #888;
-        }
-
-        .final-section > .container > p {
-          max-width: 680px;
-          margin: 0 auto;
-          color: #666;
-          font-size: 20px;
-          line-height: 1.6;
-        }
-
-        .final-statement {
-          margin: 80px auto 50px;
-          padding: 50px 20px;
-          border-top: 1px solid var(--line);
-          border-bottom: 1px solid var(--line);
-        }
-
-        .final-statement p {
-          margin-bottom: 15px;
-          color: #777;
-          font-size: 17px;
-        }
-
-        .final-statement h3 {
-          margin: 0;
-          font-size: clamp(34px, 5vw, 60px);
-          line-height: 1;
-        }
-
-        .primary-button.large {
-          min-height: 66px;
-          padding: 0 35px;
-        }
-
-        .final-meta {
-          display: flex;
-          justify-content: center;
-          flex-wrap: wrap;
-          gap: 25px;
-          margin-top: 30px;
-          color: #888;
-          font-size: 11px;
-          font-weight: 800;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-        }
-
-        /* RESPONSIVE */
-
-        @media (max-width: 900px) {
-          .hero {
-            min-height: auto;
-            padding: 90px 0 75px;
-          }
-
-          .event-meta {
-            gap: 30px;
-          }
-
-          .question-grid,
-          .audience-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-
-          .question-item:nth-child(2) {
-            border-right: 0;
-          }
-
-          .question-item:nth-child(-n + 2) {
-            border-bottom: 1px solid var(--line);
-          }
-
-          .not-list {
-            grid-template-columns: 1fr;
-          }
-
-          .not-list div {
-            border-right: 0;
-            border-bottom: 1px solid var(--line);
-          }
-
-          .not-list div:last-child {
-            border-bottom: 0;
-          }
-
-          .mentor-grid {
-            grid-template-columns: 1fr;
-            gap: 55px;
-          }
-
-          .mentor-image {
-            max-width: 430px;
-          }
-
-          .offer-top {
-            flex-direction: column;
-          }
-
-          .price {
-            text-align: left;
-          }
-
-          .offer-bottom {
-            flex-direction: column;
-            align-items: flex-start;
-          }
-        }
-
-        @media (max-width: 640px) {
-          .psychology-page .container,
-          .psychology-page .narrow {
-            width: min(100% - 28px, 900px);
-          }
-
-          .hero h1 {
-            font-size: 52px;
-          }
-
-          .hero-subtitle {
-            font-size: 20px;
-          }
-
-          .hero-description {
-            font-size: 14px;
-          }
-
-          .event-meta {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 18px;
-            margin-top: 40px;
-          }
-
-          .problem-section,
-          .attention-section,
-          .positioning-section,
-          .learn-section,
-          .mentor-section,
-          .audience-section,
-          .final-section {
-            padding: 90px 0;
-          }
-
-          .problem-card {
-            grid-template-columns: 1fr;
-            padding: 28px;
-          }
-
-          .video-card {
-            align-items: flex-start;
-            padding: 22px;
-          }
-
-          .question-grid,
-          .audience-grid,
-          .learning-grid,
-          .communication-points {
-            grid-template-columns: 1fr;
-          }
-
-          .question-item {
-            border-right: 0;
-            border-bottom: 1px solid var(--line);
-          }
-
-          .question-item:last-child {
-            border-bottom: 0;
-          }
-
-          .learning-card {
-            min-height: 250px;
-          }
-
-          .communication-box {
-            padding: 32px 25px;
-          }
-
-          .communication-points {
-            gap: 25px;
-          }
-
-          .offer-section {
-            padding: 70px 0;
-          }
-
-          .offer-card {
-            padding: 32px 24px;
-          }
-
-          .offer-bottom .primary-button,
-          .offer-bottom .primary-button,
-          .hero .primary-button,
-          .final-section .primary-button {
-            width: 100%;
-          }
-
-          .final-meta {
-            flex-direction: column;
-            gap: 10px;
-          }
-        }
-      `}</style>
     </>
   );
 }

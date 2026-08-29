@@ -231,96 +231,129 @@ export default function PsychologyBehindWritingPage() {
       </section>
 
 
-      {/* =========================================================
-          PROBLEM
-      ========================================================= */}
-      <section className="bg-[#171717] px-5 py-20 text-white sm:px-8 lg:px-12 lg:py-28">
+     {/* =========================================================
+    PROBLEM — TWO COLUMN
+========================================================= */}
+<section className="bg-[#171717] px-5 py-20 text-white sm:px-8 lg:px-12 lg:py-28">
 
-        <div className="mx-auto max-w-6xl">
+  <div className="mx-auto max-w-7xl">
 
-          <div className="max-w-3xl">
+    <div className="grid items-start gap-14 lg:grid-cols-2 lg:gap-20">
 
-            <div className="mb-5 text-sm font-black uppercase tracking-[0.2em] text-[#F4B400]">
-              The Problem
-            </div>
+      {/* =====================================================
+          LEFT COLUMN
+      ===================================================== */}
+      <div>
 
-            <h2 className="text-4xl font-black uppercase leading-[0.95] tracking-[-0.04em] sm:text-6xl">
-              You probably don&apos;t have a content problem.
-            </h2>
+        <div className="text-sm font-black uppercase tracking-[0.2em] text-[#F4B400]">
+          The Problem
+        </div>
 
+        <h2 className="mt-6 max-w-xl text-5xl font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-6xl lg:text-7xl">
+          You probably don&apos;t have a content problem.
+        </h2>
 
-            <div className="mt-8 space-y-5 text-lg leading-relaxed text-white/70">
+        <div className="mt-8 max-w-lg space-y-4 text-lg leading-relaxed text-white/65">
 
-              <p>
-                You have ideas.
-              </p>
+          <p>
+            You have ideas.
+          </p>
 
-              <p>
-                You know your subject.
-              </p>
+          <p>
+            You know your subject.
+          </p>
 
-              <p>
-                You know you should post consistently.
-              </p>
+          <p>
+            You know you should post consistently.
+          </p>
 
-              <p>
-                And yet...
-              </p>
+          <p>
+            And yet...
+          </p>
 
+        </div>
 
-              <p className="text-3xl font-black text-white">
-                You publish.
-                <br />
-                Maybe someone likes it.
-                <br />
-                Maybe someone comments.
-                <br />
-                And then...
-              </p>
+      </div>
 
 
-              <p className="text-5xl font-black text-[#F4B400]">
-                Nothing.
-              </p>
+      {/* =====================================================
+          RIGHT COLUMN
+      ===================================================== */}
+      <div className="lg:pt-12">
+
+        <div className="border-l-2 border-[#F4B400] pl-7 sm:pl-9">
+
+          <p className="text-xl font-bold">
+            You publish.
+          </p>
+
+          <p className="mt-1 text-xl font-bold">
+            Maybe someone likes it.
+          </p>
+
+          <p className="text-xl font-bold">
+            Maybe someone comments.
+          </p>
+
+          <p className="text-xl font-bold">
+            And then...
+          </p>
 
 
-              <p>
-                No conversation.
-                <br />
-                No enquiry.
-                <br />
-                No one remembers you the next day.
-              </p>
-
-            </div>
+          <p className="mt-8 text-5xl font-black tracking-[-0.04em] text-[#F4B400] sm:text-6xl">
+            Nothing.
+          </p>
 
 
-            <div className="mt-10 border-l-4 border-[#F4B400] pl-6">
+          <div className="mt-6 space-y-2 text-base text-white/55 sm:text-lg">
 
-              <p className="text-xl font-bold">
-                You keep asking:
-              </p>
+            <p>
+              No conversation.
+            </p>
 
-              <p className="mt-2 text-3xl font-black">
-                “What should I post today?”
-              </p>
+            <p>
+              No enquiry.
+            </p>
 
-              <p className="mt-5 text-xl text-white/60">
-                But maybe the better question is:
-              </p>
+            <p>
+              No one remembers you the next day.
+            </p>
 
-              <p className="mt-2 text-3xl font-black text-[#F4B400]">
-                “Why should my audience care?”
-              </p>
+          </div>
 
-            </div>
+
+          {/* QUESTION */}
+
+          <div className="mt-12 border-t border-white/10 pt-8">
+
+            <p className="text-sm font-black uppercase tracking-[0.15em] text-white/45">
+              You keep asking:
+            </p>
+
+            <p className="mt-3 text-2xl font-black leading-tight sm:text-3xl">
+              “What should I post today?”
+            </p>
+
+
+            <p className="mt-7 text-base text-white/50">
+              But maybe the better question is:
+            </p>
+
+            <p className="mt-2 text-2xl font-black leading-tight text-[#F4B400] sm:text-3xl">
+              “Why should my audience care?”
+            </p>
 
           </div>
 
         </div>
 
-      </section>
+      </div>
 
+    </div>
+
+  </div>
+
+</section>
 
       {/* =========================================================
           A/B TEST

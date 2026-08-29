@@ -62,8 +62,6 @@ const faqs = [
 export default function PsychologyBehindWritingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const registerUrl = "/register";
-
   return (
     <main className="min-h-screen bg-[#F8F6F0] text-[#171717]">
 
@@ -72,49 +70,64 @@ export default function PsychologyBehindWritingPage() {
       ========================================================= */}
       <section className="relative overflow-hidden px-5 pb-16 pt-10 sm:px-8 lg:px-12 lg:pb-24 lg:pt-14">
 
-        {/* Decorative background */}
         <div className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full bg-[#F4B400]/10 blur-[100px]" />
+
         <div className="pointer-events-none absolute -bottom-40 left-0 h-[400px] w-[400px] rounded-full bg-[#F4B400]/10 blur-[100px]" />
 
         <div className="relative mx-auto max-w-7xl">
 
-          {/* Eyebrow */}
+          {/* EYEBROW */}
           <div className="mb-10 flex items-center gap-3">
-            <span className="h-3 w-3 rounded-full bg-[#F4B400]" />
-            <span className="text-[10px] font-black uppercase tracking-[0.28em]">
+            <span className="h-3 w-3 shrink-0 rounded-full bg-[#F4B400]" />
+
+            <span className="text-xs font-black uppercase tracking-[0.2em] sm:text-sm">
               The Psychology Behind Writing
             </span>
           </div>
 
-          {/* Main hero grid */}
+
+          {/* HERO GRID */}
           <div className="grid items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
 
-            {/* LEFT — HEADLINE */}
+            {/* =====================================================
+                LEFT SIDE
+            ===================================================== */}
             <div>
 
               <h1 className="max-w-[680px] text-[clamp(3.6rem,7.2vw,7.8rem)] font-black uppercase leading-[0.82] tracking-[-0.065em]">
+
                 WHY
                 <br />
+
                 ISN&apos;T
                 <br />
+
                 ANYONE
                 <br />
+
                 <span className="text-[#F4B400]">
                   NOTICING
                 </span>
+
                 <br />
+
                 YOUR
                 <br />
+
                 CONTENT?
+
               </h1>
+
 
               <p className="mt-8 max-w-[620px] text-xl font-bold leading-[1.2] tracking-[-0.02em] sm:text-2xl lg:text-[2rem]">
                 Learn what makes people stop, pay attention and actually
                 process a message — instead of scrolling past it.
               </p>
 
-              {/* Topic pills */}
+
+              {/* TOPIC PILLS */}
               <div className="mt-8 flex flex-wrap gap-2">
+
                 {[
                   "ATTENTION",
                   "CURIOSITY",
@@ -122,27 +135,37 @@ export default function PsychologyBehindWritingPage() {
                   "EMOTION",
                   "MEMORY",
                 ].map((item) => (
+
                   <span
                     key={item}
-                    className="border border-black/15 bg-white/50 px-4 py-2 text-[9px] font-black uppercase tracking-[0.15em]"
+                    className="border border-black/15 bg-white/60 px-4 py-2.5 text-xs font-black uppercase tracking-[0.1em] sm:text-sm"
                   >
                     {item}
                   </span>
+
                 ))}
+
               </div>
+
             </div>
 
-            {/* RIGHT — VIDEO */}
+
+            {/* =====================================================
+                RIGHT SIDE — VIDEO
+            ===================================================== */}
             <div className="flex items-center justify-center lg:min-h-[650px]">
 
-              <div className="w-full max-w-[600px]">
+              <div className="w-full max-w-[640px]">
 
-                {/* Watch first label */}
-                <div className="relative z-10 mb-[-18px] ml-[-12px] inline-block rotate-[-4deg] bg-[#F4B400] px-5 py-3 text-[10px] font-black uppercase tracking-[0.14em] shadow-lg">
-                  WATCH THIS FIRST
+                {/* WATCH THIS FIRST LABEL */}
+
+                <div className="relative z-10 mb-[-18px] ml-[-12px] inline-block rotate-[-4deg] bg-[#F4B400] px-5 py-3 text-xs font-black uppercase tracking-[0.12em] shadow-lg sm:text-sm">
+                  Watch This First
                 </div>
 
-                {/* Video */}
+
+                {/* VIDEO */}
+
                 <div className="relative aspect-video overflow-hidden rounded-[1.5rem] border border-black/10 bg-[#171717] shadow-[0_30px_80px_rgba(0,0,0,0.18)]">
 
                   <iframe
@@ -155,34 +178,47 @@ export default function PsychologyBehindWritingPage() {
 
                 </div>
 
-                {/* Video caption */}
-                <div className="mt-4 flex items-center justify-between gap-4 text-[9px] font-black uppercase tracking-[0.14em] text-black/40">
-                  <span>WATCH BEFORE YOU REGISTER</span>
-                  <span className="text-right">
-                    THE PSYCHOLOGY BEHIND WRITING
+
+                {/* VIDEO CAPTION */}
+
+                <div className="mt-4 flex items-center justify-between gap-4 text-xs font-bold uppercase tracking-[0.08em] text-black/55 sm:text-sm">
+
+                  <span>
+                    Watch Before You Register
                   </span>
+
+                  <span className="text-right">
+                    The Psychology Behind Writing
+                  </span>
+
                 </div>
 
               </div>
+
             </div>
 
           </div>
 
-          {/* CTA + date */}
+
+          {/* HERO CTA BAR */}
+
           <div className="mt-14 flex flex-col gap-5 border-t border-black/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
 
             <div>
-              <div className="text-[10px] font-black uppercase tracking-[0.18em] text-black/45">
+
+              <div className="text-sm font-black uppercase tracking-[0.12em] text-black/55">
                 LIVE • 2 HOURS • ₹99
               </div>
 
-              <div className="mt-2 text-sm font-bold">
+              <div className="mt-2 text-base font-bold">
                 06 September 2026 • 11 AM IST
               </div>
+
             </div>
 
+
             <Link
-              href={registerUrl}
+              href="/register"
               className="inline-flex items-center justify-center bg-[#171717] px-7 py-4 text-sm font-black uppercase tracking-[0.05em] text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#F4B400] hover:text-[#171717]"
             >
               I WANT MY CONTENT TO MAKE PEOPLE CARE →
@@ -191,6 +227,7 @@ export default function PsychologyBehindWritingPage() {
           </div>
 
         </div>
+
       </section>
 
 
@@ -203,13 +240,14 @@ export default function PsychologyBehindWritingPage() {
 
           <div className="max-w-3xl">
 
-            <div className="mb-5 text-[10px] font-black uppercase tracking-[0.25em] text-[#F4B400]">
-              The problem
+            <div className="mb-5 text-sm font-black uppercase tracking-[0.2em] text-[#F4B400]">
+              The Problem
             </div>
 
             <h2 className="text-4xl font-black uppercase leading-[0.95] tracking-[-0.04em] sm:text-6xl">
               You probably don&apos;t have a content problem.
             </h2>
+
 
             <div className="mt-8 space-y-5 text-lg leading-relaxed text-white/70">
 
@@ -225,7 +263,10 @@ export default function PsychologyBehindWritingPage() {
                 You know you should post consistently.
               </p>
 
-              <p>And yet...</p>
+              <p>
+                And yet...
+              </p>
+
 
               <p className="text-3xl font-black text-white">
                 You publish.
@@ -237,9 +278,11 @@ export default function PsychologyBehindWritingPage() {
                 And then...
               </p>
 
+
               <p className="text-5xl font-black text-[#F4B400]">
                 Nothing.
               </p>
+
 
               <p>
                 No conversation.
@@ -251,7 +294,9 @@ export default function PsychologyBehindWritingPage() {
 
             </div>
 
+
             <div className="mt-10 border-l-4 border-[#F4B400] pl-6">
+
               <p className="text-xl font-bold">
                 You keep asking:
               </p>
@@ -267,16 +312,18 @@ export default function PsychologyBehindWritingPage() {
               <p className="mt-2 text-3xl font-black text-[#F4B400]">
                 “Why should my audience care?”
               </p>
+
             </div>
 
           </div>
 
         </div>
+
       </section>
 
 
       {/* =========================================================
-          A / B TEST
+          A/B TEST
       ========================================================= */}
       <section className="px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
 
@@ -284,8 +331,8 @@ export default function PsychologyBehindWritingPage() {
 
           <div className="mb-12 max-w-2xl">
 
-            <div className="text-[10px] font-black uppercase tracking-[0.25em] text-[#F4B400]">
-              Let&apos;s test something
+            <div className="text-sm font-black uppercase tracking-[0.2em] text-[#F4B400]">
+              Let&apos;s Test Something
             </div>
 
             <h2 className="mt-4 text-4xl font-black uppercase leading-[0.95] tracking-[-0.04em] sm:text-6xl">
@@ -294,10 +341,13 @@ export default function PsychologyBehindWritingPage() {
 
           </div>
 
+
           <div className="grid gap-5 md:grid-cols-2">
 
             {/* A */}
+
             <div className="border border-black/10 bg-white p-8 sm:p-10">
+
               <div className="mb-8 text-5xl font-black text-black/10">
                 A
               </div>
@@ -305,9 +355,12 @@ export default function PsychologyBehindWritingPage() {
               <p className="text-2xl font-black leading-tight">
                 5 Content Writing Tips Every Business Owner Should Know
               </p>
+
             </div>
 
+
             {/* B */}
+
             <div className="relative overflow-hidden bg-[#F4B400] p-8 sm:p-10">
 
               <div className="mb-8 text-5xl font-black text-black/20">
@@ -323,6 +376,7 @@ export default function PsychologyBehindWritingPage() {
             </div>
 
           </div>
+
 
           <div className="mt-10 max-w-3xl">
 
@@ -345,6 +399,7 @@ export default function PsychologyBehindWritingPage() {
           </div>
 
         </div>
+
       </section>
 
 
@@ -357,8 +412,8 @@ export default function PsychologyBehindWritingPage() {
 
           <div className="mb-14 max-w-3xl">
 
-            <div className="text-[10px] font-black uppercase tracking-[0.25em] text-[#F4B400]">
-              Inside the webinar
+            <div className="text-sm font-black uppercase tracking-[0.2em] text-[#F4B400]">
+              Inside The Webinar
             </div>
 
             <h2 className="mt-4 text-4xl font-black uppercase leading-[0.95] tracking-[-0.04em] sm:text-6xl">
@@ -367,15 +422,17 @@ export default function PsychologyBehindWritingPage() {
 
           </div>
 
+
           <div className="grid gap-px overflow-hidden border border-black/10 bg-black/10 md:grid-cols-2">
 
             {learningPoints.map((point) => (
+
               <div
                 key={point.number}
                 className="bg-[#F8F6F0] p-8 transition-transform duration-300 hover:-translate-y-1 sm:p-10"
               >
 
-                <div className="text-sm font-black text-[#F4B400]">
+                <div className="text-base font-black text-[#F4B400]">
                   {point.number}
                 </div>
 
@@ -383,16 +440,18 @@ export default function PsychologyBehindWritingPage() {
                   {point.title}
                 </h3>
 
-                <p className="mt-4 text-base leading-relaxed text-black/60">
+                <p className="mt-4 text-lg leading-relaxed text-black/60">
                   {point.description}
                 </p>
 
               </div>
+
             ))}
 
           </div>
 
         </div>
+
       </section>
 
 
@@ -407,8 +466,8 @@ export default function PsychologyBehindWritingPage() {
 
             <div>
 
-              <div className="text-[10px] font-black uppercase tracking-[0.25em] text-black/50">
-                And this matters even more now
+              <div className="text-sm font-black uppercase tracking-[0.2em] text-black/55">
+                And This Matters Even More Now
               </div>
 
               <h2 className="mt-5 text-5xl font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-7xl">
@@ -417,18 +476,29 @@ export default function PsychologyBehindWritingPage() {
 
             </div>
 
+
             <div>
 
               <div className="grid grid-cols-2 gap-2">
-                {["Captions", "Hooks", "Scripts", "Ideas"].map((item) => (
+
+                {[
+                  "Captions",
+                  "Hooks",
+                  "Scripts",
+                  "Ideas",
+                ].map((item) => (
+
                   <div
                     key={item}
-                    className="border border-black/10 bg-white/40 p-5 text-center text-sm font-black uppercase"
+                    className="border border-black/10 bg-white/40 p-5 text-center text-sm font-black uppercase sm:text-base"
                   >
                     {item}
                   </div>
+
                 ))}
+
               </div>
+
 
               <p className="mt-8 text-2xl font-black leading-tight">
                 But AI hasn&apos;t made people care about your content.
@@ -438,11 +508,13 @@ export default function PsychologyBehindWritingPage() {
 
           </div>
 
+
           <div className="mt-14 border-t border-black/20 pt-10">
 
             <p className="text-lg font-bold">
               The real skill is knowing:
             </p>
+
 
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
 
@@ -452,12 +524,14 @@ export default function PsychologyBehindWritingPage() {
                 "What should my audience feel?",
                 "What should they remember?",
               ].map((question) => (
+
                 <div
                   key={question}
-                  className="bg-[#171717] p-5 text-lg font-black text-white"
+                  className="bg-[#171717] p-5 text-lg font-black text-white sm:text-xl"
                 >
                   {question}
                 </div>
+
               ))}
 
             </div>
@@ -465,6 +539,7 @@ export default function PsychologyBehindWritingPage() {
           </div>
 
         </div>
+
       </section>
 
 
@@ -478,6 +553,7 @@ export default function PsychologyBehindWritingPage() {
           <div className="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
 
             {/* PHOTO */}
+
             <div className="relative mx-auto w-full max-w-[430px]">
 
               <div className="absolute -bottom-5 -left-5 h-full w-full border border-[#F4B400]" />
@@ -497,12 +573,15 @@ export default function PsychologyBehindWritingPage() {
 
             </div>
 
+
             {/* CONTENT */}
+
             <div>
 
-              <div className="text-[10px] font-black uppercase tracking-[0.25em] text-[#F4B400]">
-                Your mentor
+              <div className="text-sm font-black uppercase tracking-[0.2em] text-[#F4B400]">
+                Your Mentor
               </div>
+
 
               <h2 className="mt-4 text-5xl font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-7xl">
                 Puneet
@@ -510,14 +589,20 @@ export default function PsychologyBehindWritingPage() {
                 Kaur Saluja
               </h2>
 
-              <p className="mt-7 text-xl font-bold leading-relaxed">
+
+              <p className="mt-7 text-lg font-black leading-relaxed sm:text-xl">
                 9 YEARS OF WRITING • ADVERTISING • STRATEGY • BRAND COMMUNICATION
               </p>
 
-              <div className="mt-8 space-y-5 text-base leading-relaxed text-black/65">
+
+              <div className="mt-8 space-y-5 text-lg leading-relaxed text-black/65">
 
                 <p>
-                  My journey started with a <strong className="text-black">₹500 writing project</strong>.
+                  My journey started with a{" "}
+                  <strong className="text-black">
+                    ₹500 writing project
+                  </strong>
+                  .
                 </p>
 
                 <p>
@@ -530,6 +615,7 @@ export default function PsychologyBehindWritingPage() {
                 </p>
 
               </div>
+
 
               <div className="mt-8 border-l-4 border-[#F4B400] pl-6">
 
@@ -548,6 +634,7 @@ export default function PsychologyBehindWritingPage() {
           </div>
 
         </div>
+
       </section>
 
 
@@ -560,8 +647,8 @@ export default function PsychologyBehindWritingPage() {
 
           <div className="max-w-3xl">
 
-            <div className="text-[10px] font-black uppercase tracking-[0.25em] text-[#F4B400]">
-              Is this for you?
+            <div className="text-sm font-black uppercase tracking-[0.2em] text-[#F4B400]">
+              Is This For You?
             </div>
 
             <h2 className="mt-5 text-4xl font-black uppercase leading-[0.95] tracking-[-0.04em] sm:text-6xl">
@@ -569,6 +656,7 @@ export default function PsychologyBehindWritingPage() {
             </h2>
 
           </div>
+
 
           <div className="mt-12 grid gap-3 md:grid-cols-2">
 
@@ -578,15 +666,18 @@ export default function PsychologyBehindWritingPage() {
               "My content sounds like everyone else's.",
               "I know what I want to say, but I don't know how to say it.",
             ].map((item) => (
+
               <div
                 key={item}
                 className="border border-white/10 bg-white/5 p-7 text-xl font-bold"
               >
                 “{item}”
               </div>
+
             ))}
 
           </div>
+
 
           <div className="mt-12 max-w-3xl border-t border-white/10 pt-10">
 
@@ -601,6 +692,7 @@ export default function PsychologyBehindWritingPage() {
           </div>
 
         </div>
+
       </section>
 
 
@@ -613,8 +705,8 @@ export default function PsychologyBehindWritingPage() {
 
           <div className="max-w-3xl">
 
-            <div className="text-[10px] font-black uppercase tracking-[0.25em] text-[#F4B400]">
-              The real shift
+            <div className="text-sm font-black uppercase tracking-[0.2em] text-[#F4B400]">
+              The Real Shift
             </div>
 
             <h2 className="mt-5 text-4xl font-black uppercase leading-[0.95] tracking-[-0.04em] sm:text-6xl">
@@ -623,11 +715,12 @@ export default function PsychologyBehindWritingPage() {
 
           </div>
 
+
           <div className="mt-12 grid gap-5 md:grid-cols-2">
 
             <div className="border border-black/10 bg-white p-8 sm:p-10">
 
-              <div className="text-[10px] font-black uppercase tracking-[0.2em] text-black/40">
+              <div className="text-sm font-black uppercase tracking-[0.15em] text-black/45">
                 Instead of asking
               </div>
 
@@ -637,9 +730,10 @@ export default function PsychologyBehindWritingPage() {
 
             </div>
 
+
             <div className="bg-[#F4B400] p-8 sm:p-10">
 
-              <div className="text-[10px] font-black uppercase tracking-[0.2em] text-black/50">
+              <div className="text-sm font-black uppercase tracking-[0.15em] text-black/55">
                 Start asking
               </div>
 
@@ -651,44 +745,51 @@ export default function PsychologyBehindWritingPage() {
 
           </div>
 
+
           <div className="mt-10 text-center">
 
             <p className="text-2xl font-black uppercase sm:text-4xl">
               FROM CREATING CONTENT
               <br />
+
               <span className="text-[#F4B400]">
                 → TO CREATING COMMUNICATION.
               </span>
+
             </p>
 
           </div>
 
         </div>
+
       </section>
 
 
       {/* =========================================================
-          OFFER / CTA
+          OFFER
       ========================================================= */}
       <section className="bg-[#F4B400] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
 
         <div className="mx-auto max-w-5xl text-center">
 
-          <div className="text-[10px] font-black uppercase tracking-[0.25em] text-black/50">
+          <div className="text-sm font-black uppercase tracking-[0.2em] text-black/55">
             The Psychology Behind Writing
           </div>
+
 
           <h2 className="mt-5 text-5xl font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-7xl">
             2-HOUR LIVE WEBINAR
           </h2>
 
+
           <p className="mx-auto mt-6 max-w-2xl text-lg font-bold">
             Attention • Relevance • Emotion • Communication • Brand Memory
           </p>
 
+
           <div className="mt-10">
 
-            <div className="text-sm font-bold line-through opacity-50">
+            <div className="text-base font-bold line-through opacity-50">
               ₹999
             </div>
 
@@ -698,22 +799,26 @@ export default function PsychologyBehindWritingPage() {
 
           </div>
 
-          <div className="mt-8 text-sm font-black uppercase tracking-[0.12em]">
+
+          <div className="mt-8 text-sm font-black uppercase tracking-[0.12em] sm:text-base">
             06 September 2026 • 11 AM IST
           </div>
 
+
           <Link
-            href={registerUrl}
+            href="/register"
             className="mt-10 inline-flex items-center justify-center bg-[#171717] px-10 py-5 text-sm font-black uppercase tracking-[0.05em] text-white transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:text-[#171717]"
           >
             YES — I WANT TO LEARN THIS →
           </Link>
 
-          <p className="mt-6 text-sm font-medium text-black/60">
+
+          <p className="mt-6 text-base font-medium text-black/60">
             2 hours. One new way of looking at the content you create.
           </p>
 
         </div>
+
       </section>
 
 
@@ -724,34 +829,40 @@ export default function PsychologyBehindWritingPage() {
 
         <div className="mx-auto max-w-4xl">
 
-          <div className="text-[10px] font-black uppercase tracking-[0.25em] text-[#F4B400]">
-            One last question
+          <div className="text-sm font-black uppercase tracking-[0.2em] text-[#F4B400]">
+            One Last Question
           </div>
+
 
           <h2 className="mt-6 text-4xl font-black uppercase leading-[0.92] tracking-[-0.04em] sm:text-6xl">
             You can keep asking:
           </h2>
 
+
           <p className="mt-8 text-3xl font-black text-white/40 sm:text-5xl">
             “What should I post?”
           </p>
+
 
           <p className="mt-10 text-xl font-bold text-white/60">
             Or start asking:
           </p>
 
+
           <p className="mt-3 text-4xl font-black text-[#F4B400] sm:text-6xl">
             “How do I make what I say matter?”
           </p>
 
+
           <Link
-            href={registerUrl}
+            href="/register"
             className="mt-12 inline-flex items-center justify-center bg-[#F4B400] px-9 py-5 text-sm font-black uppercase tracking-[0.05em] text-[#171717] transition-all duration-300 hover:-translate-y-1 hover:bg-white"
           >
             RESERVE MY SEAT — ₹99 →
           </Link>
 
         </div>
+
       </section>
 
 
@@ -764,7 +875,7 @@ export default function PsychologyBehindWritingPage() {
 
           <div className="mb-12">
 
-            <div className="text-[10px] font-black uppercase tracking-[0.25em] text-[#F4B400]">
+            <div className="text-sm font-black uppercase tracking-[0.2em] text-[#F4B400]">
               FAQ
             </div>
 
@@ -774,12 +885,15 @@ export default function PsychologyBehindWritingPage() {
 
           </div>
 
+
           <div className="border-t border-black/10">
 
             {faqs.map((faq, index) => {
+
               const isOpen = openFaq === index;
 
               return (
+
                 <div
                   key={faq.question}
                   className="border-b border-black/10"
@@ -793,12 +907,13 @@ export default function PsychologyBehindWritingPage() {
                     className="flex w-full items-center justify-between gap-6 py-6 text-left"
                   >
 
-                    <span className="text-lg font-black">
+                    <span className="text-lg font-black sm:text-xl">
                       {faq.question}
                     </span>
 
+
                     <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center border border-black/20 text-xl transition-transform duration-300 ${
+                      className={`flex h-9 w-9 shrink-0 items-center justify-center border border-black/20 text-xl transition-transform duration-300 ${
                         isOpen ? "rotate-45" : ""
                       }`}
                     >
@@ -807,6 +922,7 @@ export default function PsychologyBehindWritingPage() {
 
                   </button>
 
+
                   <div
                     className={`grid transition-all duration-300 ${
                       isOpen
@@ -814,22 +930,27 @@ export default function PsychologyBehindWritingPage() {
                         : "grid-rows-[0fr]"
                     }`}
                   >
+
                     <div className="overflow-hidden">
 
-                      <p className="max-w-3xl pr-10 text-base leading-relaxed text-black/60">
+                      <p className="max-w-3xl pr-10 text-base leading-relaxed text-black/60 sm:text-lg">
                         {faq.answer}
                       </p>
 
                     </div>
+
                   </div>
 
                 </div>
+
               );
+
             })}
 
           </div>
 
         </div>
+
       </section>
 
 
@@ -838,7 +959,7 @@ export default function PsychologyBehindWritingPage() {
       ========================================================= */}
       <footer className="border-t border-black/10 bg-[#F8F6F0] px-5 py-8 sm:px-8 lg:px-12">
 
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 text-[10px] font-black uppercase tracking-[0.15em] text-black/40 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 text-xs font-bold uppercase tracking-[0.12em] text-black/45 sm:flex-row sm:items-center sm:justify-between">
 
           <span>
             The Psychology Behind Writing

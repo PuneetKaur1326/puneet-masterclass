@@ -1,28 +1,88 @@
-import { NextResponse } from 'next/server';
-import crypto from 'crypto';
-import { MetaWhatsAppService } from '@/services/whatsapp/meta';
+import { NextResponse } from "next/server";
+import crypto from "crypto";
+import { MetaWhatsAppService } from "@/services/whatsapp/meta";
 
-// ── Google Sheets webhook helper ───────────────────────────────────────────
-async function callSheetWebhook(payload: object, label: string): Promise<{ ok: boolean; body: any }> {
-  const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK;
-  if (!webhookUrl) return { ok: false, body: { error: 'GOOGLE_SHEET_WEBHOOK not configured' } };
-  try {
-    const res = await fetch(webhookUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    const text = await res.text();
-    let body: any;
-    try { body = JSON.parse(text); } catch { body = text; }
-    return { ok: res.ok, body };
-  } catch (err: any) {
-    return { ok: false, body: { error: err.message } };
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_ROLE_KEY =
+  process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+async function getRegistration(registrationId: string) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    throw new Error(
+      "Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY"
+    );
+  }
+
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/registrations?registration_id=eq.${encodeURIComponent(
+      registrationId
+    )}&select=*`,
+    {
+      method: "GET",
+      headers: {
+        apikey: SUPABASE_SERVICE_ROLE_KEY,
+        Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.text();
+
+    throw new Error(
+      `Supabase registration lookup failed: ${response.status} ${error}`
+    );
+  }
+
+  const registrations = await response.json();
+
+  return registrations?.[0] || null;
+}
+
+async function updateRegistration(
+  registrationId: string,
+  data: Record<string, any>
+) {
+  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+    throw new Error(
+      "Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY"
+    );
+  }
+
+  const response = await fetch(
+    `${SUPABASE_URL}/rest/v1/registrations?registration_id=eq.${encodeURIComponent(
+      registrationId
+    )}`,
+    {
+      method: "PATCH",
+      headers: {
+        apikey: SUPABASE_SERVICE_ROLE_KEY,
+        Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify({
+        ...data,
+        updated_at: new Date().toISOString(),
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.text();
+
+    throw new Error(
+      `Supabase registration update failed: ${response.status} ${error}`
+    );
   }
 }
 
 export async function POST(req: Request) {
-  const requestId = Math.random().toString(36).substring(7);
+  const requestId =
+    Math.random().toString(36).substring(2, 10);
+
   try {
     const {
       razorpay_order_id,
@@ -34,68 +94,210 @@ export async function POST(req: Request) {
       amount,
     } = await req.json();
 
-    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature || !phone) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
-    }
+    // --------------------------------------------------
+    // STEP 1 — Validate request
+    // --------------------------------------------------
 
-    // ── STEP 1: Verify Razorpay Signature ─────────────────────────────────
-    const secret = process.env.RAZORPAY_KEY_SECRET;
-    if (!secret) {
-      return NextResponse.json({ error: 'Server misconfiguration' }, { status: 500 });
-    }
-
-    const body = razorpay_order_id + '|' + razorpay_payment_id;
-    const expectedSignature = crypto
-      .createHmac('sha256', secret)
-      .update(body)
-      .digest('hex');
-
-    if (expectedSignature !== razorpay_signature) {
-      return NextResponse.json({ error: 'Payment verification failed' }, { status: 400 });
-    }
-
-    // ── STEP 2: Google Sheets — payment_update ─────────────────────────────
-    if (registrationId) {
-      await callSheetWebhook({
-        action: 'payment_update',
-        registrationId,
-        paymentStatus: 'Paid',
-        razorpayOrderId: razorpay_order_id,
-        razorpayPaymentId: razorpay_payment_id,
-        paymentTimestamp: new Date().toISOString(),
-      }, `payment_update-${requestId}`);
-    }
-
-    // ── STEP 3: Send WhatsApp Confirmation ────────────────────────────────
-    let whatsappMessageId: string | null = null;
-    let whatsappStatus = 'Failed';
-    try {
-      const waResult = await MetaWhatsAppService.sendConfirmation(
-        phone,
-        name || 'Attendee',
-        amount || '₹99'
+    if (
+      !razorpay_order_id ||
+      !razorpay_payment_id ||
+      !razorpay_signature ||
+      !registrationId ||
+      !phone
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Missing required fields",
+        },
+        { status: 400 }
       );
-      if (waResult?.success) {
-        whatsappStatus = 'Sent';
-        whatsappMessageId = waResult.messageId || null;
+    }
+
+    // --------------------------------------------------
+    // STEP 2 — Verify Razorpay signature
+    // --------------------------------------------------
+
+    const razorpaySecret =
+      process.env.RAZORPAY_KEY_SECRET;
+
+    if (!razorpaySecret) {
+      console.error(
+        `[Payment ${requestId}] RAZORPAY_KEY_SECRET missing`
+      );
+
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Server misconfiguration",
+        },
+        { status: 500 }
+      );
+    }
+
+    const signatureBody =
+      razorpay_order_id +
+      "|" +
+      razorpay_payment_id;
+
+    const expectedSignature = crypto
+      .createHmac("sha256", razorpaySecret)
+      .update(signatureBody)
+      .digest("hex");
+
+    if (
+      expectedSignature !== razorpay_signature
+    ) {
+      console.error(
+        `[Payment ${requestId}] Invalid Razorpay signature`
+      );
+
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Payment verification failed",
+        },
+        { status: 400 }
+      );
+    }
+
+    console.log(
+      `[Payment ${requestId}] Razorpay payment verified`
+    );
+
+    // --------------------------------------------------
+    // STEP 3 — Find registration in Supabase
+    // --------------------------------------------------
+
+    const registration =
+      await getRegistration(registrationId);
+
+    if (!registration) {
+      console.error(
+        `[Payment ${requestId}] Registration not found: ${registrationId}`
+      );
+
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Registration not found",
+        },
+        { status: 404 }
+      );
+    }
+
+    // --------------------------------------------------
+    // STEP 4 — Mark payment as Paid
+    // --------------------------------------------------
+
+    await updateRegistration(
+      registrationId,
+      {
+        payment_status: "Paid",
+        razorpay_order_id,
+        razorpay_payment_id,
+        payment_timestamp:
+          new Date().toISOString(),
       }
-    } catch {
-      whatsappStatus = 'Failed';
+    );
+
+    console.log(
+      `[Payment ${requestId}] Supabase payment status updated`
+    );
+
+    // --------------------------------------------------
+    // STEP 5 — Prevent duplicate confirmation
+    // --------------------------------------------------
+
+    if (
+      registration.whatsapp_status === "Sent" &&
+      registration.whatsapp_message_id
+    ) {
+      console.log(
+        `[Payment ${requestId}] WhatsApp confirmation already sent`
+      );
+
+      return NextResponse.json({
+        success: true,
+        paymentVerified: true,
+        whatsappStatus: "Already Sent",
+      });
     }
 
-    // ── STEP 4: Google Sheets — whatsapp_update ────────────────────────────
-    if (registrationId) {
-      await callSheetWebhook({
-        action: 'whatsapp_update',
-        registrationId,
+    // --------------------------------------------------
+    // STEP 6 — Send WhatsApp payment confirmation
+    // --------------------------------------------------
+
+    let whatsappStatus = "Failed";
+    let whatsappMessageId: string | null = null;
+
+    try {
+      const whatsappResult =
+        await MetaWhatsAppService.sendConfirmation(
+          phone,
+          name || registration.full_name || "Attendee",
+          amount || "₹99"
+        );
+
+      if (whatsappResult?.success) {
+        whatsappStatus = "Sent";
+        whatsappMessageId =
+          whatsappResult.messageId || null;
+
+        console.log(
+          `[Payment ${requestId}] WhatsApp confirmation sent`
+        );
+      } else {
+        console.error(
+          `[Payment ${requestId}] WhatsApp confirmation failed:`,
+          whatsappResult?.error
+        );
+      }
+    } catch (error: any) {
+      console.error(
+        `[Payment ${requestId}] WhatsApp error:`,
+        error
+      );
+    }
+
+    // --------------------------------------------------
+    // STEP 7 — Save WhatsApp status in Supabase
+    // --------------------------------------------------
+
+    await updateRegistration(
+      registrationId,
+      {
+        whatsapp_status: whatsappStatus,
+        whatsapp_message_id:
+          whatsappMessageId || null,
+      }
+    );
+
+    // --------------------------------------------------
+    // STEP 8 — Return success
+    // --------------------------------------------------
+
+    return NextResponse.json(
+      {
+        success: true,
+        paymentVerified: true,
         whatsappStatus,
-        whatsappMessageId: whatsappMessageId || '',
-      }, `whatsapp_update-${requestId}`);
-    }
-
-    return NextResponse.json({ success: true }, { status: 200 });
-
+        whatsappMessageId,
+      },
+      { status: 200 }
+    );
   } catch (error: any) {
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console.error(
+      `[Payment ${requestId}] Fatal error:`,
+      error
+    );
+
+    return NextResponse.json(
+      {
+        success: false,
+        error: "Internal Server Error",
+      },
+      { status: 500 }
+    );
   }
 }

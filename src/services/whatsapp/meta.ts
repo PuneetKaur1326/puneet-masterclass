@@ -6,7 +6,7 @@ export class MetaWhatsAppService {
   private static formatPhoneNumber(phone: string): string {
     let cleaned = phone.replace(/\D/g, "");
 
-    // 10 digit Indian number
+    // 10-digit Indian number
     if (cleaned.length === 10) {
       cleaned = "91" + cleaned;
     }
@@ -26,7 +26,9 @@ export class MetaWhatsAppService {
     to: string,
     templateName: string,
     languageCode: string,
-    components: any[] = []
+    name: string,
+    amount: string,
+    link: string
   ) {
     const accessToken = process.env.WHATSAPP_ACCESS_TOKEN;
     const phoneNumberId = process.env.WHATSAPP_PHONE_NUMBER_ID;
@@ -60,13 +62,31 @@ export class MetaWhatsAppService {
         language: {
           code: languageCode,
         },
-        ...(components.length > 0 ? { components } : {}),
+        components: [
+          {
+            type: "body",
+            parameters: [
+              {
+                type: "text",
+                text: name,
+              },
+              {
+                type: "text",
+                text: amount,
+              },
+              {
+                type: "text",
+                text: link,
+              },
+            ],
+          },
+        ],
       },
     };
 
     try {
       console.log(
-        `[WhatsApp] Sending template "${templateName}" to ${cleanDestination}`
+        `[WhatsApp] Sending "${templateName}" to ${cleanDestination}`
       );
 
       const response = await fetch(
@@ -85,7 +105,7 @@ export class MetaWhatsAppService {
 
       if (!response.ok) {
         console.error(
-          `[WhatsApp] Template "${templateName}" failed:`,
+          `[WhatsApp] "${templateName}" failed:`,
           data
         );
 
@@ -99,7 +119,7 @@ export class MetaWhatsAppService {
       const messageId = data.messages?.[0]?.id;
 
       console.log(
-        `[WhatsApp] Template "${templateName}" sent successfully. Message ID: ${messageId}`
+        `[WhatsApp] "${templateName}" sent successfully. Message ID: ${messageId}`
       );
 
       return {
@@ -132,435 +152,263 @@ export class MetaWhatsAppService {
   }
 
   /**
-   * ---------------------------------------------------------
+   * Common values for all Psychology Behind Writing messages.
+   */
+  private static getAmount(): string {
+    return process.env.WORKSHOP_AMOUNT || "₹99";
+  }
+
+  private static getLink(): string {
+    return (
+      process.env.WORKSHOP_JOIN_URL ||
+      "https://meet.google.com/default"
+    );
+  }
+
+  /**
    * PAYMENT CONFIRMATION
-   * Template: payment_confirmation_1
    *
-   * {{1}} = first name
-   * {{2}} = amount
-   * {{3}} = workshop name
+   * Template: payment_confirmation_1
    * Language: English (US)
-   * ---------------------------------------------------------
+   *
+   * {{1}} = Name
+   * {{2}} = Amount
+   * {{3}} = Link
    */
   static async sendConfirmation(
     phone: string,
     name: string,
     amount: string
   ) {
-    const workshopName =
-      process.env.WORKSHOP_NAME ||
-      "The Psychology Behind Writing";
-
     const firstName = this.getFirstName(name);
-
-    const components = [
-      {
-        type: "body",
-        parameters: [
-          {
-            type: "text",
-            text: firstName,
-          },
-          {
-            type: "text",
-            text: amount,
-          },
-          {
-            type: "text",
-            text: workshopName,
-          },
-        ],
-      },
-    ];
+    const link = this.getLink();
 
     return this.sendTemplateMessage(
       phone,
       "payment_confirmation_1",
       "en_US",
-      components
+      firstName,
+      amount,
+      link
     );
   }
 
   /**
-   * ---------------------------------------------------------
    * 6 DAYS BEFORE
-   * Template: psychology_reminder_6_days
    *
-   * {{1}} = first name
+   * Template: psychology_reminder_6_days
    * Language: English
-   * ---------------------------------------------------------
+   *
+   * {{1}} = Name
+   * {{2}} = Amount
+   * {{3}} = Link
    */
   static async sendReminder6Days(
     phone: string,
     name: string
   ) {
-    const firstName = this.getFirstName(name);
-
     return this.sendTemplateMessage(
       phone,
       "psychology_reminder_6_days",
       "en",
-      [
-        {
-          type: "body",
-          parameters: [
-            {
-              type: "text",
-              text: firstName,
-            },
-          ],
-        },
-      ]
+      this.getFirstName(name),
+      this.getAmount(),
+      this.getLink()
     );
   }
 
   /**
-   * ---------------------------------------------------------
    * 5 DAYS BEFORE
-   * Template: psychology_daily_1_sep
    *
-   * {{1}} = first name
-   * ---------------------------------------------------------
+   * Template: psychology_daily_1_sep
    */
   static async sendReminder5Days(
     phone: string,
     name: string
   ) {
-    const firstName = this.getFirstName(name);
-
     return this.sendTemplateMessage(
       phone,
       "psychology_daily_1_sep",
       "en",
-      [
-        {
-          type: "body",
-          parameters: [
-            {
-              type: "text",
-              text: firstName,
-            },
-          ],
-        },
-      ]
+      this.getFirstName(name),
+      this.getAmount(),
+      this.getLink()
     );
   }
 
   /**
-   * ---------------------------------------------------------
    * 4 DAYS BEFORE
-   * Template: psychology_daily_2_sep
    *
-   * {{1}} = first name
-   * ---------------------------------------------------------
+   * Template: psychology_daily_2_sep
    */
   static async sendReminder4Days(
     phone: string,
     name: string
   ) {
-    const firstName = this.getFirstName(name);
-
     return this.sendTemplateMessage(
       phone,
       "psychology_daily_2_sep",
       "en",
-      [
-        {
-          type: "body",
-          parameters: [
-            {
-              type: "text",
-              text: firstName,
-            },
-          ],
-        },
-      ]
+      this.getFirstName(name),
+      this.getAmount(),
+      this.getLink()
     );
   }
 
   /**
-   * ---------------------------------------------------------
    * 3 DAYS BEFORE
-   * Template: psychology_daily_3_sep
    *
-   * {{1}} = first name
-   * ---------------------------------------------------------
+   * Template: psychology_daily_3_sep
    */
   static async sendReminder3Days(
     phone: string,
     name: string
   ) {
-    const firstName = this.getFirstName(name);
-
     return this.sendTemplateMessage(
       phone,
       "psychology_daily_3_sep",
       "en",
-      [
-        {
-          type: "body",
-          parameters: [
-            {
-              type: "text",
-              text: firstName,
-            },
-          ],
-        },
-      ]
+      this.getFirstName(name),
+      this.getAmount(),
+      this.getLink()
     );
   }
 
   /**
-   * ---------------------------------------------------------
    * 2 DAYS BEFORE
-   * Template: psychology_daily_4_sep
    *
-   * {{1}} = first name
-   * ---------------------------------------------------------
+   * Template: psychology_daily_4_sep
    */
   static async sendReminder2Days(
     phone: string,
     name: string
   ) {
-    const firstName = this.getFirstName(name);
-
     return this.sendTemplateMessage(
       phone,
       "psychology_daily_4_sep",
       "en",
-      [
-        {
-          type: "body",
-          parameters: [
-            {
-              type: "text",
-              text: firstName,
-            },
-          ],
-        },
-      ]
+      this.getFirstName(name),
+      this.getAmount(),
+      this.getLink()
     );
   }
 
   /**
-   * ---------------------------------------------------------
    * TOMORROW
+   *
    * Template: psychology_webinar_tomorrow
    *
-   * {{1}} = first name
-   * {{2}} = webinar link
-   * ---------------------------------------------------------
+   * {{1}} = Name
+   * {{2}} = Amount
+   * {{3}} = Link
    */
   static async sendWebinarTomorrow(
     phone: string,
-    name: string,
-    webinarUrl: string
+    name: string
   ) {
-    const firstName = this.getFirstName(name);
-
     return this.sendTemplateMessage(
       phone,
       "psychology_webinar_tomorrow",
       "en",
-      [
-        {
-          type: "body",
-          parameters: [
-            {
-              type: "text",
-              text: firstName,
-            },
-            {
-              type: "text",
-              text: webinarUrl,
-            },
-          ],
-        },
-      ]
+      this.getFirstName(name),
+      this.getAmount(),
+      this.getLink()
     );
   }
 
   /**
-   * ---------------------------------------------------------
    * WEBINAR TODAY
-   * Template: psychology_webinar_today
    *
-   * {{1}} = first name
-   * {{2}} = webinar link
-   * ---------------------------------------------------------
+   * Template: psychology_webinar_today
    */
   static async sendWebinarToday(
     phone: string,
-    name: string,
-    webinarUrl: string
+    name: string
   ) {
-    const firstName = this.getFirstName(name);
-
     return this.sendTemplateMessage(
       phone,
       "psychology_webinar_today",
       "en",
-      [
-        {
-          type: "body",
-          parameters: [
-            {
-              type: "text",
-              text: firstName,
-            },
-            {
-              type: "text",
-              text: webinarUrl,
-            },
-          ],
-        },
-      ]
+      this.getFirstName(name),
+      this.getAmount(),
+      this.getLink()
     );
   }
 
   /**
-   * ---------------------------------------------------------
    * 1 HOUR BEFORE
-   * Template: psychology_one_hour
    *
-   * {{1}} = first name
-   * {{2}} = webinar link
-   * ---------------------------------------------------------
+   * Template: psychology_one_hour
    */
   static async sendOneHourReminder(
     phone: string,
-    name: string,
-    webinarUrl: string
+    name: string
   ) {
-    const firstName = this.getFirstName(name);
-
     return this.sendTemplateMessage(
       phone,
       "psychology_one_hour",
       "en",
-      [
-        {
-          type: "body",
-          parameters: [
-            {
-              type: "text",
-              text: firstName,
-            },
-            {
-              type: "text",
-              text: webinarUrl,
-            },
-          ],
-        },
-      ]
+      this.getFirstName(name),
+      this.getAmount(),
+      this.getLink()
     );
   }
 
   /**
-   * ---------------------------------------------------------
    * 30 MINUTES BEFORE
-   * Template: psychology_thirty_minutes
    *
-   * {{1}} = first name
-   * {{2}} = webinar link
-   * ---------------------------------------------------------
+   * Template: psychology_thirty_minutes
    */
   static async sendThirtyMinuteReminder(
     phone: string,
-    name: string,
-    webinarUrl: string
+    name: string
   ) {
-    const firstName = this.getFirstName(name);
-
     return this.sendTemplateMessage(
       phone,
       "psychology_thirty_minutes",
       "en",
-      [
-        {
-          type: "body",
-          parameters: [
-            {
-              type: "text",
-              text: firstName,
-            },
-            {
-              type: "text",
-              text: webinarUrl,
-            },
-          ],
-        },
-      ]
+      this.getFirstName(name),
+      this.getAmount(),
+      this.getLink()
     );
   }
 
   /**
-   * ---------------------------------------------------------
    * LIVE NOW
-   * Template: psychology_live_now
    *
-   * {{1}} = first name
-   * {{2}} = webinar link
-   * ---------------------------------------------------------
+   * Template: psychology_live_now
+   * Language: English (UK)
    */
   static async sendLiveNow(
     phone: string,
-    name: string,
-    webinarUrl: string
+    name: string
   ) {
-    const firstName = this.getFirstName(name);
-
     return this.sendTemplateMessage(
       phone,
       "psychology_live_now",
-      "en",
-      [
-        {
-          type: "body",
-          parameters: [
-            {
-              type: "text",
-              text: firstName,
-            },
-            {
-              type: "text",
-              text: webinarUrl,
-            },
-          ],
-        },
-      ]
+      "en_GB",
+      this.getFirstName(name),
+      this.getAmount(),
+      this.getLink()
     );
   }
 
   /**
-   * ---------------------------------------------------------
    * FEEDBACK
-   * Template: psychology_feedback
    *
-   * {{1}} = first name
-   * ---------------------------------------------------------
+   * Template: psychology_feedback
    */
   static async sendFeedback(
     phone: string,
     name: string
   ) {
-    const firstName = this.getFirstName(name);
-
     return this.sendTemplateMessage(
       phone,
       "psychology_feedback",
       "en",
-      [
-        {
-          type: "body",
-          parameters: [
-            {
-              type: "text",
-              text: firstName,
-            },
-          ],
-        },
-      ]
+      this.getFirstName(name),
+      this.getAmount(),
+      this.getLink()
     );
   }
 }

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-const CHECKOUT_URL = "#checkout";
+const CHECKOUT_URL = "/know-your-customer/checkout";
 
 const steps = [
   {

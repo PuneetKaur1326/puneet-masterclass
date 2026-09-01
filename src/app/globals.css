@@ -268,6 +268,7 @@
   }
 }
 
+
 /* =========================================================
    EXISTING ANIMATIONS
 ========================================================= */
@@ -340,7 +341,7 @@
 
 /* =========================================================
    KNOW YOUR CUSTOMER LANDING PAGE
-   Puneet Kaur Saluja
+   PUNEET KAUR SALUJA
 ========================================================= */
 
 .kyc-page {
@@ -486,7 +487,7 @@
 
 
 /* =========================================================
-   YELLOW MARKER HIGHLIGHT
+   HIGHLIGHTS
 ========================================================= */
 
 .kyc-highlight {
@@ -504,15 +505,20 @@
   box-decoration-break: clone;
 }
 
+
 /*
-  Special spacing for the large wrapped
-  “perfect customer.” highlight.
+  SPECIAL FIX FOR:
+  “perfect customer.”
+
+  Small relative padding keeps the yellow
+  close to the letters even when the phrase
+  wraps onto two lines.
 */
 
 .kyc-highlight-perfect {
-  padding: 4px 9px 6px;
-  margin-left: 2px;
-  margin-right: 2px;
+  padding: 0.02em 0.10em 0.06em;
+  margin: 0;
+  line-height: 1.02;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -1039,7 +1045,7 @@
   max-width: 700px;
   margin: 0 0 22px;
   font-size: 43px;
-  line-height: 1.04;
+  line-height: 1.02;
   letter-spacing: -1.8px;
   font-weight: 900;
 }
@@ -1334,6 +1340,6 @@
   }
 
   .kyc-highlight-perfect {
-    padding: 4px 7px 6px;
+    padding: 0.02em 0.10em 0.06em;
   }
 }

@@ -80,6 +80,11 @@
   }
 }
 
+
+/* =========================================================
+   GENERAL UTILITIES
+========================================================= */
+
 @layer utilities {
   .line-reveal {
     overflow: hidden;
@@ -270,7 +275,7 @@
 
 
 /* =========================================================
-   EXISTING ANIMATIONS
+   ANIMATIONS
 ========================================================= */
 
 @keyframes rays {
@@ -340,7 +345,7 @@
 
 
 /* =========================================================
-   KNOW YOUR CUSTOMER LANDING PAGE
+   KNOW YOUR CUSTOMER PAGE
    PUNEET KAUR SALUJA
 ========================================================= */
 
@@ -487,38 +492,63 @@
 
 
 /* =========================================================
-   HIGHLIGHTS
+   YELLOW HIGHLIGHTS
 ========================================================= */
 
 .kyc-highlight {
   display: inline;
-  background: linear-gradient(
-    180deg,
-    transparent 7%,
-    var(--kyc-yellow) 7%,
-    var(--kyc-yellow) 93%,
-    transparent 93%
-  );
   color: var(--kyc-ink);
-  padding: 2px 5px;
+
+  background-image: linear-gradient(
+    to bottom,
+    transparent 8%,
+    var(--kyc-yellow) 8%,
+    var(--kyc-yellow) 92%,
+    transparent 92%
+  );
+
+  padding: 0 4px;
+
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
 
 
 /*
-  SPECIAL FIX FOR:
-  “perfect customer.”
+===========================================================
+SPECIAL LARGE HEADLINE HIGHLIGHT
 
-  Small relative padding keeps the yellow
-  close to the letters even when the phrase
-  wraps onto two lines.
+This is specifically for:
+
+“perfect customer.”
+
+The previous version looked too padded because the
+highlight inherited the full 43px headline line-height.
+
+This version uses a tighter inline line-height and
+very small relative padding.
+===========================================================
 */
 
 .kyc-highlight-perfect {
-  padding: 0.02em 0.10em 0.06em;
+  display: inline;
+
   margin: 0;
-  line-height: 1.02;
+
+  padding: 0.02em 0.08em 0.04em;
+
+  line-height: 0.88;
+
+  background-image: linear-gradient(
+    to bottom,
+    transparent 4%,
+    var(--kyc-yellow) 4%,
+    var(--kyc-yellow) 96%,
+    transparent 96%
+  );
+
+  color: var(--kyc-ink);
+
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
@@ -619,10 +649,12 @@
   right: 0;
   width: 135px;
   height: 185px;
+
   background-image: radial-gradient(
     var(--kyc-yellow) 2px,
     transparent 2px
   );
+
   background-size: 13px 13px;
 }
 
@@ -631,10 +663,14 @@
   z-index: 2;
   width: 295px;
   height: 425px;
+
   border: 1px solid #dddddd;
   border-radius: 4px 9px 9px 4px;
+
   background: #ffffff;
+
   box-shadow: 0 28px 45px rgba(0, 0, 0, 0.13);
+
   transform: rotate(-6deg);
 }
 
@@ -647,9 +683,11 @@
   position: absolute;
   left: -14px;
   top: 35px;
+
   display: flex;
   flex-direction: column;
   gap: 18px;
+
   color: #222222;
   font-size: 10px;
 }
@@ -666,9 +704,11 @@
 
 .kyc-book h3 {
   margin: 65px 0 12px;
+
   font-size: 37px;
   line-height: 0.94;
   letter-spacing: -1.5px;
+
   font-weight: 900;
 }
 
@@ -679,7 +719,9 @@
 
 .kyc-book p {
   margin: 0;
+
   color: #555555;
+
   font-size: 10px;
   line-height: 1.5;
 }
@@ -687,31 +729,43 @@
 .kyc-magnify {
   width: 56px;
   height: 56px;
+
   margin: 40px 0 0 auto;
+
   display: grid;
   place-items: center;
+
   border: 2px solid var(--kyc-yellow);
   border-radius: 50%;
+
   color: var(--kyc-yellow);
+
   font-size: 30px;
 }
 
 .kyc-pen {
   position: absolute;
   z-index: 3;
+
   right: 65px;
   bottom: 45px;
+
   width: 9px;
   height: 170px;
+
   border-radius: 8px;
+
   background: #222222;
+
   transform: rotate(28deg);
 }
 
 .kyc-spark {
   position: absolute;
   z-index: 4;
+
   color: var(--kyc-yellow);
+
   font-size: 27px;
 }
 
@@ -732,6 +786,7 @@
 
 .kyc-cream {
   background: var(--kyc-cream);
+
   border-top: 1px solid #f2e9d7;
   border-bottom: 1px solid #f2e9d7;
 }
@@ -743,47 +798,62 @@
 
 .kyc-insight {
   padding: 65px 0;
+
   display: grid;
   grid-template-columns: 170px 1fr;
+
   gap: 40px;
+
   align-items: center;
 }
 
 .kyc-target {
   width: 135px;
   height: 135px;
+
   display: grid;
   place-items: center;
+
   border: 12px solid var(--kyc-yellow);
   border-radius: 50%;
+
   color: var(--kyc-yellow-dark);
+
   font-size: 74px;
 }
 
 .kyc-insight h2 {
   margin: 0 0 12px;
+
   font-size: 30px;
   line-height: 1.1;
   letter-spacing: -1px;
+
   font-weight: 900;
 }
 
 .kyc-section-copy {
   margin: 0;
+
   color: #555555;
+
   line-height: 1.7;
 }
 
 .kyc-questions {
   display: grid;
   grid-template-columns: 1fr 1fr;
+
   gap: 12px 30px;
+
   margin: 22px 0;
 }
 
 .kyc-questions div {
   display: flex;
+
   gap: 9px;
+
   font-size: 13px;
   line-height: 1.4;
 }
@@ -794,6 +864,7 @@
 
 .kyc-boldline {
   margin: 0;
+
   font-weight: 800;
 }
 
@@ -812,9 +883,11 @@
 
 .kyc-section-head h2 {
   margin: 0 0 10px;
+
   font-size: 34px;
   line-height: 1.1;
   letter-spacing: -1.5px;
+
   font-weight: 900;
 }
 
@@ -825,8 +898,11 @@
 
 .kyc-steps {
   display: grid;
+
   grid-template-columns: repeat(8, 1fr);
+
   gap: 13px;
+
   margin-top: 45px;
 }
 
@@ -837,27 +913,37 @@
 .kyc-step-icon {
   width: 58px;
   height: 58px;
+
   margin: 0 auto;
+
   display: grid;
   place-items: center;
+
   border: 1px solid var(--kyc-line);
   border-radius: 50%;
+
   background: var(--kyc-cream);
+
   color: var(--kyc-yellow-dark);
+
   font-size: 11px;
   font-weight: 900;
 }
 
 .kyc-steps h3 {
   margin: 12px 0 7px;
+
   font-size: 10px;
   line-height: 1.35;
+
   font-weight: 900;
 }
 
 .kyc-steps p {
   margin: 0;
+
   color: #777777;
+
   font-size: 10px;
   line-height: 1.45;
 }
@@ -873,8 +959,11 @@
 
 .kyc-preview-grid {
   display: grid;
+
   grid-template-columns: repeat(4, 1fr);
+
   gap: 22px;
+
   margin-top: 40px;
 }
 
@@ -884,33 +973,45 @@
 
 .kyc-fake-page {
   min-height: 315px;
+
   padding: 20px 18px;
+
   border: 1px solid #e3d9c6;
   border-radius: 5px;
+
   background: #ffffff;
+
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07);
+
   text-align: left;
 }
 
 .fake-brand {
   color: var(--kyc-yellow-dark);
+
   font-size: 8px;
   font-weight: 900;
+
   letter-spacing: 1px;
 }
 
 .fake-title {
   margin: 32px 0 20px;
+
   font-size: 22px;
   line-height: 0.95;
+
   font-weight: 900;
 }
 
 .fake-line {
   width: 85%;
   height: 4px;
+
   margin: 11px 0;
+
   border-radius: 10px;
+
   background: #eeeeee;
 }
 
@@ -924,7 +1025,9 @@
 
 .fake-box {
   height: 68px;
+
   margin-top: 22px;
+
   border: 1px solid #e5dac4;
   border-radius: 4px;
 }
@@ -935,150 +1038,206 @@
 
 .fake-question {
   margin-top: 18px;
+
   color: #555555;
+
   font-size: 10px;
   line-height: 1.4;
 }
 
 .fake-arrow {
   margin: 15px 0;
+
   color: var(--kyc-yellow-dark);
+
   text-align: center;
+
   font-size: 24px;
 }
 
 .speech {
   margin: 12px 0;
+
   padding: 10px;
+
   border-radius: 8px;
+
   background: #fff7dc;
+
   font-size: 10px;
+
   font-style: italic;
 }
 
 .kyc-preview-card > p {
   margin: 12px 8px 0;
+
   color: #555555;
+
   font-size: 11px;
   line-height: 1.4;
 }
 
 
 /* =========================================================
-   CARDS
+   WHAT YOU GET / WHO IT'S FOR
 ========================================================= */
 
 .kyc-two-col {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 22px;
+
   padding: 75px 0;
 }
 
 .kyc-card {
   padding: 34px;
+
   border: 1px solid var(--kyc-line);
   border-radius: 18px;
+
   background: #ffffff;
 }
 
 .kyc-card h2 {
   margin: 0;
+
   font-size: 29px;
   line-height: 1.1;
   letter-spacing: -1px;
+
   font-weight: 900;
 }
 
 .kyc-check-list {
   list-style: none;
+
   margin: 20px 0 0;
   padding: 0;
 }
 
 .kyc-check-list li {
   margin: 14px 0;
+
   font-size: 13px;
   line-height: 1.5;
 }
 
 .kyc-check-list li::before {
   content: "✓";
+
   margin-right: 10px;
+
   color: var(--kyc-yellow-dark);
+
   font-weight: 900;
 }
 
 .kyc-audience {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 18px;
+
   margin-top: 25px;
 }
 
 .kyc-audience div {
   display: flex;
+
   align-items: center;
+
   gap: 9px;
+
   font-size: 12px;
 }
 
 .kyc-audience span {
   color: var(--kyc-yellow-dark);
+
   font-size: 22px;
 }
 
 
 /* =========================================================
-   PHILOSOPHY
+   IDEA BEHIND IT
 ========================================================= */
 
 .kyc-philosophy {
   display: grid;
+
   grid-template-columns: 1.1fr 0.9fr;
+
   gap: 60px;
+
   align-items: center;
+
   padding: 55px 0 90px;
 }
 
 .kyc-philosophy h2 {
   max-width: 700px;
+
   margin: 0 0 22px;
+
   font-size: 43px;
-  line-height: 1.02;
+
+  /*
+    Tightened from 1.04 so the marker
+    doesn't inherit excessive vertical space.
+  */
+  line-height: 0.98;
+
   letter-spacing: -1.8px;
+
   font-weight: 900;
 }
 
 .kyc-philosophy > div > p:not(.kyc-eyebrow) {
   max-width: 650px;
+
   color: #555555;
+
   line-height: 1.7;
 }
 
 .kyc-quote {
   padding: 38px;
+
   border: 1px solid var(--kyc-line);
+
   border-radius: 18px;
+
   background: var(--kyc-cream);
 }
 
 .kyc-quote small {
   color: var(--kyc-yellow-dark);
+
   font-size: 9px;
+
   font-weight: 900;
+
   letter-spacing: 2px;
 }
 
 .kyc-quote blockquote {
   margin: 20px 0;
+
   font-size: 26px;
+
   line-height: 1.25;
+
   font-weight: 800;
 }
 
 .kyc-quote > span {
   color: #777777;
+
   font-size: 11px;
 }
 
@@ -1089,21 +1248,29 @@
 
 .kyc-final {
   padding: 62px 0;
+
   background: var(--kyc-yellow);
 }
 
 .kyc-final-inner {
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
   gap: 45px;
 }
 
 .kyc-final h2 {
   margin: 0;
+
   font-size: 56px;
+
   line-height: 0.96;
+
   letter-spacing: -2px;
+
   font-weight: 900;
 }
 
@@ -1113,6 +1280,7 @@
 
 .kyc-final p:not(.kyc-eyebrow) {
   max-width: 550px;
+
   line-height: 1.6;
 }
 
@@ -1122,30 +1290,39 @@
 
 .kyc-final-buy {
   min-width: 350px;
+
   text-align: center;
 }
 
 .kyc-price-badge {
   width: 125px;
   height: 125px;
+
   margin: 0 auto 18px;
+
   display: grid;
   place-items: center;
   align-content: center;
+
   border: 3px dashed #222222;
+
   border-radius: 50%;
+
   background: #ffffff;
 }
 
 .kyc-price-badge small,
 .kyc-price-badge span {
   font-size: 8px;
+
   font-weight: 900;
 }
 
 .kyc-price-badge strong {
   font-size: 34px;
+
   line-height: 1;
+
   font-weight: 900;
 }
 
@@ -1155,8 +1332,11 @@
 
 .kyc-final-buy > small {
   display: block;
+
   margin-top: 10px;
+
   color: #ffffff;
+
   font-size: 10px;
 }
 
@@ -1171,13 +1351,17 @@
 
 .kyc-footer-inner {
   min-height: 110px;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
 }
 
 .kyc-footer p {
   color: #888888;
+
   font-size: 10px;
 }
 
@@ -1198,6 +1382,7 @@
 
   .kyc-steps {
     grid-template-columns: repeat(4, 1fr);
+
     row-gap: 35px;
   }
 
@@ -1212,6 +1397,7 @@
 
   .kyc-final-inner {
     flex-direction: column;
+
     align-items: flex-start;
   }
 
@@ -1249,6 +1435,7 @@
 
   .kyc-hero h1 {
     font-size: 43px;
+
     letter-spacing: -2px;
   }
 
@@ -1258,6 +1445,7 @@
 
   .kyc-buy-row {
     flex-direction: column;
+
     align-items: stretch;
   }
 
@@ -1268,11 +1456,13 @@
 
   .kyc-book-scene {
     transform: scale(0.84);
+
     margin: -25px 0 -50px;
   }
 
   .kyc-insight {
     grid-template-columns: 1fr;
+
     text-align: center;
   }
 
@@ -1282,6 +1472,7 @@
 
   .kyc-questions {
     grid-template-columns: 1fr;
+
     text-align: left;
   }
 
@@ -1295,11 +1486,13 @@
 
   .kyc-preview-grid {
     grid-template-columns: 1fr 1fr;
+
     gap: 12px;
   }
 
   .kyc-fake-page {
     min-height: 250px;
+
     padding: 13px;
   }
 
@@ -1321,6 +1514,8 @@
 
   .kyc-philosophy h2 {
     font-size: 35px;
+
+    line-height: 0.98;
   }
 
   .kyc-quote blockquote {
@@ -1333,13 +1528,24 @@
 
   .kyc-footer-inner {
     flex-direction: column;
+
     align-items: flex-start;
+
     justify-content: center;
+
     gap: 18px;
+
     padding: 25px 0;
   }
 
+  /*
+    Mobile version of the special highlight.
+    Still deliberately tiny — no large fixed padding.
+  */
+
   .kyc-highlight-perfect {
-    padding: 0.02em 0.10em 0.06em;
+    padding: 0.02em 0.08em 0.04em;
+
+    line-height: 0.88;
   }
 }

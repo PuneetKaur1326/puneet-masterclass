@@ -146,14 +146,14 @@ export default function KnowYourCustomerPage() {
 
               <div className="kyc-price">
                 <small>ONLY</small>
-                <strong>₹20</strong>
+                <strong>₹19</strong>
               </div>
 
               <a
                 href={CHECKOUT_URL}
                 className="kyc-button"
               >
-                GET THE WORKSHEET FOR ₹20
+                GET THE WORKSHEET FOR ₹19
                 <span>→</span>
               </a>
 
@@ -703,7 +703,7 @@ export default function KnowYourCustomerPage() {
 
             <p>
               If it helps you understand your customer even a little
-              better, it&apos;s ₹20 well spent.
+              better, it&apos;s ₹19 well spent.
             </p>
 
           </div>
@@ -718,7 +718,7 @@ export default function KnowYourCustomerPage() {
               </small>
 
               <strong>
-                ₹20
+                ₹19
               </strong>
 
               <span>
@@ -731,7 +731,7 @@ export default function KnowYourCustomerPage() {
               href={CHECKOUT_URL}
               className="kyc-button kyc-button-final"
             >
-              YES, I WANT THE WORKSHEET FOR ₹20
+              YES, I WANT THE WORKSHEET FOR ₹19
               <span>→</span>
             </a>
 

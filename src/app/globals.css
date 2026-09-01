@@ -6,11 +6,11 @@
 
   --color-background: #ffffff;
   --color-foreground: #111827;
-  --color-primary: #F4B400; 
+  --color-primary: #F4B400;
   --color-primary-foreground: #111827;
   --color-secondary: #F3F4F6;
   --color-secondary-foreground: #111827;
-  --color-accent: #FFC72C; 
+  --color-accent: #FFC72C;
   --color-accent-foreground: #111827;
   --color-muted: #F9FAFB;
   --color-muted-foreground: #4B5563;
@@ -19,7 +19,7 @@
   --color-border: rgba(0, 0, 0, 0.1);
   --color-input: #F3F4F6;
   --color-ring: #F4B400;
-  
+
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
@@ -47,7 +47,13 @@
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6, p {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
     margin: 0;
   }
 
@@ -59,13 +65,16 @@
   ::-webkit-scrollbar {
     width: 6px;
   }
+
   ::-webkit-scrollbar-track {
     background: var(--color-background);
   }
+
   ::-webkit-scrollbar-thumb {
     background: var(--color-muted);
     border-radius: 10px;
   }
+
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-primary);
   }
@@ -92,7 +101,7 @@
 
   .text-hero-xl {
     font-size: clamp(1.5rem, 4.5vw, 4.5rem);
-    line-height: 1.0;
+    line-height: 1;
     letter-spacing: -0.03em;
   }
 
@@ -103,18 +112,27 @@
   }
 
   .gradient-amber {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 60%, #FDE68A 100%);
+    background: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-accent) 60%,
+      #FDE68A 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .card-glow {
-    transition: box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition:
+      box-shadow 0.4s ease,
+      transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .card-glow:hover {
-    box-shadow: 0 0 40px rgba(244, 180, 0, 0.15), 0 20px 60px rgba(0, 0, 0, 0.4);
+    box-shadow:
+      0 0 40px rgba(244, 180, 0, 0.15),
+      0 20px 60px rgba(0, 0, 0, 0.4);
     transform: translateY(-4px);
   }
 
@@ -132,17 +150,25 @@
   }
 
   .blob-primary {
-    background: radial-gradient(ellipse at center, rgba(244, 180, 0, 0.12) 0%, transparent 70%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(244, 180, 0, 0.12) 0%,
+      transparent 70%
+    );
     filter: blur(60px);
   }
 
   .blob-accent {
-    background: radial-gradient(ellipse at center, rgba(255, 199, 44, 0.08) 0%, transparent 70%);
+    background: radial-gradient(
+      ellipse at center,
+      rgba(255, 199, 44, 0.08) 0%,
+      transparent 70%
+    );
     filter: blur(80px);
   }
 
   .noise-overlay::after {
-    content: '';
+    content: "";
     position: fixed;
     inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
@@ -154,7 +180,9 @@
   .faq-answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+    transition:
+      max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      padding 0.3s ease;
   }
 
   .faq-item-active .faq-answer {
@@ -194,7 +222,10 @@
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: 2rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .outcome-card:hover {
@@ -209,7 +240,7 @@
   }
 
   .pricing-card-shine::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -50%;
     left: -50%;
@@ -237,29 +268,61 @@
   }
 }
 
+/* =========================================================
+   EXISTING ANIMATIONS
+========================================================= */
+
 @keyframes rays {
-  0% { background-position: 200% 0%; }
-  100% { background-position: -200% 0%; }
+  0% {
+    background-position: 200% 0%;
+  }
+
+  100% {
+    background-position: -200% 0%;
+  }
 }
 
 @keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes float-gentle {
-  0%, 100% { transform: translateY(0px) rotate(-2deg); }
-  50% { transform: translateY(-12px) rotate(2deg); }
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(2deg);
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 @keyframes bounce-arrow {
-  0%, 100% { transform: translateY(0) translateX(-50%); }
-  50% { transform: translateY(8px) translateX(-50%); }
+  0%,
+  100% {
+    transform: translateY(0) translateX(-50%);
+  }
+
+  50% {
+    transform: translateY(8px) translateX(-50%);
+  }
 }
 
 .float-card {
@@ -271,7 +334,11 @@
 }
 
 .pulse-dot {
-  /* =========================================================
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+
+/* =========================================================
    KNOW YOUR CUSTOMER LANDING PAGE
    Contentatia ₹20 Worksheet
 ========================================================= */
@@ -307,7 +374,10 @@
   margin: 0 auto;
 }
 
-/* NAVIGATION */
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 .kyc-nav {
   height: 92px;
@@ -361,7 +431,10 @@
   font-size: 15px;
 }
 
-/* HERO */
+
+/* =========================================================
+   HERO
+========================================================= */
 
 .kyc-hero {
   background: #ffffff;
@@ -369,26 +442,39 @@
 
 .kyc-hero-grid {
   min-height: 620px;
+
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 45px;
+
   align-items: center;
+
   padding: 50px 0 80px;
 }
 
 .kyc-eyebrow {
   margin: 0 0 16px;
+
   color: var(--kyc-yellow-dark);
+
   font-size: 10px;
+
   font-weight: 800;
+
   letter-spacing: 2px;
 }
 
 .kyc-hero h1 {
   margin: 0;
+
   font-size: clamp(45px, 5.5vw, 70px);
+
   line-height: 0.96;
+
   letter-spacing: -3px;
+
   font-weight: 900;
 }
 
@@ -398,20 +484,30 @@
 
 .kyc-hero h2 {
   margin: 23px 0 13px;
+
   font-size: 20px;
+
   line-height: 1.35;
+
   font-weight: 700;
 }
 
 .kyc-lead {
   max-width: 600px;
+
   margin: 0;
+
   color: #555555;
+
   font-size: 15px;
+
   line-height: 1.7;
 }
 
-/* YELLOW HIGHLIGHT */
+
+/* =========================================================
+   YELLOW MARKER HIGHLIGHT
+========================================================= */
 
 .kyc-highlight {
   background: linear-gradient(
@@ -423,57 +519,80 @@
   );
 
   color: var(--kyc-ink);
+
   padding: 2px 5px;
 
   -webkit-box-decoration-break: clone;
+
   box-decoration-break: clone;
 }
 
-/* BUY ROW */
+
+/* =========================================================
+   BUY ROW
+========================================================= */
 
 .kyc-buy-row {
   display: flex;
+
   align-items: center;
+
   gap: 15px;
+
   margin-top: 25px;
 }
 
 .kyc-price {
   min-width: 90px;
+
   padding: 8px 20px;
+
   border-radius: 12px;
+
   background: var(--kyc-yellow);
+
   text-align: center;
 }
 
 .kyc-price small {
   display: block;
+
   font-size: 8px;
+
   font-weight: 900;
 }
 
 .kyc-price strong {
   display: block;
+
   font-size: 29px;
+
   line-height: 1.1;
+
   font-weight: 900;
 }
 
 .kyc-button {
   display: inline-flex;
+
   align-items: center;
+
   justify-content: center;
+
   gap: 18px;
 
   min-height: 58px;
+
   padding: 16px 21px;
 
   border-radius: 10px;
+
   background: var(--kyc-ink);
 
   color: #ffffff !important;
 
   font-size: 12px;
+
   font-weight: 900;
 
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
@@ -485,46 +604,66 @@
 
 .kyc-button:hover {
   transform: translateY(-2px);
+
   box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
 }
 
 .kyc-button span {
   color: var(--kyc-yellow);
+
   font-size: 20px;
 }
 
 .kyc-micro {
   display: flex;
+
   flex-wrap: wrap;
+
   gap: 9px;
+
   margin-top: 12px;
+
   color: #777777;
+
   font-size: 10px;
 }
 
-/* WORKBOOK VISUAL */
+
+/* =========================================================
+   WORKBOOK VISUAL
+========================================================= */
 
 .kyc-book-scene {
   position: relative;
+
   height: 500px;
+
   display: grid;
+
   place-items: center;
 }
 
 .kyc-blob {
   position: absolute;
+
   width: 390px;
+
   height: 390px;
+
   border-radius: 50%;
+
   background: #fff4d8;
 }
 
 .kyc-dots {
   position: absolute;
+
   top: 65px;
+
   right: 0;
 
   width: 135px;
+
   height: 185px;
 
   background-image: radial-gradient(
@@ -537,12 +676,15 @@
 
 .kyc-book {
   position: relative;
+
   z-index: 2;
 
   width: 295px;
+
   height: 425px;
 
   border: 1px solid #dddddd;
+
   border-radius: 4px 9px 9px 4px;
 
   background: #ffffff;
@@ -554,19 +696,25 @@
 
 .kyc-book-band {
   height: 12px;
+
   background: var(--kyc-yellow);
 }
 
 .kyc-rings {
   position: absolute;
+
   left: -14px;
+
   top: 35px;
 
   display: flex;
+
   flex-direction: column;
+
   gap: 18px;
 
   color: #222222;
+
   font-size: 10px;
 }
 
@@ -576,7 +724,9 @@
 
 .kyc-book-brand {
   color: var(--kyc-yellow-dark);
+
   font-size: 12px;
+
   font-weight: 800;
 }
 
@@ -584,7 +734,9 @@
   margin: 65px 0 12px;
 
   font-size: 37px;
+
   line-height: 0.94;
+
   letter-spacing: -1.5px;
 
   font-weight: 900;
@@ -592,43 +744,55 @@
 
 .kyc-book h3 em {
   color: var(--kyc-yellow);
+
   font-style: normal;
 }
 
 .kyc-book p {
   margin: 0;
+
   color: #555555;
+
   font-size: 10px;
+
   line-height: 1.5;
 }
 
 .kyc-magnify {
   width: 56px;
+
   height: 56px;
 
   margin: 40px 0 0 auto;
 
   display: grid;
+
   place-items: center;
 
   border: 2px solid var(--kyc-yellow);
+
   border-radius: 50%;
 
   color: var(--kyc-yellow);
+
   font-size: 30px;
 }
 
 .kyc-pen {
   position: absolute;
+
   z-index: 3;
 
   right: 65px;
+
   bottom: 45px;
 
   width: 9px;
+
   height: 170px;
 
   border-radius: 8px;
+
   background: #222222;
 
   transform: rotate(28deg);
@@ -636,37 +800,49 @@
 
 .kyc-spark {
   position: absolute;
+
   z-index: 4;
 
   color: var(--kyc-yellow);
+
   font-size: 27px;
 }
 
 .kyc-spark-a {
   left: 55px;
+
   top: 65px;
 }
 
 .kyc-spark-b {
   right: 20px;
+
   bottom: 65px;
 }
 
-/* CREAM SECTIONS */
+
+/* =========================================================
+   CREAM SECTIONS
+========================================================= */
 
 .kyc-cream {
   background: var(--kyc-cream);
 
   border-top: 1px solid #f2e9d7;
+
   border-bottom: 1px solid #f2e9d7;
 }
 
-/* INSIGHT */
+
+/* =========================================================
+   INSIGHT
+========================================================= */
 
 .kyc-insight {
   padding: 65px 0;
 
   display: grid;
+
   grid-template-columns: 170px 1fr;
 
   gap: 40px;
@@ -676,15 +852,19 @@
 
 .kyc-target {
   width: 135px;
+
   height: 135px;
 
   display: grid;
+
   place-items: center;
 
   border: 12px solid var(--kyc-yellow);
+
   border-radius: 50%;
 
   color: var(--kyc-yellow-dark);
+
   font-size: 74px;
 }
 
@@ -692,7 +872,9 @@
   margin: 0 0 12px;
 
   font-size: 30px;
+
   line-height: 1.1;
+
   letter-spacing: -1px;
 
   font-weight: 900;
@@ -700,12 +882,15 @@
 
 .kyc-section-copy {
   margin: 0;
+
   color: #555555;
+
   line-height: 1.7;
 }
 
 .kyc-questions {
   display: grid;
+
   grid-template-columns: 1fr 1fr;
 
   gap: 12px 30px;
@@ -715,9 +900,11 @@
 
 .kyc-questions div {
   display: flex;
+
   gap: 9px;
 
   font-size: 13px;
+
   line-height: 1.4;
 }
 
@@ -727,10 +914,14 @@
 
 .kyc-boldline {
   margin: 0;
+
   font-weight: 800;
 }
 
-/* PROCESS */
+
+/* =========================================================
+   PROCESS
+========================================================= */
 
 .kyc-process {
   padding: 85px 0;
@@ -744,7 +935,9 @@
   margin: 0 0 10px;
 
   font-size: 34px;
+
   line-height: 1.1;
+
   letter-spacing: -1.5px;
 
   font-weight: 900;
@@ -752,11 +945,13 @@
 
 .kyc-section-head > p:last-child {
   color: #777777;
+
   font-size: 13px;
 }
 
 .kyc-steps {
   display: grid;
+
   grid-template-columns: repeat(8, 1fr);
 
   gap: 13px;
@@ -770,14 +965,17 @@
 
 .kyc-step-icon {
   width: 58px;
+
   height: 58px;
 
   margin: 0 auto;
 
   display: grid;
+
   place-items: center;
 
   border: 1px solid var(--kyc-line);
+
   border-radius: 50%;
 
   background: var(--kyc-cream);
@@ -785,6 +983,7 @@
   color: var(--kyc-yellow-dark);
 
   font-size: 11px;
+
   font-weight: 900;
 }
 
@@ -792,6 +991,7 @@
   margin: 12px 0 7px;
 
   font-size: 10px;
+
   line-height: 1.35;
 
   font-weight: 900;
@@ -803,10 +1003,14 @@
   color: #777777;
 
   font-size: 10px;
+
   line-height: 1.45;
 }
 
-/* PREVIEWS */
+
+/* =========================================================
+   PREVIEWS
+========================================================= */
 
 .kyc-previews {
   padding: 75px 0;
@@ -814,6 +1018,7 @@
 
 .kyc-preview-grid {
   display: grid;
+
   grid-template-columns: repeat(4, 1fr);
 
   gap: 22px;
@@ -831,6 +1036,7 @@
   padding: 20px 18px;
 
   border: 1px solid #e3d9c6;
+
   border-radius: 5px;
 
   background: #ffffff;
@@ -844,6 +1050,7 @@
   color: var(--kyc-yellow-dark);
 
   font-size: 8px;
+
   font-weight: 900;
 
   letter-spacing: 1px;
@@ -853,6 +1060,7 @@
   margin: 32px 0 20px;
 
   font-size: 22px;
+
   line-height: 0.95;
 
   font-weight: 900;
@@ -860,6 +1068,7 @@
 
 .fake-line {
   width: 85%;
+
   height: 4px;
 
   margin: 11px 0;
@@ -883,6 +1092,7 @@
   margin-top: 22px;
 
   border: 1px solid #e5dac4;
+
   border-radius: 4px;
 }
 
@@ -896,6 +1106,7 @@
   color: #555555;
 
   font-size: 10px;
+
   line-height: 1.4;
 }
 
@@ -919,6 +1130,7 @@
   background: #fff7dc;
 
   font-size: 10px;
+
   font-style: italic;
 }
 
@@ -928,10 +1140,14 @@
   color: #555555;
 
   font-size: 11px;
+
   line-height: 1.4;
 }
 
-/* CARDS */
+
+/* =========================================================
+   CARDS
+========================================================= */
 
 .kyc-two-col {
   display: grid;
@@ -947,6 +1163,7 @@
   padding: 34px;
 
   border: 1px solid var(--kyc-line);
+
   border-radius: 18px;
 
   background: #ffffff;
@@ -956,6 +1173,7 @@
   margin: 0;
 
   font-size: 29px;
+
   line-height: 1.1;
 
   letter-spacing: -1px;
@@ -967,6 +1185,7 @@
   list-style: none;
 
   margin: 20px 0 0;
+
   padding: 0;
 }
 
@@ -974,6 +1193,7 @@
   margin: 14px 0;
 
   font-size: 13px;
+
   line-height: 1.5;
 }
 
@@ -1013,7 +1233,10 @@
   font-size: 22px;
 }
 
-/* PHILOSOPHY */
+
+/* =========================================================
+   PHILOSOPHY
+========================================================= */
 
 .kyc-philosophy {
   display: grid;
@@ -1033,6 +1256,7 @@
   margin: 0 0 22px;
 
   font-size: 43px;
+
   line-height: 0.98;
 
   letter-spacing: -1.8px;
@@ -1052,6 +1276,7 @@
   padding: 38px;
 
   border: 1px solid var(--kyc-line);
+
   border-radius: 18px;
 
   background: var(--kyc-cream);
@@ -1071,6 +1296,7 @@
   margin: 20px 0;
 
   font-size: 26px;
+
   line-height: 1.25;
 
   font-weight: 800;
@@ -1082,7 +1308,10 @@
   font-size: 11px;
 }
 
-/* FINAL CTA */
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
 
 .kyc-final {
   padding: 62px 0;
@@ -1104,6 +1333,7 @@
   margin: 0;
 
   font-size: 56px;
+
   line-height: 0.96;
 
   letter-spacing: -2px;
@@ -1133,15 +1363,19 @@
 
 .kyc-price-badge {
   width: 125px;
+
   height: 125px;
 
   margin: 0 auto 18px;
 
   display: grid;
+
   place-items: center;
+
   align-content: center;
 
   border: 3px dashed #222222;
+
   border-radius: 50%;
 
   background: #ffffff;
@@ -1150,11 +1384,13 @@
 .kyc-price-badge small,
 .kyc-price-badge span {
   font-size: 8px;
+
   font-weight: 900;
 }
 
 .kyc-price-badge strong {
   font-size: 34px;
+
   line-height: 1;
 
   font-weight: 900;
@@ -1174,7 +1410,10 @@
   font-size: 10px;
 }
 
-/* FOOTER */
+
+/* =========================================================
+   FOOTER
+========================================================= */
 
 .kyc-footer {
   background: #ffffff;
@@ -1196,7 +1435,10 @@
   font-size: 10px;
 }
 
-/* TABLET */
+
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media (max-width: 900px) {
 
@@ -1238,7 +1480,10 @@
   }
 }
 
-/* MOBILE */
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 600px) {
 
@@ -1360,6 +1605,4 @@
 
     padding: 25px 0;
   }
-}
-  animation: pulse-glow 2s ease-in-out infinite;
 }

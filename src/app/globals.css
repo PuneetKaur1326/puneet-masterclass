@@ -514,21 +514,9 @@
 }
 
 
-/*
-===========================================================
-SPECIAL LARGE HEADLINE HIGHLIGHT
-
-This is specifically for:
-
-“perfect customer.”
-
-The previous version looked too padded because the
-highlight inherited the full 43px headline line-height.
-
-This version uses a tighter inline line-height and
-very small relative padding.
-===========================================================
-*/
+/* =========================================================
+   PERFECT CUSTOMER HIGHLIGHT
+========================================================= */
 
 .kyc-highlight-perfect {
   display: inline;
@@ -1186,10 +1174,6 @@ very small relative padding.
 
   font-size: 43px;
 
-  /*
-    Tightened from 1.04 so the marker
-    doesn't inherit excessive vertical space.
-  */
   line-height: 0.98;
 
   letter-spacing: -1.8px;
@@ -1367,6 +1351,317 @@ very small relative padding.
 
 
 /* =========================================================
+   KYC CHECKOUT PAGE
+   ₹19 WORKSHEET
+========================================================= */
+
+.kyc-checkout-page {
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(231, 164, 20, 0.10),
+      transparent 28%
+    ),
+    #fffaf0;
+
+  color: #151515;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+.kyc-checkout-page *,
+.kyc-checkout-page *::before,
+.kyc-checkout-page *::after {
+  box-sizing: border-box;
+}
+
+.kyc-checkout-wrap {
+  width: min(
+    520px,
+    calc(100% - 32px)
+  );
+
+  margin: 0 auto;
+
+  padding: 35px 0 70px;
+}
+
+.kyc-checkout-back {
+  display: inline-block;
+
+  margin-bottom: 25px;
+
+  color: #777777;
+
+  font-size: 12px;
+
+  text-decoration: none;
+
+  transition:
+    color 0.2s ease;
+}
+
+.kyc-checkout-back:hover {
+  color: #151515;
+}
+
+.kyc-checkout-card {
+  padding: 38px;
+
+  border: 1px solid #eadfca;
+
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.08);
+}
+
+.kyc-checkout-eyebrow {
+  margin-bottom: 12px;
+
+  color: #b97800;
+
+  font-size: 10px;
+
+  font-weight: 900;
+
+  letter-spacing: 2px;
+}
+
+.kyc-checkout-card h1 {
+  margin: 0 0 12px;
+
+  font-size: 42px;
+
+  line-height: 1;
+
+  letter-spacing: -1.8px;
+
+  font-weight: 900;
+}
+
+.kyc-checkout-intro {
+  margin: 0;
+
+  color: #666666;
+
+  font-size: 14px;
+
+  line-height: 1.65;
+}
+
+.kyc-checkout-price {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin: 28px 0;
+
+  padding: 18px 20px;
+
+  border-radius: 12px;
+
+  background: #fff4d8;
+}
+
+.kyc-checkout-price span {
+  color: #8a6100;
+
+  font-size: 9px;
+
+  font-weight: 900;
+
+  letter-spacing: 1.5px;
+}
+
+.kyc-checkout-price strong {
+  color: #151515;
+
+  font-size: 32px;
+
+  line-height: 1;
+
+  font-weight: 900;
+}
+
+.kyc-checkout-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 19px;
+}
+
+.kyc-checkout-form label {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  color: #151515;
+
+  font-size: 12px;
+
+  font-weight: 800;
+}
+
+.kyc-checkout-form input {
+  width: 100%;
+
+  height: 52px;
+
+  padding: 0 15px;
+
+  border: 1px solid #ded6c8;
+
+  border-radius: 9px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #151515;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.kyc-checkout-form input::placeholder {
+  color: #aaaaaa;
+}
+
+.kyc-checkout-form input:focus {
+  border-color: #e7a414;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(231, 164, 20, 0.12);
+}
+
+.kyc-checkout-form input:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+.kyc-checkout-form label small {
+  color: #888888;
+
+  font-size: 10px;
+
+  font-weight: 400;
+
+  line-height: 1.5;
+}
+
+.kyc-checkout-error {
+  padding: 13px 15px;
+
+  border: 1px solid #f2caca;
+
+  border-radius: 9px;
+
+  background: #fff2f2;
+
+  color: #b42318;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+.kyc-checkout-button {
+  width: 100%;
+
+  min-height: 58px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 16px;
+
+  margin-top: 4px;
+
+  padding: 15px 20px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #151515;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 900;
+
+  box-shadow:
+    0 12px 25px
+    rgba(0, 0, 0, 0.13);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.kyc-checkout-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 16px 30px
+    rgba(0, 0, 0, 0.18);
+}
+
+.kyc-checkout-button:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+.kyc-checkout-button span {
+  color: #e7a414;
+
+  font-size: 20px;
+}
+
+.kyc-checkout-trust {
+  margin-top: 20px;
+
+  color: #888888;
+
+  font-size: 10px;
+
+  line-height: 1.9;
+
+  text-align: center;
+}
+
+
+/* =========================================================
    TABLET
 ========================================================= */
 
@@ -1538,14 +1833,50 @@ very small relative padding.
     padding: 25px 0;
   }
 
-  /*
-    Mobile version of the special highlight.
-    Still deliberately tiny — no large fixed padding.
-  */
-
   .kyc-highlight-perfect {
     padding: 0.02em 0.08em 0.04em;
 
     line-height: 0.88;
+  }
+
+
+  /* =======================================================
+     CHECKOUT MOBILE
+  ======================================================= */
+
+  .kyc-checkout-wrap {
+    width: calc(100% - 24px);
+
+    padding-top: 20px;
+  }
+
+  .kyc-checkout-card {
+    padding: 26px 20px;
+
+    border-radius: 16px;
+  }
+
+  .kyc-checkout-card h1 {
+    font-size: 35px;
+
+    letter-spacing: -1.4px;
+  }
+
+  .kyc-checkout-intro {
+    font-size: 13px;
+  }
+
+  .kyc-checkout-price {
+    padding: 16px;
+  }
+
+  .kyc-checkout-price strong {
+    font-size: 28px;
+  }
+
+  .kyc-checkout-button {
+    min-height: 55px;
+
+    font-size: 11px;
   }
 }

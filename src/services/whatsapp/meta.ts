@@ -44,8 +44,8 @@ export class MetaWhatsAppService {
   }
 
   /**
-   * Save an automated outbound message to Supabase
-   * so it appears inside the WhatsApp Inbox.
+   * Save automated outbound message to Supabase
+   * so it appears in the WhatsApp Inbox.
    */
   private static async saveAutomatedMessage(
     phone: string,
@@ -71,8 +71,7 @@ export class MetaWhatsAppService {
 
     try {
       /*
-       * Find the WhatsApp conversation using the customer's
-       * normalized phone number.
+       * Find existing conversation.
        */
       const conversationResponse = await fetch(
         `${supabaseUrl}/rest/v1/whatsapp_conversations?phone_number=eq.${encodeURIComponent(
@@ -90,47 +89,53 @@ export class MetaWhatsAppService {
       );
 
       if (!conversationResponse.ok) {
-        const errorText = await conversationResponse.text();
+        const errorText =
+          await conversationResponse.text();
 
         throw new Error(
           `Conversation lookup failed: ${conversationResponse.status} ${errorText}`
         );
       }
 
-      const conversations = await conversationResponse.json();
+      const conversations =
+        await conversationResponse.json();
 
       let conversationId: string;
 
       /*
-       * If conversation already exists, use it.
+       * Use existing conversation if available.
        */
-      if (Array.isArray(conversations) && conversations.length > 0) {
+      if (
+        Array.isArray(conversations) &&
+        conversations.length > 0
+      ) {
         conversationId = conversations[0].id;
       } else {
         /*
-         * If the customer has never messaged us before,
-         * create the conversation so the automated message
-         * still appears in the inbox.
+         * Create conversation if customer has never
+         * messaged us before.
          */
-        const createConversationResponse = await fetch(
-          `${supabaseUrl}/rest/v1/whatsapp_conversations`,
-          {
-            method: "POST",
-            headers: {
-              apikey: supabaseKey,
-              Authorization: `Bearer ${supabaseKey}`,
-              "Content-Type": "application/json",
-              Prefer: "return=representation",
-            },
-            body: JSON.stringify({
-              phone_number: phone,
-              display_name: phone,
-              last_message: `[Automated] ${templateName}`,
-              last_message_at: new Date().toISOString(),
-              unread_count: 0,
-            }),
-          }
-        );
+        const createConversationResponse =
+          await fetch(
+            `${supabaseUrl}/rest/v1/whatsapp_conversations`,
+            {
+              method: "POST",
+              headers: {
+                apikey: supabaseKey,
+                Authorization: `Bearer ${supabaseKey}`,
+                "Content-Type": "application/json",
+                Prefer: "return=representation",
+              },
+              body: JSON.stringify({
+                phone_number: phone,
+                display_name: phone,
+                last_message: `[Automated] ${templateName}`,
+                last_message_at:
+                  new Date().toISOString(),
+                unread_count: 0,
+              }),
+            }
+          );
 
         if (!createConversationResponse.ok) {
           const errorText =
@@ -153,19 +158,22 @@ export class MetaWhatsAppService {
           );
         }
 
-        conversationId = createdConversation[0].id;
+        conversationId =
+          createdConversation[0].id;
       }
 
       const now = new Date().toISOString();
 
       /*
-       * Save automated outbound message.
-       *
-       * We store the template name because Meta's API does not
-       * return the final rendered template text.
+       * Meta does not return the rendered template text,
+       * so store the template name for now.
        */
-      const messageText = `[Automated] ${templateName}`;
+      const messageText =
+        `[Automated] ${templateName}`;
 
+      /*
+       * Save outbound message.
+       */
       const messageResponse = await fetch(
         `${supabaseUrl}/rest/v1/whatsapp_messages`,
         {
@@ -190,7 +198,8 @@ export class MetaWhatsAppService {
       );
 
       if (!messageResponse.ok) {
-        const errorText = await messageResponse.text();
+        const errorText =
+          await messageResponse.text();
 
         throw new Error(
           `Message save failed: ${messageResponse.status} ${errorText}`
@@ -200,25 +209,26 @@ export class MetaWhatsAppService {
       /*
        * Update conversation preview.
        */
-      const conversationUpdateResponse = await fetch(
-        `${supabaseUrl}/rest/v1/whatsapp_conversations?id=eq.${encodeURIComponent(
-          conversationId
-        )}`,
-        {
-          method: "PATCH",
-          headers: {
-            apikey: supabaseKey,
-            Authorization: `Bearer ${supabaseKey}`,
-            "Content-Type": "application/json",
-            Prefer: "return=minimal",
-          },
-          body: JSON.stringify({
-            last_message: messageText,
-            last_message_at: now,
-            updated_at: now,
-          }),
-        }
-      );
+      const conversationUpdateResponse =
+        await fetch(
+          `${supabaseUrl}/rest/v1/whatsapp_conversations?id=eq.${encodeURIComponent(
+            conversationId
+          )}`,
+          {
+            method: "PATCH",
+            headers: {
+              apikey: supabaseKey,
+              Authorization: `Bearer ${supabaseKey}`,
+              "Content-Type": "application/json",
+              Prefer: "return=minimal",
+            },
+            body: JSON.stringify({
+              last_message: messageText,
+              last_message_at: now,
+              updated_at: now,
+            }),
+          }
+        );
 
       if (!conversationUpdateResponse.ok) {
         const errorText =
@@ -246,26 +256,25 @@ export class MetaWhatsAppService {
 
       return {
         success: false,
-        error: error?.message || "Failed to save automated message",
+        error:
+          error?.message ||
+          "Failed to save automated message",
       };
     }
   }
 
   /**
-   * Send a WhatsApp Cloud API template message.
+   * Send WhatsApp Cloud API template message.
    *
-   * All current templates use:
-   * {{1}} = Name
-   * {{2}} = Amount
-   * {{3}} = Link
+   * IMPORTANT:
+   * Different templates have different numbers
+   * of variables, so parameters are passed explicitly.
    */
   static async sendTemplateMessage(
     to: string,
     templateName: string,
     languageCode: string,
-    name: string,
-    amount: string,
-    link: string
+    parameters: string[]
   ) {
     const accessToken =
       process.env.WHATSAPP_ACCESS_TOKEN;
@@ -293,9 +302,21 @@ export class MetaWhatsAppService {
     ) {
       return {
         success: false,
-        error: `Invalid WhatsApp phone number: ${to}`,
+        error:
+          `Invalid WhatsApp phone number: ${to}`,
       };
     }
+
+    /*
+     * Convert our string parameters into Meta's
+     * required parameter objects.
+     */
+    const bodyParameters = parameters.map(
+      (value) => ({
+        type: "text",
+        text: value,
+      })
+    );
 
     const payload = {
       messaging_product: "whatsapp",
@@ -310,20 +331,7 @@ export class MetaWhatsAppService {
         components: [
           {
             type: "body",
-            parameters: [
-              {
-                type: "text",
-                text: name,
-              },
-              {
-                type: "text",
-                text: amount,
-              },
-              {
-                type: "text",
-                text: link,
-              },
-            ],
+            parameters: bodyParameters,
           },
         ],
       },
@@ -332,6 +340,11 @@ export class MetaWhatsAppService {
     try {
       console.log(
         `[WhatsApp] Sending "${templateName}" to ${cleanDestination}`
+      );
+
+      console.log(
+        `[WhatsApp] Parameters:`,
+        parameters.length
       );
 
       const response = await fetch(
@@ -369,9 +382,8 @@ export class MetaWhatsAppService {
       );
 
       /*
-       * IMPORTANT:
-       * Save the automated message to the WhatsApp Inbox
-       * only AFTER Meta confirms that it was sent.
+       * Save to WhatsApp Inbox only after Meta confirms
+       * successful delivery submission.
        */
       const inboxResult =
         await this.saveAutomatedMessage(
@@ -382,7 +394,7 @@ export class MetaWhatsAppService {
 
       if (!inboxResult.success) {
         console.error(
-          `[WhatsApp] Message was sent but could not be saved to inbox:`,
+          "[WhatsApp] Message sent but inbox save failed:",
           inboxResult.error
         );
       }
@@ -412,11 +424,8 @@ export class MetaWhatsAppService {
   /**
    * PAYMENT CONFIRMATION
    *
-   * Template: payment_confirmation_1
-   *
-   * {{1}} = Name
-   * {{2}} = Amount
-   * {{3}} = Link
+   * {{1}} = name
+   * {{2}} = amount
    */
   static async sendConfirmation(
     phone: string,
@@ -427,14 +436,17 @@ export class MetaWhatsAppService {
       phone,
       "payment_confirmation_1",
       "en_US",
-      this.getFirstName(name),
-      amount,
-      this.getLink()
+      [
+        this.getFirstName(name),
+        amount,
+      ]
     );
   }
 
   /**
    * 6 DAYS BEFORE
+   *
+   * {{1}} = name
    */
   static async sendReminder6Days(
     phone: string,
@@ -444,14 +456,16 @@ export class MetaWhatsAppService {
       phone,
       "psychology_reminder_6_days",
       "en",
-      this.getFirstName(name),
-      this.getAmount(),
-      this.getLink()
+      [
+        this.getFirstName(name),
+      ]
     );
   }
 
   /**
    * 5 DAYS BEFORE
+   *
+   * {{1}} = name
    */
   static async sendReminder5Days(
     phone: string,
@@ -461,14 +475,16 @@ export class MetaWhatsAppService {
       phone,
       "psychology_daily_1_sep",
       "en",
-      this.getFirstName(name),
-      this.getAmount(),
-      this.getLink()
+      [
+        this.getFirstName(name),
+      ]
     );
   }
 
   /**
    * 4 DAYS BEFORE
+   *
+   * {{1}} = name
    */
   static async sendReminder4Days(
     phone: string,
@@ -478,14 +494,16 @@ export class MetaWhatsAppService {
       phone,
       "psychology_daily_2_sep",
       "en",
-      this.getFirstName(name),
-      this.getAmount(),
-      this.getLink()
+      [
+        this.getFirstName(name),
+      ]
     );
   }
 
   /**
    * 3 DAYS BEFORE
+   *
+   * {{1}} = name
    */
   static async sendReminder3Days(
     phone: string,
@@ -495,14 +513,16 @@ export class MetaWhatsAppService {
       phone,
       "psychology_daily_3_sep",
       "en",
-      this.getFirstName(name),
-      this.getAmount(),
-      this.getLink()
+      [
+        this.getFirstName(name),
+      ]
     );
   }
 
   /**
    * 2 DAYS BEFORE
+   *
+   * {{1}} = name
    */
   static async sendReminder2Days(
     phone: string,
@@ -512,14 +532,17 @@ export class MetaWhatsAppService {
       phone,
       "psychology_daily_4_sep",
       "en",
-      this.getFirstName(name),
-      this.getAmount(),
-      this.getLink()
+      [
+        this.getFirstName(name),
+      ]
     );
   }
 
   /**
    * TOMORROW
+   *
+   * {{1}} = name
+   * {{2}} = link
    */
   static async sendWebinarTomorrow(
     phone: string,
@@ -529,14 +552,18 @@ export class MetaWhatsAppService {
       phone,
       "psychology_webinar_tomorrow",
       "en",
-      this.getFirstName(name),
-      this.getAmount(),
-      this.getLink()
+      [
+        this.getFirstName(name),
+        this.getLink(),
+      ]
     );
   }
 
   /**
    * WEBINAR TODAY
+   *
+   * {{1}} = name
+   * {{2}} = link
    */
   static async sendWebinarToday(
     phone: string,
@@ -546,14 +573,18 @@ export class MetaWhatsAppService {
       phone,
       "psychology_webinar_today",
       "en",
-      this.getFirstName(name),
-      this.getAmount(),
-      this.getLink()
+      [
+        this.getFirstName(name),
+        this.getLink(),
+      ]
     );
   }
 
   /**
    * 1 HOUR BEFORE
+   *
+   * {{1}} = name
+   * {{2}} = link
    */
   static async sendOneHourReminder(
     phone: string,
@@ -563,14 +594,18 @@ export class MetaWhatsAppService {
       phone,
       "psychology_one_hour",
       "en",
-      this.getFirstName(name),
-      this.getAmount(),
-      this.getLink()
+      [
+        this.getFirstName(name),
+        this.getLink(),
+      ]
     );
   }
 
   /**
    * 30 MINUTES BEFORE
+   *
+   * {{1}} = name
+   * {{2}} = link
    */
   static async sendThirtyMinuteReminder(
     phone: string,
@@ -580,16 +615,18 @@ export class MetaWhatsAppService {
       phone,
       "psychology_thirty_minutes",
       "en",
-      this.getFirstName(name),
-      this.getAmount(),
-      this.getLink()
+      [
+        this.getFirstName(name),
+        this.getLink(),
+      ]
     );
   }
 
   /**
    * LIVE NOW
    *
-   * Template language: English (UK)
+   * {{1}} = name
+   * {{2}} = link
    */
   static async sendLiveNow(
     phone: string,
@@ -599,14 +636,17 @@ export class MetaWhatsAppService {
       phone,
       "psychology_live_now",
       "en_GB",
-      this.getFirstName(name),
-      this.getAmount(),
-      this.getLink()
+      [
+        this.getFirstName(name),
+        this.getLink(),
+      ]
     );
   }
 
   /**
    * FEEDBACK
+   *
+   * {{1}} = name
    */
   static async sendFeedback(
     phone: string,
@@ -616,9 +656,9 @@ export class MetaWhatsAppService {
       phone,
       "psychology_feedback",
       "en",
-      this.getFirstName(name),
-      this.getAmount(),
-      this.getLink()
+      [
+        this.getFirstName(name),
+      ]
     );
   }
 }

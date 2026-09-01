@@ -132,7 +132,7 @@ export default function KnowYourCustomerPage() {
             </h2>
 
             <p className="kyc-lead">
-              A simple,{" "}
+              A simple{" "}
               <span className="kyc-highlight">
                 guided 15-minute worksheet
               </span>{" "}
@@ -141,8 +141,6 @@ export default function KnowYourCustomerPage() {
               create communication that truly connects.
             </p>
 
-
-            {/* BUY */}
 
             <div className="kyc-buy-row">
 
@@ -270,7 +268,6 @@ export default function KnowYourCustomerPage() {
               hesitate or buy.
             </p>
 
-
             <div className="kyc-questions">
 
               {questions.map((question) => (
@@ -281,7 +278,6 @@ export default function KnowYourCustomerPage() {
               ))}
 
             </div>
-
 
             <p className="kyc-boldline">
               The answers to these questions can change the way you
@@ -296,7 +292,7 @@ export default function KnowYourCustomerPage() {
 
 
       {/* =====================================================
-          15 MINUTE PROCESS
+          PROCESS
       ===================================================== */}
 
       <section className="kyc-process">
@@ -380,8 +376,6 @@ export default function KnowYourCustomerPage() {
 
           <div className="kyc-preview-grid">
 
-            {/* CARD 1 */}
-
             <div className="kyc-preview-card">
 
               <div className="kyc-fake-page">
@@ -414,8 +408,6 @@ export default function KnowYourCustomerPage() {
 
             </div>
 
-
-            {/* CARD 2 */}
 
             <div className="kyc-preview-card">
 
@@ -454,8 +446,6 @@ export default function KnowYourCustomerPage() {
             </div>
 
 
-            {/* CARD 3 */}
-
             <div className="kyc-preview-card">
 
               <div className="kyc-fake-page">
@@ -487,8 +477,6 @@ export default function KnowYourCustomerPage() {
 
             </div>
 
-
-            {/* CARD 4 */}
 
             <div className="kyc-preview-card">
 
@@ -535,9 +523,6 @@ export default function KnowYourCustomerPage() {
 
       <section className="kyc-container kyc-two-col">
 
-
-        {/* WHAT YOU GET */}
-
         <div className="kyc-card">
 
           <p className="kyc-eyebrow">
@@ -579,8 +564,6 @@ export default function KnowYourCustomerPage() {
         </div>
 
 
-        {/* WHO IT'S FOR */}
-
         <div className="kyc-card">
 
           <p className="kyc-eyebrow">
@@ -593,7 +576,6 @@ export default function KnowYourCustomerPage() {
               understand the customer better.
             </span>
           </h2>
-
 
           <div className="kyc-audience">
 
@@ -628,11 +610,23 @@ export default function KnowYourCustomerPage() {
             THE IDEA BEHIND IT
           </p>
 
-          <h2>
-            This isn&apos;t about creating a fictional{" "}
-            <span className="kyc-highlight kyc-highlight-perfect">
-              “perfect customer.”
+          <h2 className="kyc-perfect-heading">
+
+            This isn&apos;t about creating a
+            <br />
+
+            fictional{" "}
+
+            <span className="kyc-perfect-line">
+              “perfect
             </span>
+
+            <br />
+
+            <span className="kyc-perfect-line">
+              customer.”
+            </span>
+
           </h2>
 
           <p>
@@ -661,8 +655,6 @@ export default function KnowYourCustomerPage() {
 
         </div>
 
-
-        {/* QUOTE */}
 
         <aside className="kyc-quote">
 
@@ -735,7 +727,6 @@ export default function KnowYourCustomerPage() {
 
             </div>
 
-
             <a
               href={CHECKOUT_URL}
               className="kyc-button kyc-button-final"
@@ -743,7 +734,6 @@ export default function KnowYourCustomerPage() {
               YES, I WANT THE WORKSHEET FOR ₹20
               <span>→</span>
             </a>
-
 
             <small>
               ⚡ Instant digital download
@@ -783,7 +773,6 @@ export default function KnowYourCustomerPage() {
             </span>
 
           </div>
-
 
           <p>
             © {new Date().getFullYear()} Puneet Kaur Saluja.

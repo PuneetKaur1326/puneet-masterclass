@@ -48,15 +48,13 @@ const audience = [
 
 function CTA({
   children,
-  className = "",
 }: {
   children: React.ReactNode;
-  className?: string;
 }) {
   return (
     <Link
       href={checkoutUrl}
-      className={`kyc-cta ${className}`}
+      className="kyc-cta"
       style={{
         backgroundColor: "#111111",
         color: "#ffffff",
@@ -120,12 +118,10 @@ export default function KnowYourCustomerPage() {
               </h2>
 
 
-              {/* =================================
-                  MOBILE IMAGE
-
-                  This appears immediately after
-                  the headline/subheadline on phone.
-              ================================= */}
+              {/* MOBILE IMAGE
+                  Appears immediately after
+                  the subheadline on phones.
+              */}
 
               <div className="kyc-mobile-hero-visual">
 
@@ -172,12 +168,7 @@ export default function KnowYourCustomerPage() {
             </div>
 
 
-            {/* =================================
-                DESKTOP IMAGE
-
-                Hidden on mobile because the
-                mobile version is placed earlier.
-            ================================= */}
+            {/* DESKTOP IMAGE */}
 
             <div className="kyc-hero-visual">
 
@@ -632,6 +623,7 @@ export default function KnowYourCustomerPage() {
 
         body {
           margin: 0;
+          padding: 0;
           background: #ffffff;
           color: #111111;
           font-family:
@@ -642,12 +634,14 @@ export default function KnowYourCustomerPage() {
 
         .kyc-page {
           width: 100%;
+          min-width: 0;
           overflow-x: hidden;
           background: #ffffff;
         }
 
         .kyc-container {
           width: min(1180px, calc(100% - 80px));
+          max-width: 1180px;
           margin: 0 auto;
         }
 
@@ -657,6 +651,7 @@ export default function KnowYourCustomerPage() {
         ========================= */
 
         .kyc-header {
+          width: 100%;
           border-bottom: 1px solid #e8e8e8;
           background: #ffffff;
         }
@@ -702,6 +697,10 @@ export default function KnowYourCustomerPage() {
             minmax(0, 0.85fr);
           gap: 60px;
           align-items: center;
+        }
+
+        .kyc-hero-copy {
+          min-width: 0;
         }
 
         .kyc-eyebrow,
@@ -751,7 +750,29 @@ export default function KnowYourCustomerPage() {
 
 
         /* =========================
-           HERO ACTION
+           HERO IMAGE
+        ========================= */
+
+        .kyc-hero-visual {
+          width: 100%;
+          min-width: 0;
+        }
+
+        .kyc-hero-visual img {
+          display: block;
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+          border-radius: 18px;
+        }
+
+        .kyc-mobile-hero-visual {
+          display: none;
+        }
+
+
+        /* =========================
+           HERO CTA
         ========================= */
 
         .kyc-hero-action,
@@ -842,28 +863,6 @@ export default function KnowYourCustomerPage() {
 
 
         /* =========================
-           HERO IMAGE
-        ========================= */
-
-        .kyc-hero-visual {
-          width: 100%;
-          min-width: 0;
-        }
-
-        .kyc-hero-visual img {
-          display: block;
-          width: 100%;
-          max-width: 100%;
-          height: auto;
-          border-radius: 18px;
-        }
-
-        .kyc-mobile-hero-visual {
-          display: none;
-        }
-
-
-        /* =========================
            GENERAL SECTIONS
         ========================= */
 
@@ -928,7 +927,7 @@ export default function KnowYourCustomerPage() {
 
 
         /* =========================
-           HIGHLIGHT BOX
+           HIGHLIGHT
         ========================= */
 
         .kyc-highlight-box {
@@ -1201,21 +1200,12 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-hero {
-            padding: 55px 0 65px;
+            padding: 45px 0 60px;
           }
 
           .kyc-hero-grid {
             grid-template-columns: 1fr;
             gap: 38px;
-          }
-
-          .kyc-hero-copy {
-            width: 100%;
-          }
-
-          .kyc-hero-visual {
-            width: 100%;
-            order: 2;
           }
 
           .kyc-two-column {
@@ -1248,49 +1238,68 @@ export default function KnowYourCustomerPage() {
 
 
         /* =========================
-           MOBILE — PHONE PRIORITY
+           MOBILE
         ========================= */
 
         @media (max-width: 600px) {
 
+          html,
           body {
+            width: 100%;
+            max-width: 100%;
             overflow-x: hidden;
           }
 
           .kyc-page {
+            width: 100%;
+            max-width: 100%;
             overflow-x: hidden;
           }
+
+
+          /* =========================
+             MOBILE CONTAINER
+          ========================= */
 
           .kyc-container {
             width: calc(100% - 28px);
             max-width: none;
+            margin-left: 14px;
+            margin-right: 14px;
           }
 
 
-          /* HEADER */
+          /* =========================
+             MOBILE HEADER
+          ========================= */
 
           .kyc-header-inner {
-            min-height: 58px;
-            gap: 10px;
+            min-height: 52px;
+            height: 52px;
+            gap: 8px;
           }
 
           .kyc-logo {
             font-size: 9px;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.055em;
+            white-space: nowrap;
           }
 
           .kyc-download-pill {
             font-size: 7px;
-            padding: 6px 8px;
-            letter-spacing: 0.04em;
+            line-height: 1;
+            padding: 6px 7px;
+            letter-spacing: 0.035em;
             white-space: nowrap;
           }
 
 
-          /* HERO */
+          /* =========================
+             MOBILE HERO
+          ========================= */
 
           .kyc-hero {
-            padding: 34px 0 45px;
+            padding: 18px 0 42px;
           }
 
           .kyc-hero-grid {
@@ -1301,41 +1310,52 @@ export default function KnowYourCustomerPage() {
 
           .kyc-hero-copy {
             width: 100%;
+            min-width: 0;
           }
+
+
+          /* EYEBROW */
 
           .kyc-eyebrow {
-            font-size: 9px;
+            font-size: 8px;
+            line-height: 1;
             padding: 7px 9px;
             margin-bottom: 15px;
-            letter-spacing: 0.11em;
+            letter-spacing: 0.10em;
           }
 
+
+          /* MAIN HEADLINE */
+
           .kyc-hero h1 {
+            margin: 0;
             font-size: 38px;
             line-height: 0.94;
             letter-spacing: -0.045em;
           }
 
+
+          /* SUBHEADLINE */
+
           .kyc-hero h2 {
             margin-top: 16px;
-            font-size: 24px;
-            line-height: 1.08;
+            font-size: 23px;
+            line-height: 1.06;
+            letter-spacing: -0.03em;
           }
 
 
-          /* =================================
+          /* =========================
              MOBILE IMAGE
-
-             Deliberately placed immediately
-             after the hero headline.
-          ================================= */
+             FIRST SCROLL
+          ========================= */
 
           .kyc-mobile-hero-visual {
             display: block;
             width: 100%;
             max-width: 100%;
-            margin-top: 24px;
-            margin-bottom: 24px;
+            margin-top: 22px;
+            margin-bottom: 23px;
           }
 
           .kyc-mobile-hero-visual img {
@@ -1347,176 +1367,219 @@ export default function KnowYourCustomerPage() {
           }
 
 
-          /* Hide desktop duplicate image */
+          /* Hide desktop duplicate */
 
           .kyc-hero-visual {
             display: none;
           }
 
 
-          /* HERO COPY AFTER IMAGE */
+          /* =========================
+             HERO DESCRIPTION
+          ========================= */
 
           .kyc-hero-description {
             margin-top: 0;
-            font-size: 15px;
-            line-height: 1.6;
-          }
-
-          .kyc-hero-bold {
-            margin-top: 17px;
-            font-size: 13px;
+            max-width: none;
+            font-size: 14px;
             line-height: 1.58;
           }
 
+          .kyc-hero-bold {
+            margin-top: 16px;
+            max-width: none;
+            font-size: 12.5px;
+            line-height: 1.56;
+          }
 
-          /* MOBILE HERO CTA */
+
+          /* =========================
+             HERO PRICE + CTA
+          ========================= */
 
           .kyc-hero-action {
             display: grid;
             grid-template-columns: 88px minmax(0, 1fr);
             gap: 9px;
-            margin-top: 24px;
             width: 100%;
+            margin-top: 23px;
           }
 
           .kyc-price {
             min-width: 0;
             width: 100%;
-            min-height: 62px;
-            padding: 8px 8px;
+            min-height: 60px;
+            height: 60px;
+            padding: 7px;
             border-radius: 10px;
             font-size: 28px;
           }
 
 
-          /* CTA */
+          /* =========================
+             ALL MOBILE CTAs
+          ========================= */
 
           .kyc-cta {
-            min-height: 62px !important;
+            min-height: 60px !important;
             width: 100%;
             min-width: 0;
-            padding: 13px 12px !important;
-            font-size: 11px !important;
+
+            padding: 12px 11px !important;
+
+            font-size: 10.5px !important;
             line-height: 1.25 !important;
-            letter-spacing: 0.02em !important;
+            letter-spacing: 0.018em !important;
+
+            white-space: normal !important;
           }
 
 
-          /* META */
+          /* =========================
+             META
+          ========================= */
 
           .kyc-meta {
-            margin-top: 11px;
+            margin-top: 10px;
             gap: 5px;
-            font-size: 9px;
+            font-size: 8.5px;
             line-height: 1.4;
           }
 
 
-          /* SECTIONS */
+          /* =========================
+             SECTIONS
+          ========================= */
 
           .kyc-section {
-            padding: 54px 0;
+            padding: 52px 0;
           }
 
           .kyc-section-label {
-            font-size: 9px;
+            font-size: 8.5px;
+            line-height: 1;
             margin-bottom: 14px;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.115em;
           }
 
           .kyc-section-title {
-            font-size: 33px;
-            line-height: 0.99;
+            max-width: 100%;
+            font-size: 32px;
+            line-height: 0.98;
             letter-spacing: -0.04em;
           }
 
+          .kyc-section-title.left {
+            max-width: 100%;
+          }
+
           .kyc-section-intro {
-            margin-top: 18px;
-            font-size: 14px;
-            line-height: 1.6;
+            max-width: 100%;
+            margin-top: 17px;
+            font-size: 13.5px;
+            line-height: 1.58;
           }
 
 
-          /* TWO COLUMNS */
+          /* =========================
+             TWO COLUMN → ONE COLUMN
+          ========================= */
 
           .kyc-two-column {
             display: flex;
             flex-direction: column;
-            gap: 28px;
-            margin-top: 30px;
+            gap: 27px;
+            margin-top: 29px;
+          }
+
+          .kyc-two-column > div {
+            width: 100%;
+            min-width: 0;
           }
 
           .kyc-two-column p {
-            font-size: 14px;
-            line-height: 1.65;
+            max-width: 100%;
+            font-size: 13.5px;
+            line-height: 1.62;
           }
 
           .kyc-large-text {
-            font-size: 18px !important;
-            line-height: 1.4 !important;
+            font-size: 17px !important;
+            line-height: 1.38 !important;
           }
 
 
-          /* HIGHLIGHT */
+          /* =========================
+             HIGHLIGHT BOX
+          ========================= */
 
           .kyc-highlight-box {
-            padding: 25px;
-            border-radius: 12px;
+            width: 100%;
+            padding: 24px;
+            border-radius: 11px;
           }
 
           .kyc-highlight-mark {
-            font-size: 45px;
+            font-size: 43px;
           }
 
           .kyc-highlight-box h3 {
-            margin: 18px 0 12px;
-            font-size: 22px;
+            margin: 17px 0 11px;
+            font-size: 21px;
             line-height: 1.05;
           }
 
           .kyc-highlight-box p {
-            font-size: 14px !important;
+            font-size: 13px !important;
+            line-height: 1.5 !important;
           }
 
           .kyc-section .kyc-cta {
-            margin-top: 30px;
+            margin-top: 29px;
           }
 
 
-          /* INSIGHTS */
+          /* =========================
+             INSIGHTS
+          ========================= */
 
           .kyc-insights-grid {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            margin-top: 30px;
+            gap: 9px;
+            margin-top: 29px;
           }
 
           .kyc-insight-card {
-            padding: 22px;
+            width: 100%;
+            padding: 21px;
           }
 
           .kyc-card-number {
-            margin-bottom: 22px;
-            font-size: 10px;
+            margin-bottom: 20px;
+            font-size: 9px;
           }
 
           .kyc-insight-card h3 {
-            font-size: 17px;
-            line-height: 1.1;
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.08;
           }
 
           .kyc-insight-card p {
-            font-size: 13px;
-            line-height: 1.55;
+            font-size: 12.5px;
+            line-height: 1.52;
           }
 
           .kyc-centered-cta {
+            display: block;
             width: 100%;
           }
 
 
-          /* BEFORE YOU SPEND */
+          /* =========================
+             BEFORE YOU SPEND
+          ========================= */
 
           .kyc-before-box {
             width: 100%;
@@ -1527,8 +1590,9 @@ export default function KnowYourCustomerPage() {
             flex-direction: column;
             align-items: flex-start;
             gap: 3px;
-            padding: 17px;
-            font-size: 10px;
+            padding: 16px;
+            font-size: 9.5px;
+            line-height: 1.3;
           }
 
           .kyc-before-row strong {
@@ -1536,18 +1600,22 @@ export default function KnowYourCustomerPage() {
           }
 
 
-          /* OUTCOMES */
+          /* =========================
+             OUTCOMES
+          ========================= */
 
           .kyc-outcomes {
-            margin-top: 30px;
+            margin-top: 29px;
             display: flex;
             flex-direction: column;
+            width: 100%;
           }
 
           .kyc-outcome {
-            grid-template-columns: 35px minmax(0, 1fr);
-            gap: 9px;
-            padding: 17px 0;
+            display: grid;
+            grid-template-columns: 34px minmax(0, 1fr);
+            gap: 8px;
+            padding: 16px 0;
           }
 
           .kyc-outcome span {
@@ -1555,66 +1623,76 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-outcome p {
-            font-size: 13px;
-            line-height: 1.45;
+            font-size: 12.5px;
+            line-height: 1.42;
           }
 
 
-          /* AUDIENCE */
+          /* =========================
+             AUDIENCE
+          ========================= */
 
           .kyc-audience-box {
             width: 100%;
           }
 
           .kyc-audience-item {
-            padding: 13px 0;
-            gap: 10px;
+            padding: 12px 0;
+            gap: 9px;
+          }
+
+          .kyc-audience-item span {
+            font-size: 13px;
           }
 
           .kyc-audience-item p {
-            font-size: 13px;
-            line-height: 1.4;
+            font-size: 12.5px;
+            line-height: 1.38;
           }
 
 
-          /* IDEA */
+          /* =========================
+             IDEA
+          ========================= */
 
           .kyc-philosophy .kyc-section-label {
-            margin-bottom: 22px;
+            margin-bottom: 21px;
           }
 
           .kyc-quote {
-            font-size: 28px;
+            font-size: 27px;
             line-height: 1.04;
             letter-spacing: -0.04em;
           }
 
           .kyc-philosophy > p {
-            margin-top: 22px;
-            font-size: 14px;
-            line-height: 1.55;
+            margin-top: 21px;
+            font-size: 13.5px;
+            line-height: 1.52;
           }
 
           .kyc-philosophy .kyc-cta {
-            margin-top: 24px;
+            margin-top: 23px;
           }
 
 
-          /* FINAL CTA */
+          /* =========================
+             FINAL CTA
+          ========================= */
 
           .kyc-final {
-            padding: 62px 0;
+            padding: 60px 0;
           }
 
           .kyc-final h2 {
-            font-size: 40px;
+            font-size: 39px;
             line-height: 0.94;
             letter-spacing: -0.045em;
           }
 
           .kyc-final > .kyc-container > p {
-            margin-top: 20px;
-            font-size: 15px;
+            margin-top: 19px;
+            font-size: 14px;
             line-height: 1.5;
           }
 
@@ -1623,14 +1701,15 @@ export default function KnowYourCustomerPage() {
             grid-template-columns: 88px minmax(0, 1fr);
             gap: 9px;
             width: 100%;
-            margin-top: 25px;
+            margin-top: 24px;
           }
 
           .kyc-final-price {
             min-width: 0;
             width: 100%;
-            min-height: 62px;
-            padding: 8px;
+            min-height: 60px;
+            height: 60px;
+            padding: 7px;
             border-radius: 10px;
             font-size: 28px;
           }
@@ -1641,14 +1720,74 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-final-meta {
-            margin-top: 13px;
-            font-size: 9px;
+            margin-top: 12px;
+            font-size: 8.5px;
           }
 
           .kyc-footer-name {
-            margin-top: 50px;
-            padding-top: 18px;
-            font-size: 9px;
+            margin-top: 48px;
+            padding-top: 17px;
+            font-size: 8.5px;
+          }
+
+        }
+
+
+        /* =========================
+           VERY SMALL PHONES
+        ========================= */
+
+        @media (max-width: 380px) {
+
+          .kyc-container {
+            width: calc(100% - 24px);
+            margin-left: 12px;
+            margin-right: 12px;
+          }
+
+          .kyc-logo {
+            font-size: 8px;
+          }
+
+          .kyc-download-pill {
+            font-size: 6.5px;
+            padding: 5px 6px;
+          }
+
+          .kyc-hero {
+            padding-top: 16px;
+          }
+
+          .kyc-hero h1 {
+            font-size: 35px;
+          }
+
+          .kyc-hero h2 {
+            font-size: 21px;
+          }
+
+          .kyc-section-title {
+            font-size: 29px;
+          }
+
+          .kyc-hero-action,
+          .kyc-final-action {
+            grid-template-columns: 78px minmax(0, 1fr);
+          }
+
+          .kyc-price,
+          .kyc-final-price {
+            font-size: 25px;
+          }
+
+          .kyc-cta {
+            font-size: 9.5px !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+          }
+
+          .kyc-final h2 {
+            font-size: 35px;
           }
 
         }

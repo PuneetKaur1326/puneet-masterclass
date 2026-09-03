@@ -132,7 +132,7 @@ export default function KnowYourCustomerPage() {
                 </div>
 
                 <CTA>
-                  GET THE TOOL — ₹19 →
+                  GET THE TOOL FOR ₹19 →
                 </CTA>
 
               </div>
@@ -221,7 +221,7 @@ export default function KnowYourCustomerPage() {
 
 
             <CTA>
-              FIND OUT WHAT'S STOPPING THEM — ₹19 →
+              GET THE ANSWER FOR ₹19 →
             </CTA>
 
           </div>
@@ -278,7 +278,7 @@ export default function KnowYourCustomerPage() {
             <div className="kyc-centered-cta">
 
               <CTA>
-                GET THIS CLARITY — ₹19 →
+                GET THE CLARITY FOR ₹19 →
               </CTA>
 
             </div>
@@ -349,7 +349,7 @@ export default function KnowYourCustomerPage() {
 
 
             <CTA>
-              UNDERSTAND YOUR CUSTOMER FIRST — ₹19 →
+              UNDERSTAND YOUR CUSTOMER FOR ₹19 →
             </CTA>
 
           </div>
@@ -401,7 +401,7 @@ export default function KnowYourCustomerPage() {
 
 
             <CTA>
-              GET EVERYTHING — ₹19 →
+              GET EVERYTHING FOR ₹19 →
             </CTA>
 
           </div>
@@ -469,7 +469,7 @@ export default function KnowYourCustomerPage() {
 
 
             <CTA>
-              UNDERSTAND YOUR CUSTOMER — ₹19 →
+              UNDERSTAND YOUR CUSTOMER FOR ₹19 →
             </CTA>
 
           </div>
@@ -573,7 +573,7 @@ export default function KnowYourCustomerPage() {
               </div>
 
               <CTA>
-                STOP GUESSING — ₹19 →
+                STOP GUESSING — GET THE TOOL FOR ₹19 →
               </CTA>
 
             </div>
@@ -613,7 +613,7 @@ export default function KnowYourCustomerPage() {
               </div>
 
               <CTA>
-                YES, I WANT THE TOOL — ₹19 →
+                YES, GET THE TOOL FOR ₹19 →
               </CTA>
 
             </div>
@@ -823,7 +823,7 @@ export default function KnowYourCustomerPage() {
 
 
         /* =====================================================
-           CTA — DEFAULT
+           CTA
         ===================================================== */
 
         .kyc-hero-action,
@@ -866,11 +866,6 @@ export default function KnowYourCustomerPage() {
           letter-spacing: -0.05em;
         }
 
-
-        /* =====================================================
-           PRIMARY CTA
-        ===================================================== */
-
         .kyc-cta {
           display: inline-flex !important;
 
@@ -899,7 +894,7 @@ export default function KnowYourCustomerPage() {
 
           font-weight: 950 !important;
 
-          letter-spacing: 0.035em !important;
+          letter-spacing: 0.025em !important;
 
           text-align: center !important;
 
@@ -999,7 +994,7 @@ export default function KnowYourCustomerPage() {
 
           font-weight: 950 !important;
 
-          letter-spacing: 0.025em !important;
+          letter-spacing: 0.02em !important;
 
           border-radius: 0 !important;
         }
@@ -1517,7 +1512,7 @@ export default function KnowYourCustomerPage() {
 
 
         /* =====================================================
-           FINAL
+           FINAL CTA
         ===================================================== */
 
         .kyc-final {
@@ -1912,7 +1907,7 @@ export default function KnowYourCustomerPage() {
           }
 
 
-          /* MOBILE CTA */
+          /* CTA */
 
           .kyc-cta {
             min-height: 58px !important;
@@ -1923,7 +1918,7 @@ export default function KnowYourCustomerPage() {
 
             padding: 10px 9px !important;
 
-            font-size: 10px !important;
+            font-size: 9.5px !important;
 
             line-height: 1.2 !important;
 
@@ -2380,11 +2375,11 @@ export default function KnowYourCustomerPage() {
 
             padding: 8px 8px !important;
 
-            font-size: 9.5px !important;
+            font-size: 9.2px !important;
 
             line-height: 1.2 !important;
 
-            letter-spacing: 0.01em !important;
+            letter-spacing: 0.008em !important;
 
             white-space: normal !important;
 
@@ -2484,7 +2479,7 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-cta {
-            font-size: 9.2px !important;
+            font-size: 9px !important;
 
             padding-left: 7px !important;
 
@@ -2500,7 +2495,7 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-final-action .kyc-cta {
-            font-size: 9px !important;
+            font-size: 8.7px !important;
           }
 
         }

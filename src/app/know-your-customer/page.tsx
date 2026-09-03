@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 const checkoutUrl = "/know-your-customer/checkout";
 
@@ -46,7 +47,7 @@ const audience = [
   "Anyone selling a product, service or offer",
 ];
 
-function CTA({ children }: { children: React.ReactNode }) {
+function CTA({ children }: { children: ReactNode }) {
   return (
     <Link href={checkoutUrl} className="kyc-cta">
       {children}
@@ -59,7 +60,10 @@ export default function KnowYourCustomerPage() {
     <>
       <main className="kyc-page">
 
-        {/* HEADER */}
+        {/* =====================================================
+            HEADER
+        ===================================================== */}
+
         <header className="kyc-header">
           <div className="kyc-container kyc-header-inner">
 
@@ -78,7 +82,10 @@ export default function KnowYourCustomerPage() {
         </header>
 
 
-        {/* HERO */}
+        {/* =====================================================
+            HERO
+        ===================================================== */}
+
         <section className="kyc-hero">
 
           <div className="kyc-container kyc-hero-grid">
@@ -101,6 +108,7 @@ export default function KnowYourCustomerPage() {
 
 
               {/* MOBILE IMAGE */}
+
               <div className="kyc-mobile-hero-visual">
 
                 <img
@@ -140,6 +148,7 @@ export default function KnowYourCustomerPage() {
 
 
             {/* DESKTOP IMAGE */}
+
             <div className="kyc-hero-visual">
 
               <img
@@ -154,7 +163,10 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* REAL PROBLEM */}
+        {/* =====================================================
+            REAL PROBLEM
+        ===================================================== */}
+
         <section className="kyc-section kyc-dark-section">
 
           <div className="kyc-container">
@@ -217,7 +229,10 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* CUSTOMER INSIGHTS */}
+        {/* =====================================================
+            CUSTOMER INSIGHTS
+        ===================================================== */}
+
         <section className="kyc-section">
 
           <div className="kyc-container">
@@ -273,7 +288,10 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* BEFORE YOU SPEND MORE */}
+        {/* =====================================================
+            BEFORE YOU SPEND MORE
+        ===================================================== */}
+
         <section className="kyc-section kyc-light-section">
 
           <div className="kyc-container">
@@ -339,7 +357,10 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* WHAT YOU GET */}
+        {/* =====================================================
+            WHAT YOU GET
+        ===================================================== */}
+
         <section className="kyc-section kyc-dark-section">
 
           <div className="kyc-container">
@@ -388,7 +409,10 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* WHO IS THIS FOR */}
+        {/* =====================================================
+            WHO IS THIS FOR
+        ===================================================== */}
+
         <section className="kyc-section">
 
           <div className="kyc-container">
@@ -453,28 +477,106 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* IDEA */}
-        <section className="kyc-section kyc-idea-section">
+        {/* =====================================================
+            THE IDEA — REVISED
+        ===================================================== */}
+
+        <section className="kyc-idea-section">
 
           <div className="kyc-container">
 
-            <div className="kyc-philosophy">
+            <div className="kyc-idea-top">
 
               <div className="kyc-section-label">
                 THE IDEA
               </div>
 
-              <div className="kyc-quote">
-                Understand the person
-                <br />
-                before trying to
-                <br />
-                sell to them.
+
+              <div className="kyc-idea-grid">
+
+                {/* LEFT SIDE */}
+
+                <div className="kyc-idea-copy">
+
+                  <h2>
+                    Understand the person
+                    <br />
+                    <span>before trying to</span>
+                    <br />
+                    sell to them.
+                  </h2>
+
+                  <p>
+                    Better customer understanding leads to better offers,
+                    clearer messaging and stronger decisions.
+                  </p>
+
+                </div>
+
+
+                {/* RIGHT SIDE */}
+
+                <div className="kyc-idea-visual">
+
+                  <div className="kyc-idea-step">
+
+                    <span>01</span>
+
+                    <div>
+                      <small>CUSTOMER</small>
+
+                      <strong>
+                        Understand them.
+                      </strong>
+                    </div>
+
+                  </div>
+
+
+                  <div className="kyc-idea-step">
+
+                    <span>02</span>
+
+                    <div>
+                      <small>INSIGHT</small>
+
+                      <strong>
+                        Know what matters.
+                      </strong>
+                    </div>
+
+                  </div>
+
+
+                  <div className="kyc-idea-step kyc-idea-step-final">
+
+                    <span>03</span>
+
+                    <div>
+                      <small>OFFER</small>
+
+                      <strong>
+                        Give them a reason to say yes.
+                      </strong>
+                    </div>
+
+                  </div>
+
+                </div>
+
               </div>
 
-              <p>
-                Better understanding leads to better offers.
-              </p>
+            </div>
+
+
+            {/* BOTTOM CTA */}
+
+            <div className="kyc-idea-bottom">
+
+              <div className="kyc-idea-bottom-text">
+                Stop guessing what your customer wants.
+                <strong>Find out.</strong>
+              </div>
 
               <CTA>
                 STOP GUESSING — ₹19 →
@@ -487,7 +589,10 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* FINAL CTA */}
+        {/* =====================================================
+            FINAL CTA
+        ===================================================== */}
+
         <section className="kyc-final">
 
           <div className="kyc-container kyc-final-inner">
@@ -535,6 +640,10 @@ export default function KnowYourCustomerPage() {
       </main>
 
 
+      {/* =========================================================
+          GLOBAL STYLES
+      ========================================================= */}
+
       <style jsx global>{`
 
         * {
@@ -553,10 +662,9 @@ export default function KnowYourCustomerPage() {
           font-family: Arial, Helvetica, sans-serif;
         }
 
-
-        /* =========================
-           PAGE
-        ========================= */
+        img {
+          max-width: 100%;
+        }
 
         .kyc-page {
           width: 100%;
@@ -572,9 +680,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
+        /* =====================================================
            HEADER
-        ========================= */
+        ===================================================== */
 
         .kyc-header {
           width: 100%;
@@ -615,9 +723,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
+        /* =====================================================
            HERO
-        ========================= */
+        ===================================================== */
 
         .kyc-hero {
           padding: 70px 0 80px;
@@ -694,9 +802,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
+        /* =====================================================
            HERO IMAGE
-        ========================= */
+        ===================================================== */
 
         .kyc-hero-visual {
           width: 100%;
@@ -719,9 +827,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
+        /* =====================================================
            CTA
-        ========================= */
+        ===================================================== */
 
         .kyc-hero-action,
         .kyc-final-action {
@@ -828,9 +936,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
+        /* =====================================================
            SECTIONS
-        ========================= */
+        ===================================================== */
 
         .kyc-section {
           padding: 80px 0;
@@ -868,9 +976,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
+        /* =====================================================
            TWO COLUMNS
-        ========================= */
+        ===================================================== */
 
         .kyc-two-column {
           display: grid;
@@ -903,9 +1011,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
+        /* =====================================================
            HIGHLIGHT
-        ========================= */
+        ===================================================== */
 
         .kyc-highlight-box {
           background: #f2a900;
@@ -944,9 +1052,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
+        /* =====================================================
            INSIGHTS
-        ========================= */
+        ===================================================== */
 
         .kyc-insights-grid {
           display: grid;
@@ -1004,9 +1112,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
+        /* =====================================================
            BEFORE
-        ========================= */
+        ===================================================== */
 
         .kyc-before-box {
           background: #ffffff;
@@ -1046,9 +1154,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
+        /* =====================================================
            OUTCOMES
-        ========================= */
+        ===================================================== */
 
         .kyc-outcomes {
           margin-top: 45px;
@@ -1094,9 +1202,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
+        /* =====================================================
            AUDIENCE
-        ========================= */
+        ===================================================== */
 
         .kyc-audience-box {
           border-top: 2px solid #111111;
@@ -1129,50 +1237,188 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
-           IDEA
-        ========================= */
+        /* =====================================================
+           IDEA SECTION
+        ===================================================== */
 
         .kyc-idea-section {
           background: #f2a900;
+
+          color: #111111;
+
+          padding: 90px 0 0;
         }
 
-        .kyc-philosophy {
-          text-align: center;
+        .kyc-idea-section .kyc-section-label {
+          margin: 0 0 38px;
         }
 
-        .kyc-philosophy .kyc-section-label {
-          margin-bottom: 30px;
+        .kyc-idea-grid {
+          display: grid;
+
+          grid-template-columns:
+            minmax(0, 1.05fr)
+            minmax(0, 0.95fr);
+
+          gap: 80px;
+
+          align-items: center;
         }
 
-        .kyc-quote {
-          font-size: clamp(30px, 4vw, 52px);
+        .kyc-idea-copy {
+          min-width: 0;
+        }
 
-          line-height: 1.02;
+        .kyc-idea-copy h2 {
+          margin: 0;
 
-          letter-spacing: -0.045em;
+          font-size: clamp(42px, 5vw, 68px);
+
+          line-height: 0.95;
+
+          letter-spacing: -0.055em;
 
           font-weight: 950;
         }
 
-        .kyc-philosophy > p {
-          margin: 26px auto 0;
+        .kyc-idea-copy h2 span {
+          color: #ffffff;
+        }
+
+        .kyc-idea-copy p {
+          max-width: 520px;
+
+          margin: 30px 0 0;
 
           font-size: 16px;
 
-          line-height: 1.6;
+          line-height: 1.55;
 
           font-weight: 700;
         }
 
-        .kyc-philosophy .kyc-cta {
-          margin-top: 30px;
+
+        /* IDEA VISUAL */
+
+        .kyc-idea-visual {
+          width: 100%;
+
+          background: #ffffff;
+
+          padding: 28px;
+
+          border-radius: 16px;
+        }
+
+        .kyc-idea-step {
+          display: grid;
+
+          grid-template-columns:
+            42px
+            minmax(0, 1fr);
+
+          gap: 16px;
+
+          align-items: center;
+
+          padding: 18px 0;
+
+          border-bottom: 1px solid #dddddd;
+        }
+
+        .kyc-idea-step-final {
+          border-bottom: none;
+        }
+
+        .kyc-idea-step > span {
+          display: flex;
+
+          align-items: center;
+          justify-content: center;
+
+          width: 34px;
+          height: 34px;
+
+          border-radius: 50%;
+
+          background: #111111;
+
+          color: #f2a900;
+
+          font-size: 10px;
+
+          font-weight: 900;
+        }
+
+        .kyc-idea-step small {
+          display: block;
+
+          margin-bottom: 5px;
+
+          font-size: 9px;
+
+          font-weight: 900;
+
+          letter-spacing: 0.12em;
+
+          color: #777777;
+        }
+
+        .kyc-idea-step strong {
+          display: block;
+
+          font-size: 17px;
+
+          line-height: 1.2;
+
+          font-weight: 900;
         }
 
 
-        /* =========================
+        /* IDEA BOTTOM */
+
+        .kyc-idea-bottom {
+          display: grid;
+
+          grid-template-columns:
+            minmax(0, 1fr)
+            minmax(280px, 0.7fr);
+
+          gap: 40px;
+
+          align-items: center;
+
+          margin-top: 70px;
+
+          padding: 28px 0;
+
+          border-top: 1px solid rgba(17, 17, 17, 0.25);
+        }
+
+        .kyc-idea-bottom-text {
+          font-size: 18px;
+
+          line-height: 1.35;
+
+          font-weight: 700;
+        }
+
+        .kyc-idea-bottom-text strong {
+          display: block;
+
+          font-size: 24px;
+
+          font-weight: 950;
+        }
+
+        .kyc-idea-bottom .kyc-cta {
+          width: 100%;
+        }
+
+
+        /* =====================================================
            FINAL
-        ========================= */
+        ===================================================== */
 
         .kyc-final {
           background: #111111;
@@ -1243,9 +1489,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
+        /* =====================================================
            TABLET
-        ========================= */
+        ===================================================== */
 
         @media (max-width: 900px) {
 
@@ -1291,12 +1537,22 @@ export default function KnowYourCustomerPage() {
             display: none;
           }
 
+          .kyc-idea-grid {
+            grid-template-columns: 1fr;
+
+            gap: 40px;
+          }
+
+          .kyc-idea-bottom {
+            grid-template-columns: 1fr;
+          }
+
         }
 
 
-        /* =========================
+        /* =====================================================
            MOBILE
-        ========================= */
+        ===================================================== */
 
         @media (max-width: 600px) {
 
@@ -1332,6 +1588,7 @@ export default function KnowYourCustomerPage() {
 
           .kyc-header-inner {
             min-height: 48px !important;
+
             height: 48px !important;
 
             gap: 8px;
@@ -1471,7 +1728,7 @@ export default function KnowYourCustomerPage() {
           }
 
 
-          /* SHORT HERO COPY */
+          /* SHORT COPY */
 
           .kyc-hero-short {
             margin: 0 !important;
@@ -1782,34 +2039,134 @@ export default function KnowYourCustomerPage() {
           }
 
 
-          /* IDEA */
+          /* =================================================
+             IDEA — MOBILE
+          ================================================= */
 
-          .kyc-philosophy .kyc-section-label {
-            margin-bottom: 19px;
+          .kyc-idea-section {
+            padding: 48px 0 0;
           }
 
-          .kyc-quote {
-            font-size: 26px;
+          .kyc-idea-section .kyc-section-label {
+            margin-bottom: 22px;
 
-            line-height: 1.04;
+            font-size: 8px;
 
-            letter-spacing: -0.04em;
+            letter-spacing: 0.11em;
           }
 
-          .kyc-philosophy > p {
-            margin-top: 18px;
+          .kyc-idea-grid {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 25px;
+
+            align-items: stretch;
+          }
+
+          .kyc-idea-copy {
+            width: 100%;
+          }
+
+          .kyc-idea-copy h2 {
+            font-size: 34px;
+
+            line-height: 0.97;
+
+            letter-spacing: -0.045em;
+          }
+
+          .kyc-idea-copy p {
+            margin: 18px 0 0;
+
+            max-width: 100%;
 
             font-size: 13px;
 
-            line-height: 1.45;
-          }
-
-          .kyc-philosophy .kyc-cta {
-            margin-top: 21px;
+            line-height: 1.5;
           }
 
 
-          /* FINAL */
+          /* IDEA VISUAL */
+
+          .kyc-idea-visual {
+            width: 100%;
+
+            padding: 18px;
+
+            border-radius: 11px;
+          }
+
+          .kyc-idea-step {
+            grid-template-columns:
+              32px
+              minmax(0, 1fr);
+
+            gap: 11px;
+
+            padding: 13px 0;
+          }
+
+          .kyc-idea-step > span {
+            width: 28px;
+
+            height: 28px;
+
+            font-size: 8px;
+          }
+
+          .kyc-idea-step small {
+            margin-bottom: 4px;
+
+            font-size: 7px;
+          }
+
+          .kyc-idea-step strong {
+            font-size: 13px;
+
+            line-height: 1.25;
+          }
+
+
+          /* IDEA BOTTOM */
+
+          .kyc-idea-bottom {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: stretch;
+
+            gap: 16px;
+
+            margin-top: 35px;
+
+            padding: 22px 0 25px;
+          }
+
+          .kyc-idea-bottom-text {
+            font-size: 13px;
+
+            line-height: 1.4;
+          }
+
+          .kyc-idea-bottom-text strong {
+            display: inline;
+
+            font-size: 16px;
+          }
+
+          .kyc-idea-bottom .kyc-cta {
+            width: 100%;
+
+            min-height: 56px !important;
+          }
+
+
+          /* =================================================
+             FINAL
+          ================================================= */
 
           .kyc-final {
             padding: 55px 0;
@@ -1884,9 +2241,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =========================
+        /* =====================================================
            VERY SMALL PHONES
-        ========================= */
+        ===================================================== */
 
         @media (max-width: 380px) {
 
@@ -1894,6 +2251,7 @@ export default function KnowYourCustomerPage() {
             width: calc(100% - 24px);
 
             margin-left: 12px;
+
             margin-right: 12px;
           }
 
@@ -1929,6 +2287,7 @@ export default function KnowYourCustomerPage() {
             font-size: 9.2px !important;
 
             padding-left: 7px !important;
+
             padding-right: 7px !important;
           }
 

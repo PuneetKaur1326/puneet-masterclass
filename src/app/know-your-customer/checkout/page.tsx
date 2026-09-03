@@ -13,6 +13,7 @@ interface RazorpayResponse {
 
 interface RazorpayInstance {
   open: () => void;
+
   on: (
     event: string,
     callback: (response: any) => void
@@ -26,6 +27,10 @@ declare global {
     ) => RazorpayInstance;
   }
 }
+
+/* --------------------------------------------------
+   LOAD RAZORPAY CHECKOUT SCRIPT
+-------------------------------------------------- */
 
 function loadRazorpay(): Promise<boolean> {
   return new Promise((resolve) => {
@@ -65,18 +70,38 @@ function loadRazorpay(): Promise<boolean> {
     script.async = true;
 
     script.onload = () => resolve(true);
+
     script.onerror = () => resolve(false);
 
     document.body.appendChild(script);
   });
 }
 
+
+/* --------------------------------------------------
+   CHECKOUT PAGE
+-------------------------------------------------- */
+
 export default function KycCheckoutPage() {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [fullName, setFullName] =
+    useState("");
+
+  const [email, setEmail] =
+    useState("");
+
+  const [phone, setPhone] =
+    useState("");
+
+  const [loading, setLoading] =
+    useState(false);
+
+  const [error, setError] =
+    useState("");
+
+
+  /* ------------------------------------------------
+     FORM SUBMISSION
+  ------------------------------------------------ */
 
   async function handleSubmit(
     event: FormEvent<HTMLFormElement>
@@ -85,37 +110,81 @@ export default function KycCheckoutPage() {
 
     setError("");
 
-    const trimmedName = fullName.trim();
-    const trimmedEmail = email.trim();
-    const trimmedPhone = phone.trim();
+    const trimmedName =
+      fullName.trim();
+
+    const trimmedEmail =
+      email.trim();
+
+    const trimmedPhone =
+      phone.trim();
+
+
+    /* ----------------------------------------------
+       NAME VALIDATION
+    ---------------------------------------------- */
 
     if (trimmedName.length < 2) {
-      setError("Please enter your full name.");
+      setError(
+        "Please enter your full name."
+      );
+
       return;
     }
 
-    if (!/^\S+@\S+\.\S+$/.test(trimmedEmail)) {
-      setError("Please enter a valid email address.");
+
+    /* ----------------------------------------------
+       EMAIL VALIDATION
+    ---------------------------------------------- */
+
+    if (
+      !/^\S+@\S+\.\S+$/.test(
+        trimmedEmail
+      )
+    ) {
+      setError(
+        "Please enter a valid email address."
+      );
+
       return;
     }
 
-    const cleanPhone = trimmedPhone.replace(
-      /[\s-]/g,
-      ""
-    );
 
-    if (!/^\+?91\d{10}$/.test(cleanPhone)) {
+    /* ----------------------------------------------
+       PHONE VALIDATION
+    ---------------------------------------------- */
+
+    const cleanPhone =
+      trimmedPhone.replace(
+        /[\s-]/g,
+        ""
+      );
+
+    if (
+      !/^\+?91\d{10}$/.test(
+        cleanPhone
+      )
+    ) {
       setError(
         "Please enter a valid Indian WhatsApp number, e.g. +91 9876543210."
       );
+
       return;
     }
 
+
     setLoading(true);
 
+
     try {
+
+      /* --------------------------------------------
+         LOAD RAZORPAY
+      -------------------------------------------- */
+
       const razorpayLoaded =
         await loadRazorpay();
+
 
       if (!razorpayLoaded) {
         throw new Error(
@@ -123,36 +192,51 @@ export default function KycCheckoutPage() {
         );
       }
 
-      /*
-       * IMPORTANT:
-       * This is ONLY the ₹19 KYC payment.
-       *
-       * It calls:
-       * /api/kyc/create-order
-       *
-       * It does NOT touch the ₹99 webinar flow.
-       */
 
-      const orderResponse = await fetch(
-        "/api/kyc/create-order",
-        {
-          method: "POST",
+      /* --------------------------------------------
+         CREATE ₹19 KYC ORDER
 
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
+         IMPORTANT:
+         This ONLY calls:
 
-          body: JSON.stringify({
-            fullName: trimmedName,
-            email: trimmedEmail,
-            phone: trimmedPhone,
-          }),
-        }
-      );
+         /api/kyc/create-order
+
+         It does NOT touch the ₹99 webinar
+         payment endpoint.
+      -------------------------------------------- */
+
+      const orderResponse =
+        await fetch(
+          "/api/kyc/create-order",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+
+            body: JSON.stringify({
+              fullName:
+                trimmedName,
+
+              email:
+                trimmedEmail,
+
+              phone:
+                trimmedPhone,
+            }),
+          }
+        );
+
 
       const orderData =
         await orderResponse.json();
+
+
+      /* --------------------------------------------
+         CHECK ORDER RESPONSE
+      -------------------------------------------- */
 
       if (
         !orderResponse.ok ||
@@ -164,55 +248,116 @@ export default function KycCheckoutPage() {
         );
       }
 
+
+      /* --------------------------------------------
+         GET PUBLIC RAZORPAY KEY
+
+         IMPORTANT:
+
+         We are NOT using:
+
+         process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID
+
+         Instead, the KYC API returns the public
+         key as:
+
+         orderData.key_id
+
+         This keeps the ₹19 KYC flow separate
+         from the existing ₹99 webinar flow.
+      -------------------------------------------- */
+
       const publicKey =
-        process.env
-          .NEXT_PUBLIC_RAZORPAY_KEY_ID;
+        orderData.key_id;
+
 
       if (!publicKey) {
         throw new Error(
-          "Razorpay public key is not configured."
+          "Razorpay public key was not returned by the payment server."
         );
       }
 
+
+      /* --------------------------------------------
+         RAZORPAY OPTIONS
+      -------------------------------------------- */
+
       const options = {
+
         key: publicKey,
 
-        amount: orderData.amount,
+        amount:
+          orderData.amount,
 
-        currency: orderData.currency,
+        currency:
+          orderData.currency,
 
-        order_id: orderData.order_id,
+        order_id:
+          orderData.order_id,
 
-        name: "Puneet Kaur Saluja",
+        name:
+          "Puneet Kaur Saluja",
 
         description:
           "Know Your Customer — 15-Minute Understanding Worksheet",
 
         prefill: {
-          name: trimmedName,
-          email: trimmedEmail,
-          contact: cleanPhone,
+
+          name:
+            trimmedName,
+
+          email:
+            trimmedEmail,
+
+          contact:
+            cleanPhone,
         },
 
         notes: {
+
           product:
             "Know Your Customer Worksheet",
+
+          product_price:
+            "19",
         },
 
         theme: {
-          color: "#e7a414",
+
+          color:
+            "#e7a414",
         },
 
+
+        /* ------------------------------------------
+           RAZORPAY CLOSED
+        ------------------------------------------ */
+
         modal: {
+
           ondismiss: () => {
+
             setLoading(false);
+
           },
+
         },
+
+
+        /* ------------------------------------------
+           PAYMENT SUCCESS
+        ------------------------------------------ */
 
         handler: async (
           response: RazorpayResponse
         ) => {
+
           try {
+
+            /* --------------------------------------
+               VERIFY ₹19 PAYMENT
+            -------------------------------------- */
+
             const verifyResponse =
               await fetch(
                 "/api/kyc/verify-payment",
@@ -225,6 +370,7 @@ export default function KycCheckoutPage() {
                   },
 
                   body: JSON.stringify({
+
                     razorpay_order_id:
                       response.razorpay_order_id,
 
@@ -242,70 +388,130 @@ export default function KycCheckoutPage() {
 
                     phone:
                       trimmedPhone,
+
                   }),
+
                 }
               );
 
+
             const verifyData =
               await verifyResponse.json();
+
+
+            /* --------------------------------------
+               VERIFY RESPONSE
+            -------------------------------------- */
 
             if (
               !verifyResponse.ok ||
               !verifyData.success
             ) {
+
               throw new Error(
                 verifyData.error ||
                   "Payment was received but could not be verified yet."
               );
+
             }
+
+
+            /* --------------------------------------
+               PAYMENT VERIFIED
+
+               For now redirect to success page.
+
+               We will build the success page and
+               WhatsApp/PDF delivery next.
+            -------------------------------------- */
 
             window.location.href =
               "/know-your-customer/success";
 
+
           } catch (
             verificationError: any
           ) {
+
             setLoading(false);
 
             setError(
               verificationError?.message ||
                 "Payment verification failed. Please contact support."
             );
+
           }
+
         },
+
       };
 
+
+      /* --------------------------------------------
+         CREATE RAZORPAY INSTANCE
+      -------------------------------------------- */
+
       const razorpay =
-        new window.Razorpay(options);
+        new window.Razorpay(
+          options
+        );
+
+
+      /* --------------------------------------------
+         PAYMENT FAILED
+      -------------------------------------------- */
 
       razorpay.on(
         "payment.failed",
         (response: any) => {
+
           setLoading(false);
 
           setError(
-            response?.error?.description ||
+            response?.error
+              ?.description ||
               "Payment failed. Please try again."
           );
+
         }
       );
 
+
+      /* --------------------------------------------
+         OPEN RAZORPAY
+      -------------------------------------------- */
+
       razorpay.open();
 
-    } catch (paymentError: any) {
+
+    } catch (
+      paymentError: any
+    ) {
+
       setLoading(false);
 
       setError(
         paymentError?.message ||
           "Something went wrong. Please try again."
       );
+
     }
+
   }
 
+
+  /* ------------------------------------------------
+     PAGE UI
+  ------------------------------------------------ */
+
   return (
+
     <main className="kyc-checkout-page">
 
       <div className="kyc-checkout-wrap">
+
+
+        {/* BACK LINK */}
 
         <a
           href="/know-your-customer"
@@ -314,21 +520,38 @@ export default function KycCheckoutPage() {
           ← Back to worksheet
         </a>
 
+
+        {/* CHECKOUT CARD */}
+
         <div className="kyc-checkout-card">
+
+
+          {/* EYEBROW */}
 
           <div className="kyc-checkout-eyebrow">
             KNOW YOUR CUSTOMER
           </div>
 
+
+          {/* TITLE */}
+
           <h1>
             Get the worksheet.
           </h1>
 
+
+          {/* INTRO */}
+
           <p className="kyc-checkout-intro">
+
             Enter your details below.
             You’ll be taken to Razorpay
             to complete your ₹19 payment.
+
           </p>
+
+
+          {/* PRICE */}
 
           <div className="kyc-checkout-price">
 
@@ -342,10 +565,16 @@ export default function KycCheckoutPage() {
 
           </div>
 
+
+          {/* FORM */}
+
           <form
             onSubmit={handleSubmit}
             className="kyc-checkout-form"
           >
+
+
+            {/* NAME */}
 
             <label>
 
@@ -353,17 +582,24 @@ export default function KycCheckoutPage() {
 
               <input
                 value={fullName}
+
                 onChange={(event) =>
                   setFullName(
                     event.target.value
                   )
                 }
+
                 placeholder="Your full name"
+
                 autoComplete="name"
+
                 disabled={loading}
               />
 
             </label>
+
+
+            {/* EMAIL */}
 
             <label>
 
@@ -371,18 +607,26 @@ export default function KycCheckoutPage() {
 
               <input
                 value={email}
+
                 onChange={(event) =>
                   setEmail(
                     event.target.value
                   )
                 }
+
                 type="email"
+
                 placeholder="you@example.com"
+
                 autoComplete="email"
+
                 disabled={loading}
               />
 
             </label>
+
+
+            {/* WHATSAPP */}
 
             <label>
 
@@ -390,35 +634,55 @@ export default function KycCheckoutPage() {
 
               <input
                 value={phone}
+
                 onChange={(event) =>
                   setPhone(
                     event.target.value
                   )
                 }
+
                 placeholder="+91 9876543210"
+
                 autoComplete="tel"
+
                 inputMode="tel"
+
                 disabled={loading}
               />
 
+
               <small>
+
                 Your worksheet will be
                 delivered to this WhatsApp
                 number after successful
                 payment.
+
               </small>
 
             </label>
 
+
+            {/* ERROR */}
+
             {error && (
+
               <div className="kyc-checkout-error">
+
                 {error}
+
               </div>
+
             )}
+
+
+            {/* PAYMENT BUTTON */}
 
             <button
               type="submit"
+
               className="kyc-checkout-button"
+
               disabled={loading}
             >
 
@@ -432,7 +696,11 @@ export default function KycCheckoutPage() {
 
             </button>
 
+
           </form>
+
+
+          {/* TRUST */}
 
           <div className="kyc-checkout-trust">
 
@@ -446,10 +714,12 @@ export default function KycCheckoutPage() {
 
           </div>
 
+
         </div>
 
       </div>
 
     </main>
+
   );
 }

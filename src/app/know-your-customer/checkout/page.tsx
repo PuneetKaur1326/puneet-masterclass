@@ -92,6 +92,9 @@ export default function KycCheckoutPage() {
   const [phone, setPhone] =
     useState("");
 
+  const [whatsappConsent, setWhatsappConsent] =
+    useState(false);
+
   const [loading, setLoading] =
     useState(false);
 
@@ -153,13 +156,6 @@ export default function KycCheckoutPage() {
 
     /* ----------------------------------------------
        PHONE VALIDATION
-
-       Customer enters only 10 digits.
-
-       Example:
-       9876543210
-
-       We add 91 internally for WhatsApp.
     ---------------------------------------------- */
 
     if (
@@ -173,6 +169,20 @@ export default function KycCheckoutPage() {
 
       return;
     }
+
+
+    /* ----------------------------------------------
+       WHATSAPP CONSENT VALIDATION
+    ---------------------------------------------- */
+
+    if (!whatsappConsent) {
+      setError(
+        "Please agree to receive your worksheet and delivery updates on WhatsApp."
+      );
+
+      return;
+    }
+
 
     // International WhatsApp format.
     const whatsappPhone =
@@ -257,20 +267,6 @@ export default function KycCheckoutPage() {
 
       /* --------------------------------------------
          GET PUBLIC RAZORPAY KEY
-
-         IMPORTANT:
-
-         We are NOT using:
-
-         process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID
-
-         Instead, the KYC API returns the public
-         key as:
-
-         orderData.key_id
-
-         This keeps the ₹19 KYC flow separate
-         from the existing ₹99 webinar flow.
       -------------------------------------------- */
 
       const publicKey =
@@ -675,6 +671,43 @@ export default function KycCheckoutPage() {
             </label>
 
 
+            {/* WHATSAPP CONSENT */}
+
+            <div className="flex items-start gap-3 mt-2">
+
+              <input
+                type="checkbox"
+
+                id="whatsapp-consent"
+
+                checked={whatsappConsent}
+
+                onChange={(event) =>
+                  setWhatsappConsent(
+                    event.target.checked
+                  )
+                }
+
+                disabled={loading}
+
+                className="mt-1 w-5 h-5 shrink-0 rounded border-gray-300 text-amber-500 focus:ring-amber-500/30 transition-all cursor-pointer accent-amber-500"
+              />
+
+              <label
+                htmlFor="whatsapp-consent"
+                className="text-sm text-gray-500 leading-relaxed cursor-pointer select-none"
+              >
+
+                I agree to receive my
+                purchased worksheet and
+                delivery updates on WhatsApp
+                at this number.
+
+              </label>
+
+            </div>
+
+
             {/* ERROR */}
 
             {error && (
@@ -695,7 +728,10 @@ export default function KycCheckoutPage() {
 
               className="kyc-checkout-button"
 
-              disabled={loading}
+              disabled={
+                loading ||
+                !whatsappConsent
+              }
             >
 
               {loading

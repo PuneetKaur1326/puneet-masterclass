@@ -27,7 +27,7 @@ const steps = [
     number: "04",
     title: "WHAT HAVE THEY TRIED?",
     description:
-      "Find out what they have already done, bought or experienced — and what didn't work for them.",
+      "Understand what they have already done, bought or experienced — and what didn't work.",
   },
   {
     number: "05",
@@ -39,19 +39,19 @@ const steps = [
     number: "06",
     title: "HOW DO THEY DESCRIBE THEIR PROBLEM?",
     description:
-      "Understand the exact words your customer uses to talk about their problem, need or desire.",
+      "Find the words your customer actually uses to talk about their problem or desire.",
   },
   {
     number: "07",
     title: "PUT IT ALL TOGETHER",
     description:
-      "Turn your answers into a clear picture of the person you're actually trying to sell to.",
+      "Turn your answers into a clearer picture of the person you're trying to sell to.",
   },
   {
     number: "08",
     title: "USE WHAT YOU LEARN",
     description:
-      "Use your customer insights to improve your offer, communication, content and sales conversations.",
+      "Use what you discover to improve your offer, communication and sales approach.",
   },
 ];
 
@@ -96,133 +96,206 @@ export default function KnowYourCustomerPage() {
           --soft: #f7f3e8;
           --line: #dedbd1;
           --muted: #66635c;
+
+          width: 100%;
+          max-width: 100%;
+          min-height: 100vh;
+          overflow-x: hidden;
+
           background: var(--cream);
           color: var(--black);
-          min-height: 100vh;
+
           font-family: Arial, Helvetica, sans-serif;
         }
 
-        .kyc-page * {
+        .kyc-page *,
+        .kyc-page *::before,
+        .kyc-page *::after {
           box-sizing: border-box;
         }
 
+        .kyc-page img {
+          max-width: 100%;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
         .kyc-header {
-          border-bottom: 1px solid var(--line);
-          background: rgba(255, 253, 247, 0.96);
           position: sticky;
           top: 0;
           z-index: 20;
+
+          width: 100%;
+
+          border-bottom: 1px solid var(--line);
+          background: rgba(255, 253, 247, 0.96);
+
           backdrop-filter: blur(10px);
         }
 
         .kyc-header-inner {
+          width: 100%;
           max-width: 1180px;
+
           margin: 0 auto;
           padding: 18px 24px;
+
           display: flex;
           align-items: center;
           justify-content: space-between;
+
           gap: 20px;
         }
 
         .kyc-brand {
+          min-width: 0;
+
           font-size: 14px;
-          font-weight: 800;
+          font-weight: 900;
           letter-spacing: 0.04em;
           text-transform: uppercase;
         }
 
         .kyc-brand span {
           display: block;
+
+          margin-top: 3px;
+
+          color: var(--muted);
+
           font-size: 10px;
           font-weight: 500;
-          color: var(--muted);
-          margin-top: 3px;
           letter-spacing: 0.08em;
         }
 
         .kyc-pill {
+          flex-shrink: 0;
+
+          padding: 9px 14px;
+
           border: 1px solid var(--black);
           border-radius: 999px;
-          padding: 9px 14px;
-          font-size: 10px;
-          font-weight: 800;
-          letter-spacing: 0.08em;
+
           background: var(--yellow);
+
+          font-size: 10px;
+          font-weight: 900;
+          letter-spacing: 0.08em;
         }
+
+        /* =========================
+           CONTAINER
+        ========================= */
 
         .kyc-container {
+          width: 100%;
           max-width: 1180px;
+
           margin: 0 auto;
+
           padding-left: 24px;
           padding-right: 24px;
+
+          min-width: 0;
         }
 
+        /* =========================
+           HERO
+        ========================= */
+
         .kyc-hero {
-          padding: 76px 0 88px;
+          width: 100%;
+          min-width: 0;
+
+          padding: 75px 0 90px;
+
           display: grid;
-          grid-template-columns: 1.08fr 0.92fr;
-          gap: 70px;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+          gap: 65px;
           align-items: center;
+        }
+
+        .kyc-hero > * {
+          min-width: 0;
         }
 
         .kyc-eyebrow {
           display: inline-flex;
           align-items: center;
           gap: 8px;
+
+          margin-bottom: 20px;
+
           font-size: 10px;
           font-weight: 900;
           letter-spacing: 0.13em;
           text-transform: uppercase;
-          margin-bottom: 20px;
         }
 
         .kyc-eyebrow::before {
           content: "";
+
           width: 22px;
           height: 3px;
+
+          flex-shrink: 0;
+
           background: var(--yellow-dark);
-          display: inline-block;
         }
 
         .kyc-hero h1 {
+          max-width: 650px;
+
           margin: 0;
-          font-size: clamp(48px, 6vw, 82px);
+
+          font-size: clamp(48px, 6vw, 80px);
           line-height: 0.9;
           letter-spacing: -0.055em;
           font-weight: 950;
-          max-width: 700px;
+
+          overflow-wrap: break-word;
         }
 
         .kyc-hero h2 {
-          margin: 24px 0 0;
-          font-size: clamp(23px, 2.5vw, 34px);
+          margin: 25px 0 0;
+
+          font-size: clamp(24px, 2.5vw, 34px);
           line-height: 1.05;
           letter-spacing: -0.03em;
           font-weight: 800;
         }
 
         .kyc-lead {
-          max-width: 650px;
+          max-width: 640px;
+
+          margin: 24px 0 0;
+
           color: #45433e;
+
           font-size: 18px;
           line-height: 1.6;
-          margin: 24px 0 0;
         }
 
         .kyc-business-line {
-          margin-top: 17px;
-          font-weight: 800;
+          max-width: 620px;
+
+          margin: 16px 0 0;
+
           font-size: 15px;
-          line-height: 1.5;
-          max-width: 610px;
+          line-height: 1.55;
+          font-weight: 800;
         }
 
         .kyc-price-row {
           margin-top: 30px;
+
           display: flex;
           align-items: center;
           flex-wrap: wrap;
+
           gap: 18px;
         }
 
@@ -233,113 +306,82 @@ export default function KnowYourCustomerPage() {
         }
 
         .kyc-cta {
+          min-height: 54px;
+
+          padding: 0 24px;
+
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          min-height: 54px;
-          padding: 0 24px;
+
           background: var(--black);
           color: white;
+
           border: 2px solid var(--black);
+
           text-decoration: none;
+
           font-size: 12px;
           font-weight: 900;
           letter-spacing: 0.05em;
           text-transform: uppercase;
-          transition: transform 0.2s ease, background 0.2s ease;
+
+          transition:
+            transform 0.2s ease,
+            background 0.2s ease;
         }
 
         .kyc-cta:hover {
           transform: translateY(-2px);
-          background: #2a2a2a;
+          background: #292929;
         }
 
         .kyc-micro {
           margin-top: 15px;
-          font-size: 11px;
-          color: var(--muted);
+
           display: flex;
           flex-wrap: wrap;
+
           gap: 10px;
+
+          color: var(--muted);
+
+          font-size: 11px;
         }
 
-        .kyc-mockup-wrap {
+        /* =========================
+           HERO IMAGE
+        ========================= */
+
+        .kyc-visual {
+          width: 100%;
+          min-width: 0;
+
           position: relative;
         }
 
-        .kyc-mockup {
-          background: white;
-          border: 2px solid var(--black);
-          box-shadow: 14px 14px 0 var(--yellow);
-          padding: 22px;
-          transform: rotate(1.3deg);
-        }
+        .kyc-visual img {
+          width: 100%;
+          max-width: 100%;
+          height: auto;
 
-        .kyc-mockup-top {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          border-bottom: 1px solid var(--line);
-          padding-bottom: 14px;
-          margin-bottom: 18px;
-        }
-
-        .kyc-mockup-title {
-          font-size: 11px;
-          font-weight: 900;
-          letter-spacing: 0.08em;
-        }
-
-        .kyc-mockup-page {
-          font-size: 10px;
-          color: var(--muted);
-        }
-
-        .kyc-mockup h3 {
-          font-size: 28px;
-          line-height: 1;
-          margin: 0 0 10px;
-          letter-spacing: -0.04em;
-        }
-
-        .kyc-mockup p {
-          color: var(--muted);
-          font-size: 12px;
-          line-height: 1.5;
-          margin-bottom: 20px;
-        }
-
-        .kyc-question {
-          padding: 14px 0;
-          border-top: 1px solid var(--line);
-        }
-
-        .kyc-question-number {
-          font-size: 9px;
-          font-weight: 900;
-          color: var(--yellow-dark);
-          margin-bottom: 5px;
-        }
-
-        .kyc-question-text {
-          font-size: 12px;
-          font-weight: 800;
-        }
-
-        .kyc-writing-lines {
-          margin-top: 8px;
-          display: grid;
-          gap: 7px;
-        }
-
-        .kyc-writing-lines span {
           display: block;
-          height: 1px;
-          background: #d8d5cd;
+
+          border: 2px solid var(--black);
+
+          box-shadow: 14px 14px 0 var(--yellow);
         }
+
+        /* =========================
+           SECTIONS
+        ========================= */
 
         .kyc-section {
+          width: 100%;
+          min-width: 0;
+
           padding: 90px 0;
+
           border-top: 1px solid var(--line);
         }
 
@@ -348,176 +390,317 @@ export default function KnowYourCustomerPage() {
         }
 
         .kyc-section-heading {
-          max-width: 760px;
+          width: 100%;
+          max-width: 800px;
+          min-width: 0;
         }
 
         .kyc-section-heading h2 {
+          max-width: 800px;
+
           margin: 0;
+
           font-size: clamp(38px, 5vw, 62px);
           line-height: 0.96;
           letter-spacing: -0.055em;
           font-weight: 950;
+
+          overflow-wrap: break-word;
         }
 
         .kyc-section-heading p {
+          max-width: 760px;
+
           margin: 20px 0 0;
+
           color: var(--muted);
+
           font-size: 17px;
           line-height: 1.6;
         }
 
+        /* =========================
+           CUSTOMER QUESTIONS
+        ========================= */
+
         .kyc-question-grid {
+          width: 100%;
+          max-width: 100%;
+
           margin-top: 45px;
+
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+
+          grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1fr);
+
           border-top: 1px solid var(--black);
           border-left: 1px solid var(--black);
+
+          overflow: hidden;
         }
 
         .kyc-question-card {
-          padding: 26px;
+          width: 100%;
+          min-width: 0;
+          min-height: 150px;
+
+          padding: 28px 32px;
+
+          background: white;
+
           border-right: 1px solid var(--black);
           border-bottom: 1px solid var(--black);
-          background: white;
-          min-height: 120px;
+
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          overflow-wrap: anywhere;
         }
 
         .kyc-question-card::before {
           content: "?";
-          display: block;
-          width: 27px;
-          height: 27px;
+
+          width: 34px;
+          height: 34px;
+
+          flex: 0 0 auto;
+
+          margin-bottom: 18px;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
           border: 2px solid var(--black);
-          background: var(--yellow);
           border-radius: 50%;
-          text-align: center;
-          line-height: 24px;
+
+          background: var(--yellow);
+
+          font-size: 14px;
           font-weight: 900;
-          font-size: 13px;
-          margin-bottom: 15px;
         }
 
         .kyc-question-card p {
+          width: 100%;
+          max-width: 100%;
+
           margin: 0;
+
           font-size: 16px;
           line-height: 1.4;
           font-weight: 800;
+
+          overflow-wrap: anywhere;
         }
+
+        /* =========================
+           HIGHLIGHT BOX
+        ========================= */
 
         .kyc-highlight {
-          margin-top: 30px;
-          padding: 24px 28px;
-          border-left: 6px solid var(--yellow-dark);
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+
+          margin-top: 28px;
+
+          padding: 25px 28px;
+
+          display: block;
+
           background: white;
+
+          border-left: 6px solid var(--yellow-dark);
+
+          color: var(--black);
+
           font-size: 18px;
-          line-height: 1.5;
+          line-height: 1.55;
           font-weight: 850;
+
+          text-align: left;
+
+          overflow-wrap: anywhere;
+          word-break: normal;
         }
 
+        /* =========================
+           STEPS
+        ========================= */
+
         .kyc-steps {
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+
           margin-top: 50px;
+
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+
+          grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1fr);
+
           gap: 14px;
         }
 
         .kyc-step {
-          background: white;
-          border: 1px solid var(--black);
+          width: 100%;
+          min-width: 0;
+
           padding: 26px;
+
           display: grid;
-          grid-template-columns: 54px 1fr;
+
+          grid-template-columns: 54px minmax(0, 1fr);
+
           gap: 20px;
+
+          background: white;
+
+          border: 1px solid var(--black);
         }
 
         .kyc-step-number {
           width: 48px;
           height: 48px;
+
           display: flex;
           align-items: center;
           justify-content: center;
+
           background: var(--yellow);
+
           border: 1px solid var(--black);
+
           font-size: 12px;
           font-weight: 950;
         }
 
         .kyc-step h3 {
           margin: 0;
+
           font-size: 15px;
           line-height: 1.15;
-          letter-spacing: 0.01em;
         }
 
         .kyc-step p {
           margin: 9px 0 0;
+
           color: var(--muted);
+
           font-size: 13px;
           line-height: 1.5;
         }
 
+        /* =========================
+           BEFORE YOU SPEND MORE
+        ========================= */
+
         .kyc-before {
+          width: 100%;
+          min-width: 0;
+
           display: grid;
-          grid-template-columns: 0.8fr 1.2fr;
+
+          grid-template-columns:
+            minmax(0, 0.8fr)
+            minmax(0, 1.2fr);
+
           gap: 70px;
-          align-items: start;
+        }
+
+        .kyc-before > * {
+          min-width: 0;
         }
 
         .kyc-before-copy h2 {
           margin: 0;
+
           font-size: clamp(38px, 4.5vw, 58px);
           line-height: 0.98;
           letter-spacing: -0.055em;
           font-weight: 950;
+
+          overflow-wrap: break-word;
         }
 
         .kyc-before-content p {
           margin: 0 0 18px;
+
           color: #4d4a44;
+
           font-size: 17px;
           line-height: 1.65;
         }
 
-        .kyc-before-content strong {
-          color: var(--black);
-        }
-
         .kyc-spend-box {
+          width: 100%;
+          max-width: 100%;
+
           margin-top: 25px;
-          border: 2px solid var(--black);
-          background: var(--yellow);
+
           padding: 26px;
+
+          background: var(--yellow);
+
+          border: 2px solid var(--black);
         }
 
         .kyc-spend-box small {
           display: block;
+
+          margin-bottom: 9px;
+
           font-size: 10px;
           font-weight: 900;
           letter-spacing: 0.1em;
-          margin-bottom: 9px;
         }
 
         .kyc-spend-box strong {
           display: block;
+
           font-size: 25px;
           line-height: 1.05;
           letter-spacing: -0.035em;
         }
 
+        /* =========================
+           PREVIEW
+        ========================= */
+
         .kyc-preview-grid {
+          width: 100%;
+          max-width: 100%;
+
           margin-top: 45px;
+
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+
+          grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+
           gap: 14px;
         }
 
         .kyc-preview-card {
+          width: 100%;
+          min-width: 0;
+
           aspect-ratio: 0.78;
-          background: white;
-          border: 1px solid var(--black);
-          padding: 17px;
+
           position: relative;
+
+          padding: 17px;
+
           overflow: hidden;
+
+          background: white;
+
+          border: 1px solid var(--black);
         }
 
         .kyc-preview-card:nth-child(2) {
@@ -533,47 +716,81 @@ export default function KnowYourCustomerPage() {
         }
 
         .kyc-preview-number {
+          color: var(--yellow-dark);
+
           font-size: 9px;
           font-weight: 900;
-          color: var(--yellow-dark);
         }
 
         .kyc-preview-card h3 {
           margin: 30px 0 10px;
+
           font-size: 20px;
           line-height: 1;
+
           letter-spacing: -0.035em;
         }
 
         .kyc-preview-lines {
-          display: grid;
-          gap: 8px;
           margin-top: 20px;
+
+          display: grid;
+
+          gap: 8px;
         }
 
         .kyc-preview-lines span {
+          width: 100%;
           height: 1px;
+
           background: #d6d3ca;
         }
 
+        /* =========================
+           OUTCOMES
+        ========================= */
+
         .kyc-outcomes {
+          width: 100%;
+          min-width: 0;
+
           display: grid;
-          grid-template-columns: 1fr 1fr;
+
+          grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1fr);
+
           gap: 70px;
+
           align-items: start;
         }
 
+        .kyc-outcomes > * {
+          min-width: 0;
+        }
+
         .kyc-outcomes-list {
+          width: 100%;
+          min-width: 0;
+
           margin: 0;
           padding: 0;
+
           list-style: none;
         }
 
         .kyc-outcomes-list li {
-          border-top: 1px solid var(--line);
+          width: 100%;
+          min-width: 0;
+
           padding: 17px 0;
+
           display: flex;
+
           gap: 13px;
+
+          border-top: 1px solid var(--line);
+
           font-size: 15px;
           line-height: 1.4;
           font-weight: 700;
@@ -581,27 +798,43 @@ export default function KnowYourCustomerPage() {
 
         .kyc-outcomes-list li::before {
           content: "✓";
+
           flex: 0 0 auto;
+
           width: 22px;
           height: 22px;
-          background: var(--yellow);
-          border: 1px solid var(--black);
-          border-radius: 50%;
+
           display: inline-flex;
           align-items: center;
           justify-content: center;
+
+          border: 1px solid var(--black);
+          border-radius: 50%;
+
+          background: var(--yellow);
+
           font-size: 11px;
           font-weight: 950;
         }
 
+        /* =========================
+           AUDIENCE
+        ========================= */
+
         .kyc-audience {
-          border: 1px solid var(--black);
-          background: white;
+          width: 100%;
+          min-width: 0;
+
           padding: 28px;
+
+          background: white;
+
+          border: 1px solid var(--black);
         }
 
         .kyc-audience h3 {
           margin: 0 0 18px;
+
           font-size: 25px;
           line-height: 1;
           letter-spacing: -0.04em;
@@ -609,60 +842,93 @@ export default function KnowYourCustomerPage() {
 
         .kyc-audience p {
           margin: 0 0 22px;
+
           color: var(--muted);
-          line-height: 1.5;
+
           font-size: 14px;
+          line-height: 1.5;
         }
 
         .kyc-chips {
           display: flex;
           flex-wrap: wrap;
+
           gap: 8px;
         }
 
         .kyc-chip {
-          border: 1px solid var(--black);
           padding: 8px 11px;
+
+          border: 1px solid var(--black);
+
           font-size: 10px;
           font-weight: 800;
           text-transform: uppercase;
-          letter-spacing: 0.04em;
         }
 
+        /* =========================
+           IDEA
+        ========================= */
+
         .kyc-idea {
+          width: 100%;
           max-width: 850px;
+          min-width: 0;
         }
 
         .kyc-idea h2 {
           margin: 0;
+
           font-size: clamp(38px, 5vw, 64px);
           line-height: 0.95;
           letter-spacing: -0.055em;
           font-weight: 950;
+
+          overflow-wrap: break-word;
         }
 
         .kyc-idea p {
           margin: 22px 0 0;
+
           color: #4e4b45;
+
           font-size: 18px;
           line-height: 1.65;
         }
 
         .kyc-quote {
+          width: 100%;
+          max-width: 100%;
+
           margin-top: 38px;
+
           padding: 28px;
+
           background: var(--yellow);
+
           border: 2px solid var(--black);
+
           font-size: clamp(22px, 3vw, 34px);
           line-height: 1.1;
           letter-spacing: -0.035em;
           font-weight: 900;
+
+          overflow-wrap: anywhere;
         }
 
+        /* =========================
+           FINAL CTA
+        ========================= */
+
         .kyc-final {
-          background: var(--black);
-          color: white;
+          width: 100%;
+
           padding: 100px 0;
+
+          background: var(--black);
+
+          color: white;
+
           text-align: center;
         }
 
@@ -675,12 +941,16 @@ export default function KnowYourCustomerPage() {
         }
 
         .kyc-final h2 {
-          margin: 0 auto;
           max-width: 850px;
+
+          margin: 0 auto;
+
           font-size: clamp(48px, 7vw, 88px);
           line-height: 0.9;
           letter-spacing: -0.06em;
           font-weight: 950;
+
+          overflow-wrap: break-word;
         }
 
         .kyc-final h2 span {
@@ -689,26 +959,36 @@ export default function KnowYourCustomerPage() {
 
         .kyc-final p {
           max-width: 680px;
+
           margin: 25px auto 0;
+
           color: #c8c5bd;
+
           font-size: 17px;
           line-height: 1.6;
         }
 
         .kyc-final-price {
           margin-top: 30px;
+
           font-size: 52px;
           line-height: 1;
+
           font-weight: 950;
+
           letter-spacing: -0.06em;
         }
 
         .kyc-final-badge {
           display: inline-block;
+
           margin-top: 12px;
+
           padding: 7px 12px;
+
           background: var(--yellow);
           color: var(--black);
+
           font-size: 9px;
           font-weight: 950;
           letter-spacing: 0.1em;
@@ -716,8 +996,10 @@ export default function KnowYourCustomerPage() {
 
         .kyc-final .kyc-cta {
           margin-top: 25px;
+
           background: var(--yellow);
           color: var(--black);
+
           border-color: var(--yellow);
         }
 
@@ -728,49 +1010,70 @@ export default function KnowYourCustomerPage() {
 
         .kyc-final .kyc-micro {
           justify-content: center;
+
           color: #a9a69f;
         }
 
+        /* =========================
+           FOOTER
+        ========================= */
+
         .kyc-footer {
-          background: var(--black);
-          color: #99968e;
-          border-top: 1px solid #353535;
+          width: 100%;
+
           padding: 25px 24px;
+
+          background: var(--black);
+
+          border-top: 1px solid #353535;
+
+          color: #99968e;
+
           text-align: center;
+
           font-size: 10px;
           letter-spacing: 0.07em;
           text-transform: uppercase;
         }
 
+        /* =========================
+           TABLET
+        ========================= */
+
         @media (max-width: 850px) {
           .kyc-hero {
-            grid-template-columns: 1fr;
-            gap: 50px;
-            padding: 55px 0 70px;
-          }
+            grid-template-columns: minmax(0, 1fr);
 
-          .kyc-hero h1 {
-            font-size: clamp(48px, 13vw, 72px);
+            gap: 50px;
+
+            padding: 55px 0 70px;
           }
 
           .kyc-before,
           .kyc-outcomes {
-            grid-template-columns: 1fr;
+            grid-template-columns: minmax(0, 1fr);
+
             gap: 40px;
           }
 
           .kyc-steps {
-            grid-template-columns: 1fr;
+            grid-template-columns: minmax(0, 1fr);
           }
 
           .kyc-preview-grid {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns:
+              repeat(2, minmax(0, 1fr));
           }
 
           .kyc-question-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns:
+              minmax(0, 1fr);
           }
         }
+
+        /* =========================
+           MOBILE
+        ========================= */
 
         @media (max-width: 600px) {
           .kyc-header-inner {
@@ -786,9 +1089,19 @@ export default function KnowYourCustomerPage() {
             font-size: 12px;
           }
 
-          .kyc-pill {
+          .kyc-brand span {
             font-size: 8px;
+          }
+
+          .kyc-pill {
             padding: 8px 10px;
+
+            font-size: 8px;
+            letter-spacing: 0.05em;
+          }
+
+          .kyc-hero h1 {
+            font-size: clamp(46px, 13vw, 70px);
           }
 
           .kyc-lead {
@@ -796,8 +1109,8 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-price-row {
-            align-items: stretch;
             flex-direction: column;
+            align-items: stretch;
           }
 
           .kyc-price {
@@ -812,9 +1125,49 @@ export default function KnowYourCustomerPage() {
             padding: 65px 0;
           }
 
-          .kyc-question-card,
+          .kyc-question-grid {
+            margin-top: 35px;
+          }
+
+          .kyc-question-card {
+            min-height: 130px;
+
+            padding: 22px;
+          }
+
+          .kyc-question-card::before {
+            width: 30px;
+            height: 30px;
+
+            margin-bottom: 13px;
+          }
+
+          .kyc-question-card p {
+            font-size: 15px;
+          }
+
+          .kyc-highlight {
+            margin-top: 22px;
+
+            padding: 20px 20px;
+
+            border-left-width: 5px;
+
+            font-size: 15px;
+            line-height: 1.5;
+          }
+
           .kyc-step {
             padding: 21px;
+
+            grid-template-columns: 46px minmax(0, 1fr);
+
+            gap: 15px;
+          }
+
+          .kyc-step-number {
+            width: 42px;
+            height: 42px;
           }
 
           .kyc-preview-grid {
@@ -826,17 +1179,35 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-preview-card h3 {
-            font-size: 17px;
             margin-top: 20px;
+
+            font-size: 17px;
+          }
+
+          .kyc-audience {
+            padding: 22px;
+          }
+
+          .kyc-quote {
+            padding: 22px;
+
+            font-size: 23px;
           }
 
           .kyc-final {
             padding: 75px 0;
           }
+
+          .kyc-final h2 {
+            font-size: clamp(45px, 13vw, 70px);
+          }
         }
       `}</style>
 
-      {/* HEADER */}
+      {/* =========================
+          HEADER
+      ========================= */}
+
       <header className="kyc-header">
         <div className="kyc-header-inner">
           <div className="kyc-brand">
@@ -844,15 +1215,22 @@ export default function KnowYourCustomerPage() {
             <span>The World of Content</span>
           </div>
 
-          <div className="kyc-pill">↓ INSTANT DIGITAL DOWNLOAD</div>
+          <div className="kyc-pill">
+            ↓ INSTANT DIGITAL DOWNLOAD
+          </div>
         </div>
       </header>
 
-      {/* HERO */}
+      {/* =========================
+          HERO
+      ========================= */}
+
       <section className="kyc-container">
         <div className="kyc-hero">
           <div>
-            <div className="kyc-eyebrow">CUSTOMERS • SALES • BUSINESS</div>
+            <div className="kyc-eyebrow">
+              CUSTOMERS • SALES • BUSINESS
+            </div>
 
             <h1>
               WHY AREN’T
@@ -873,65 +1251,52 @@ export default function KnowYourCustomerPage() {
             </p>
 
             <p className="kyc-business-line">
-              This guided 15-minute tool helps you understand what your
-              customers want, what they struggle with, what makes them
-              hesitate and what can make your offer easier to say yes to.
+              This simple guided tool helps you understand what your customers
+              want, what they struggle with, what makes them hesitate and what
+              can make your offer easier to say yes to.
             </p>
 
             <div className="kyc-price-row">
               <div className="kyc-price">₹19</div>
 
-              <Link href={CHECKOUT_URL} className="kyc-cta">
+              <Link
+                href={CHECKOUT_URL}
+                className="kyc-cta"
+              >
                 GET THE TOOL FOR ₹19 →
               </Link>
             </div>
 
             <div className="kyc-micro">
               <span>⚡ Instant digital download</span>
+
               <span>•</span>
-              <span>Use for any product, service or offer</span>
+
+              <span>
+                Use for any product, service or offer
+              </span>
             </div>
           </div>
 
-          {/* WORKSHEET MOCKUP */}
-          <div className="kyc-mockup-wrap">
-            <div className="kyc-mockup">
-              <div className="kyc-mockup-top">
-                <div className="kyc-mockup-title">KNOW YOUR CUSTOMER</div>
-                <div className="kyc-mockup-page">01 / 09</div>
-              </div>
-
-              <h3>WHY WOULD THEY BUY?</h3>
-
-              <p>
-                Stop guessing. Start understanding the person you're trying
-                to sell to.
-              </p>
-
-              {questions.slice(0, 3).map((question, index) => (
-                <div className="kyc-question" key={question}>
-                  <div className="kyc-question-number">
-                    QUESTION 0{index + 1}
-                  </div>
-                  <div className="kyc-question-text">{question}</div>
-
-                  <div className="kyc-writing-lines">
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="kyc-visual">
+            <img
+              src="/kyc-sales-diagnostic.png"
+              alt="Why aren't people buying from me? 15-minute customer diagnostic tool"
+            />
           </div>
         </div>
       </section>
 
-      {/* REAL PROBLEM */}
+      {/* =========================
+          REAL PROBLEM
+      ========================= */}
+
       <section className="kyc-section kyc-section-soft">
         <div className="kyc-container">
           <div className="kyc-section-heading">
-            <div className="kyc-eyebrow">WHY PEOPLE AREN’T BUYING</div>
+            <div className="kyc-eyebrow">
+              WHY PEOPLE AREN’T BUYING
+            </div>
 
             <h2>
               You know what you sell.
@@ -953,7 +1318,10 @@ export default function KnowYourCustomerPage() {
 
           <div className="kyc-question-grid">
             {questions.map((question) => (
-              <div className="kyc-question-card" key={question}>
+              <div
+                className="kyc-question-card"
+                key={question}
+              >
                 <p>{question}</p>
               </div>
             ))}
@@ -967,7 +1335,10 @@ export default function KnowYourCustomerPage() {
         </div>
       </section>
 
-      {/* PROCESS */}
+      {/* =========================
+          PROCESS
+      ========================= */}
+
       <section className="kyc-section">
         <div className="kyc-container">
           <div className="kyc-section-heading">
@@ -983,17 +1354,23 @@ export default function KnowYourCustomerPage() {
 
             <p>
               No complicated research. No marketing jargon. Just work through
-              these eight parts for one product, service or offer.
+              eight simple areas for one product, service or offer.
             </p>
           </div>
 
           <div className="kyc-steps">
             {steps.map((step) => (
-              <div className="kyc-step" key={step.number}>
-                <div className="kyc-step-number">{step.number}</div>
+              <div
+                className="kyc-step"
+                key={step.number}
+              >
+                <div className="kyc-step-number">
+                  {step.number}
+                </div>
 
                 <div>
                   <h3>{step.title}</h3>
+
                   <p>{step.description}</p>
                 </div>
               </div>
@@ -1002,12 +1379,17 @@ export default function KnowYourCustomerPage() {
         </div>
       </section>
 
-      {/* BEFORE SPENDING MORE */}
+      {/* =========================
+          BEFORE YOU SPEND MORE
+      ========================= */}
+
       <section className="kyc-section kyc-section-soft">
         <div className="kyc-container">
           <div className="kyc-before">
             <div className="kyc-before-copy">
-              <div className="kyc-eyebrow">BEFORE YOU SPEND MORE</div>
+              <div className="kyc-eyebrow">
+                BEFORE YOU SPEND MORE
+              </div>
 
               <h2>
                 Don't spend more money trying to sell to people you don't
@@ -1048,27 +1430,37 @@ export default function KnowYourCustomerPage() {
         </div>
       </section>
 
-      {/* PEEK INSIDE */}
+      {/* =========================
+          WHAT'S INSIDE
+      ========================= */}
+
       <section className="kyc-section">
         <div className="kyc-container">
           <div className="kyc-section-heading">
-            <div className="kyc-eyebrow">A PEEK INSIDE</div>
+            <div className="kyc-eyebrow">
+              WHAT’S INSIDE
+            </div>
 
-            <h2>See what you’ll actually work through.</h2>
+            <h2>
+              A simple process.
+              <br />
+              Not another complicated course.
+            </h2>
 
             <p>
-              9 pages of guided questions, prompts and action steps designed
-              to help you think from your customer's side of the table.
+              You don't need hours of customer research. This is designed to
+              help you sit down, think clearly about your customer and get
+              useful answers in around 15 minutes.
             </p>
           </div>
 
           <div className="kyc-preview-grid">
             <div className="kyc-preview-card">
               <div className="kyc-preview-number">01</div>
+
               <h3>WHO IS YOUR CUSTOMER?</h3>
 
               <div className="kyc-preview-lines">
-                <span />
                 <span />
                 <span />
                 <span />
@@ -1078,10 +1470,10 @@ export default function KnowYourCustomerPage() {
 
             <div className="kyc-preview-card">
               <div className="kyc-preview-number">02</div>
+
               <h3>WHAT DO THEY WANT?</h3>
 
               <div className="kyc-preview-lines">
-                <span />
                 <span />
                 <span />
                 <span />
@@ -1091,10 +1483,10 @@ export default function KnowYourCustomerPage() {
 
             <div className="kyc-preview-card">
               <div className="kyc-preview-number">03</div>
+
               <h3>WHAT'S STOPPING THEM?</h3>
 
               <div className="kyc-preview-lines">
-                <span />
                 <span />
                 <span />
                 <span />
@@ -1104,10 +1496,10 @@ export default function KnowYourCustomerPage() {
 
             <div className="kyc-preview-card">
               <div className="kyc-preview-number">04</div>
-              <h3>PUT IT ALL TOGETHER.</h3>
+
+              <h3>WHAT DO YOU DO NEXT?</h3>
 
               <div className="kyc-preview-lines">
-                <span />
                 <span />
                 <span />
                 <span />
@@ -1118,15 +1510,22 @@ export default function KnowYourCustomerPage() {
         </div>
       </section>
 
-      {/* OUTCOMES */}
+      {/* =========================
+          OUTCOMES
+      ========================= */}
+
       <section className="kyc-section kyc-section-soft">
         <div className="kyc-container">
           <div className="kyc-outcomes">
             <div>
-              <div className="kyc-eyebrow">WHAT YOU GET</div>
+              <div className="kyc-eyebrow">
+                WHAT YOU GET
+              </div>
 
               <div className="kyc-section-heading">
-                <h2>What you'll walk away with.</h2>
+                <h2>
+                  What you'll walk away with.
+                </h2>
 
                 <p>
                   Not another theory. A clearer understanding of the person
@@ -1137,27 +1536,35 @@ export default function KnowYourCustomerPage() {
 
             <ul className="kyc-outcomes-list">
               {outcomes.map((outcome) => (
-                <li key={outcome}>{outcome}</li>
+                <li key={outcome}>
+                  {outcome}
+                </li>
               ))}
             </ul>
           </div>
         </div>
       </section>
 
-      {/* WHO IT'S FOR */}
+      {/* =========================
+          WHO IT'S FOR
+      ========================= */}
+
       <section className="kyc-section">
         <div className="kyc-container">
           <div className="kyc-outcomes">
             <div className="kyc-section-heading">
-              <div className="kyc-eyebrow">WHO IS THIS FOR?</div>
+              <div className="kyc-eyebrow">
+                WHO IS THIS FOR?
+              </div>
 
-              <h2>Anyone who sells something.</h2>
+              <h2>
+                Anyone who sells something.
+              </h2>
 
               <p>
-                You don't need to be a marketer. You don't need a marketing
-                degree. If you have a product, service, offer or business,
-                understanding your customer can help you make better decisions
-                about how you sell it.
+                You don't need to be a marketer. If you have a product,
+                service, offer or business, understanding your customer can
+                help you make better decisions about how you sell it.
               </p>
             </div>
 
@@ -1166,13 +1573,16 @@ export default function KnowYourCustomerPage() {
 
               <p>
                 Whether you're selling online, offline, one-to-one or at
-                scale, the questions are the same: Who am I selling to? What
-                do they want? And why would they choose me?
+                scale, the questions are simple: Who am I selling to? What do
+                they want? And what might be stopping them from buying?
               </p>
 
               <div className="kyc-chips">
                 {audience.map((item) => (
-                  <span className="kyc-chip" key={item}>
+                  <span
+                    className="kyc-chip"
+                    key={item}
+                  >
                     {item}
                   </span>
                 ))}
@@ -1182,11 +1592,16 @@ export default function KnowYourCustomerPage() {
         </div>
       </section>
 
-      {/* IDEA */}
+      {/* =========================
+          IDEA
+      ========================= */}
+
       <section className="kyc-section kyc-section-soft">
         <div className="kyc-container">
           <div className="kyc-idea">
-            <div className="kyc-eyebrow">THE IDEA BEHIND IT</div>
+            <div className="kyc-eyebrow">
+              THE IDEA BEHIND IT
+            </div>
 
             <h2>
               You don't need to create a “perfect customer.”
@@ -1212,10 +1627,15 @@ export default function KnowYourCustomerPage() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
+      {/* =========================
+          FINAL CTA
+      ========================= */}
+
       <section className="kyc-final">
         <div className="kyc-container">
-          <div className="kyc-eyebrow">START WITH THE CUSTOMER</div>
+          <div className="kyc-eyebrow">
+            START WITH THE CUSTOMER
+          </div>
 
           <h2>
             Why aren’t people
@@ -1228,25 +1648,39 @@ export default function KnowYourCustomerPage() {
             you can do differently — starting with just 15 minutes.
           </p>
 
-          <div className="kyc-final-price">₹19</div>
+          <div className="kyc-final-price">
+            ₹19
+          </div>
 
-          <div className="kyc-final-badge">INSTANT ACCESS</div>
+          <div className="kyc-final-badge">
+            INSTANT ACCESS
+          </div>
 
           <br />
 
-          <Link href={CHECKOUT_URL} className="kyc-cta">
+          <Link
+            href={CHECKOUT_URL}
+            className="kyc-cta"
+          >
             YES, I WANT TO UNDERSTAND MY CUSTOMER →
           </Link>
 
           <div className="kyc-micro">
             <span>⚡ Instant digital download</span>
+
             <span>•</span>
-            <span>One product. One customer. 15 minutes.</span>
+
+            <span>
+              One product. One customer. 15 minutes.
+            </span>
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* =========================
+          FOOTER
+      ========================= */}
+
       <footer className="kyc-footer">
         © {new Date().getFullYear()} Puneet Kaur Saluja • All Rights Reserved
       </footer>

@@ -2,1732 +2,1085 @@
 
 import Link from "next/link";
 
-const CHECKOUT_URL = "/know-your-customer/checkout";
+const checkoutUrl = "/know-your-customer/checkout";
 
 const customerInsights = [
   {
     number: "01",
-    title: "WHAT YOUR CUSTOMER REALLY WANTS",
-    description:
-      "Understand the result or outcome they are actually looking for — not just what they say they need.",
+    title: "WHAT THEY ACTUALLY WANT",
+    text: "Get clearer on the outcome your customer is really looking for — not just the product or service they say they need.",
   },
   {
     number: "02",
-    title: "THE PROBLEM THEY'RE TRYING TO SOLVE",
-    description:
-      "Get clear on the problem that is making them look for a solution in the first place.",
+    title: "WHAT'S HOLDING THEM BACK",
+    text: "Understand the doubts, frustrations and objections that can stop someone from choosing your offer.",
   },
   {
     number: "03",
-    title: "WHY IT MATTERS TO THEM",
-    description:
-      "Understand the deeper reason behind the purchase and why solving this problem matters.",
+    title: "WHAT MAKES THEM SAY YES",
+    text: "Identify what matters most to the right customer so your offer becomes easier to understand and easier to choose.",
   },
   {
     number: "04",
-    title: "WHAT THEY'VE ALREADY TRIED",
-    description:
-      "See what they've already done, bought or experienced — and what may not have worked.",
-  },
-  {
-    number: "05",
-    title: "WHAT'S STOPPING THEM FROM BUYING",
-    description:
-      "Identify doubts, objections, fears and hesitation that may be standing between interest and purchase.",
-  },
-  {
-    number: "06",
-    title: "THE WORDS THEY ACTUALLY USE",
-    description:
-      "Understand how your customer describes their problem, needs and desires in their own language.",
-  },
-  {
-    number: "07",
-    title: "WHAT THEY NEED TO TRUST YOU",
-    description:
-      "Get clearer on what could make your customer feel confident enough to choose your offer.",
-  },
-  {
-    number: "08",
-    title: "WHAT YOU CAN DO DIFFERENTLY",
-    description:
-      "Turn what you discover into clearer direction for your offer, communication and sales approach.",
+    title: "HOW TO SPEAK THEIR LANGUAGE",
+    text: "Turn customer understanding into clearer words, stronger messaging and a more relevant offer.",
   },
 ];
 
-const questions = [
-  "What does my customer actually want?",
-  "What problem are they trying to solve?",
-  "Why does solving it matter to them?",
-  "What's stopping them from buying?",
-  "What have they already tried?",
-  "What would make them trust my offer?",
+const process = [
+  "Choose one product, service or offer.",
+  "Think about the person you want to buy it.",
+  "Work through the guided prompts.",
+  "Capture what your customer wants, fears and struggles with.",
+  "Identify what could be stopping them from buying.",
+  "Turn those insights into better messaging and offers.",
 ];
 
 const outcomes = [
-  "A clearer picture of who you're actually selling to",
-  "A better understanding of what your customer wants",
-  "The doubts and objections that may be stopping a purchase",
-  "The language your customer actually uses",
-  "Better direction for your offer and communication",
-  "More clarity about what to say and what to change",
+  "A clearer picture of your ideal customer",
+  "The problems they actually care about",
+  "Their wants, frustrations and objections",
+  "The reasons they may hesitate before buying",
+  "Language you can use in your marketing",
+  "A stronger foundation for your offer",
 ];
 
 const audience = [
-  "Business Owners",
+  "Business owners",
   "Founders",
-  "Coaches",
-  "Consultants",
+  "Coaches & consultants",
   "Freelancers",
-  "Service Providers",
+  "Service providers",
   "Creators",
-  "Local Businesses",
+  "Anyone selling a product, service or offer",
 ];
+
+function CTA({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <Link
+      href={checkoutUrl}
+      className={`kyc-cta ${className}`}
+      style={{
+        backgroundColor: "#111111",
+        color: "#ffffff",
+        WebkitTextFillColor: "#ffffff",
+      }}
+    >
+      {children}
+    </Link>
+  );
+}
 
 export default function KnowYourCustomerPage() {
   return (
-    <main className="kyc-page">
+    <>
+      <main className="kyc-page">
+        {/* HEADER */}
+        <header className="kyc-header">
+          <div className="kyc-container kyc-header-inner">
+            <Link href="/know-your-customer" className="kyc-logo">
+              PUNEET KAUR SALUJA
+            </Link>
+
+            <div className="kyc-download-pill">
+              ↓ INSTANT DIGITAL DOWNLOAD
+            </div>
+          </div>
+        </header>
+
+        {/* HERO */}
+        <section className="kyc-hero">
+          <div className="kyc-container kyc-hero-grid">
+            <div className="kyc-hero-copy">
+              <div className="kyc-eyebrow">FOR BUSINESS OWNERS & FOUNDERS</div>
+
+              <h1>
+                WHY AREN'T PEOPLE
+                <br />
+                BUYING FROM ME?
+              </h1>
+
+              <h2>Find the answer in 15 minutes.</h2>
+
+              <p className="kyc-hero-description">
+                Your product may be good. Your service may be good. But if
+                people are not buying, you need to understand what is happening
+                on the other side of the sale.
+              </p>
+
+              <p className="kyc-hero-bold">
+                This simple guided tool helps you understand what your
+                customers want, what they struggle with, what makes them
+                hesitate and what can make your offer easier to say yes to.
+              </p>
+
+              <div className="kyc-hero-action">
+                <div className="kyc-price">₹19</div>
+
+                <CTA>GET THE TOOL — ₹19 →</CTA>
+              </div>
+
+              <div className="kyc-meta">
+                <span>⚡ Instant digital download</span>
+                <span>•</span>
+                <span>Use for any product, service or offer</span>
+              </div>
+            </div>
+
+            <div className="kyc-hero-visual">
+              <img
+                src="/kyc-sales-diagnostic.png"
+                alt="Understand your customer and improve your offer"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* WHY */}
+        <section className="kyc-section kyc-dark-section">
+          <div className="kyc-container">
+            <div className="kyc-section-label">THE REAL PROBLEM</div>
+
+            <h2 className="kyc-section-title">
+              You don't always have a
+              <br />
+              <span>marketing problem.</span>
+            </h2>
+
+            <div className="kyc-two-column">
+              <div>
+                <p className="kyc-large-text">
+                  Sometimes, you simply don't know enough about the person
+                  you're trying to sell to.
+                </p>
+
+                <p>
+                  You know your product. You know your service. You know how
+                  much work goes into creating it.
+                </p>
+
+                <p>
+                  But your customer is looking at it from a completely
+                  different perspective.
+                </p>
+              </div>
+
+              <div className="kyc-highlight-box">
+                <div className="kyc-highlight-mark">?</div>
+
+                <h3>
+                  WHAT IF YOU COULD
+                  <br />
+                  SEE THE SALE
+                  <br />
+                  FROM THEIR SIDE?
+                </h3>
+
+                <p>
+                  That's what this worksheet helps you uncover.
+                </p>
+              </div>
+            </div>
+
+            <CTA>FIND OUT WHAT'S STOPPING YOUR CUSTOMERS — ₹19 →</CTA>
+          </div>
+        </section>
+
+        {/* CUSTOMER ANSWERS */}
+        <section className="kyc-section">
+          <div className="kyc-container">
+            <div className="kyc-section-label">THE CLARITY YOU NEED</div>
+
+            <h2 className="kyc-section-title">
+              What you'll finally
+              <br />
+              <span>understand about your customer.</span>
+            </h2>
+
+            <p className="kyc-section-intro">
+              Instead of guessing what your audience wants, this tool helps
+              you work through the questions that reveal the thinking behind
+              their buying decision.
+            </p>
+
+            <div className="kyc-insights-grid">
+              {customerInsights.map((item) => (
+                <div className="kyc-insight-card" key={item.number}>
+                  <div className="kyc-card-number">{item.number}</div>
+
+                  <h3>{item.title}</h3>
+
+                  <p>{item.text}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="kyc-centered-cta">
+              <CTA>GET THIS CLARITY FOR ₹19 →</CTA>
+            </div>
+          </div>
+        </section>
+
+        {/* BEFORE YOU SPEND */}
+        <section className="kyc-section kyc-light-section">
+          <div className="kyc-container">
+            <div className="kyc-section-label">BEFORE YOU SPEND MORE</div>
+
+            <div className="kyc-two-column">
+              <div>
+                <h2 className="kyc-section-title left">
+                  Before you spend more
+                  <br />
+                  <span>on marketing...</span>
+                </h2>
+
+                <p className="kyc-large-text">
+                  Make sure you understand who you're actually trying to sell
+                  to.
+                </p>
+
+                <p>
+                  More ads, more content and more traffic won't solve a
+                  fundamental disconnect between your offer and your customer.
+                </p>
+
+                <p>
+                  Start by understanding the person on the other side of the
+                  sale.
+                </p>
+              </div>
+
+              <div className="kyc-before-box">
+                <div className="kyc-before-row">
+                  <span>GUESSING</span>
+                  <strong>→</strong>
+                  <span>UNDERSTANDING</span>
+                </div>
+
+                <div className="kyc-before-row">
+                  <span>ASSUMING</span>
+                  <strong>→</strong>
+                  <span>LISTENING</span>
+                </div>
+
+                <div className="kyc-before-row">
+                  <span>RANDOM MESSAGING</span>
+                  <strong>→</strong>
+                  <span>RELEVANT MESSAGING</span>
+                </div>
+              </div>
+            </div>
+
+            <CTA>UNDERSTAND YOUR CUSTOMER FIRST — ₹19 →</CTA>
+          </div>
+        </section>
+
+        {/* PROCESS */}
+        <section className="kyc-section">
+          <div className="kyc-container">
+            <div className="kyc-section-label">HOW IT WORKS</div>
+
+            <h2 className="kyc-section-title">
+              15 minutes.
+              <br />
+              <span>One customer. Real clarity.</span>
+            </h2>
+
+            <p className="kyc-section-intro">
+              You don't need another complicated marketing exercise. Just
+              choose one offer and work through the guided worksheet.
+            </p>
+
+            <div className="kyc-process-box">
+              {process.map((item, index) => (
+                <div className="kyc-process-row" key={item}>
+                  <div className="kyc-process-number">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="kyc-centered-cta">
+              <CTA>START FOR ₹19 →</CTA>
+            </div>
+          </div>
+        </section>
+
+        {/* WHAT YOU GET */}
+        <section className="kyc-section kyc-dark-section">
+          <div className="kyc-container">
+            <div className="kyc-section-label">WHAT YOU GET</div>
+
+            <h2 className="kyc-section-title">
+              Everything you need to
+              <br />
+              <span>understand your customer better.</span>
+            </h2>
+
+            <div className="kyc-outcomes">
+              {outcomes.map((item, index) => (
+                <div className="kyc-outcome" key={item}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <p>{item}</p>
+                </div>
+              ))}
+            </div>
+
+            <CTA>GET EVERYTHING — ₹19 →</CTA>
+          </div>
+        </section>
+
+        {/* WHO */}
+        <section className="kyc-section">
+          <div className="kyc-container">
+            <div className="kyc-section-label">WHO IS THIS FOR?</div>
+
+            <div className="kyc-two-column">
+              <div>
+                <h2 className="kyc-section-title left">
+                  If you sell
+                  <br />
+                  <span>something, this is for you.</span>
+                </h2>
+
+                <p className="kyc-large-text">
+                  You don't need to be a marketing expert.
+                </p>
+
+                <p>
+                  You simply need to want a better understanding of the person
+                  you're trying to serve.
+                </p>
+              </div>
+
+              <div className="kyc-audience-box">
+                {audience.map((item) => (
+                  <div className="kyc-audience-item" key={item}>
+                    <span>✓</span>
+                    <p>{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <CTA>UNDERSTAND YOUR CUSTOMER — ₹19 →</CTA>
+          </div>
+        </section>
+
+        {/* IDEA */}
+        <section className="kyc-section kyc-idea-section">
+          <div className="kyc-container">
+            <div className="kyc-philosophy">
+              <div className="kyc-section-label">THE IDEA BEHIND IT</div>
+
+              <div className="kyc-quote">
+                "The better you understand your customer,
+                <br />
+                the easier it becomes to create something
+                <br />
+                they actually want."
+              </div>
+
+              <p>
+                You don't need to guess harder.
+                <br />
+                You need to understand better.
+              </p>
+
+              <CTA>STOP GUESSING — ₹19 →</CTA>
+            </div>
+          </div>
+        </section>
+
+        {/* FINAL CTA */}
+        <section className="kyc-final">
+          <div className="kyc-container kyc-final-inner">
+            <div className="kyc-section-label">START HERE</div>
+
+            <h2>
+              WHY AREN'T PEOPLE
+              <br />
+              BUYING FROM YOU?
+            </h2>
+
+            <p>
+              Find the answer in 15 minutes.
+              <br />
+              Understand your customer. Improve your offer.
+            </p>
+
+            <div className="kyc-final-action">
+              <div className="kyc-final-price">₹19</div>
+
+              <CTA>YES, I WANT THE TOOL — ₹19 →</CTA>
+            </div>
+
+            <div className="kyc-final-meta">
+              ⚡ Instant digital download
+            </div>
+
+            <div className="kyc-footer-name">PUNEET KAUR SALUJA</div>
+          </div>
+        </section>
+      </main>
+
       <style jsx global>{`
-        .kyc-page {
-          --yellow: #f4c542;
-          --yellow-dark: #d99f00;
-          --black: #111111;
-          --cream: #fffdf7;
-          --soft: #f7f3e8;
-          --line: #dedbd1;
-          --muted: #66635c;
-
-          width: 100%;
-          min-height: 100vh;
-          overflow-x: hidden;
-
-          background: var(--cream);
-          color: var(--black);
-
-          font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .kyc-page *,
-        .kyc-page *::before,
-        .kyc-page *::after {
+        * {
           box-sizing: border-box;
         }
 
-        .kyc-page img {
-          max-width: 100%;
+        html {
+          scroll-behavior: smooth;
+        }
+
+        body {
+          margin: 0;
+          background: #ffffff;
+          color: #111111;
+          font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+        }
+
+        .kyc-page {
+          width: 100%;
+          overflow-x: hidden;
+          background: #ffffff;
         }
 
         .kyc-container {
-          width: 100%;
-          max-width: 1180px;
+          width: min(1180px, calc(100% - 80px));
           margin: 0 auto;
-          padding-left: 24px;
-          padding-right: 24px;
-          min-width: 0;
         }
 
-        /* =========================
-           HEADER
-        ========================= */
+        /* HEADER */
 
         .kyc-header {
-          position: sticky;
-          top: 0;
-          z-index: 20;
-
-          border-bottom: 1px solid var(--line);
-
-          background: rgba(255, 253, 247, 0.96);
-          backdrop-filter: blur(10px);
+          border-bottom: 1px solid #e8e8e8;
+          background: #ffffff;
         }
 
         .kyc-header-inner {
-          min-height: 70px;
-
+          min-height: 76px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-
           gap: 20px;
         }
 
-        .kyc-brand {
+        .kyc-logo {
+          color: #111111;
+          text-decoration: none;
           font-size: 14px;
           font-weight: 900;
-          letter-spacing: 0.04em;
-          text-transform: uppercase;
-        }
-
-        .kyc-brand span {
-          display: block;
-          margin-top: 3px;
-
-          color: var(--muted);
-
-          font-size: 10px;
-          font-weight: 500;
           letter-spacing: 0.08em;
         }
 
-        .kyc-pill {
-          flex-shrink: 0;
-
-          padding: 9px 14px;
-
-          border: 1px solid var(--black);
+        .kyc-download-pill {
+          border: 1px solid #111111;
           border-radius: 999px;
-
-          background: var(--yellow);
-
-          font-size: 10px;
-          font-weight: 900;
-          letter-spacing: 0.08em;
+          padding: 9px 15px;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.06em;
         }
 
-        /* =========================
-           HERO
-        ========================= */
+        /* HERO */
 
         .kyc-hero {
-          padding: 72px 0 88px;
+          padding: 90px 0 100px;
         }
 
         .kyc-hero-grid {
           display: grid;
-
-          grid-template-columns:
-            minmax(0, 1.05fr)
-            minmax(0, 0.95fr);
-
-          gap: 60px;
-
+          grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+          gap: 70px;
           align-items: center;
         }
 
-        .kyc-hero-copy {
-          min-width: 0;
+        .kyc-eyebrow,
+        .kyc-section-label {
+          font-size: 12px;
+          font-weight: 900;
+          letter-spacing: 0.14em;
+          margin-bottom: 20px;
         }
 
         .kyc-eyebrow {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-
-          margin-bottom: 20px;
-
-          color: #a86f00;
-
-          font-size: 10px;
-          font-weight: 900;
-          letter-spacing: 0.13em;
-          text-transform: uppercase;
-        }
-
-        .kyc-eyebrow::before {
-          content: "";
-
-          width: 22px;
-          height: 3px;
-
-          flex-shrink: 0;
-
-          background: var(--yellow-dark);
+          display: inline-block;
+          background: #f2a900;
+          padding: 9px 12px;
         }
 
         .kyc-hero h1 {
           margin: 0;
-
-          max-width: 680px;
-
-          font-size: clamp(48px, 6.2vw, 82px);
-          line-height: 0.9;
-          letter-spacing: -0.06em;
+          font-size: clamp(44px, 6vw, 82px);
+          line-height: 0.92;
+          letter-spacing: -0.055em;
           font-weight: 950;
-
-          overflow-wrap: break-word;
         }
 
         .kyc-hero h2 {
-          margin: 24px 0 0;
-
-          font-size: clamp(24px, 2.7vw, 35px);
-          line-height: 1.05;
+          margin: 22px 0 0;
+          font-size: clamp(26px, 3vw, 42px);
+          line-height: 1;
           letter-spacing: -0.035em;
-          font-weight: 850;
+          font-weight: 900;
         }
 
-        .kyc-lead {
-          max-width: 650px;
-
-          margin: 25px 0 0;
-
-          color: #45433e;
-
+        .kyc-hero-description {
+          margin: 30px 0 0;
+          max-width: 680px;
           font-size: 18px;
-          line-height: 1.6;
+          line-height: 1.65;
         }
 
-        .kyc-business-line {
-          max-width: 640px;
-
-          margin: 17px 0 0;
-
-          font-size: 15px;
-          line-height: 1.55;
+        .kyc-hero-bold {
+          margin: 22px 0 0;
+          max-width: 720px;
+          font-size: 16px;
+          line-height: 1.6;
           font-weight: 800;
         }
 
-        .kyc-price-row {
-          margin-top: 30px;
+        .kyc-hero-action,
+        .kyc-final-action {
+          display: flex;
+          align-items: stretch;
+          gap: 16px;
+          margin-top: 32px;
+          flex-wrap: wrap;
+        }
 
+        .kyc-price,
+        .kyc-final-price {
           display: flex;
           align-items: center;
-          flex-wrap: wrap;
-
-          gap: 18px;
-        }
-
-        .kyc-price {
-          font-size: 48px;
+          justify-content: center;
+          min-width: 120px;
+          min-height: 82px;
+          padding: 10px 20px;
+          background: #f2a900;
+          border-radius: 14px;
+          font-size: 42px;
+          line-height: 1;
           font-weight: 950;
-          letter-spacing: -0.06em;
+          letter-spacing: -0.05em;
         }
+
+        /*
+          IMPORTANT CTA FIX
+          Explicit white text prevents inherited black text
+          from making the CTA appear as a blank black rectangle.
+        */
 
         .kyc-cta {
-          min-height: 54px;
-
-          padding: 0 24px;
-
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-
-          background: var(--black);
-          color: white;
-
-          border: 2px solid var(--black);
-
-          text-decoration: none;
-
-          font-size: 12px;
-          font-weight: 900;
-          letter-spacing: 0.05em;
-          text-transform: uppercase;
-
-          transition: 0.2s ease;
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          min-height: 82px !important;
+          padding: 18px 28px !important;
+          border-radius: 0 !important;
+          background: #111111 !important;
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
+          text-decoration: none !important;
+          font-size: 14px !important;
+          line-height: 1.2 !important;
+          font-weight: 950 !important;
+          letter-spacing: 0.045em !important;
+          text-align: center !important;
+          white-space: normal !important;
+          cursor: pointer !important;
+          transition:
+            transform 0.2s ease,
+            background-color 0.2s ease !important;
         }
 
         .kyc-cta:hover {
+          background: #2b2b2b !important;
+          color: #ffffff !important;
+          -webkit-text-fill-color: #ffffff !important;
           transform: translateY(-2px);
-          background: #292929;
         }
 
-        .kyc-micro {
-          margin-top: 15px;
-
+        .kyc-meta {
           display: flex;
           flex-wrap: wrap;
-
-          gap: 10px;
-
-          color: var(--muted);
-
+          gap: 8px;
+          align-items: center;
+          margin-top: 15px;
           font-size: 11px;
+          color: #555555;
         }
 
-        /* =========================
-           HERO VISUAL
-        ========================= */
-
-        .kyc-visual {
+        .kyc-hero-visual {
           width: 100%;
-          min-width: 0;
-
-          position: relative;
         }
 
-        .kyc-visual img {
+        .kyc-hero-visual img {
+          display: block;
           width: 100%;
           height: auto;
-
-          display: block;
-
-          border: 2px solid var(--black);
-
-          box-shadow: 14px 14px 0 var(--yellow);
+          border-radius: 20px;
         }
 
-        /* =========================
-           GENERAL SECTIONS
-        ========================= */
+        /* GENERAL SECTIONS */
 
         .kyc-section {
-          padding: 90px 0;
-
-          border-top: 1px solid var(--line);
+          padding: 110px 0;
         }
 
-        .kyc-section-soft {
-          background: var(--soft);
+        .kyc-dark-section {
+          background: #111111;
+          color: #ffffff;
         }
 
-        .kyc-section-heading {
-          width: 100%;
-          max-width: 820px;
+        .kyc-light-section {
+          background: #f5f5f2;
         }
 
-        .kyc-section-heading h2 {
+        .kyc-section-title {
           margin: 0;
-
-          font-size: clamp(38px, 5vw, 64px);
-          line-height: 0.96;
-          letter-spacing: -0.055em;
+          max-width: 900px;
+          font-size: clamp(40px, 5vw, 70px);
+          line-height: 0.98;
+          letter-spacing: -0.05em;
           font-weight: 950;
-
-          overflow-wrap: break-word;
         }
 
-        .kyc-section-heading p {
-          max-width: 760px;
-
-          margin: 20px 0 0;
-
-          color: var(--muted);
-
-          font-size: 17px;
-          line-height: 1.6;
+        .kyc-section-title.left {
+          max-width: 700px;
         }
 
-        /* =========================
-           SECTION CTA
-        ========================= */
-
-        .kyc-section-cta {
-          margin-top: 34px;
-
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
+        .kyc-section-title span {
+          color: #f2a900;
         }
 
-        .kyc-section-cta .kyc-cta {
-          min-height: 50px;
+        .kyc-section-intro {
+          max-width: 720px;
+          margin: 25px 0 0;
+          font-size: 18px;
+          line-height: 1.65;
         }
 
-        /* =========================
-           WHY PEOPLE AREN'T BUYING
-        ========================= */
-
-        .kyc-question-grid {
-          width: 100%;
-          max-width: 100%;
-
-          margin-top: 45px;
-
+        .kyc-two-column {
           display: grid;
-
-          grid-template-columns:
-            minmax(0, 1fr)
-            minmax(0, 1fr);
-
-          border-top: 1px solid var(--black);
-          border-left: 1px solid var(--black);
-
-          overflow: hidden;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          gap: 70px;
+          margin-top: 55px;
+          align-items: start;
         }
 
-        .kyc-question-card {
-          min-width: 0;
-          min-height: 145px;
-
-          padding: 27px 30px;
-
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-
-          background: white;
-
-          border-right: 1px solid var(--black);
-          border-bottom: 1px solid var(--black);
+        .kyc-two-column p {
+          max-width: 650px;
+          font-size: 17px;
+          line-height: 1.7;
         }
 
-        .kyc-question-card::before {
-          content: "?";
-
-          width: 32px;
-          height: 32px;
-
-          margin-bottom: 15px;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          border: 2px solid var(--black);
-          border-radius: 50%;
-
-          background: var(--yellow);
-
-          font-size: 13px;
-          font-weight: 900;
-        }
-
-        .kyc-question-card p {
-          margin: 0;
-
-          font-size: 16px;
-          line-height: 1.4;
+        .kyc-large-text {
+          font-size: 25px !important;
+          line-height: 1.35 !important;
           font-weight: 800;
-
-          overflow-wrap: anywhere;
         }
 
         .kyc-highlight-box {
-          width: 100%;
-          max-width: 100%;
-          min-width: 0;
-
-          margin-top: 28px;
-
-          padding: 24px 28px;
-
-          background: white;
-
-          border-left: 6px solid var(--yellow-dark);
-
-          font-size: 18px;
-          line-height: 1.55;
-          font-weight: 800;
-
-          overflow-wrap: anywhere;
+          background: #f2a900;
+          color: #111111;
+          padding: 40px;
+          border-radius: 16px;
         }
 
-        /* =========================
-           CUSTOMER INSIGHTS
-        ========================= */
+        .kyc-highlight-mark {
+          font-size: 70px;
+          line-height: 0.8;
+          font-weight: 950;
+        }
+
+        .kyc-highlight-box h3 {
+          margin: 25px 0 15px;
+          font-size: 32px;
+          line-height: 1;
+          letter-spacing: -0.035em;
+        }
+
+        .kyc-highlight-box p {
+          margin-bottom: 0;
+        }
+
+        .kyc-section .kyc-cta {
+          margin-top: 45px;
+        }
+
+        /* INSIGHTS */
 
         .kyc-insights-grid {
-          width: 100%;
-          max-width: 100%;
-
-          margin-top: 50px;
-
           display: grid;
-
-          grid-template-columns:
-            minmax(0, 1fr)
-            minmax(0, 1fr);
-
-          gap: 14px;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 18px;
+          margin-top: 55px;
         }
 
         .kyc-insight-card {
           min-width: 0;
-
-          padding: 28px;
-
-          display: grid;
-
-          grid-template-columns: 52px minmax(0, 1fr);
-
-          gap: 20px;
-
-          background: white;
-
-          border: 1px solid var(--black);
+          padding: 35px;
+          border: 1px solid #dddddd;
+          background: #ffffff;
         }
 
-        .kyc-insight-number {
-          width: 46px;
-          height: 46px;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          background: var(--yellow);
-
-          border: 1px solid var(--black);
-
-          font-size: 11px;
-          font-weight: 950;
+        .kyc-card-number {
+          margin-bottom: 45px;
+          font-size: 13px;
+          font-weight: 900;
+          color: #f2a900;
         }
 
         .kyc-insight-card h3 {
-          margin: 0;
-
-          font-size: 15px;
-          line-height: 1.2;
-          letter-spacing: 0.01em;
+          margin: 0 0 14px;
+          font-size: 22px;
+          line-height: 1.05;
+          letter-spacing: -0.02em;
         }
 
         .kyc-insight-card p {
-          margin: 9px 0 0;
-
-          color: var(--muted);
-
-          font-size: 13px;
-          line-height: 1.5;
-        }
-
-        /* =========================
-           BEFORE YOU SPEND MORE
-        ========================= */
-
-        .kyc-before {
-          width: 100%;
-          min-width: 0;
-
-          display: grid;
-
-          grid-template-columns:
-            minmax(0, 0.8fr)
-            minmax(0, 1.2fr);
-
-          gap: 70px;
-        }
-
-        .kyc-before > * {
-          min-width: 0;
-        }
-
-        .kyc-before h2 {
           margin: 0;
-
-          font-size: clamp(38px, 4.5vw, 60px);
-          line-height: 0.97;
-          letter-spacing: -0.055em;
-          font-weight: 950;
+          color: #555555;
+          font-size: 15px;
+          line-height: 1.6;
         }
 
-        .kyc-before-content p {
-          margin: 0 0 18px;
-
-          color: #4d4a44;
-
-          font-size: 17px;
-          line-height: 1.65;
+        .kyc-centered-cta {
+          display: flex;
+          justify-content: center;
         }
 
-        .kyc-spend-box {
-          margin-top: 25px;
+        /* BEFORE SPEND */
 
-          padding: 26px;
-
-          background: var(--yellow);
-
-          border: 2px solid var(--black);
+        .kyc-before-box {
+          background: #ffffff;
+          border: 1px solid #dddddd;
         }
 
-        .kyc-spend-box small {
-          display: block;
-
-          margin-bottom: 9px;
-
-          font-size: 10px;
+        .kyc-before-row {
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
+          gap: 20px;
+          align-items: center;
+          padding: 25px;
+          border-bottom: 1px solid #dddddd;
+          font-size: 13px;
           font-weight: 900;
-          letter-spacing: 0.1em;
         }
 
-        .kyc-spend-box strong {
-          display: block;
-
-          font-size: 25px;
-          line-height: 1.08;
-          letter-spacing: -0.035em;
+        .kyc-before-row:last-child {
+          border-bottom: 0;
         }
 
-        /* =========================
-           15-MINUTE PROCESS
-        ========================= */
+        .kyc-before-row strong {
+          color: #f2a900;
+          font-size: 24px;
+        }
+
+        /* PROCESS */
 
         .kyc-process-box {
-          margin-top: 40px;
+          margin-top: 55px;
+          border-top: 2px solid #111111;
+        }
 
-          padding: 35px;
-
+        .kyc-process-row {
           display: grid;
-
-          grid-template-columns:
-            repeat(3, minmax(0, 1fr));
-
-          gap: 20px;
-
-          background: white;
-
-          border: 1px solid var(--black);
+          grid-template-columns: 90px minmax(0, 1fr);
+          gap: 30px;
+          align-items: center;
+          padding: 24px 0;
+          border-bottom: 1px solid #dddddd;
         }
 
-        .kyc-process-item {
-          min-width: 0;
-
-          padding: 20px;
-
-          background: var(--soft);
-
-          border: 1px solid var(--line);
-        }
-
-        .kyc-process-item strong {
-          display: block;
-
-          margin-bottom: 8px;
-
-          font-size: 14px;
-          line-height: 1.2;
-        }
-
-        .kyc-process-item span {
-          color: var(--muted);
-
+        .kyc-process-number {
           font-size: 13px;
-          line-height: 1.5;
+          font-weight: 900;
+          color: #f2a900;
         }
 
-        /* =========================
-           WHAT YOU GET
-        ========================= */
-
-        .kyc-outcomes {
-          width: 100%;
-          min-width: 0;
-
-          display: grid;
-
-          grid-template-columns:
-            minmax(0, 1fr)
-            minmax(0, 1fr);
-
-          gap: 70px;
-
-          align-items: start;
-        }
-
-        .kyc-outcomes > * {
-          min-width: 0;
-        }
-
-        .kyc-outcomes-list {
+        .kyc-process-row p {
           margin: 0;
-          padding: 0;
-
-          list-style: none;
-        }
-
-        .kyc-outcomes-list li {
-          min-width: 0;
-
-          padding: 17px 0;
-
-          display: flex;
-
-          gap: 13px;
-
-          border-top: 1px solid var(--line);
-
-          font-size: 15px;
-          line-height: 1.45;
+          font-size: 18px;
           font-weight: 700;
         }
 
-        .kyc-outcomes-list li::before {
-          content: "✓";
+        /* OUTCOMES */
 
-          flex: 0 0 auto;
-
-          width: 22px;
-          height: 22px;
-
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-
-          border: 1px solid var(--black);
-          border-radius: 50%;
-
-          background: var(--yellow);
-
-          font-size: 11px;
-          font-weight: 950;
+        .kyc-outcomes {
+          margin-top: 55px;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          border-top: 1px solid #444444;
         }
 
-        /* =========================
-           WHO IT'S FOR
-        ========================= */
+        .kyc-outcome {
+          display: grid;
+          grid-template-columns: 55px minmax(0, 1fr);
+          gap: 15px;
+          align-items: center;
+          padding: 25px 0;
+          border-bottom: 1px solid #444444;
+        }
+
+        .kyc-outcome span {
+          color: #f2a900;
+          font-size: 12px;
+          font-weight: 900;
+        }
+
+        .kyc-outcome p {
+          margin: 0;
+          font-size: 17px;
+          font-weight: 700;
+        }
+
+        /* AUDIENCE */
 
         .kyc-audience-box {
-          padding: 28px;
-
-          background: white;
-
-          border: 1px solid var(--black);
+          border-top: 2px solid #111111;
         }
 
-        .kyc-audience-box h3 {
-          margin: 0 0 18px;
-
-          font-size: 25px;
-          line-height: 1;
-          letter-spacing: -0.04em;
-        }
-
-        .kyc-audience-box p {
-          margin: 0 0 22px;
-
-          color: var(--muted);
-
-          font-size: 14px;
-          line-height: 1.55;
-        }
-
-        .kyc-chips {
+        .kyc-audience-item {
           display: flex;
-          flex-wrap: wrap;
-
-          gap: 8px;
-        }
-
-        .kyc-chip {
-          padding: 8px 11px;
-
-          border: 1px solid var(--black);
-
-          font-size: 10px;
-          font-weight: 800;
-
-          text-transform: uppercase;
-          letter-spacing: 0.04em;
-        }
-
-        /* =========================
-           PHILOSOPHY
-        ========================= */
-
-        .kyc-philosophy {
-          padding-top: 90px;
-          padding-bottom: 90px;
-
-          display: grid;
-
-          grid-template-columns:
-            minmax(0, 1fr)
-            minmax(0, 0.75fr);
-
-          gap: 70px;
-
+          gap: 15px;
           align-items: center;
+          padding: 18px 0;
+          border-bottom: 1px solid #dddddd;
         }
 
-        .kyc-philosophy h2 {
-          margin: 0;
-
-          font-size: clamp(38px, 5vw, 64px);
-          line-height: 0.95;
-          letter-spacing: -0.055em;
+        .kyc-audience-item span {
+          color: #f2a900;
           font-weight: 950;
         }
 
-        .kyc-philosophy p {
-          max-width: 760px;
+        .kyc-audience-item p {
+          margin: 0;
+          font-size: 16px;
+          font-weight: 700;
+        }
 
-          margin: 22px 0 0;
+        /* IDEA */
 
-          color: #4e4b45;
+        .kyc-idea-section {
+          background: #f2a900;
+        }
 
-          font-size: 17px;
-          line-height: 1.65;
+        .kyc-philosophy {
+          text-align: center;
+        }
+
+        .kyc-philosophy .kyc-section-label {
+          margin-bottom: 35px;
         }
 
         .kyc-quote {
-          padding: 32px;
-
-          background: var(--yellow);
-
-          border: 2px solid var(--black);
+          font-size: clamp(34px, 5vw, 68px);
+          line-height: 1;
+          letter-spacing: -0.05em;
+          font-weight: 950;
         }
 
-        .kyc-quote small {
-          display: block;
-
-          margin-bottom: 20px;
-
-          font-size: 10px;
-          font-weight: 900;
-          letter-spacing: 0.1em;
-        }
-
-        .kyc-quote blockquote {
-          margin: 0;
-
-          font-size: clamp(24px, 3vw, 36px);
-          line-height: 1.05;
-          letter-spacing: -0.04em;
-          font-weight: 900;
-        }
-
-        .kyc-quote > span {
-          display: block;
-
-          margin-top: 20px;
-
-          font-size: 10px;
+        .kyc-philosophy > p {
+          margin: 30px auto 0;
+          font-size: 18px;
+          line-height: 1.6;
           font-weight: 700;
         }
 
-        /* =========================
-           FINAL CTA
-        ========================= */
+        .kyc-philosophy .kyc-cta {
+          margin-top: 35px;
+        }
+
+        /* FINAL */
 
         .kyc-final {
-          padding: 100px 0;
-
-          background: var(--black);
-
-          color: white;
+          background: #111111;
+          color: #ffffff;
+          padding: 120px 0;
+          text-align: center;
         }
 
-        .kyc-final-inner {
-          display: grid;
-
-          grid-template-columns:
-            minmax(0, 1fr)
-            minmax(280px, 0.55fr);
-
-          gap: 60px;
-
-          align-items: center;
-        }
-
-        .kyc-final .kyc-eyebrow {
-          color: var(--yellow);
-        }
-
-        .kyc-final .kyc-eyebrow::before {
-          background: var(--yellow);
+        .kyc-final .kyc-section-label {
+          color: #f2a900;
         }
 
         .kyc-final h2 {
           margin: 0;
-
-          max-width: 800px;
-
-          font-size: clamp(48px, 6.5vw, 82px);
+          font-size: clamp(48px, 7vw, 100px);
           line-height: 0.9;
           letter-spacing: -0.06em;
           font-weight: 950;
         }
 
-        .kyc-final h2 span {
-          color: var(--yellow);
-        }
-
-        .kyc-final-copy {
+        .kyc-final > .kyc-container > p {
+          margin: 30px auto 0;
           max-width: 650px;
-
-          margin-top: 24px;
-
-          color: #c8c5bd;
-
-          font-size: 17px;
-          line-height: 1.6;
+          font-size: 20px;
+          line-height: 1.5;
         }
 
-        .kyc-final-buy {
-          padding: 30px;
-
-          background: white;
-
-          color: var(--black);
-
-          border: 2px solid white;
-
-          text-align: center;
+        .kyc-final-action {
+          justify-content: center;
         }
 
-        .kyc-final-price {
-          font-size: 54px;
-          line-height: 1;
-
-          font-weight: 950;
-
-          letter-spacing: -0.06em;
+        .kyc-final-action .kyc-cta {
+          min-height: 82px !important;
         }
 
-        .kyc-final-badge {
-          display: inline-block;
-
-          margin-top: 10px;
-          padding: 7px 12px;
-
-          background: var(--yellow);
-
-          font-size: 9px;
-          font-weight: 950;
-
-          letter-spacing: 0.1em;
+        .kyc-final-meta {
+          margin-top: 18px;
+          font-size: 12px;
+          color: #bbbbbb;
         }
 
-        .kyc-final .kyc-cta {
-          width: 100%;
-
-          margin-top: 24px;
-
-          background: var(--black);
-
-          color: white;
-
-          border-color: var(--black);
+        .kyc-footer-name {
+          margin-top: 90px;
+          padding-top: 25px;
+          border-top: 1px solid #333333;
+          font-size: 11px;
+          font-weight: 900;
+          letter-spacing: 0.12em;
+          color: #999999;
         }
 
-        .kyc-final-buy > small {
-          display: block;
+        /* MOBILE */
 
-          margin-top: 13px;
-
-          color: var(--muted);
-
-          font-size: 10px;
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        .kyc-footer {
-          padding: 25px 0;
-
-          background: var(--black);
-
-          border-top: 1px solid #353535;
-
-          color: #99968e;
-
-          text-align: center;
-
-          font-size: 10px;
-
-          letter-spacing: 0.07em;
-          text-transform: uppercase;
-        }
-
-        /* =========================
-           TABLET
-        ========================= */
-
-        @media (max-width: 850px) {
-          .kyc-hero-grid,
-          .kyc-before,
-          .kyc-outcomes,
-          .kyc-philosophy,
-          .kyc-final-inner {
-            grid-template-columns: minmax(0, 1fr);
-          }
-
-          .kyc-hero-grid {
-            gap: 50px;
-          }
-
-          .kyc-insights-grid {
-            grid-template-columns: minmax(0, 1fr);
-          }
-
-          .kyc-question-grid {
-            grid-template-columns: minmax(0, 1fr);
-          }
-
-          .kyc-process-box {
-            grid-template-columns: minmax(0, 1fr);
-          }
-
-          .kyc-final-buy {
-            max-width: 500px;
-          }
-        }
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 600px) {
+        @media (max-width: 900px) {
           .kyc-container {
-            padding-left: 18px;
-            padding-right: 18px;
-          }
-
-          .kyc-header-inner {
-            min-height: 62px;
-          }
-
-          .kyc-brand {
-            font-size: 12px;
-          }
-
-          .kyc-brand span {
-            font-size: 8px;
-          }
-
-          .kyc-pill {
-            padding: 8px 10px;
-            font-size: 8px;
+            width: min(100% - 40px, 700px);
           }
 
           .kyc-hero {
-            padding: 52px 0 65px;
+            padding: 60px 0 70px;
           }
 
-          .kyc-hero h1 {
-            font-size: clamp(45px, 13vw, 70px);
+          .kyc-hero-grid,
+          .kyc-two-column {
+            grid-template-columns: 1fr;
+            gap: 45px;
           }
 
-          .kyc-lead {
-            font-size: 16px;
-          }
-
-          .kyc-price-row {
-            flex-direction: column;
-            align-items: stretch;
-          }
-
-          .kyc-price {
-            font-size: 42px;
-          }
-
-          .kyc-cta {
-            width: 100%;
+          .kyc-hero-visual {
+            order: 2;
           }
 
           .kyc-section {
-            padding: 65px 0;
+            padding: 75px 0;
           }
 
-          .kyc-section-heading h2,
-          .kyc-before h2,
-          .kyc-philosophy h2 {
-            font-size: clamp(38px, 11vw, 58px);
+          .kyc-insights-grid,
+          .kyc-outcomes {
+            grid-template-columns: 1fr;
           }
 
-          .kyc-question-card {
-            min-height: 125px;
-            padding: 22px;
+          .kyc-before-row {
+            grid-template-columns: 1fr;
+            gap: 8px;
           }
 
-          .kyc-question-card p {
-            font-size: 15px;
+          .kyc-before-row strong {
+            display: none;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .kyc-container {
+            width: calc(100% - 30px);
+          }
+
+          .kyc-header-inner {
+            min-height: 65px;
+          }
+
+          .kyc-logo {
+            font-size: 11px;
+          }
+
+          .kyc-download-pill {
+            font-size: 9px;
+            padding: 7px 9px;
+          }
+
+          .kyc-hero h1 {
+            font-size: 48px;
+          }
+
+          .kyc-hero h2 {
+            font-size: 28px;
+          }
+
+          .kyc-hero-description {
+            font-size: 16px;
+          }
+
+          .kyc-price,
+          .kyc-final-price {
+            min-height: 70px;
+            min-width: 105px;
+            font-size: 34px;
+          }
+
+          .kyc-hero-action,
+          .kyc-final-action {
+            flex-direction: column;
+          }
+
+          .kyc-hero-action .kyc-cta,
+          .kyc-final-action .kyc-cta {
+            width: 100%;
+          }
+
+          .kyc-cta {
+            min-height: 64px !important;
+            padding: 16px 20px !important;
+            font-size: 13px !important;
+          }
+
+          .kyc-section-title {
+            font-size: 43px;
           }
 
           .kyc-highlight-box {
-            padding: 20px;
-
-            border-left-width: 5px;
-
-            font-size: 15px;
+            padding: 30px;
           }
 
           .kyc-insight-card {
-            padding: 21px;
+            padding: 28px;
+          }
 
-            grid-template-columns: 44px minmax(0, 1fr);
-
+          .kyc-process-row {
+            grid-template-columns: 55px minmax(0, 1fr);
             gap: 15px;
           }
 
-          .kyc-insight-number {
-            width: 40px;
-            height: 40px;
-          }
-
-          .kyc-insight-card h3 {
-            font-size: 14px;
-          }
-
-          .kyc-insight-card p {
-            font-size: 12px;
-          }
-
-          .kyc-process-box {
-            padding: 20px;
-          }
-
-          .kyc-audience-box {
-            padding: 22px;
-          }
-
-          .kyc-philosophy {
-            padding-top: 65px;
-            padding-bottom: 65px;
+          .kyc-process-row p {
+            font-size: 16px;
           }
 
           .kyc-quote {
-            padding: 24px;
-          }
-
-          .kyc-final {
-            padding: 70px 0;
+            font-size: 40px;
           }
 
           .kyc-final h2 {
-            font-size: clamp(45px, 13vw, 70px);
-          }
-
-          .kyc-final-buy {
-            padding: 24px;
+            font-size: 50px;
           }
         }
       `}</style>
-
-      {/* =========================
-          HEADER
-      ========================= */}
-
-      <header className="kyc-header">
-        <div className="kyc-container kyc-header-inner">
-          <div className="kyc-brand">
-            Puneet Kaur Saluja
-            <span>The World of Content</span>
-          </div>
-
-          <div className="kyc-pill">
-            ↓ INSTANT DIGITAL DOWNLOAD
-          </div>
-        </div>
-      </header>
-
-      {/* =========================
-          HERO
-      ========================= */}
-
-      <section className="kyc-hero">
-        <div className="kyc-container kyc-hero-grid">
-          <div className="kyc-hero-copy">
-            <div className="kyc-eyebrow">
-              CUSTOMERS • SALES • BUSINESS
-            </div>
-
-            <h1>
-              WHY AREN’T
-              <br />
-              PEOPLE
-              <br />
-              BUYING
-              <br />
-              FROM ME?
-            </h1>
-
-            <h2>
-              Find the answer in 15 minutes.
-            </h2>
-
-            <p className="kyc-lead">
-              Your product may be good. Your service may be good. But if
-              people are not buying, you need to understand what is happening
-              on the other side of the sale.
-            </p>
-
-            <p className="kyc-business-line">
-              This simple guided tool helps you understand what your customers
-              want, what they struggle with, what makes them hesitate and what
-              can make your offer easier to say yes to.
-            </p>
-
-            <div className="kyc-price-row">
-              <div className="kyc-price">
-                ₹19
-              </div>
-
-              <Link
-                href={CHECKOUT_URL}
-                className="kyc-cta"
-              >
-                GET THE TOOL — ₹19 →
-              </Link>
-            </div>
-
-            <div className="kyc-micro">
-              <span>⚡ Instant digital download</span>
-              <span>•</span>
-              <span>
-                Use for any product, service or offer
-              </span>
-            </div>
-          </div>
-
-          <div className="kyc-visual">
-            <img
-              src="/kyc-sales-diagnostic.png"
-              alt="Why aren't people buying from me? Find the answer in 15 minutes"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          WHY PEOPLE AREN'T BUYING
-      ========================= */}
-
-      <section className="kyc-section kyc-section-soft">
-        <div className="kyc-container">
-          <div className="kyc-section-heading">
-            <div className="kyc-eyebrow">
-              WHY PEOPLE AREN’T BUYING
-            </div>
-
-            <h2>
-              You know what you sell.
-              <br />
-              But do you know what makes your customer say "Yes"?
-            </h2>
-
-            <p>
-              Most business owners know their product, their price and their
-              process really well. But that's only one side of the sale.
-            </p>
-
-            <p>
-              The other side is your customer — what they want, what they
-              worry about, what they have already tried and what is stopping
-              them from buying.
-            </p>
-          </div>
-
-          <div className="kyc-question-grid">
-            {questions.map((question) => (
-              <div
-                className="kyc-question-card"
-                key={question}
-              >
-                <p>{question}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="kyc-highlight-box">
-            The better you understand the person you're selling to, the
-            easier it becomes to make better decisions about what you offer
-            and how you sell it.
-          </div>
-
-          <div className="kyc-section-cta">
-            <Link
-              href={CHECKOUT_URL}
-              className="kyc-cta"
-            >
-              FIND OUT WHAT'S STOPPING YOUR CUSTOMERS — ₹19 →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          WHAT YOU'LL FINALLY KNOW
-      ========================= */}
-
-      <section className="kyc-section">
-        <div className="kyc-container">
-          <div className="kyc-section-heading">
-            <div className="kyc-eyebrow">
-              WHAT YOU’LL FINALLY KNOW
-            </div>
-
-            <h2>
-              Stop guessing.
-              <br />
-              Get clear on what’s happening in your customer’s mind.
-            </h2>
-
-            <p>
-              In just 15 minutes, this tool helps you uncover the answers
-              behind your customer's buying decision — so you can understand
-              what they want, what's holding them back and what could make
-              them choose you.
-            </p>
-          </div>
-
-          <div className="kyc-insights-grid">
-            {customerInsights.map((item) => (
-              <div
-                className="kyc-insight-card"
-                key={item.number}
-              >
-                <div className="kyc-insight-number">
-                  {item.number}
-                </div>
-
-                <div>
-                  <h3>{item.title}</h3>
-
-                  <p>{item.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="kyc-highlight-box">
-            <strong>
-              By the end, you won't just know more about your customer.
-              You'll have a clearer idea of what may be standing between
-              them and a purchase.
-            </strong>
-          </div>
-
-          <div className="kyc-section-cta">
-            <Link
-              href={CHECKOUT_URL}
-              className="kyc-cta"
-            >
-              GET THIS CLARITY FOR ₹19 →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          BEFORE YOU SPEND MORE
-      ========================= */}
-
-      <section className="kyc-section kyc-section-soft">
-        <div className="kyc-container">
-          <div className="kyc-before">
-            <div>
-              <div className="kyc-eyebrow">
-                BEFORE YOU SPEND MORE
-              </div>
-
-              <h2>
-                Don't spend more money trying to sell to people you don't
-                understand.
-              </h2>
-            </div>
-
-            <div className="kyc-before-content">
-              <p>
-                You can spend more on ads. Post more content. Change your
-                website. Change your pricing. Launch another offer.
-              </p>
-
-              <p>
-                <strong>
-                  But if you don't understand what your customer actually
-                  wants, you may simply be getting better at talking past
-                  them.
-                </strong>
-              </p>
-
-              <p>
-                Take 15 minutes to understand the person you're trying to sell
-                to first.
-              </p>
-
-              <div className="kyc-spend-box">
-                <small>
-                  THE SIMPLE IDEA
-                </small>
-
-                <strong>
-                  Understand your customer first.
-                  <br />
-                  Then improve how you sell.
-                </strong>
-              </div>
-
-              <div className="kyc-section-cta">
-                <Link
-                  href={CHECKOUT_URL}
-                  className="kyc-cta"
-                >
-                  UNDERSTAND YOUR CUSTOMER FIRST — ₹19 →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          15-MINUTE PROCESS
-      ========================= */}
-
-      <section className="kyc-section">
-        <div className="kyc-container">
-          <div className="kyc-section-heading">
-            <div className="kyc-eyebrow">
-              THE 15-MINUTE PROCESS
-            </div>
-
-            <h2>
-              One customer.
-              <br />
-              One offer.
-              <br />
-              15 minutes.
-            </h2>
-
-            <p>
-              No complicated research. No marketing jargon. Just a simple
-              guided process to help you think through your customer from
-              their side of the sale.
-            </p>
-          </div>
-
-          <div className="kyc-process-box">
-            <div className="kyc-process-item">
-              <strong>
-                01 — PICK ONE OFFER
-              </strong>
-
-              <span>
-                Choose the product, service or offer you want to understand
-                better.
-              </span>
-            </div>
-
-            <div className="kyc-process-item">
-              <strong>
-                02 — WORK THROUGH IT
-              </strong>
-
-              <span>
-                Spend around 15 minutes thinking through your customer.
-              </span>
-            </div>
-
-            <div className="kyc-process-item">
-              <strong>
-                03 — GET CLEAR
-              </strong>
-
-              <span>
-                Walk away with a clearer picture of what your customer wants
-                and what may be holding them back.
-              </span>
-            </div>
-          </div>
-
-          <div className="kyc-section-cta">
-            <Link
-              href={CHECKOUT_URL}
-              className="kyc-cta"
-            >
-              START FOR ₹19 →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          WHAT YOU GET
-      ========================= */}
-
-      <section className="kyc-section kyc-section-soft">
-        <div className="kyc-container">
-          <div className="kyc-outcomes">
-            <div>
-              <div className="kyc-eyebrow">
-                WHAT YOU GET
-              </div>
-
-              <div className="kyc-section-heading">
-                <h2>
-                  What you'll walk away with.
-                </h2>
-
-                <p>
-                  Not another theory. A clearer understanding of the person
-                  you're trying to sell to.
-                </p>
-              </div>
-
-              <div className="kyc-section-cta">
-                <Link
-                  href={CHECKOUT_URL}
-                  className="kyc-cta"
-                >
-                  GET EVERYTHING — ₹19 →
-                </Link>
-              </div>
-            </div>
-
-            <ul className="kyc-outcomes-list">
-              {outcomes.map((outcome) => (
-                <li key={outcome}>
-                  {outcome}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          WHO IT'S FOR
-      ========================= */}
-
-      <section className="kyc-section">
-        <div className="kyc-container">
-          <div className="kyc-outcomes">
-            <div className="kyc-section-heading">
-              <div className="kyc-eyebrow">
-                WHO IS THIS FOR?
-              </div>
-
-              <h2>
-                Anyone who sells something.
-              </h2>
-
-              <p>
-                You don't need to be a marketer. If you have a product,
-                service, offer or business, understanding your customer can
-                help you make better decisions about how you sell it.
-              </p>
-
-              <div className="kyc-section-cta">
-                <Link
-                  href={CHECKOUT_URL}
-                  className="kyc-cta"
-                >
-                  UNDERSTAND YOUR CUSTOMER — ₹19 →
-                </Link>
-              </div>
-            </div>
-
-            <div className="kyc-audience-box">
-              <h3>
-                Built for business owners.
-              </h3>
-
-              <p>
-                Whether you're selling online, offline, one-to-one or at
-                scale, the questions are simple: Who am I selling to? What do
-                they want? And what might be stopping them from buying?
-              </p>
-
-              <div className="kyc-chips">
-                {audience.map((item) => (
-                  <span
-                    className="kyc-chip"
-                    key={item}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          IDEA
-      ========================= */}
-
-      <section className="kyc-section kyc-section-soft">
-        <div className="kyc-container kyc-philosophy">
-          <div>
-            <div className="kyc-eyebrow">
-              THE IDEA BEHIND IT
-            </div>
-
-            <h2>
-              You don't need a “perfect customer.”
-              <br />
-              You need to understand a real one.
-            </h2>
-
-            <p>
-              This isn't about inventing a fictional customer profile filled
-              with demographics.
-            </p>
-
-            <p>
-              It's about putting yourself in your customer's shoes and asking
-              better questions before you make another sales decision.
-            </p>
-
-            <p>
-              Because an honest gap in your knowledge is better than a
-              confident assumption.
-            </p>
-
-            <div className="kyc-section-cta">
-              <Link
-                href={CHECKOUT_URL}
-                className="kyc-cta"
-              >
-                STOP GUESSING — ₹19 →
-              </Link>
-            </div>
-          </div>
-
-          <aside className="kyc-quote">
-            <small>
-              ONE FINAL QUESTION
-            </small>
-
-            <blockquote>
-              “Would my customer feel like I'm talking <b>TO</b> them — or
-              <b> ABOUT</b> my product?”
-            </blockquote>
-
-            <span>
-              — Know Your Customer
-            </span>
-          </aside>
-        </div>
-      </section>
-
-      {/* =========================
-          FINAL CTA
-      ========================= */}
-
-      <section className="kyc-final">
-        <div className="kyc-container kyc-final-inner">
-          <div>
-            <div className="kyc-eyebrow">
-              START WITH THE CUSTOMER
-            </div>
-
-            <h2>
-              Why aren’t people
-              <br />
-              <span>buying from me?</span>
-            </h2>
-
-            <p className="kyc-final-copy">
-              Find out what your customers want, what's stopping them and
-              what you can do differently — starting with just 15 minutes.
-            </p>
-          </div>
-
-          <div className="kyc-final-buy">
-            <div className="kyc-final-price">
-              ₹19
-            </div>
-
-            <div className="kyc-final-badge">
-              INSTANT ACCESS
-            </div>
-
-            <Link
-              href={CHECKOUT_URL}
-              className="kyc-cta"
-            >
-              YES, I WANT THE TOOL — ₹19 →
-            </Link>
-
-            <small>
-              ⚡ Instant digital download
-            </small>
-          </div>
-        </div>
-      </section>
-
-      {/* =========================
-          FOOTER
-      ========================= */}
-
-      <footer className="kyc-footer">
-        © {new Date().getFullYear()} Puneet Kaur Saluja • All Rights Reserved
-      </footer>
-    </main>
+    </>
   );
 }

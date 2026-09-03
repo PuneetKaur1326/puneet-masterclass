@@ -7,33 +7,33 @@ const checkoutUrl = "/know-your-customer/checkout";
 const customerInsights = [
   {
     number: "01",
-    title: "WHAT THEY ACTUALLY WANT",
-    text: "Get clearer on the outcome your customer is really looking for — not just the product or service they say they need.",
+    title: "WHAT THEY WANT",
+    text: "Understand the outcome your customer is really looking for.",
   },
   {
     number: "02",
-    title: "WHAT'S HOLDING THEM BACK",
-    text: "Understand the doubts, frustrations and objections that can stop someone from choosing your offer.",
+    title: "WHAT HOLDS THEM BACK",
+    text: "Spot the doubts, frustrations and objections that can stop a purchase.",
   },
   {
     number: "03",
     title: "WHAT MAKES THEM SAY YES",
-    text: "Identify what matters most to the right customer so your offer becomes easier to understand and easier to choose.",
+    text: "Find what matters most when they decide whether to buy.",
   },
   {
     number: "04",
-    title: "HOW TO SPEAK THEIR LANGUAGE",
-    text: "Turn customer understanding into clearer words, stronger messaging and a more relevant offer.",
+    title: "WHAT TO SAY",
+    text: "Turn customer understanding into clearer, more relevant messaging.",
   },
 ];
 
 const outcomes = [
-  "A clearer picture of your ideal customer",
-  "The problems they actually care about",
-  "Their wants, frustrations and objections",
-  "The reasons they may hesitate before buying",
-  "Language you can use in your marketing",
+  "A clearer picture of your customer",
+  "Their real wants and frustrations",
+  "The reasons they may hesitate",
+  "Better language for your marketing",
   "A stronger foundation for your offer",
+  "More clarity before you spend more",
 ];
 
 const audience = [
@@ -59,24 +59,34 @@ export default function KnowYourCustomerPage() {
     <>
       <main className="kyc-page">
 
-        {/* HEADER */}
+        {/* =========================
+            HEADER
+        ========================= */}
 
         <header className="kyc-header">
           <div className="kyc-container kyc-header-inner">
-            <Link href="/know-your-customer" className="kyc-logo">
+
+            <Link
+              href="/know-your-customer"
+              className="kyc-logo"
+            >
               PUNEET KAUR SALUJA
             </Link>
 
             <div className="kyc-download-pill">
               ↓ INSTANT DIGITAL DOWNLOAD
             </div>
+
           </div>
         </header>
 
 
-        {/* HERO */}
+        {/* =========================
+            HERO
+        ========================= */}
 
         <section className="kyc-hero">
+
           <div className="kyc-container kyc-hero-grid">
 
             <div className="kyc-hero-copy">
@@ -95,26 +105,24 @@ export default function KnowYourCustomerPage() {
                 Find the answer in 15 minutes.
               </h2>
 
+
               {/* MOBILE IMAGE */}
 
               <div className="kyc-mobile-hero-visual">
+
                 <img
                   src="/kyc-sales-diagnostic.png"
                   alt="Customer insight tool showing how understanding customers can lead to better offers and more sales"
                 />
+
               </div>
 
-              <p className="kyc-hero-description">
-                Your product may be good. Your service may be good. But if
-                people are not buying, you need to understand what is happening
-                on the other side of the sale.
+
+              <p className="kyc-hero-short">
+                Know what they want. What's stopping them.
+                What to say next.
               </p>
 
-              <p className="kyc-hero-bold">
-                This simple guided tool helps you understand what your
-                customers want, what they struggle with, what makes them
-                hesitate and what can make your offer easier to say yes to.
-              </p>
 
               <div className="kyc-hero-action">
 
@@ -128,10 +136,11 @@ export default function KnowYourCustomerPage() {
 
               </div>
 
+
               <div className="kyc-meta">
                 <span>⚡ Instant digital download</span>
                 <span>•</span>
-                <span>Use for any product, service or offer</span>
+                <span>For any product, service or offer</span>
               </div>
 
             </div>
@@ -140,19 +149,25 @@ export default function KnowYourCustomerPage() {
             {/* DESKTOP IMAGE */}
 
             <div className="kyc-hero-visual">
+
               <img
                 src="/kyc-sales-diagnostic.png"
                 alt="Customer insight tool showing how understanding customers can lead to better offers and more sales"
               />
+
             </div>
 
           </div>
+
         </section>
 
 
-        {/* THE REAL PROBLEM */}
+        {/* =========================
+            REAL PROBLEM
+        ========================= */}
 
         <section className="kyc-section kyc-dark-section">
+
           <div className="kyc-container">
 
             <div className="kyc-section-label">
@@ -160,29 +175,26 @@ export default function KnowYourCustomerPage() {
             </div>
 
             <h2 className="kyc-section-title">
-              You don't always have a
+              Maybe it's not your
               <br />
-              <span>marketing problem.</span>
+              <span>product.</span>
             </h2>
 
             <div className="kyc-two-column">
 
               <div>
+
                 <p className="kyc-large-text">
-                  Sometimes, you simply don't know enough about the person
-                  you're trying to sell to.
+                  You may simply be trying to sell without knowing enough
+                  about the person you're selling to.
                 </p>
 
                 <p>
-                  You know your product. You know your service. You know how
-                  much work goes into creating it.
+                  They see your offer differently than you do.
                 </p>
 
-                <p>
-                  But your customer is looking at it from a completely
-                  different perspective.
-                </p>
               </div>
+
 
               <div className="kyc-highlight-box">
 
@@ -199,45 +211,45 @@ export default function KnowYourCustomerPage() {
                 </h3>
 
                 <p>
-                  That's what this worksheet helps you uncover.
+                  That's what this tool helps you uncover.
                 </p>
 
               </div>
 
             </div>
 
+
             <CTA>
-              FIND OUT WHAT'S STOPPING YOUR CUSTOMERS — ₹19 →
+              FIND OUT WHAT'S STOPPING THEM — ₹19 →
             </CTA>
 
           </div>
+
         </section>
 
 
-        {/* CUSTOMER INSIGHTS */}
+        {/* =========================
+            CUSTOMER INSIGHTS
+        ========================= */}
 
         <section className="kyc-section">
+
           <div className="kyc-container">
 
             <div className="kyc-section-label">
-              THE CLARITY YOU NEED
+              CUSTOMER CLARITY
             </div>
 
             <h2 className="kyc-section-title">
-              What you'll finally
+              Understand what
               <br />
-              <span>understand about your customer.</span>
+              <span>drives the decision.</span>
             </h2>
-
-            <p className="kyc-section-intro">
-              Instead of guessing what your audience wants, this tool helps
-              you work through the questions that reveal the thinking behind
-              their buying decision.
-            </p>
 
             <div className="kyc-insights-grid">
 
               {customerInsights.map((item) => (
+
                 <div
                   className="kyc-insight-card"
                   key={item.number}
@@ -256,55 +268,59 @@ export default function KnowYourCustomerPage() {
                   </p>
 
                 </div>
+
               ))}
 
             </div>
 
+
             <div className="kyc-centered-cta">
+
               <CTA>
-                GET THIS CLARITY FOR ₹19 →
+                GET THIS CLARITY — ₹19 →
               </CTA>
+
             </div>
 
           </div>
+
         </section>
 
 
-        {/* BEFORE YOU SPEND MORE */}
+        {/* =========================
+            BEFORE SPENDING MORE
+        ========================= */}
 
         <section className="kyc-section kyc-light-section">
+
           <div className="kyc-container">
 
             <div className="kyc-section-label">
               BEFORE YOU SPEND MORE
             </div>
 
+
             <div className="kyc-two-column">
 
               <div>
 
                 <h2 className="kyc-section-title left">
-                  Before you spend more
+                  Stop guessing.
                   <br />
-                  <span>on marketing...</span>
+                  <span>Start understanding.</span>
                 </h2>
 
                 <p className="kyc-large-text">
-                  Make sure you understand who you're actually trying to sell
-                  to.
+                  More marketing won't fix a customer disconnect.
                 </p>
 
                 <p>
-                  More ads, more content and more traffic won't solve a
-                  fundamental disconnect between your offer and your customer.
-                </p>
-
-                <p>
-                  Start by understanding the person on the other side of the
-                  sale.
+                  Understand the person first. Then improve the offer,
+                  message or campaign.
                 </p>
 
               </div>
+
 
               <div className="kyc-before-box">
 
@@ -330,17 +346,22 @@ export default function KnowYourCustomerPage() {
 
             </div>
 
+
             <CTA>
               UNDERSTAND YOUR CUSTOMER FIRST — ₹19 →
             </CTA>
 
           </div>
+
         </section>
 
 
-        {/* WHAT YOU GET */}
+        {/* =========================
+            WHAT YOU GET
+        ========================= */}
 
         <section className="kyc-section kyc-dark-section">
+
           <div className="kyc-container">
 
             <div className="kyc-section-label">
@@ -348,14 +369,16 @@ export default function KnowYourCustomerPage() {
             </div>
 
             <h2 className="kyc-section-title">
-              Everything you need to
+              Clarity you can
               <br />
-              <span>understand your customer better.</span>
+              <span>actually use.</span>
             </h2>
+
 
             <div className="kyc-outcomes">
 
               {outcomes.map((item, index) => (
+
                 <div
                   className="kyc-outcome"
                   key={item}
@@ -370,26 +393,33 @@ export default function KnowYourCustomerPage() {
                   </p>
 
                 </div>
+
               ))}
 
             </div>
+
 
             <CTA>
               GET EVERYTHING — ₹19 →
             </CTA>
 
           </div>
+
         </section>
 
 
-        {/* WHO IS THIS FOR */}
+        {/* =========================
+            WHO IS THIS FOR
+        ========================= */}
 
         <section className="kyc-section">
+
           <div className="kyc-container">
 
             <div className="kyc-section-label">
               WHO IS THIS FOR?
             </div>
+
 
             <div className="kyc-two-column">
 
@@ -398,7 +428,7 @@ export default function KnowYourCustomerPage() {
                 <h2 className="kyc-section-title left">
                   If you sell
                   <br />
-                  <span>something, this is for you.</span>
+                  <span>something, start here.</span>
                 </h2>
 
                 <p className="kyc-large-text">
@@ -406,15 +436,17 @@ export default function KnowYourCustomerPage() {
                 </p>
 
                 <p>
-                  You simply need to want a better understanding of the person
-                  you're trying to serve.
+                  You just need to understand the person you're trying
+                  to serve.
                 </p>
 
               </div>
 
+
               <div className="kyc-audience-box">
 
                 {audience.map((item) => (
+
                   <div
                     className="kyc-audience-item"
                     key={item}
@@ -427,43 +459,47 @@ export default function KnowYourCustomerPage() {
                     </p>
 
                   </div>
+
                 ))}
 
               </div>
 
             </div>
 
+
             <CTA>
               UNDERSTAND YOUR CUSTOMER — ₹19 →
             </CTA>
 
           </div>
+
         </section>
 
 
-        {/* IDEA */}
+        {/* =========================
+            IDEA
+        ========================= */}
 
         <section className="kyc-section kyc-idea-section">
+
           <div className="kyc-container">
 
             <div className="kyc-philosophy">
 
               <div className="kyc-section-label">
-                THE IDEA BEHIND IT
+                THE IDEA
               </div>
 
               <div className="kyc-quote">
-                "The better you understand your customer,
+                Understand the person
                 <br />
-                the easier it becomes to create something
+                before trying to
                 <br />
-                they actually want."
+                sell to them.
               </div>
 
               <p>
-                You don't need to guess harder.
-                <br />
-                You need to understand better.
+                Better understanding leads to better offers.
               </p>
 
               <CTA>
@@ -473,12 +509,16 @@ export default function KnowYourCustomerPage() {
             </div>
 
           </div>
+
         </section>
 
 
-        {/* FINAL CTA */}
+        {/* =========================
+            FINAL CTA
+        ========================= */}
 
         <section className="kyc-final">
+
           <div className="kyc-container kyc-final-inner">
 
             <div className="kyc-section-label">
@@ -493,9 +533,8 @@ export default function KnowYourCustomerPage() {
 
             <p>
               Find the answer in 15 minutes.
-              <br />
-              Understand your customer. Improve your offer.
             </p>
+
 
             <div className="kyc-final-action">
 
@@ -509,6 +548,7 @@ export default function KnowYourCustomerPage() {
 
             </div>
 
+
             <div className="kyc-final-meta">
               ⚡ Instant digital download
             </div>
@@ -518,6 +558,7 @@ export default function KnowYourCustomerPage() {
             </div>
 
           </div>
+
         </section>
 
       </main>
@@ -555,7 +596,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* HEADER */
+        /* =========================
+           HEADER
+        ========================= */
 
         .kyc-header {
           width: 100%;
@@ -589,7 +632,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* HERO */
+        /* =========================
+           HERO
+        ========================= */
 
         .kyc-hero {
           padding: 70px 0 80px;
@@ -638,23 +683,18 @@ export default function KnowYourCustomerPage() {
           font-weight: 900;
         }
 
-        .kyc-hero-description {
+        .kyc-hero-short {
           margin: 26px 0 0;
-          max-width: 650px;
-          font-size: 16px;
-          line-height: 1.65;
-        }
-
-        .kyc-hero-bold {
-          margin: 20px 0 0;
-          max-width: 680px;
-          font-size: 14px;
-          line-height: 1.6;
-          font-weight: 800;
+          max-width: 520px;
+          font-size: 17px;
+          line-height: 1.55;
+          font-weight: 700;
         }
 
 
-        /* HERO IMAGE */
+        /* =========================
+           HERO IMAGE
+        ========================= */
 
         .kyc-hero-visual {
           width: 100%;
@@ -674,7 +714,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* CTA */
+        /* =========================
+           CTA
+        ========================= */
 
         .kyc-hero-action,
         .kyc-final-action {
@@ -743,7 +785,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* GENERAL SECTIONS */
+        /* =========================
+           SECTIONS
+        ========================= */
 
         .kyc-section {
           padding: 80px 0;
@@ -775,13 +819,6 @@ export default function KnowYourCustomerPage() {
           color: #f2a900;
         }
 
-        .kyc-section-intro {
-          max-width: 680px;
-          margin: 22px 0 0;
-          font-size: 16px;
-          line-height: 1.65;
-        }
-
         .kyc-two-column {
           display: grid;
           grid-template-columns:
@@ -805,7 +842,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* HIGHLIGHT */
+        /* =========================
+           HIGHLIGHT
+        ========================= */
 
         .kyc-highlight-box {
           background: #f2a900;
@@ -836,7 +875,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* INSIGHTS */
+        /* =========================
+           INSIGHTS
+        ========================= */
 
         .kyc-insights-grid {
           display: grid;
@@ -854,7 +895,7 @@ export default function KnowYourCustomerPage() {
         }
 
         .kyc-card-number {
-          margin-bottom: 35px;
+          margin-bottom: 30px;
           font-size: 12px;
           font-weight: 900;
           color: #f2a900;
@@ -864,7 +905,6 @@ export default function KnowYourCustomerPage() {
           margin: 0 0 12px;
           font-size: 19px;
           line-height: 1.1;
-          letter-spacing: -0.015em;
         }
 
         .kyc-insight-card p {
@@ -880,7 +920,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* BEFORE YOU SPEND */
+        /* =========================
+           BEFORE
+        ========================= */
 
         .kyc-before-box {
           background: #ffffff;
@@ -909,7 +951,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* OUTCOMES */
+        /* =========================
+           OUTCOMES
+        ========================= */
 
         .kyc-outcomes {
           margin-top: 45px;
@@ -942,7 +986,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* AUDIENCE */
+        /* =========================
+           AUDIENCE
+        ========================= */
 
         .kyc-audience-box {
           border-top: 2px solid #111111;
@@ -968,7 +1014,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* IDEA */
+        /* =========================
+           IDEA
+        ========================= */
 
         .kyc-idea-section {
           background: #f2a900;
@@ -1001,7 +1049,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* FINAL */
+        /* =========================
+           FINAL
+        ========================= */
 
         .kyc-final {
           background: #111111;
@@ -1054,7 +1104,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* TABLET */
+        /* =========================
+           TABLET
+        ========================= */
 
         @media (max-width: 900px) {
 
@@ -1099,7 +1151,9 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* MOBILE */
+        /* =========================
+           MOBILE
+        ========================= */
 
         @media (max-width: 600px) {
 
@@ -1115,6 +1169,9 @@ export default function KnowYourCustomerPage() {
             max-width: 100%;
             overflow-x: hidden;
           }
+
+
+          /* CONTAINER */
 
           .kyc-container {
             width: calc(100% - 28px);
@@ -1150,7 +1207,7 @@ export default function KnowYourCustomerPage() {
           /* HERO */
 
           .kyc-hero {
-            padding: 6px 0 42px !important;
+            padding: 6px 0 40px !important;
           }
 
           .kyc-hero-grid {
@@ -1173,8 +1230,8 @@ export default function KnowYourCustomerPage() {
             line-height: 1;
             padding: 7px 9px;
             margin-top: 0;
-            margin-bottom: 14px;
-            letter-spacing: 0.10em;
+            margin-bottom: 13px;
+            letter-spacing: 0.09em;
           }
 
 
@@ -1182,31 +1239,30 @@ export default function KnowYourCustomerPage() {
 
           .kyc-hero h1 {
             margin: 0;
-            font-size: 38px;
+            font-size: 36px;
             line-height: 0.94;
             letter-spacing: -0.045em;
           }
 
 
-          /* SUBHEADLINE */
+          /* SUBHEAD */
 
           .kyc-hero h2 {
-            margin: 15px 0 0;
-            font-size: 23px;
+            margin: 14px 0 0;
+            font-size: 22px;
             line-height: 1.06;
             letter-spacing: -0.03em;
           }
 
 
-          /* MOBILE IMAGE
-             IMAGE APPEARS FIRST SCROLL */
+          /* IMAGE FIRST SCROLL */
 
           .kyc-mobile-hero-visual {
             display: block;
             width: 100%;
             max-width: 100%;
-            margin-top: 20px;
-            margin-bottom: 21px;
+            margin-top: 18px;
+            margin-bottom: 19px;
           }
 
           .kyc-mobile-hero-visual img {
@@ -1222,20 +1278,14 @@ export default function KnowYourCustomerPage() {
           }
 
 
-          /* HERO DESCRIPTION */
+          /* SHORT HERO COPY */
 
-          .kyc-hero-description {
-            margin-top: 0;
-            max-width: none;
+          .kyc-hero-short {
+            margin: 0;
+            max-width: 100%;
             font-size: 14px;
-            line-height: 1.58;
-          }
-
-          .kyc-hero-bold {
-            margin-top: 15px;
-            max-width: none;
-            font-size: 12.5px;
-            line-height: 1.55;
+            line-height: 1.45;
+            font-weight: 800;
           }
 
 
@@ -1243,33 +1293,33 @@ export default function KnowYourCustomerPage() {
 
           .kyc-hero-action {
             display: grid;
-            grid-template-columns: 88px minmax(0, 1fr);
-            gap: 9px;
+            grid-template-columns: 82px minmax(0, 1fr);
+            gap: 8px;
             width: 100%;
-            margin-top: 22px;
+            margin-top: 18px;
           }
 
           .kyc-price {
             min-width: 0;
             width: 100%;
-            min-height: 60px;
-            height: 60px;
-            padding: 7px;
+            min-height: 58px;
+            height: 58px;
+            padding: 6px;
             border-radius: 10px;
-            font-size: 28px;
+            font-size: 27px;
           }
 
 
-          /* ALL CTAs */
+          /* CTA */
 
           .kyc-cta {
-            min-height: 60px !important;
+            min-height: 58px !important;
             width: 100%;
             min-width: 0;
-            padding: 12px 11px !important;
-            font-size: 10.5px !important;
-            line-height: 1.25 !important;
-            letter-spacing: 0.018em !important;
+            padding: 11px 9px !important;
+            font-size: 10px !important;
+            line-height: 1.2 !important;
+            letter-spacing: 0.012em !important;
             white-space: normal !important;
           }
 
@@ -1277,29 +1327,29 @@ export default function KnowYourCustomerPage() {
           /* META */
 
           .kyc-meta {
-            margin-top: 9px;
+            margin-top: 8px;
             gap: 5px;
-            font-size: 8.5px;
-            line-height: 1.4;
+            font-size: 8px;
+            line-height: 1.35;
           }
 
 
           /* SECTIONS */
 
           .kyc-section {
-            padding: 52px 0;
+            padding: 48px 0;
           }
 
           .kyc-section-label {
-            font-size: 8.5px;
+            font-size: 8px;
             line-height: 1;
-            margin-bottom: 14px;
-            letter-spacing: 0.115em;
+            margin-bottom: 13px;
+            letter-spacing: 0.11em;
           }
 
           .kyc-section-title {
             max-width: 100%;
-            font-size: 32px;
+            font-size: 30px;
             line-height: 0.98;
             letter-spacing: -0.04em;
           }
@@ -1308,21 +1358,14 @@ export default function KnowYourCustomerPage() {
             max-width: 100%;
           }
 
-          .kyc-section-intro {
-            max-width: 100%;
-            margin-top: 17px;
-            font-size: 13.5px;
-            line-height: 1.58;
-          }
 
-
-          /* ONE COLUMN */
+          /* COLUMNS */
 
           .kyc-two-column {
             display: flex;
             flex-direction: column;
-            gap: 27px;
-            margin-top: 29px;
+            gap: 25px;
+            margin-top: 27px;
           }
 
           .kyc-two-column > div {
@@ -1332,12 +1375,12 @@ export default function KnowYourCustomerPage() {
 
           .kyc-two-column p {
             max-width: 100%;
-            font-size: 13.5px;
-            line-height: 1.62;
+            font-size: 13px;
+            line-height: 1.58;
           }
 
           .kyc-large-text {
-            font-size: 17px !important;
+            font-size: 16px !important;
             line-height: 1.38 !important;
           }
 
@@ -1346,27 +1389,27 @@ export default function KnowYourCustomerPage() {
 
           .kyc-highlight-box {
             width: 100%;
-            padding: 24px;
-            border-radius: 11px;
+            padding: 22px;
+            border-radius: 10px;
           }
 
           .kyc-highlight-mark {
-            font-size: 43px;
+            font-size: 40px;
           }
 
           .kyc-highlight-box h3 {
-            margin: 17px 0 11px;
-            font-size: 21px;
-            line-height: 1.05;
+            margin: 15px 0 10px;
+            font-size: 20px;
+            line-height: 1.04;
           }
 
           .kyc-highlight-box p {
-            font-size: 13px !important;
-            line-height: 1.5 !important;
+            font-size: 12px !important;
+            line-height: 1.45 !important;
           }
 
           .kyc-section .kyc-cta {
-            margin-top: 29px;
+            margin-top: 26px;
           }
 
 
@@ -1375,29 +1418,29 @@ export default function KnowYourCustomerPage() {
           .kyc-insights-grid {
             display: flex;
             flex-direction: column;
-            gap: 9px;
-            margin-top: 29px;
+            gap: 8px;
+            margin-top: 27px;
           }
 
           .kyc-insight-card {
             width: 100%;
-            padding: 21px;
+            padding: 19px;
           }
 
           .kyc-card-number {
-            margin-bottom: 20px;
-            font-size: 9px;
+            margin-bottom: 17px;
+            font-size: 8px;
           }
 
           .kyc-insight-card h3 {
-            margin-bottom: 10px;
-            font-size: 16px;
+            margin-bottom: 8px;
+            font-size: 15px;
             line-height: 1.08;
           }
 
           .kyc-insight-card p {
-            font-size: 12.5px;
-            line-height: 1.52;
+            font-size: 12px;
+            line-height: 1.48;
           }
 
           .kyc-centered-cta {
@@ -1406,7 +1449,7 @@ export default function KnowYourCustomerPage() {
           }
 
 
-          /* BEFORE YOU SPEND */
+          /* BEFORE */
 
           .kyc-before-box {
             width: 100%;
@@ -1417,8 +1460,8 @@ export default function KnowYourCustomerPage() {
             flex-direction: column;
             align-items: flex-start;
             gap: 3px;
-            padding: 16px;
-            font-size: 9.5px;
+            padding: 15px;
+            font-size: 9px;
             line-height: 1.3;
           }
 
@@ -1430,7 +1473,7 @@ export default function KnowYourCustomerPage() {
           /* OUTCOMES */
 
           .kyc-outcomes {
-            margin-top: 29px;
+            margin-top: 27px;
             display: flex;
             flex-direction: column;
             width: 100%;
@@ -1438,18 +1481,18 @@ export default function KnowYourCustomerPage() {
 
           .kyc-outcome {
             display: grid;
-            grid-template-columns: 34px minmax(0, 1fr);
-            gap: 8px;
-            padding: 16px 0;
+            grid-template-columns: 30px minmax(0, 1fr);
+            gap: 7px;
+            padding: 14px 0;
           }
 
           .kyc-outcome span {
-            font-size: 9px;
+            font-size: 8px;
           }
 
           .kyc-outcome p {
-            font-size: 12.5px;
-            line-height: 1.42;
+            font-size: 12px;
+            line-height: 1.38;
           }
 
 
@@ -1460,77 +1503,77 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-audience-item {
-            padding: 12px 0;
-            gap: 9px;
+            padding: 11px 0;
+            gap: 8px;
           }
 
           .kyc-audience-item span {
-            font-size: 13px;
+            font-size: 12px;
           }
 
           .kyc-audience-item p {
-            font-size: 12.5px;
-            line-height: 1.38;
+            font-size: 12px;
+            line-height: 1.35;
           }
 
 
           /* IDEA */
 
           .kyc-philosophy .kyc-section-label {
-            margin-bottom: 21px;
+            margin-bottom: 19px;
           }
 
           .kyc-quote {
-            font-size: 27px;
+            font-size: 26px;
             line-height: 1.04;
             letter-spacing: -0.04em;
           }
 
           .kyc-philosophy > p {
-            margin-top: 21px;
-            font-size: 13.5px;
-            line-height: 1.52;
+            margin-top: 18px;
+            font-size: 13px;
+            line-height: 1.45;
           }
 
           .kyc-philosophy .kyc-cta {
-            margin-top: 23px;
+            margin-top: 21px;
           }
 
 
           /* FINAL */
 
           .kyc-final {
-            padding: 60px 0;
+            padding: 55px 0;
           }
 
           .kyc-final h2 {
-            font-size: 39px;
+            font-size: 37px;
             line-height: 0.94;
             letter-spacing: -0.045em;
           }
 
           .kyc-final > .kyc-container > p {
-            margin-top: 19px;
-            font-size: 14px;
-            line-height: 1.5;
+            margin-top: 17px;
+            font-size: 13.5px;
+            line-height: 1.45;
           }
 
           .kyc-final-action {
             display: grid;
-            grid-template-columns: 88px minmax(0, 1fr);
-            gap: 9px;
+            grid-template-columns: 82px minmax(0, 1fr);
+            gap: 8px;
             width: 100%;
-            margin-top: 24px;
+            margin-top: 21px;
           }
 
           .kyc-final-price {
             min-width: 0;
             width: 100%;
-            min-height: 60px;
-            height: 60px;
-            padding: 7px;
+            min-height: 58px;
+            height: 58px;
+            padding: 6px;
             border-radius: 10px;
-            font-size: 28px;
+            font-size: 27px;
           }
 
           .kyc-final-action .kyc-cta {
@@ -1539,19 +1582,22 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-final-meta {
-            margin-top: 12px;
-            font-size: 8.5px;
+            margin-top: 10px;
+            font-size: 8px;
           }
 
           .kyc-footer-name {
-            margin-top: 48px;
-            padding-top: 17px;
-            font-size: 8.5px;
+            margin-top: 42px;
+            padding-top: 15px;
+            font-size: 8px;
           }
+
         }
 
 
-        /* VERY SMALL PHONES */
+        /* =========================
+           VERY SMALL PHONES
+        ========================= */
 
         @media (max-width: 380px) {
 
@@ -1566,35 +1612,35 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-hero h1 {
-            font-size: 35px;
+            font-size: 34px;
           }
 
           .kyc-hero h2 {
-            font-size: 21px;
+            font-size: 20px;
           }
 
           .kyc-section-title {
-            font-size: 29px;
+            font-size: 28px;
           }
 
           .kyc-hero-action,
           .kyc-final-action {
-            grid-template-columns: 78px minmax(0, 1fr);
+            grid-template-columns: 76px minmax(0, 1fr);
           }
 
           .kyc-price,
           .kyc-final-price {
-            font-size: 25px;
+            font-size: 24px;
           }
 
           .kyc-cta {
-            font-size: 9.5px !important;
-            padding-left: 8px !important;
-            padding-right: 8px !important;
+            font-size: 9.2px !important;
+            padding-left: 7px !important;
+            padding-right: 7px !important;
           }
 
           .kyc-final h2 {
-            font-size: 35px;
+            font-size: 34px;
           }
         }
 

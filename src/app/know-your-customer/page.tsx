@@ -174,8 +174,6 @@ export default function KnowYourCustomerPage() {
 
             <div className="kyc-problem-grid">
 
-              {/* LEFT SIDE */}
-
               <div className="kyc-problem-copy">
 
                 <p className="kyc-large-text">
@@ -187,19 +185,14 @@ export default function KnowYourCustomerPage() {
                   They see your offer differently than you do.
                 </p>
 
-
                 <div className="kyc-problem-cta">
-
                   <CTA>
                     GET THE ANSWER FOR ₹19 →
                   </CTA>
-
                 </div>
 
               </div>
 
-
-              {/* RIGHT SIDE */}
 
               <div className="kyc-highlight-box">
 
@@ -276,11 +269,9 @@ export default function KnowYourCustomerPage() {
 
 
             <div className="kyc-centered-cta">
-
               <CTA>
                 GET THE CLARITY FOR ₹19 →
               </CTA>
-
             </div>
 
           </div>
@@ -413,7 +404,7 @@ export default function KnowYourCustomerPage() {
             WHO IS THIS FOR?
         ===================================================== */}
 
-        <section className="kyc-section">
+        <section className="kyc-section kyc-audience-section">
 
           <div className="kyc-container">
 
@@ -422,42 +413,61 @@ export default function KnowYourCustomerPage() {
             </div>
 
 
-            <div className="kyc-two-column">
+            <div className="kyc-audience-layout">
 
-              <div>
+              {/* LEFT */}
 
-                <h2 className="kyc-section-title left">
+              <div className="kyc-audience-intro">
+
+                <h2 className="kyc-audience-title">
                   If you sell
                   <br />
-                  <span>something, start here.</span>
+                  <span>something, start</span>
+                  <br />
+                  <span>here.</span>
                 </h2>
 
-                <p className="kyc-large-text">
+
+                <p className="kyc-audience-bold">
                   You don't need to be a marketing expert.
                 </p>
 
-                <p>
+
+                <p className="kyc-audience-description">
                   You just need to understand the person you're trying
                   to serve.
                 </p>
 
+
+                <div className="kyc-audience-cta">
+
+                  <CTA>
+                    UNDERSTAND YOUR CUSTOMER FOR ₹19 →
+                  </CTA>
+
+                </div>
+
               </div>
 
 
-              <div className="kyc-audience-box">
+              {/* RIGHT */}
+
+              <div className="kyc-audience-list">
 
                 {audience.map((item) => (
 
                   <div
-                    className="kyc-audience-item"
+                    className="kyc-audience-row"
                     key={item}
                   >
 
-                    <span>✓</span>
+                    <span className="kyc-audience-check">
+                      ✓
+                    </span>
 
-                    <p>
+                    <span className="kyc-audience-name">
                       {item}
-                    </p>
+                    </span>
 
                   </div>
 
@@ -466,11 +476,6 @@ export default function KnowYourCustomerPage() {
               </div>
 
             </div>
-
-
-            <CTA>
-              UNDERSTAND YOUR CUSTOMER FOR ₹19 →
-            </CTA>
 
           </div>
 
@@ -573,7 +578,7 @@ export default function KnowYourCustomerPage() {
               </div>
 
               <CTA>
-                STOP GUESSING — GET THE TOOL FOR ₹19 →
+                GET THE TOOL FOR ₹19 →
               </CTA>
 
             </div>
@@ -1228,37 +1233,133 @@ export default function KnowYourCustomerPage() {
 
 
         /* =====================================================
-           AUDIENCE
+           WHO IS THIS FOR?
         ===================================================== */
 
-        .kyc-audience-box {
-          border-top: 2px solid #111111;
+        .kyc-audience-section {
+          padding-top: 72px;
+
+          padding-bottom: 72px;
         }
 
-        .kyc-audience-item {
+        .kyc-audience-section .kyc-section-label {
+          margin-bottom: 42px;
+        }
+
+        .kyc-audience-layout {
+          display: grid;
+
+          grid-template-columns:
+            minmax(0, 0.92fr)
+            minmax(0, 1fr);
+
+          gap: 80px;
+
+          align-items: start;
+        }
+
+
+        /* LEFT */
+
+        .kyc-audience-intro {
+          min-width: 0;
+
           display: flex;
 
-          gap: 14px;
+          flex-direction: column;
 
-          align-items: center;
-
-          padding: 16px 0;
-
-          border-bottom: 1px solid #dddddd;
+          align-items: flex-start;
         }
 
-        .kyc-audience-item span {
-          color: #f2a900;
+        .kyc-audience-title {
+          margin: 0;
+
+          font-size: clamp(42px, 5vw, 64px);
+
+          line-height: 0.94;
+
+          letter-spacing: -0.05em;
 
           font-weight: 950;
         }
 
-        .kyc-audience-item p {
-          margin: 0;
+        .kyc-audience-title span {
+          color: #f2a900;
+        }
+
+        .kyc-audience-bold {
+          margin: 18px 0 0;
+
+          font-size: 19px;
+
+          line-height: 1.25;
+
+          font-weight: 900;
+        }
+
+        .kyc-audience-description {
+          margin: 5px 0 0;
+
+          max-width: 500px;
 
           font-size: 15px;
 
-          font-weight: 700;
+          line-height: 1.5;
+
+          color: #222222;
+        }
+
+        .kyc-audience-cta {
+          margin-top: 42px;
+        }
+
+        .kyc-audience-cta .kyc-cta {
+          min-width: 360px;
+        }
+
+
+        /* RIGHT CHECKLIST */
+
+        .kyc-audience-list {
+          width: 100%;
+
+          border-top: 2px solid #111111;
+        }
+
+        .kyc-audience-row {
+          display: grid;
+
+          grid-template-columns:
+            30px
+            minmax(0, 1fr);
+
+          gap: 0;
+
+          align-items: center;
+
+          min-height: 66px;
+
+          padding: 15px 0;
+
+          border-bottom: 1px solid #dddddd;
+        }
+
+        .kyc-audience-check {
+          color: #f2a900;
+
+          font-size: 18px;
+
+          line-height: 1;
+
+          font-weight: 900;
+        }
+
+        .kyc-audience-name {
+          font-size: 15px;
+
+          line-height: 1.35;
+
+          font-weight: 800;
         }
 
 
@@ -1323,9 +1424,7 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =====================================================
-           IDEA VISUAL
-        ===================================================== */
+        /* IDEA VISUAL */
 
         .kyc-idea-visual {
           width: 100%;
@@ -1402,9 +1501,7 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =====================================================
-           IDEA BOTTOM
-        ===================================================== */
+        /* IDEA BOTTOM */
 
         .kyc-idea-bottom {
           display: grid;
@@ -1524,9 +1621,7 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =====================================================
-           FINAL CTA
-        ===================================================== */
+        /* FINAL CTA */
 
         .kyc-final-action {
           width: 100%;
@@ -1567,9 +1662,7 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =====================================================
-           FINAL META
-        ===================================================== */
+        /* FINAL META */
 
         .kyc-final-meta {
           margin-top: 12px;
@@ -1578,9 +1671,7 @@ export default function KnowYourCustomerPage() {
         }
 
 
-        /* =====================================================
-           FOOTER
-        ===================================================== */
+        /* FOOTER */
 
         .kyc-footer-name {
           width: 100%;
@@ -1651,6 +1742,16 @@ export default function KnowYourCustomerPage() {
 
           .kyc-before-row strong {
             display: none;
+          }
+
+          .kyc-audience-layout {
+            grid-template-columns: 1fr;
+
+            gap: 38px;
+          }
+
+          .kyc-audience-cta {
+            margin-top: 28px;
           }
 
           .kyc-idea-grid {
@@ -1805,7 +1906,7 @@ export default function KnowYourCustomerPage() {
           }
 
 
-          /* IMAGE */
+          /* IMAGE FIRST SCROLL */
 
           .kyc-mobile-hero-visual {
             display: block;
@@ -1938,7 +2039,7 @@ export default function KnowYourCustomerPage() {
 
 
           /* =================================================
-             REAL PROBLEM — MOBILE
+             REAL PROBLEM MOBILE
           ================================================= */
 
           .kyc-problem-grid {
@@ -2164,27 +2265,102 @@ export default function KnowYourCustomerPage() {
 
 
           /* =================================================
-             AUDIENCE
+             WHO IS THIS FOR — MOBILE
           ================================================= */
 
-          .kyc-audience-box {
+          .kyc-audience-section {
+            padding-top: 48px;
+
+            padding-bottom: 48px;
+          }
+
+          .kyc-audience-section .kyc-section-label {
+            margin-bottom: 25px;
+          }
+
+          .kyc-audience-layout {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 28px;
+
             width: 100%;
           }
 
-          .kyc-audience-item {
+          .kyc-audience-intro {
+            width: 100%;
+
+            min-width: 0;
+          }
+
+          .kyc-audience-title {
+            font-size: 35px;
+
+            line-height: 0.96;
+
+            letter-spacing: -0.045em;
+          }
+
+          .kyc-audience-bold {
+            margin-top: 16px;
+
+            font-size: 15px;
+
+            line-height: 1.3;
+          }
+
+          .kyc-audience-description {
+            margin-top: 5px;
+
+            font-size: 12px;
+
+            line-height: 1.45;
+          }
+
+          .kyc-audience-cta {
+            width: 100%;
+
+            margin-top: 21px;
+          }
+
+          .kyc-audience-cta .kyc-cta {
+            width: 100%;
+
+            min-width: 0;
+
+            min-height: 54px !important;
+
+            font-size: 9.5px !important;
+          }
+
+
+          /* CHECKLIST */
+
+          .kyc-audience-list {
+            width: 100%;
+
+            border-top-width: 1.5px;
+          }
+
+          .kyc-audience-row {
+            grid-template-columns:
+              25px
+              minmax(0, 1fr);
+
+            min-height: 48px;
+
             padding: 11px 0;
-
-            gap: 8px;
           }
 
-          .kyc-audience-item span {
-            font-size: 12px;
+          .kyc-audience-check {
+            font-size: 14px;
           }
 
-          .kyc-audience-item p {
-            font-size: 12px;
+          .kyc-audience-name {
+            font-size: 11.5px;
 
-            line-height: 1.35;
+            line-height: 1.3;
           }
 
 
@@ -2449,6 +2625,22 @@ export default function KnowYourCustomerPage() {
             padding-left: 8px !important;
 
             padding-right: 8px !important;
+          }
+
+          .kyc-audience-title {
+            font-size: 32px;
+          }
+
+          .kyc-audience-bold {
+            font-size: 14px;
+          }
+
+          .kyc-audience-description {
+            font-size: 11.5px;
+          }
+
+          .kyc-audience-name {
+            font-size: 11px;
           }
 
           .kyc-final h2 {

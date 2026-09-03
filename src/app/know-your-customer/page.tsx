@@ -59,10 +59,7 @@ export default function KnowYourCustomerPage() {
     <>
       <main className="kyc-page">
 
-        {/* =========================
-            HEADER
-        ========================= */}
-
+        {/* HEADER */}
         <header className="kyc-header">
           <div className="kyc-container kyc-header-inner">
 
@@ -81,10 +78,7 @@ export default function KnowYourCustomerPage() {
         </header>
 
 
-        {/* =========================
-            HERO
-        ========================= */}
-
+        {/* HERO */}
         <section className="kyc-hero">
 
           <div className="kyc-container kyc-hero-grid">
@@ -107,7 +101,6 @@ export default function KnowYourCustomerPage() {
 
 
               {/* MOBILE IMAGE */}
-
               <div className="kyc-mobile-hero-visual">
 
                 <img
@@ -147,7 +140,6 @@ export default function KnowYourCustomerPage() {
 
 
             {/* DESKTOP IMAGE */}
-
             <div className="kyc-hero-visual">
 
               <img
@@ -162,10 +154,7 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* =========================
-            REAL PROBLEM
-        ========================= */}
-
+        {/* REAL PROBLEM */}
         <section className="kyc-section kyc-dark-section">
 
           <div className="kyc-container">
@@ -228,10 +217,7 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* =========================
-            CUSTOMER INSIGHTS
-        ========================= */}
-
+        {/* CUSTOMER INSIGHTS */}
         <section className="kyc-section">
 
           <div className="kyc-container">
@@ -287,10 +273,7 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* =========================
-            BEFORE SPENDING MORE
-        ========================= */}
-
+        {/* BEFORE YOU SPEND MORE */}
         <section className="kyc-section kyc-light-section">
 
           <div className="kyc-container">
@@ -356,10 +339,7 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* =========================
-            WHAT YOU GET
-        ========================= */}
-
+        {/* WHAT YOU GET */}
         <section className="kyc-section kyc-dark-section">
 
           <div className="kyc-container">
@@ -408,10 +388,7 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* =========================
-            WHO IS THIS FOR
-        ========================= */}
-
+        {/* WHO IS THIS FOR */}
         <section className="kyc-section">
 
           <div className="kyc-container">
@@ -476,10 +453,7 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* =========================
-            IDEA
-        ========================= */}
-
+        {/* IDEA */}
         <section className="kyc-section kyc-idea-section">
 
           <div className="kyc-container">
@@ -513,10 +487,7 @@ export default function KnowYourCustomerPage() {
         </section>
 
 
-        {/* =========================
-            FINAL CTA
-        ========================= */}
-
+        {/* FINAL CTA */}
         <section className="kyc-final">
 
           <div className="kyc-container kyc-final-inner">
@@ -582,6 +553,11 @@ export default function KnowYourCustomerPage() {
           font-family: Arial, Helvetica, sans-serif;
         }
 
+
+        /* =========================
+           PAGE
+        ========================= */
+
         .kyc-page {
           width: 100%;
           min-width: 0;
@@ -608,26 +584,33 @@ export default function KnowYourCustomerPage() {
 
         .kyc-header-inner {
           min-height: 76px;
+
           display: flex;
           align-items: center;
           justify-content: space-between;
+
           gap: 20px;
         }
 
         .kyc-logo {
           color: #111111;
           text-decoration: none;
+
           font-size: 14px;
           font-weight: 900;
+
           letter-spacing: 0.08em;
         }
 
         .kyc-download-pill {
           border: 1px solid #111111;
           border-radius: 999px;
+
           padding: 9px 15px;
+
           font-size: 11px;
           font-weight: 800;
+
           letter-spacing: 0.06em;
         }
 
@@ -642,10 +625,13 @@ export default function KnowYourCustomerPage() {
 
         .kyc-hero-grid {
           display: grid;
+
           grid-template-columns:
             minmax(0, 1fr)
             minmax(0, 0.85fr);
+
           gap: 60px;
+
           align-items: center;
         }
 
@@ -657,37 +643,53 @@ export default function KnowYourCustomerPage() {
         .kyc-section-label {
           font-size: 11px;
           font-weight: 900;
+
           letter-spacing: 0.14em;
+
           margin-bottom: 18px;
         }
 
         .kyc-eyebrow {
           display: inline-block;
+
           background: #f2a900;
+
           padding: 8px 11px;
         }
 
         .kyc-hero h1 {
           margin: 0;
+
           font-size: clamp(38px, 4.5vw, 62px);
+
           line-height: 0.95;
+
           letter-spacing: -0.045em;
+
           font-weight: 950;
         }
 
         .kyc-hero h2 {
           margin: 20px 0 0;
+
           font-size: clamp(23px, 2.5vw, 34px);
+
           line-height: 1.05;
+
           letter-spacing: -0.03em;
+
           font-weight: 900;
         }
 
         .kyc-hero-short {
           margin: 26px 0 0;
+
           max-width: 520px;
+
           font-size: 17px;
+
           line-height: 1.55;
+
           font-weight: 700;
         }
 
@@ -703,9 +705,12 @@ export default function KnowYourCustomerPage() {
 
         .kyc-hero-visual img {
           display: block;
+
           width: 100%;
           max-width: 100%;
+
           height: auto;
+
           border-radius: 18px;
         }
 
@@ -721,47 +726,76 @@ export default function KnowYourCustomerPage() {
         .kyc-hero-action,
         .kyc-final-action {
           display: flex;
+
           align-items: stretch;
+
           gap: 14px;
+
           margin-top: 28px;
+
           flex-wrap: wrap;
         }
 
         .kyc-price,
         .kyc-final-price {
           display: flex;
+
           align-items: center;
           justify-content: center;
+
           min-width: 105px;
           min-height: 68px;
+
           padding: 10px 18px;
+
           background: #f2a900;
+
           border-radius: 12px;
+
           font-size: 34px;
+
           line-height: 1;
+
           font-weight: 950;
+
           letter-spacing: -0.05em;
         }
 
         .kyc-cta {
           display: inline-flex !important;
+
           align-items: center !important;
           justify-content: center !important;
+
           min-height: 68px !important;
+
           padding: 16px 24px !important;
+
           border: none !important;
           border-radius: 0 !important;
+
           background: #111111 !important;
+
           color: #ffffff !important;
+
           -webkit-text-fill-color: #ffffff !important;
+
           text-decoration: none !important;
+
           font-size: 13px !important;
+
           line-height: 1.2 !important;
+
           font-weight: 900 !important;
+
           letter-spacing: 0.04em !important;
+
           text-align: center !important;
+
           white-space: normal !important;
+
           cursor: pointer !important;
+
           transition:
             transform 0.2s ease,
             background-color 0.2s ease !important;
@@ -769,18 +803,27 @@ export default function KnowYourCustomerPage() {
 
         .kyc-cta:hover {
           background: #2b2b2b !important;
+
           color: #ffffff !important;
+
           -webkit-text-fill-color: #ffffff !important;
+
           transform: translateY(-2px);
         }
 
         .kyc-meta {
           display: flex;
+
           flex-wrap: wrap;
+
           gap: 8px;
+
           align-items: center;
+
           margin-top: 13px;
+
           font-size: 11px;
+
           color: #555555;
         }
 
@@ -804,10 +847,15 @@ export default function KnowYourCustomerPage() {
 
         .kyc-section-title {
           margin: 0;
+
           max-width: 820px;
+
           font-size: clamp(34px, 4vw, 54px);
+
           line-height: 1;
+
           letter-spacing: -0.045em;
+
           font-weight: 950;
         }
 
@@ -819,25 +867,38 @@ export default function KnowYourCustomerPage() {
           color: #f2a900;
         }
 
+
+        /* =========================
+           TWO COLUMNS
+        ========================= */
+
         .kyc-two-column {
           display: grid;
+
           grid-template-columns:
             minmax(0, 1fr)
             minmax(0, 1fr);
+
           gap: 60px;
+
           margin-top: 45px;
+
           align-items: start;
         }
 
         .kyc-two-column p {
           max-width: 650px;
+
           font-size: 15px;
+
           line-height: 1.7;
         }
 
         .kyc-large-text {
           font-size: 21px !important;
+
           line-height: 1.4 !important;
+
           font-weight: 800;
         }
 
@@ -848,21 +909,29 @@ export default function KnowYourCustomerPage() {
 
         .kyc-highlight-box {
           background: #f2a900;
+
           color: #111111;
+
           padding: 34px;
+
           border-radius: 14px;
         }
 
         .kyc-highlight-mark {
           font-size: 54px;
+
           line-height: 0.8;
+
           font-weight: 950;
         }
 
         .kyc-highlight-box h3 {
           margin: 22px 0 14px;
+
           font-size: 26px;
+
           line-height: 1.05;
+
           letter-spacing: -0.03em;
         }
 
@@ -881,41 +950,56 @@ export default function KnowYourCustomerPage() {
 
         .kyc-insights-grid {
           display: grid;
+
           grid-template-columns:
             repeat(2, minmax(0, 1fr));
+
           gap: 16px;
+
           margin-top: 45px;
         }
 
         .kyc-insight-card {
           min-width: 0;
+
           padding: 30px;
+
           border: 1px solid #dddddd;
+
           background: #ffffff;
         }
 
         .kyc-card-number {
           margin-bottom: 30px;
+
           font-size: 12px;
+
           font-weight: 900;
+
           color: #f2a900;
         }
 
         .kyc-insight-card h3 {
           margin: 0 0 12px;
+
           font-size: 19px;
+
           line-height: 1.1;
         }
 
         .kyc-insight-card p {
           margin: 0;
+
           color: #555555;
+
           font-size: 14px;
+
           line-height: 1.6;
         }
 
         .kyc-centered-cta {
           display: flex;
+
           justify-content: center;
         }
 
@@ -926,18 +1010,28 @@ export default function KnowYourCustomerPage() {
 
         .kyc-before-box {
           background: #ffffff;
+
           border: 1px solid #dddddd;
         }
 
         .kyc-before-row {
           display: grid;
+
           grid-template-columns:
-            1fr auto 1fr;
+            1fr
+            auto
+            1fr;
+
           gap: 18px;
+
           align-items: center;
+
           padding: 21px;
+
           border-bottom: 1px solid #dddddd;
+
           font-size: 12px;
+
           font-weight: 900;
         }
 
@@ -947,6 +1041,7 @@ export default function KnowYourCustomerPage() {
 
         .kyc-before-row strong {
           color: #f2a900;
+
           font-size: 20px;
         }
 
@@ -957,31 +1052,44 @@ export default function KnowYourCustomerPage() {
 
         .kyc-outcomes {
           margin-top: 45px;
+
           display: grid;
+
           grid-template-columns:
             repeat(2, minmax(0, 1fr));
+
           border-top: 1px solid #444444;
         }
 
         .kyc-outcome {
           display: grid;
+
           grid-template-columns:
-            50px minmax(0, 1fr);
+            50px
+            minmax(0, 1fr);
+
           gap: 14px;
+
           align-items: center;
+
           padding: 21px 0;
+
           border-bottom: 1px solid #444444;
         }
 
         .kyc-outcome span {
           color: #f2a900;
+
           font-size: 11px;
+
           font-weight: 900;
         }
 
         .kyc-outcome p {
           margin: 0;
+
           font-size: 15px;
+
           font-weight: 700;
         }
 
@@ -996,20 +1104,27 @@ export default function KnowYourCustomerPage() {
 
         .kyc-audience-item {
           display: flex;
+
           gap: 14px;
+
           align-items: center;
+
           padding: 16px 0;
+
           border-bottom: 1px solid #dddddd;
         }
 
         .kyc-audience-item span {
           color: #f2a900;
+
           font-weight: 950;
         }
 
         .kyc-audience-item p {
           margin: 0;
+
           font-size: 15px;
+
           font-weight: 700;
         }
 
@@ -1032,15 +1147,21 @@ export default function KnowYourCustomerPage() {
 
         .kyc-quote {
           font-size: clamp(30px, 4vw, 52px);
+
           line-height: 1.02;
+
           letter-spacing: -0.045em;
+
           font-weight: 950;
         }
 
         .kyc-philosophy > p {
           margin: 26px auto 0;
+
           font-size: 16px;
+
           line-height: 1.6;
+
           font-weight: 700;
         }
 
@@ -1055,8 +1176,11 @@ export default function KnowYourCustomerPage() {
 
         .kyc-final {
           background: #111111;
+
           color: #ffffff;
+
           padding: 90px 0;
+
           text-align: center;
         }
 
@@ -1066,16 +1190,23 @@ export default function KnowYourCustomerPage() {
 
         .kyc-final h2 {
           margin: 0;
+
           font-size: clamp(40px, 5.5vw, 72px);
+
           line-height: 0.94;
+
           letter-spacing: -0.05em;
+
           font-weight: 950;
         }
 
         .kyc-final > .kyc-container > p {
           margin: 26px auto 0;
+
           max-width: 600px;
+
           font-size: 17px;
+
           line-height: 1.5;
         }
 
@@ -1089,17 +1220,25 @@ export default function KnowYourCustomerPage() {
 
         .kyc-final-meta {
           margin-top: 16px;
+
           font-size: 11px;
+
           color: #bbbbbb;
         }
 
         .kyc-footer-name {
           margin-top: 70px;
+
           padding-top: 22px;
+
           border-top: 1px solid #333333;
+
           font-size: 10px;
+
           font-weight: 900;
+
           letter-spacing: 0.12em;
+
           color: #999999;
         }
 
@@ -1120,11 +1259,13 @@ export default function KnowYourCustomerPage() {
 
           .kyc-hero-grid {
             grid-template-columns: 1fr;
+
             gap: 38px;
           }
 
           .kyc-two-column {
             grid-template-columns: 1fr;
+
             gap: 40px;
           }
 
@@ -1142,12 +1283,14 @@ export default function KnowYourCustomerPage() {
 
           .kyc-before-row {
             grid-template-columns: 1fr;
+
             gap: 6px;
           }
 
           .kyc-before-row strong {
             display: none;
           }
+
         }
 
 
@@ -1161,12 +1304,14 @@ export default function KnowYourCustomerPage() {
           body {
             width: 100%;
             max-width: 100%;
+
             overflow-x: hidden;
           }
 
           .kyc-page {
             width: 100%;
             max-width: 100%;
+
             overflow-x: hidden;
           }
 
@@ -1175,7 +1320,9 @@ export default function KnowYourCustomerPage() {
 
           .kyc-container {
             width: calc(100% - 28px);
+
             max-width: none;
+
             margin-left: 14px;
             margin-right: 14px;
           }
@@ -1184,22 +1331,29 @@ export default function KnowYourCustomerPage() {
           /* HEADER */
 
           .kyc-header-inner {
-            min-height: 48px;
-            height: 48px;
+            min-height: 48px !important;
+            height: 48px !important;
+
             gap: 8px;
           }
 
           .kyc-logo {
             font-size: 8.5px;
+
             letter-spacing: 0.055em;
+
             white-space: nowrap;
           }
 
           .kyc-download-pill {
             font-size: 6.5px;
+
             line-height: 1;
+
             padding: 5px 7px;
+
             letter-spacing: 0.03em;
+
             white-space: nowrap;
           }
 
@@ -1207,18 +1361,27 @@ export default function KnowYourCustomerPage() {
           /* HERO */
 
           .kyc-hero {
-            padding: 6px 0 40px !important;
+            padding: 0 0 38px !important;
+
+            margin-top: 0 !important;
           }
 
           .kyc-hero-grid {
             display: flex;
+
             flex-direction: column;
-            gap: 0;
+
+            gap: 0 !important;
           }
 
           .kyc-hero-copy {
             width: 100%;
+
             min-width: 0;
+
+            margin-top: 0 !important;
+
+            padding-top: 0 !important;
           }
 
 
@@ -1226,11 +1389,17 @@ export default function KnowYourCustomerPage() {
 
           .kyc-eyebrow {
             display: inline-block;
+
             font-size: 8px;
+
             line-height: 1;
+
             padding: 7px 9px;
-            margin-top: 0;
+
+            margin-top: 0 !important;
+
             margin-bottom: 13px;
+
             letter-spacing: 0.09em;
           }
 
@@ -1238,9 +1407,14 @@ export default function KnowYourCustomerPage() {
           /* HEADLINE */
 
           .kyc-hero h1 {
-            margin: 0;
+            margin: 0 !important;
+
+            padding: 0 !important;
+
             font-size: 36px;
+
             line-height: 0.94;
+
             letter-spacing: -0.045em;
           }
 
@@ -1248,43 +1422,68 @@ export default function KnowYourCustomerPage() {
           /* SUBHEAD */
 
           .kyc-hero h2 {
-            margin: 14px 0 0;
+            margin: 14px 0 0 !important;
+
+            padding: 0 !important;
+
             font-size: 22px;
+
             line-height: 1.06;
+
             letter-spacing: -0.03em;
           }
 
 
-          /* IMAGE FIRST SCROLL */
+          /* IMAGE */
 
           .kyc-mobile-hero-visual {
             display: block;
+
             width: 100%;
+
             max-width: 100%;
-            margin-top: 18px;
-            margin-bottom: 19px;
+
+            margin-top: 18px !important;
+
+            margin-bottom: 18px !important;
+
+            padding: 0 !important;
           }
 
           .kyc-mobile-hero-visual img {
             display: block;
+
             width: 100%;
+
             max-width: 100%;
+
             height: auto;
+
+            margin: 0 !important;
+
+            padding: 0 !important;
+
             border-radius: 12px;
           }
 
           .kyc-hero-visual {
-            display: none;
+            display: none !important;
           }
 
 
           /* SHORT HERO COPY */
 
           .kyc-hero-short {
-            margin: 0;
+            margin: 0 !important;
+
+            padding: 0 !important;
+
             max-width: 100%;
+
             font-size: 14px;
+
             line-height: 1.45;
+
             font-weight: 800;
           }
 
@@ -1293,19 +1492,31 @@ export default function KnowYourCustomerPage() {
 
           .kyc-hero-action {
             display: grid;
-            grid-template-columns: 82px minmax(0, 1fr);
+
+            grid-template-columns:
+              82px
+              minmax(0, 1fr);
+
             gap: 8px;
+
             width: 100%;
-            margin-top: 18px;
+
+            margin-top: 18px !important;
           }
 
           .kyc-price {
             min-width: 0;
+
             width: 100%;
+
             min-height: 58px;
+
             height: 58px;
+
             padding: 6px;
+
             border-radius: 10px;
+
             font-size: 27px;
           }
 
@@ -1314,12 +1525,19 @@ export default function KnowYourCustomerPage() {
 
           .kyc-cta {
             min-height: 58px !important;
+
             width: 100%;
+
             min-width: 0;
+
             padding: 11px 9px !important;
+
             font-size: 10px !important;
+
             line-height: 1.2 !important;
+
             letter-spacing: 0.012em !important;
+
             white-space: normal !important;
           }
 
@@ -1327,9 +1545,12 @@ export default function KnowYourCustomerPage() {
           /* META */
 
           .kyc-meta {
-            margin-top: 8px;
+            margin-top: 8px !important;
+
             gap: 5px;
+
             font-size: 8px;
+
             line-height: 1.35;
           }
 
@@ -1342,15 +1563,21 @@ export default function KnowYourCustomerPage() {
 
           .kyc-section-label {
             font-size: 8px;
+
             line-height: 1;
+
             margin-bottom: 13px;
+
             letter-spacing: 0.11em;
           }
 
           .kyc-section-title {
             max-width: 100%;
+
             font-size: 30px;
+
             line-height: 0.98;
+
             letter-spacing: -0.04em;
           }
 
@@ -1363,24 +1590,31 @@ export default function KnowYourCustomerPage() {
 
           .kyc-two-column {
             display: flex;
+
             flex-direction: column;
+
             gap: 25px;
+
             margin-top: 27px;
           }
 
           .kyc-two-column > div {
             width: 100%;
+
             min-width: 0;
           }
 
           .kyc-two-column p {
             max-width: 100%;
+
             font-size: 13px;
+
             line-height: 1.58;
           }
 
           .kyc-large-text {
             font-size: 16px !important;
+
             line-height: 1.38 !important;
           }
 
@@ -1389,7 +1623,9 @@ export default function KnowYourCustomerPage() {
 
           .kyc-highlight-box {
             width: 100%;
+
             padding: 22px;
+
             border-radius: 10px;
           }
 
@@ -1399,12 +1635,15 @@ export default function KnowYourCustomerPage() {
 
           .kyc-highlight-box h3 {
             margin: 15px 0 10px;
+
             font-size: 20px;
+
             line-height: 1.04;
           }
 
           .kyc-highlight-box p {
             font-size: 12px !important;
+
             line-height: 1.45 !important;
           }
 
@@ -1417,34 +1656,43 @@ export default function KnowYourCustomerPage() {
 
           .kyc-insights-grid {
             display: flex;
+
             flex-direction: column;
+
             gap: 8px;
+
             margin-top: 27px;
           }
 
           .kyc-insight-card {
             width: 100%;
+
             padding: 19px;
           }
 
           .kyc-card-number {
             margin-bottom: 17px;
+
             font-size: 8px;
           }
 
           .kyc-insight-card h3 {
             margin-bottom: 8px;
+
             font-size: 15px;
+
             line-height: 1.08;
           }
 
           .kyc-insight-card p {
             font-size: 12px;
+
             line-height: 1.48;
           }
 
           .kyc-centered-cta {
             display: block;
+
             width: 100%;
           }
 
@@ -1457,11 +1705,17 @@ export default function KnowYourCustomerPage() {
 
           .kyc-before-row {
             display: flex;
+
             flex-direction: column;
+
             align-items: flex-start;
+
             gap: 3px;
+
             padding: 15px;
+
             font-size: 9px;
+
             line-height: 1.3;
           }
 
@@ -1474,15 +1728,23 @@ export default function KnowYourCustomerPage() {
 
           .kyc-outcomes {
             margin-top: 27px;
+
             display: flex;
+
             flex-direction: column;
+
             width: 100%;
           }
 
           .kyc-outcome {
             display: grid;
-            grid-template-columns: 30px minmax(0, 1fr);
+
+            grid-template-columns:
+              30px
+              minmax(0, 1fr);
+
             gap: 7px;
+
             padding: 14px 0;
           }
 
@@ -1492,6 +1754,7 @@ export default function KnowYourCustomerPage() {
 
           .kyc-outcome p {
             font-size: 12px;
+
             line-height: 1.38;
           }
 
@@ -1504,6 +1767,7 @@ export default function KnowYourCustomerPage() {
 
           .kyc-audience-item {
             padding: 11px 0;
+
             gap: 8px;
           }
 
@@ -1513,6 +1777,7 @@ export default function KnowYourCustomerPage() {
 
           .kyc-audience-item p {
             font-size: 12px;
+
             line-height: 1.35;
           }
 
@@ -1525,13 +1790,17 @@ export default function KnowYourCustomerPage() {
 
           .kyc-quote {
             font-size: 26px;
+
             line-height: 1.04;
+
             letter-spacing: -0.04em;
           }
 
           .kyc-philosophy > p {
             margin-top: 18px;
+
             font-size: 13px;
+
             line-height: 1.45;
           }
 
@@ -1548,47 +1817,67 @@ export default function KnowYourCustomerPage() {
 
           .kyc-final h2 {
             font-size: 37px;
+
             line-height: 0.94;
+
             letter-spacing: -0.045em;
           }
 
           .kyc-final > .kyc-container > p {
             margin-top: 17px;
+
             font-size: 13.5px;
+
             line-height: 1.45;
           }
 
           .kyc-final-action {
             display: grid;
-            grid-template-columns: 82px minmax(0, 1fr);
+
+            grid-template-columns:
+              82px
+              minmax(0, 1fr);
+
             gap: 8px;
+
             width: 100%;
+
             margin-top: 21px;
           }
 
           .kyc-final-price {
             min-width: 0;
+
             width: 100%;
+
             min-height: 58px;
+
             height: 58px;
+
             padding: 6px;
+
             border-radius: 10px;
+
             font-size: 27px;
           }
 
           .kyc-final-action .kyc-cta {
             width: 100%;
+
             min-width: 0;
           }
 
           .kyc-final-meta {
             margin-top: 10px;
+
             font-size: 8px;
           }
 
           .kyc-footer-name {
             margin-top: 42px;
+
             padding-top: 15px;
+
             font-size: 8px;
           }
 
@@ -1603,12 +1892,13 @@ export default function KnowYourCustomerPage() {
 
           .kyc-container {
             width: calc(100% - 24px);
+
             margin-left: 12px;
             margin-right: 12px;
           }
 
           .kyc-hero {
-            padding-top: 5px !important;
+            padding-top: 0 !important;
           }
 
           .kyc-hero h1 {
@@ -1625,7 +1915,9 @@ export default function KnowYourCustomerPage() {
 
           .kyc-hero-action,
           .kyc-final-action {
-            grid-template-columns: 76px minmax(0, 1fr);
+            grid-template-columns:
+              76px
+              minmax(0, 1fr);
           }
 
           .kyc-price,
@@ -1635,6 +1927,7 @@ export default function KnowYourCustomerPage() {
 
           .kyc-cta {
             font-size: 9.2px !important;
+
             padding-left: 7px !important;
             padding-right: 7px !important;
           }
@@ -1642,6 +1935,7 @@ export default function KnowYourCustomerPage() {
           .kyc-final h2 {
             font-size: 34px;
           }
+
         }
 
       `}</style>

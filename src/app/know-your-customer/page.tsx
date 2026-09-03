@@ -478,7 +478,7 @@ export default function KnowYourCustomerPage() {
 
 
         {/* =====================================================
-            THE IDEA — REVISED
+            THE IDEA
         ===================================================== */}
 
         <section className="kyc-idea-section">
@@ -493,8 +493,6 @@ export default function KnowYourCustomerPage() {
 
 
               <div className="kyc-idea-grid">
-
-                {/* LEFT SIDE */}
 
                 <div className="kyc-idea-copy">
 
@@ -513,8 +511,6 @@ export default function KnowYourCustomerPage() {
 
                 </div>
 
-
-                {/* RIGHT SIDE */}
 
                 <div className="kyc-idea-visual">
 
@@ -569,8 +565,6 @@ export default function KnowYourCustomerPage() {
             </div>
 
 
-            {/* BOTTOM CTA */}
-
             <div className="kyc-idea-bottom">
 
               <div className="kyc-idea-bottom-text">
@@ -607,7 +601,7 @@ export default function KnowYourCustomerPage() {
               BUYING FROM YOU?
             </h2>
 
-            <p>
+            <p className="kyc-final-subtitle">
               Find the answer in 15 minutes.
             </p>
 
@@ -629,6 +623,7 @@ export default function KnowYourCustomerPage() {
               ⚡ Instant digital download
             </div>
 
+
             <div className="kyc-footer-name">
               PUNEET KAUR SALUJA
             </div>
@@ -640,9 +635,9 @@ export default function KnowYourCustomerPage() {
       </main>
 
 
-      {/* =========================================================
+      {/* =====================================================
           GLOBAL STYLES
-      ========================================================= */}
+      ===================================================== */}
 
       <style jsx global>{`
 
@@ -1238,7 +1233,7 @@ export default function KnowYourCustomerPage() {
 
 
         /* =====================================================
-           IDEA SECTION
+           IDEA
         ===================================================== */
 
         .kyc-idea-section {
@@ -1417,7 +1412,7 @@ export default function KnowYourCustomerPage() {
 
 
         /* =====================================================
-           FINAL
+           FINAL CTA
         ===================================================== */
 
         .kyc-final {
@@ -1425,17 +1420,35 @@ export default function KnowYourCustomerPage() {
 
           color: #ffffff;
 
-          padding: 90px 0;
+          padding: 58px 0 30px;
 
           text-align: center;
         }
 
+        .kyc-final-inner {
+          display: flex;
+
+          flex-direction: column;
+
+          align-items: center;
+        }
+
         .kyc-final .kyc-section-label {
+          margin: 0 0 24px;
+
           color: #f2a900;
+
+          font-size: 10px;
+
+          line-height: 1;
+
+          letter-spacing: 0.13em;
         }
 
         .kyc-final h2 {
           margin: 0;
+
+          max-width: 850px;
 
           font-size: clamp(40px, 5.5vw, 72px);
 
@@ -1446,46 +1459,135 @@ export default function KnowYourCustomerPage() {
           font-weight: 950;
         }
 
-        .kyc-final > .kyc-container > p {
-          margin: 26px auto 0;
-
-          max-width: 600px;
+        .kyc-final-subtitle {
+          margin: 18px 0 0 !important;
 
           font-size: 17px;
 
-          line-height: 1.5;
+          line-height: 1.3;
+
+          color: #ffffff;
         }
+
+
+        /* FINAL ACTION */
 
         .kyc-final-action {
-          justify-content: center;
+          display: grid;
+
+          grid-template-columns:
+            92px
+            minmax(280px, 430px);
+
+          gap: 9px;
+
+          width: auto;
+
+          margin: 27px auto 0;
+
+          align-items: stretch;
         }
+
+        .kyc-final-price {
+          display: flex;
+
+          align-items: center;
+          justify-content: center;
+
+          width: 92px;
+
+          height: 64px;
+
+          min-height: 64px;
+
+          padding: 8px;
+
+          background: #f2a900;
+
+          color: #111111;
+
+          border-radius: 11px;
+
+          font-size: 30px;
+
+          line-height: 1;
+
+          font-weight: 950;
+
+          letter-spacing: -0.05em;
+        }
+
+
+        /* WHITE FINAL CTA */
 
         .kyc-final-action .kyc-cta {
-          min-height: 68px !important;
+          width: 100%;
+
+          min-height: 64px !important;
+
+          height: 64px;
+
+          background: #ffffff !important;
+
+          color: #111111 !important;
+
+          -webkit-text-fill-color: #111111 !important;
+
+          font-size: 12px !important;
+
+          font-weight: 950 !important;
+
+          letter-spacing: 0.025em !important;
+
+          border-radius: 0 !important;
         }
+
+        .kyc-final-action .kyc-cta:hover {
+          background: #f2a900 !important;
+
+          color: #111111 !important;
+
+          -webkit-text-fill-color: #111111 !important;
+
+          transform: translateY(-2px);
+        }
+
+
+        /* FINAL META */
 
         .kyc-final-meta {
-          margin-top: 16px;
+          margin-top: 12px;
 
-          font-size: 11px;
+          font-size: 9px;
 
-          color: #bbbbbb;
+          line-height: 1.3;
+
+          color: #aaaaaa;
         }
 
-        .kyc-footer-name {
-          margin-top: 70px;
 
-          padding-top: 22px;
+        /* FOOTER */
+
+        .kyc-footer-name {
+          width: 100%;
+
+          margin-top: 40px;
+
+          padding-top: 14px;
 
           border-top: 1px solid #333333;
 
-          font-size: 10px;
+          color: #888888;
+
+          font-size: 8px;
+
+          line-height: 1;
 
           font-weight: 900;
 
           letter-spacing: 0.12em;
 
-          color: #999999;
+          text-align: left;
         }
 
 
@@ -2165,77 +2267,118 @@ export default function KnowYourCustomerPage() {
 
 
           /* =================================================
-             FINAL
+             FINAL CTA — MOBILE
           ================================================= */
 
           .kyc-final {
-            padding: 55px 0;
+            padding: 42px 0 18px;
+          }
+
+          .kyc-final-inner {
+            align-items: stretch;
+          }
+
+          .kyc-final .kyc-section-label {
+            margin-bottom: 20px;
+
+            font-size: 8px;
+
+            text-align: left;
           }
 
           .kyc-final h2 {
-            font-size: 37px;
+            width: 100%;
+
+            max-width: 100%;
+
+            font-size: 34px;
 
             line-height: 0.94;
 
             letter-spacing: -0.045em;
+
+            text-align: center;
           }
 
-          .kyc-final > .kyc-container > p {
-            margin-top: 17px;
+          .kyc-final-subtitle {
+            margin-top: 14px !important;
 
-            font-size: 13.5px;
+            font-size: 14px;
 
-            line-height: 1.45;
+            line-height: 1.3;
+
+            text-align: center;
           }
+
+
+          /* FINAL CTA ROW */
 
           .kyc-final-action {
             display: grid;
 
             grid-template-columns:
-              82px
+              80px
               minmax(0, 1fr);
 
-            gap: 8px;
+            gap: 7px;
 
             width: 100%;
 
-            margin-top: 21px;
+            margin-top: 22px;
           }
 
           .kyc-final-price {
-            min-width: 0;
-
-            width: 100%;
-
-            min-height: 58px;
+            width: 80px;
 
             height: 58px;
 
-            padding: 6px;
+            min-height: 58px;
 
             border-radius: 10px;
 
-            font-size: 27px;
+            font-size: 26px;
           }
 
           .kyc-final-action .kyc-cta {
             width: 100%;
 
-            min-width: 0;
+            height: 58px;
+
+            min-height: 58px !important;
+
+            padding: 8px 8px !important;
+
+            font-size: 9.5px !important;
+
+            line-height: 1.2 !important;
+
+            letter-spacing: 0.01em !important;
+
+            white-space: normal !important;
           }
+
+
+          /* FINAL META */
 
           .kyc-final-meta {
             margin-top: 10px;
 
             font-size: 8px;
+
+            text-align: center;
           }
 
+
+          /* FOOTER */
+
           .kyc-footer-name {
-            margin-top: 42px;
+            margin-top: 32px;
 
-            padding-top: 15px;
+            padding-top: 12px;
 
-            font-size: 8px;
+            font-size: 7.5px;
+
+            text-align: left;
           }
 
         }
@@ -2271,10 +2414,15 @@ export default function KnowYourCustomerPage() {
             font-size: 28px;
           }
 
-          .kyc-hero-action,
-          .kyc-final-action {
+          .kyc-hero-action {
             grid-template-columns:
               76px
+              minmax(0, 1fr);
+          }
+
+          .kyc-final-action {
+            grid-template-columns:
+              74px
               minmax(0, 1fr);
           }
 
@@ -2292,7 +2440,15 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-final h2 {
-            font-size: 34px;
+            font-size: 32px;
+          }
+
+          .kyc-final-subtitle {
+            font-size: 13px;
+          }
+
+          .kyc-final-action .kyc-cta {
+            font-size: 9px !important;
           }
 
         }

@@ -119,6 +119,24 @@ export default function KnowYourCustomerPage() {
                 Find the answer in 15 minutes.
               </h2>
 
+
+              {/* =================================
+                  MOBILE IMAGE
+
+                  This appears immediately after
+                  the headline/subheadline on phone.
+              ================================= */}
+
+              <div className="kyc-mobile-hero-visual">
+
+                <img
+                  src="/kyc-sales-diagnostic.png"
+                  alt="Customer insight tool showing how understanding customers can lead to better offers and more sales"
+                />
+
+              </div>
+
+
               <p className="kyc-hero-description">
                 Your product may be good. Your service may be good. But if
                 people are not buying, you need to understand what is happening
@@ -130,6 +148,7 @@ export default function KnowYourCustomerPage() {
                 customers want, what they struggle with, what makes them
                 hesitate and what can make your offer easier to say yes to.
               </p>
+
 
               <div className="kyc-hero-action">
 
@@ -143,6 +162,7 @@ export default function KnowYourCustomerPage() {
 
               </div>
 
+
               <div className="kyc-meta">
                 <span>⚡ Instant digital download</span>
                 <span>•</span>
@@ -152,7 +172,12 @@ export default function KnowYourCustomerPage() {
             </div>
 
 
-            {/* HERO IMAGE */}
+            {/* =================================
+                DESKTOP IMAGE
+
+                Hidden on mobile because the
+                mobile version is placed earlier.
+            ================================= */}
 
             <div className="kyc-hero-visual">
 
@@ -229,6 +254,7 @@ export default function KnowYourCustomerPage() {
               </div>
 
             </div>
+
 
             <CTA>
               FIND OUT WHAT'S STOPPING YOUR CUSTOMERS — ₹19 →
@@ -723,6 +749,11 @@ export default function KnowYourCustomerPage() {
           font-weight: 800;
         }
 
+
+        /* =========================
+           HERO ACTION
+        ========================= */
+
         .kyc-hero-action,
         .kyc-final-action {
           display: flex;
@@ -794,6 +825,11 @@ export default function KnowYourCustomerPage() {
           transform: translateY(-2px);
         }
 
+
+        /* =========================
+           META
+        ========================= */
+
         .kyc-meta {
           display: flex;
           flex-wrap: wrap;
@@ -820,6 +856,10 @@ export default function KnowYourCustomerPage() {
           max-width: 100%;
           height: auto;
           border-radius: 18px;
+        }
+
+        .kyc-mobile-hero-visual {
+          display: none;
         }
 
 
@@ -1169,11 +1209,6 @@ export default function KnowYourCustomerPage() {
             gap: 38px;
           }
 
-          /*
-            On smaller screens the copy comes first,
-            then the visual.
-          */
-
           .kyc-hero-copy {
             width: 100%;
           }
@@ -1213,7 +1248,7 @@ export default function KnowYourCustomerPage() {
 
 
         /* =========================
-           PHONE — PRIORITY
+           MOBILE — PHONE PRIORITY
         ========================= */
 
         @media (max-width: 600px) {
@@ -1255,13 +1290,13 @@ export default function KnowYourCustomerPage() {
           /* HERO */
 
           .kyc-hero {
-            padding: 38px 0 45px;
+            padding: 34px 0 45px;
           }
 
           .kyc-hero-grid {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 0;
           }
 
           .kyc-hero-copy {
@@ -1276,19 +1311,53 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-hero h1 {
-            font-size: 39px;
+            font-size: 38px;
             line-height: 0.94;
             letter-spacing: -0.045em;
           }
 
           .kyc-hero h2 {
-            margin-top: 17px;
+            margin-top: 16px;
             font-size: 24px;
             line-height: 1.08;
           }
 
+
+          /* =================================
+             MOBILE IMAGE
+
+             Deliberately placed immediately
+             after the hero headline.
+          ================================= */
+
+          .kyc-mobile-hero-visual {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            margin-top: 24px;
+            margin-bottom: 24px;
+          }
+
+          .kyc-mobile-hero-visual img {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+          }
+
+
+          /* Hide desktop duplicate image */
+
+          .kyc-hero-visual {
+            display: none;
+          }
+
+
+          /* HERO COPY AFTER IMAGE */
+
           .kyc-hero-description {
-            margin-top: 21px;
+            margin-top: 0;
             font-size: 15px;
             line-height: 1.6;
           }
@@ -1304,8 +1373,8 @@ export default function KnowYourCustomerPage() {
 
           .kyc-hero-action {
             display: grid;
-            grid-template-columns: 92px minmax(0, 1fr);
-            gap: 10px;
+            grid-template-columns: 88px minmax(0, 1fr);
+            gap: 9px;
             margin-top: 24px;
             width: 100%;
           }
@@ -1314,14 +1383,9 @@ export default function KnowYourCustomerPage() {
             min-width: 0;
             width: 100%;
             min-height: 62px;
-            padding: 8px 10px;
+            padding: 8px 8px;
             border-radius: 10px;
-            font-size: 29px;
-          }
-
-          .kyc-hero-action .kyc-cta {
-            width: 100%;
-            min-width: 0;
+            font-size: 28px;
           }
 
 
@@ -1330,10 +1394,11 @@ export default function KnowYourCustomerPage() {
           .kyc-cta {
             min-height: 62px !important;
             width: 100%;
-            padding: 14px 14px !important;
+            min-width: 0;
+            padding: 13px 12px !important;
             font-size: 11px !important;
             line-height: 1.25 !important;
-            letter-spacing: 0.025em !important;
+            letter-spacing: 0.02em !important;
           }
 
 
@@ -1347,27 +1412,10 @@ export default function KnowYourCustomerPage() {
           }
 
 
-          /* HERO IMAGE */
-
-          .kyc-hero-visual {
-            width: 100%;
-            max-width: 100%;
-            margin-top: 0;
-          }
-
-          .kyc-hero-visual img {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 12px;
-          }
-
-
           /* SECTIONS */
 
           .kyc-section {
-            padding: 55px 0;
+            padding: 54px 0;
           }
 
           .kyc-section-label {
@@ -1377,7 +1425,7 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-section-title {
-            font-size: 34px;
+            font-size: 33px;
             line-height: 0.99;
             letter-spacing: -0.04em;
           }
@@ -1394,7 +1442,7 @@ export default function KnowYourCustomerPage() {
           .kyc-two-column {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 28px;
             margin-top: 30px;
           }
 
@@ -1422,7 +1470,7 @@ export default function KnowYourCustomerPage() {
 
           .kyc-highlight-box h3 {
             margin: 18px 0 12px;
-            font-size: 23px;
+            font-size: 22px;
             line-height: 1.05;
           }
 
@@ -1445,11 +1493,11 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-insight-card {
-            padding: 23px;
+            padding: 22px;
           }
 
           .kyc-card-number {
-            margin-bottom: 24px;
+            margin-bottom: 22px;
             font-size: 10px;
           }
 
@@ -1497,8 +1545,8 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-outcome {
-            grid-template-columns: 38px minmax(0, 1fr);
-            gap: 10px;
+            grid-template-columns: 35px minmax(0, 1fr);
+            gap: 9px;
             padding: 17px 0;
           }
 
@@ -1536,7 +1584,7 @@ export default function KnowYourCustomerPage() {
           }
 
           .kyc-quote {
-            font-size: 29px;
+            font-size: 28px;
             line-height: 1.04;
             letter-spacing: -0.04em;
           }
@@ -1552,14 +1600,14 @@ export default function KnowYourCustomerPage() {
           }
 
 
-          /* FINAL */
+          /* FINAL CTA */
 
           .kyc-final {
-            padding: 65px 0;
+            padding: 62px 0;
           }
 
           .kyc-final h2 {
-            font-size: 41px;
+            font-size: 40px;
             line-height: 0.94;
             letter-spacing: -0.045em;
           }
@@ -1572,8 +1620,8 @@ export default function KnowYourCustomerPage() {
 
           .kyc-final-action {
             display: grid;
-            grid-template-columns: 92px minmax(0, 1fr);
-            gap: 10px;
+            grid-template-columns: 88px minmax(0, 1fr);
+            gap: 9px;
             width: 100%;
             margin-top: 25px;
           }
@@ -1582,9 +1630,9 @@ export default function KnowYourCustomerPage() {
             min-width: 0;
             width: 100%;
             min-height: 62px;
-            padding: 8px 10px;
+            padding: 8px;
             border-radius: 10px;
-            font-size: 29px;
+            font-size: 28px;
           }
 
           .kyc-final-action .kyc-cta {

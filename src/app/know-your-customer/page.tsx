@@ -1275,7 +1275,7 @@ export default function KnowYourCustomerPage() {
             <h2>
               You know what you sell.
               <br />
-              But do you know what makes your customer say yes?
+              But do you know what makes your customer say "Yes"?
             </h2>
 
             <p>

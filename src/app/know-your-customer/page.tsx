@@ -72,7 +72,11 @@ export default function KnowYourCustomerPage() {
   return (
     <>
       <main className="kyc-page">
-        {/* HEADER */}
+
+        {/* =========================
+            HEADER
+        ========================= */}
+
         <header className="kyc-header">
           <div className="kyc-container kyc-header-inner">
             <Link href="/know-your-customer" className="kyc-logo">
@@ -85,10 +89,15 @@ export default function KnowYourCustomerPage() {
           </div>
         </header>
 
-        {/* HERO */}
+        {/* =========================
+            HERO
+        ========================= */}
+
         <section className="kyc-hero">
           <div className="kyc-container kyc-hero-grid">
+
             <div className="kyc-hero-copy">
+
               <div className="kyc-eyebrow">
                 FOR BUSINESS OWNERS & FOUNDERS
               </div>
@@ -99,7 +108,9 @@ export default function KnowYourCustomerPage() {
                 BUYING FROM ME?
               </h1>
 
-              <h2>Find the answer in 15 minutes.</h2>
+              <h2>
+                Find the answer in 15 minutes.
+              </h2>
 
               <p className="kyc-hero-description">
                 Your product may be good. Your service may be good. But if
@@ -114,9 +125,15 @@ export default function KnowYourCustomerPage() {
               </p>
 
               <div className="kyc-hero-action">
-                <div className="kyc-price">₹19</div>
 
-                <CTA>GET THE TOOL — ₹19 →</CTA>
+                <div className="kyc-price">
+                  ₹19
+                </div>
+
+                <CTA>
+                  GET THE TOOL — ₹19 →
+                </CTA>
+
               </div>
 
               <div className="kyc-meta">
@@ -124,21 +141,29 @@ export default function KnowYourCustomerPage() {
                 <span>•</span>
                 <span>Use for any product, service or offer</span>
               </div>
+
             </div>
 
             <div className="kyc-hero-visual">
               <img
                 src="/kyc-sales-diagnostic.png"
-                alt="Understand your customer and improve your offer"
+                alt="Customer insight tool showing how customer understanding can lead to better offers and more sales"
               />
             </div>
+
           </div>
         </section>
 
-        {/* THE REAL PROBLEM */}
+        {/* =========================
+            THE REAL PROBLEM
+        ========================= */}
+
         <section className="kyc-section kyc-dark-section">
           <div className="kyc-container">
-            <div className="kyc-section-label">THE REAL PROBLEM</div>
+
+            <div className="kyc-section-label">
+              THE REAL PROBLEM
+            </div>
 
             <h2 className="kyc-section-title">
               You don't always have a
@@ -147,7 +172,9 @@ export default function KnowYourCustomerPage() {
             </h2>
 
             <div className="kyc-two-column">
+
               <div>
+
                 <p className="kyc-large-text">
                   Sometimes, you simply don't know enough about the person
                   you're trying to sell to.
@@ -162,10 +189,14 @@ export default function KnowYourCustomerPage() {
                   But your customer is looking at it from a completely
                   different perspective.
                 </p>
+
               </div>
 
               <div className="kyc-highlight-box">
-                <div className="kyc-highlight-mark">?</div>
+
+                <div className="kyc-highlight-mark">
+                  ?
+                </div>
 
                 <h3>
                   WHAT IF YOU COULD
@@ -178,17 +209,28 @@ export default function KnowYourCustomerPage() {
                 <p>
                   That's what this worksheet helps you uncover.
                 </p>
+
               </div>
+
             </div>
 
-            <CTA>FIND OUT WHAT'S STOPPING YOUR CUSTOMERS — ₹19 →</CTA>
+            <CTA>
+              FIND OUT WHAT'S STOPPING YOUR CUSTOMERS — ₹19 →
+            </CTA>
+
           </div>
         </section>
 
-        {/* CUSTOMER INSIGHTS */}
+        {/* =========================
+            CUSTOMER INSIGHTS
+        ========================= */}
+
         <section className="kyc-section">
           <div className="kyc-container">
-            <div className="kyc-section-label">THE CLARITY YOU NEED</div>
+
+            <div className="kyc-section-label">
+              THE CLARITY YOU NEED
+            </div>
 
             <h2 className="kyc-section-title">
               What you'll finally
@@ -203,30 +245,54 @@ export default function KnowYourCustomerPage() {
             </p>
 
             <div className="kyc-insights-grid">
+
               {customerInsights.map((item) => (
-                <div className="kyc-insight-card" key={item.number}>
-                  <div className="kyc-card-number">{item.number}</div>
+                <div
+                  className="kyc-insight-card"
+                  key={item.number}
+                >
 
-                  <h3>{item.title}</h3>
+                  <div className="kyc-card-number">
+                    {item.number}
+                  </div>
 
-                  <p>{item.text}</p>
+                  <h3>
+                    {item.title}
+                  </h3>
+
+                  <p>
+                    {item.text}
+                  </p>
+
                 </div>
               ))}
+
             </div>
 
             <div className="kyc-centered-cta">
-              <CTA>GET THIS CLARITY FOR ₹19 →</CTA>
+              <CTA>
+                GET THIS CLARITY FOR ₹19 →
+              </CTA>
             </div>
+
           </div>
         </section>
 
-        {/* BEFORE YOU SPEND MORE */}
+        {/* =========================
+            BEFORE YOU SPEND MORE
+        ========================= */}
+
         <section className="kyc-section kyc-light-section">
           <div className="kyc-container">
-            <div className="kyc-section-label">BEFORE YOU SPEND MORE</div>
+
+            <div className="kyc-section-label">
+              BEFORE YOU SPEND MORE
+            </div>
 
             <div className="kyc-two-column">
+
               <div>
+
                 <h2 className="kyc-section-title left">
                   Before you spend more
                   <br />
@@ -247,9 +313,11 @@ export default function KnowYourCustomerPage() {
                   Start by understanding the person on the other side of the
                   sale.
                 </p>
+
               </div>
 
               <div className="kyc-before-box">
+
                 <div className="kyc-before-row">
                   <span>GUESSING</span>
                   <strong>→</strong>
@@ -267,17 +335,28 @@ export default function KnowYourCustomerPage() {
                   <strong>→</strong>
                   <span>RELEVANT MESSAGING</span>
                 </div>
+
               </div>
+
             </div>
 
-            <CTA>UNDERSTAND YOUR CUSTOMER FIRST — ₹19 →</CTA>
+            <CTA>
+              UNDERSTAND YOUR CUSTOMER FIRST — ₹19 →
+            </CTA>
+
           </div>
         </section>
 
-        {/* WHAT YOU GET */}
+        {/* =========================
+            WHAT YOU GET
+        ========================= */}
+
         <section className="kyc-section kyc-dark-section">
           <div className="kyc-container">
-            <div className="kyc-section-label">WHAT YOU GET</div>
+
+            <div className="kyc-section-label">
+              WHAT YOU GET
+            </div>
 
             <h2 className="kyc-section-title">
               Everything you need to
@@ -286,26 +365,48 @@ export default function KnowYourCustomerPage() {
             </h2>
 
             <div className="kyc-outcomes">
-              {outcomes.map((item, index) => (
-                <div className="kyc-outcome" key={item}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
 
-                  <p>{item}</p>
+              {outcomes.map((item, index) => (
+                <div
+                  className="kyc-outcome"
+                  key={item}
+                >
+
+                  <span>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <p>
+                    {item}
+                  </p>
+
                 </div>
               ))}
+
             </div>
 
-            <CTA>GET EVERYTHING — ₹19 →</CTA>
+            <CTA>
+              GET EVERYTHING — ₹19 →
+            </CTA>
+
           </div>
         </section>
 
-        {/* WHO IS THIS FOR */}
+        {/* =========================
+            WHO IS THIS FOR
+        ========================= */}
+
         <section className="kyc-section">
           <div className="kyc-container">
-            <div className="kyc-section-label">WHO IS THIS FOR?</div>
+
+            <div className="kyc-section-label">
+              WHO IS THIS FOR?
+            </div>
 
             <div className="kyc-two-column">
+
               <div>
+
                 <h2 className="kyc-section-title left">
                   If you sell
                   <br />
@@ -320,28 +421,51 @@ export default function KnowYourCustomerPage() {
                   You simply need to want a better understanding of the person
                   you're trying to serve.
                 </p>
+
               </div>
 
               <div className="kyc-audience-box">
-                {audience.map((item) => (
-                  <div className="kyc-audience-item" key={item}>
-                    <span>✓</span>
 
-                    <p>{item}</p>
+                {audience.map((item) => (
+                  <div
+                    className="kyc-audience-item"
+                    key={item}
+                  >
+
+                    <span>
+                      ✓
+                    </span>
+
+                    <p>
+                      {item}
+                    </p>
+
                   </div>
                 ))}
+
               </div>
+
             </div>
 
-            <CTA>UNDERSTAND YOUR CUSTOMER — ₹19 →</CTA>
+            <CTA>
+              UNDERSTAND YOUR CUSTOMER — ₹19 →
+            </CTA>
+
           </div>
         </section>
 
-        {/* IDEA */}
+        {/* =========================
+            IDEA
+        ========================= */}
+
         <section className="kyc-section kyc-idea-section">
           <div className="kyc-container">
+
             <div className="kyc-philosophy">
-              <div className="kyc-section-label">THE IDEA BEHIND IT</div>
+
+              <div className="kyc-section-label">
+                THE IDEA BEHIND IT
+              </div>
 
               <div className="kyc-quote">
                 "The better you understand your customer,
@@ -357,15 +481,26 @@ export default function KnowYourCustomerPage() {
                 You need to understand better.
               </p>
 
-              <CTA>STOP GUESSING — ₹19 →</CTA>
+              <CTA>
+                STOP GUESSING — ₹19 →
+              </CTA>
+
             </div>
+
           </div>
         </section>
 
-        {/* FINAL CTA */}
+        {/* =========================
+            FINAL CTA
+        ========================= */}
+
         <section className="kyc-final">
+
           <div className="kyc-container kyc-final-inner">
-            <div className="kyc-section-label">START HERE</div>
+
+            <div className="kyc-section-label">
+              START HERE
+            </div>
 
             <h2>
               WHY AREN'T PEOPLE
@@ -380,9 +515,15 @@ export default function KnowYourCustomerPage() {
             </p>
 
             <div className="kyc-final-action">
-              <div className="kyc-final-price">₹19</div>
 
-              <CTA>YES, I WANT THE TOOL — ₹19 →</CTA>
+              <div className="kyc-final-price">
+                ₹19
+              </div>
+
+              <CTA>
+                YES, I WANT THE TOOL — ₹19 →
+              </CTA>
+
             </div>
 
             <div className="kyc-final-meta">
@@ -392,11 +533,15 @@ export default function KnowYourCustomerPage() {
             <div className="kyc-footer-name">
               PUNEET KAUR SALUJA
             </div>
+
           </div>
+
         </section>
+
       </main>
 
       <style jsx global>{`
+
         * {
           box-sizing: border-box;
         }
@@ -425,6 +570,7 @@ export default function KnowYourCustomerPage() {
           width: min(1180px, calc(100% - 80px));
           margin: 0 auto;
         }
+
 
         /* =========================
            HEADER
@@ -460,6 +606,7 @@ export default function KnowYourCustomerPage() {
           letter-spacing: 0.06em;
         }
 
+
         /* =========================
            HERO
         ========================= */
@@ -472,7 +619,7 @@ export default function KnowYourCustomerPage() {
           display: grid;
           grid-template-columns:
             minmax(0, 1fr)
-            minmax(0, 0.8fr);
+            minmax(0, 0.85fr);
           gap: 60px;
           align-items: center;
         }
@@ -547,6 +694,7 @@ export default function KnowYourCustomerPage() {
           letter-spacing: -0.05em;
         }
 
+
         /* =========================
            CTA
         ========================= */
@@ -613,6 +761,7 @@ export default function KnowYourCustomerPage() {
           border-radius: 18px;
         }
 
+
         /* =========================
            GENERAL SECTIONS
         ========================= */
@@ -676,6 +825,7 @@ export default function KnowYourCustomerPage() {
           font-weight: 800;
         }
 
+
         /* =========================
            HIGHLIGHT BOX
         ========================= */
@@ -707,6 +857,7 @@ export default function KnowYourCustomerPage() {
         .kyc-section .kyc-cta {
           margin-top: 40px;
         }
+
 
         /* =========================
            CUSTOMER INSIGHTS
@@ -753,6 +904,7 @@ export default function KnowYourCustomerPage() {
           justify-content: center;
         }
 
+
         /* =========================
            BEFORE YOU SPEND
         ========================= */
@@ -783,6 +935,7 @@ export default function KnowYourCustomerPage() {
           font-size: 20px;
         }
 
+
         /* =========================
            OUTCOMES
         ========================= */
@@ -797,7 +950,8 @@ export default function KnowYourCustomerPage() {
 
         .kyc-outcome {
           display: grid;
-          grid-template-columns: 50px minmax(0, 1fr);
+          grid-template-columns:
+            50px minmax(0, 1fr);
           gap: 14px;
           align-items: center;
           padding: 21px 0;
@@ -815,6 +969,7 @@ export default function KnowYourCustomerPage() {
           font-size: 15px;
           font-weight: 700;
         }
+
 
         /* =========================
            AUDIENCE
@@ -842,6 +997,7 @@ export default function KnowYourCustomerPage() {
           font-size: 15px;
           font-weight: 700;
         }
+
 
         /* =========================
            IDEA
@@ -876,6 +1032,7 @@ export default function KnowYourCustomerPage() {
         .kyc-philosophy .kyc-cta {
           margin-top: 30px;
         }
+
 
         /* =========================
            FINAL CTA
@@ -931,11 +1088,13 @@ export default function KnowYourCustomerPage() {
           color: #999999;
         }
 
+
         /* =========================
            TABLET
         ========================= */
 
         @media (max-width: 900px) {
+
           .kyc-container {
             width: min(100% - 40px, 700px);
           }
@@ -973,11 +1132,13 @@ export default function KnowYourCustomerPage() {
           }
         }
 
+
         /* =========================
            MOBILE
         ========================= */
 
         @media (max-width: 600px) {
+
           .kyc-container {
             width: calc(100% - 30px);
           }
@@ -1075,7 +1236,9 @@ export default function KnowYourCustomerPage() {
           .kyc-final > .kyc-container > p {
             font-size: 16px;
           }
+
         }
+
       `}</style>
     </>
   );

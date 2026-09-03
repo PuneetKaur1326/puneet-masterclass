@@ -13,7 +13,6 @@ interface RazorpayResponse {
 
 interface RazorpayInstance {
   open: () => void;
-
   on: (
     event: string,
     callback: (response: any) => void
@@ -70,7 +69,6 @@ function loadRazorpay(): Promise<boolean> {
     script.async = true;
 
     script.onload = () => resolve(true);
-
     script.onerror = () => resolve(false);
 
     document.body.appendChild(script);
@@ -119,7 +117,6 @@ export default function KycCheckoutPage() {
     const trimmedEmail =
       email.trim();
 
-    // Keep only digits from the phone number.
     const cleanPhone =
       phone.replace(/\D/g, "");
 
@@ -172,7 +169,7 @@ export default function KycCheckoutPage() {
 
 
     /* ----------------------------------------------
-       WHATSAPP CONSENT VALIDATION
+       WHATSAPP CONSENT
     ---------------------------------------------- */
 
     if (!whatsappConsent) {
@@ -184,7 +181,8 @@ export default function KycCheckoutPage() {
     }
 
 
-    // International WhatsApp format.
+    // Convert 10-digit Indian number
+    // into international WhatsApp format.
     const whatsappPhone =
       `91${cleanPhone}`;
 
@@ -201,7 +199,6 @@ export default function KycCheckoutPage() {
       const razorpayLoaded =
         await loadRazorpay();
 
-
       if (!razorpayLoaded) {
         throw new Error(
           "Razorpay could not be loaded. Please try again."
@@ -211,14 +208,6 @@ export default function KycCheckoutPage() {
 
       /* --------------------------------------------
          CREATE ₹19 KYC ORDER
-
-         IMPORTANT:
-         This ONLY calls:
-
-         /api/kyc/create-order
-
-         It does NOT touch the ₹99 webinar
-         payment endpoint.
       -------------------------------------------- */
 
       const orderResponse =
@@ -250,10 +239,6 @@ export default function KycCheckoutPage() {
         await orderResponse.json();
 
 
-      /* --------------------------------------------
-         CHECK ORDER RESPONSE
-      -------------------------------------------- */
-
       if (
         !orderResponse.ok ||
         !orderData.order_id
@@ -266,7 +251,7 @@ export default function KycCheckoutPage() {
 
 
       /* --------------------------------------------
-         GET PUBLIC RAZORPAY KEY
+         RAZORPAY PUBLIC KEY
       -------------------------------------------- */
 
       const publicKey =
@@ -286,7 +271,8 @@ export default function KycCheckoutPage() {
 
       const options = {
 
-        key: publicKey,
+        key:
+          publicKey,
 
         amount:
           orderData.amount,
@@ -313,6 +299,7 @@ export default function KycCheckoutPage() {
 
           contact:
             whatsappPhone,
+
         },
 
         notes: {
@@ -322,13 +309,14 @@ export default function KycCheckoutPage() {
 
           product_price:
             "19",
-        },
 
+        },
 
         theme: {
 
           color:
             "#e7a414",
+
         },
 
 
@@ -351,98 +339,89 @@ export default function KycCheckoutPage() {
            PAYMENT SUCCESS
         ------------------------------------------ */
 
-        handler: async (
-          response: RazorpayResponse
-        ) => {
+        handler:
+          async (
+            response: RazorpayResponse
+          ) => {
 
-          try {
+            try {
 
-            /* --------------------------------------
-               VERIFY ₹19 PAYMENT
-            -------------------------------------- */
+              const verifyResponse =
+                await fetch(
+                  "/api/kyc/verify-payment",
+                  {
+                    method: "POST",
 
-            const verifyResponse =
-              await fetch(
-                "/api/kyc/verify-payment",
-                {
-                  method: "POST",
+                    headers: {
+                      "Content-Type":
+                        "application/json",
+                    },
 
-                  headers: {
-                    "Content-Type":
-                      "application/json",
-                  },
+                    body: JSON.stringify({
 
-                  body: JSON.stringify({
+                      razorpay_order_id:
+                        response.razorpay_order_id,
 
-                    razorpay_order_id:
-                      response.razorpay_order_id,
+                      razorpay_payment_id:
+                        response.razorpay_payment_id,
 
-                    razorpay_payment_id:
-                      response.razorpay_payment_id,
+                      razorpay_signature:
+                        response.razorpay_signature,
 
-                    razorpay_signature:
-                      response.razorpay_signature,
+                      fullName:
+                        trimmedName,
 
-                    fullName:
-                      trimmedName,
+                      email:
+                        trimmedEmail,
 
-                    email:
-                      trimmedEmail,
+                      phone:
+                        whatsappPhone,
 
-                    phone:
-                      whatsappPhone,
+                    }),
 
-                  }),
-
-                }
-              );
+                  }
+                );
 
 
-            const verifyData =
-              await verifyResponse.json();
+              const verifyData =
+                await verifyResponse.json();
 
 
-            /* --------------------------------------
-               VERIFY RESPONSE
-            -------------------------------------- */
+              if (
+                !verifyResponse.ok ||
+                !verifyData.success
+              ) {
 
-            if (
-              !verifyResponse.ok ||
-              !verifyData.success
+                throw new Error(
+                  verifyData.error ||
+                    "Payment was received but could not be verified yet."
+                );
+
+              }
+
+
+              /* ------------------------------------
+                 PAYMENT VERIFIED
+              ------------------------------------ */
+
+              window.location.href =
+                "/know-your-customer/success";
+
+
+            } catch (
+              verificationError: any
             ) {
 
-              throw new Error(
-                verifyData.error ||
-                  "Payment was received but could not be verified yet."
+              setLoading(false);
+
+              setError(
+                verificationError?.message ||
+                  "Payment verification failed. Please contact support."
               );
 
             }
 
-
-            /* --------------------------------------
-               PAYMENT VERIFIED
-
-               Redirect to success page.
-            -------------------------------------- */
-
-            window.location.href =
-              "/know-your-customer/success";
-
-
-          } catch (
-            verificationError: any
-          ) {
-
-            setLoading(false);
-
-            setError(
-              verificationError?.message ||
-                "Payment verification failed. Please contact support."
-            );
-
-          }
-
-        },
+          },
 
       };
 
@@ -510,7 +489,6 @@ export default function KycCheckoutPage() {
 
       <div className="kyc-checkout-wrap">
 
-
         {/* BACK LINK */}
 
         <a
@@ -524,7 +502,6 @@ export default function KycCheckoutPage() {
         {/* CHECKOUT CARD */}
 
         <div className="kyc-checkout-card">
-
 
           {/* EYEBROW */}
 
@@ -543,11 +520,9 @@ export default function KycCheckoutPage() {
           {/* INTRO */}
 
           <p className="kyc-checkout-intro">
-
             Enter your details below.
             You’ll be taken to Razorpay
             to complete your ₹19 payment.
-
           </p>
 
 
@@ -572,7 +547,6 @@ export default function KycCheckoutPage() {
             onSubmit={handleSubmit}
             className="kyc-checkout-form"
           >
-
 
             {/* NAME */}
 
@@ -661,28 +635,43 @@ export default function KycCheckoutPage() {
               />
 
               <small>
-
                 Enter your 10-digit WhatsApp
                 number. Your worksheet will
                 be delivered here after
                 successful payment.
-
               </small>
 
             </label>
 
 
-            {/* WHATSAPP CONSENT */}
+            {/* ------------------------------------------------
+               WHATSAPP CONSENT
+
+               IMPORTANT:
+               Inline styles deliberately override
+               existing KYC checkout CSS.
+            ------------------------------------------------ */}
 
             <div
-              className="flex items-start gap-3 mt-4 w-full"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+                width: "100%",
+                maxWidth: "100%",
+                gap: "12px",
+                marginTop: "16px",
+                marginBottom: "4px",
+                padding: "0",
+                boxSizing: "border-box",
+                textAlign: "left",
+              }}
             >
 
               <input
                 type="checkbox"
-
                 id="whatsapp-consent"
-
                 checked={
                   whatsappConsent
                 }
@@ -695,56 +684,49 @@ export default function KycCheckoutPage() {
 
                 disabled={loading}
 
-                className="mt-1 w-5 h-5 shrink-0 rounded border-gray-300 text-amber-500 focus:ring-amber-500/30 cursor-pointer accent-amber-500"
+                style={{
+                  width: "20px",
+                  minWidth: "20px",
+                  maxWidth: "20px",
+                  height: "20px",
+                  minHeight: "20px",
+                  margin: "3px 0 0 0",
+                  padding: "0",
+                  flex: "0 0 20px",
+                  cursor: loading
+                    ? "default"
+                    : "pointer",
+                  accentColor: "#e7a414",
+                }}
               />
 
-              <span
-                role="checkbox"
-                aria-checked={
-                  whatsappConsent
-                }
-                tabIndex={0}
 
-                onClick={() => {
-
-                  if (!loading) {
-
-                    setWhatsappConsent(
-                      !whatsappConsent
-                    );
-
-                  }
-
+              <label
+                htmlFor="whatsapp-consent"
+                style={{
+                  display: "block",
+                  width: "auto",
+                  minWidth: "0",
+                  maxWidth: "none",
+                  flex: "1 1 auto",
+                  margin: "0",
+                  padding: "0",
+                  color: "#666666",
+                  fontSize: "13px",
+                  lineHeight: "1.5",
+                  fontWeight: "400",
+                  textAlign: "left",
+                  cursor: loading
+                    ? "default"
+                    : "pointer",
                 }}
-
-                onKeyDown={(event) => {
-
-                  if (
-                    !loading &&
-                    (
-                      event.key === "Enter" ||
-                      event.key === " "
-                    )
-                  ) {
-
-                    event.preventDefault();
-
-                    setWhatsappConsent(
-                      !whatsappConsent
-                    );
-
-                  }
-
-                }}
-
-                className="flex-1 min-w-0 text-sm text-gray-500 leading-relaxed cursor-pointer select-none"
               >
 
                 I agree to receive my purchased
                 worksheet and delivery updates
                 on WhatsApp at this number.
 
-              </span>
+              </label>
 
             </div>
 

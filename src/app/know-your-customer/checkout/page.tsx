@@ -116,8 +116,9 @@ export default function KycCheckoutPage() {
     const trimmedEmail =
       email.trim();
 
-    const trimmedPhone =
-      phone.trim();
+    // Keep only digits from the phone number.
+    const cleanPhone =
+      phone.replace(/\D/g, "");
 
 
     /* ----------------------------------------------
@@ -152,25 +153,30 @@ export default function KycCheckoutPage() {
 
     /* ----------------------------------------------
        PHONE VALIDATION
+
+       Customer enters only 10 digits.
+
+       Example:
+       9876543210
+
+       We add 91 internally for WhatsApp.
     ---------------------------------------------- */
 
-    const cleanPhone =
-      trimmedPhone.replace(
-        /[\s-]/g,
-        ""
-      );
-
     if (
-      !/^\+?91\d{10}$/.test(
+      !/^[6-9]\d{9}$/.test(
         cleanPhone
       )
     ) {
       setError(
-        "Please enter a valid Indian WhatsApp number, e.g. +91 9876543210."
+        "Please enter a valid 10-digit Indian WhatsApp number."
       );
 
       return;
     }
+
+    // International WhatsApp format.
+    const whatsappPhone =
+      `91${cleanPhone}`;
 
 
     setLoading(true);
@@ -224,7 +230,7 @@ export default function KycCheckoutPage() {
                 trimmedEmail,
 
               phone:
-                trimmedPhone,
+                whatsappPhone,
             }),
           }
         );
@@ -310,7 +316,7 @@ export default function KycCheckoutPage() {
             trimmedEmail,
 
           contact:
-            cleanPhone,
+            whatsappPhone,
         },
 
         notes: {
@@ -321,6 +327,7 @@ export default function KycCheckoutPage() {
           product_price:
             "19",
         },
+
 
         theme: {
 
@@ -387,7 +394,7 @@ export default function KycCheckoutPage() {
                       trimmedEmail,
 
                     phone:
-                      trimmedPhone,
+                      whatsappPhone,
 
                   }),
 
@@ -419,10 +426,7 @@ export default function KycCheckoutPage() {
             /* --------------------------------------
                PAYMENT VERIFIED
 
-               For now redirect to success page.
-
-               We will build the success page and
-               WhatsApp/PDF delivery next.
+               Redirect to success page.
             -------------------------------------- */
 
             window.location.href =
@@ -635,17 +639,25 @@ export default function KycCheckoutPage() {
               <input
                 value={phone}
 
-                onChange={(event) =>
-                  setPhone(
-                    event.target.value
-                  )
-                }
+                onChange={(event) => {
+                  const digitsOnly =
+                    event.target.value.replace(
+                      /\D/g,
+                      ""
+                    );
 
-                placeholder="+91 9876543210"
+                  setPhone(
+                    digitsOnly.slice(0, 10)
+                  );
+                }}
+
+                placeholder="9876543210"
 
                 autoComplete="tel"
 
-                inputMode="tel"
+                inputMode="numeric"
+
+                maxLength={10}
 
                 disabled={loading}
               />
@@ -653,10 +665,10 @@ export default function KycCheckoutPage() {
 
               <small>
 
-                Your worksheet will be
-                delivered to this WhatsApp
-                number after successful
-                payment.
+                Enter your 10-digit WhatsApp
+                number. Your worksheet will
+                be delivered here after
+                successful payment.
 
               </small>
 

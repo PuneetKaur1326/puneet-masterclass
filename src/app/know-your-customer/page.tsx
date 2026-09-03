@@ -823,7 +823,7 @@ export default function KnowYourCustomerPage() {
 
 
         /* =====================================================
-           CTA
+           CTA — DEFAULT
         ===================================================== */
 
         .kyc-hero-action,
@@ -853,6 +853,8 @@ export default function KnowYourCustomerPage() {
 
           background: #f2a900;
 
+          color: #111111;
+
           border-radius: 12px;
 
           font-size: 34px;
@@ -864,6 +866,11 @@ export default function KnowYourCustomerPage() {
           letter-spacing: -0.05em;
         }
 
+
+        /* =====================================================
+           PRIMARY CTA
+        ===================================================== */
+
         .kyc-cta {
           display: inline-flex !important;
 
@@ -874,14 +881,15 @@ export default function KnowYourCustomerPage() {
 
           padding: 16px 24px !important;
 
-          border: none !important;
+          background: #f2a900 !important;
+
+          color: #111111 !important;
+
+          -webkit-text-fill-color: #111111 !important;
+
+          border: 2px solid #f2a900 !important;
+
           border-radius: 0 !important;
-
-          background: #111111 !important;
-
-          color: #ffffff !important;
-
-          -webkit-text-fill-color: #ffffff !important;
 
           text-decoration: none !important;
 
@@ -889,9 +897,9 @@ export default function KnowYourCustomerPage() {
 
           line-height: 1.2 !important;
 
-          font-weight: 900 !important;
+          font-weight: 950 !important;
 
-          letter-spacing: 0.04em !important;
+          letter-spacing: 0.035em !important;
 
           text-align: center !important;
 
@@ -900,19 +908,116 @@ export default function KnowYourCustomerPage() {
           cursor: pointer !important;
 
           transition:
-            transform 0.2s ease,
-            background-color 0.2s ease !important;
+            transform 0.18s ease,
+            background-color 0.18s ease,
+            color 0.18s ease !important;
         }
 
         .kyc-cta:hover {
-          background: #2b2b2b !important;
+          background: #111111 !important;
 
           color: #ffffff !important;
 
           -webkit-text-fill-color: #ffffff !important;
 
+          border-color: #111111 !important;
+
           transform: translateY(-2px);
         }
+
+
+        /* =====================================================
+           DARK SECTIONS
+        ===================================================== */
+
+        .kyc-dark-section .kyc-cta {
+          background: #f2a900 !important;
+
+          color: #111111 !important;
+
+          -webkit-text-fill-color: #111111 !important;
+
+          border-color: #f2a900 !important;
+        }
+
+        .kyc-dark-section .kyc-cta:hover {
+          background: #ffffff !important;
+
+          color: #111111 !important;
+
+          -webkit-text-fill-color: #111111 !important;
+
+          border-color: #ffffff !important;
+        }
+
+
+        /* =====================================================
+           IDEA SECTION
+        ===================================================== */
+
+        .kyc-idea-section .kyc-cta {
+          background: #111111 !important;
+
+          color: #ffffff !important;
+
+          -webkit-text-fill-color: #ffffff !important;
+
+          border-color: #111111 !important;
+        }
+
+        .kyc-idea-section .kyc-cta:hover {
+          background: #ffffff !important;
+
+          color: #111111 !important;
+
+          -webkit-text-fill-color: #111111 !important;
+
+          border-color: #ffffff !important;
+        }
+
+
+        /* =====================================================
+           FINAL CTA
+        ===================================================== */
+
+        .kyc-final-action .kyc-cta {
+          width: 100%;
+
+          min-height: 64px !important;
+
+          height: 64px;
+
+          background: #f2a900 !important;
+
+          color: #111111 !important;
+
+          -webkit-text-fill-color: #111111 !important;
+
+          border: 2px solid #f2a900 !important;
+
+          font-size: 12px !important;
+
+          font-weight: 950 !important;
+
+          letter-spacing: 0.025em !important;
+
+          border-radius: 0 !important;
+        }
+
+        .kyc-final-action .kyc-cta:hover {
+          background: #ffffff !important;
+
+          color: #111111 !important;
+
+          -webkit-text-fill-color: #111111 !important;
+
+          border-color: #ffffff !important;
+        }
+
+
+        /* =====================================================
+           META
+        ===================================================== */
 
         .kyc-meta {
           display: flex;
@@ -1005,6 +1110,10 @@ export default function KnowYourCustomerPage() {
           font-weight: 800;
         }
 
+        .kyc-section .kyc-cta {
+          margin-top: 40px;
+        }
+
 
         /* =====================================================
            HIGHLIGHT
@@ -1040,10 +1149,6 @@ export default function KnowYourCustomerPage() {
 
         .kyc-highlight-box p {
           margin-bottom: 0;
-        }
-
-        .kyc-section .kyc-cta {
-          margin-top: 40px;
         }
 
 
@@ -1412,7 +1517,7 @@ export default function KnowYourCustomerPage() {
 
 
         /* =====================================================
-           FINAL CTA
+           FINAL
         ===================================================== */
 
         .kyc-final {
@@ -1515,79 +1620,6 @@ export default function KnowYourCustomerPage() {
           font-weight: 950;
 
           letter-spacing: -0.05em;
-        }
-
-
-        /* WHITE FINAL CTA */
-
-        .kyc-final-action .kyc-cta {
-          width: 100%;
-
-          min-height: 64px !important;
-
-          height: 64px;
-
-          background: #ffffff !important;
-
-          color: #111111 !important;
-
-          -webkit-text-fill-color: #111111 !important;
-
-          font-size: 12px !important;
-
-          font-weight: 950 !important;
-
-          letter-spacing: 0.025em !important;
-
-          border-radius: 0 !important;
-        }
-
-        .kyc-final-action .kyc-cta:hover {
-          background: #f2a900 !important;
-
-          color: #111111 !important;
-
-          -webkit-text-fill-color: #111111 !important;
-
-          transform: translateY(-2px);
-        }
-
-
-        /* FINAL META */
-
-        .kyc-final-meta {
-          margin-top: 12px;
-
-          font-size: 9px;
-
-          line-height: 1.3;
-
-          color: #aaaaaa;
-        }
-
-
-        /* FOOTER */
-
-        .kyc-footer-name {
-          width: 100%;
-
-          margin-top: 40px;
-
-          padding-top: 14px;
-
-          border-top: 1px solid #333333;
-
-          color: #888888;
-
-          font-size: 8px;
-
-          line-height: 1;
-
-          font-weight: 900;
-
-          letter-spacing: 0.12em;
-
-          text-align: left;
         }
 
 
@@ -1880,7 +1912,7 @@ export default function KnowYourCustomerPage() {
           }
 
 
-          /* CTA */
+          /* MOBILE CTA */
 
           .kyc-cta {
             min-height: 58px !important;
@@ -1889,7 +1921,7 @@ export default function KnowYourCustomerPage() {
 
             min-width: 0;
 
-            padding: 11px 9px !important;
+            padding: 10px 9px !important;
 
             font-size: 10px !important;
 
@@ -2355,6 +2387,24 @@ export default function KnowYourCustomerPage() {
             letter-spacing: 0.01em !important;
 
             white-space: normal !important;
+
+            background: #f2a900 !important;
+
+            color: #111111 !important;
+
+            -webkit-text-fill-color: #111111 !important;
+
+            border-color: #f2a900 !important;
+          }
+
+          .kyc-final-action .kyc-cta:hover {
+            background: #ffffff !important;
+
+            color: #111111 !important;
+
+            -webkit-text-fill-color: #111111 !important;
+
+            border-color: #ffffff !important;
           }
 
 
@@ -2372,6 +2422,8 @@ export default function KnowYourCustomerPage() {
           /* FOOTER */
 
           .kyc-footer-name {
+            width: 100%;
+
             margin-top: 32px;
 
             padding-top: 12px;

@@ -636,6 +636,7 @@ export default function KycCheckoutPage() {
                 value={phone}
 
                 onChange={(event) => {
+
                   const digitsOnly =
                     event.target.value.replace(
                       /\D/g,
@@ -645,6 +646,7 @@ export default function KycCheckoutPage() {
                   setPhone(
                     digitsOnly.slice(0, 10)
                   );
+
                 }}
 
                 placeholder="9876543210"
@@ -657,7 +659,6 @@ export default function KycCheckoutPage() {
 
                 disabled={loading}
               />
-
 
               <small>
 
@@ -673,14 +674,18 @@ export default function KycCheckoutPage() {
 
             {/* WHATSAPP CONSENT */}
 
-            <div className="flex items-start gap-3 mt-2">
+            <div
+              className="flex items-start gap-3 mt-4 w-full"
+            >
 
               <input
                 type="checkbox"
 
                 id="whatsapp-consent"
 
-                checked={whatsappConsent}
+                checked={
+                  whatsappConsent
+                }
 
                 onChange={(event) =>
                   setWhatsappConsent(
@@ -690,20 +695,56 @@ export default function KycCheckoutPage() {
 
                 disabled={loading}
 
-                className="mt-1 w-5 h-5 shrink-0 rounded border-gray-300 text-amber-500 focus:ring-amber-500/30 transition-all cursor-pointer accent-amber-500"
+                className="mt-1 w-5 h-5 shrink-0 rounded border-gray-300 text-amber-500 focus:ring-amber-500/30 cursor-pointer accent-amber-500"
               />
 
-              <label
-                htmlFor="whatsapp-consent"
-                className="text-sm text-gray-500 leading-relaxed cursor-pointer select-none"
+              <span
+                role="checkbox"
+                aria-checked={
+                  whatsappConsent
+                }
+                tabIndex={0}
+
+                onClick={() => {
+
+                  if (!loading) {
+
+                    setWhatsappConsent(
+                      !whatsappConsent
+                    );
+
+                  }
+
+                }}
+
+                onKeyDown={(event) => {
+
+                  if (
+                    !loading &&
+                    (
+                      event.key === "Enter" ||
+                      event.key === " "
+                    )
+                  ) {
+
+                    event.preventDefault();
+
+                    setWhatsappConsent(
+                      !whatsappConsent
+                    );
+
+                  }
+
+                }}
+
+                className="flex-1 min-w-0 text-sm text-gray-500 leading-relaxed cursor-pointer select-none"
               >
 
-                I agree to receive my
-                purchased worksheet and
-                delivery updates on WhatsApp
-                at this number.
+                I agree to receive my purchased
+                worksheet and delivery updates
+                on WhatsApp at this number.
 
-              </label>
+              </span>
 
             </div>
 

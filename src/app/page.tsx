@@ -5,6 +5,7 @@ import PainSection from '@/app/components/PainSection';
 import DiscoverSection from '@/app/components/DiscoverSection';
 import MentorSection from '@/app/components/MentorSection';
 import PricingFaqSection from '@/app/components/PricingFaqSection';
+import WebinarExitSurvey from '@/components/WebinarExitSurvey';
 
 export default function Page() {
   return (
@@ -20,6 +21,8 @@ export default function Page() {
         <PricingFaqSection />
       </main>
       <Footer />
+      
+      <WebinarExitSurvey />
     </>
   );
 }

@@ -26,7 +26,7 @@ export default function WebinarExitSurvey() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    if (pathname !== "/register") return;
+    if (pathname !== "/") return;
 
     const alreadyShown = sessionStorage.getItem(
       "webinar_exit_survey_shown"
@@ -174,7 +174,7 @@ export default function WebinarExitSurvey() {
   }, [pathname]);
 
   if (
-    pathname !== "/register" ||
+   pathname !== "/" ||
     !open
   ) {
     return null;

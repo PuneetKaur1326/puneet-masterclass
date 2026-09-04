@@ -26,23 +26,25 @@ export default function KycExitSurvey() {
   useEffect(() => {
     if (pathname !== "/know-your-customer") return;
 
-    const alreadyShown = sessionStorage.getItem(
-      "kyc_exit_survey_shown"
-    );
-
-    if (alreadyShown) return;
-
     let triggered = false;
-    let historyEntryAdded = false;
 
     /*
-      ==================================================
-      DESKTOP EXIT INTENT
-      ==================================================
+      ================================================
+      SHOW SURVEY
+      ================================================
+    */
 
-      Desktop visitors trigger the survey when they
-      move their cursor toward the top of the browser
-      after interacting with the page.
+    const showSurvey = () => {
+      if (triggered) return;
+
+      triggered = true;
+      setOpen(true);
+    };
+
+    /*
+      ================================================
+      DESKTOP EXIT INTENT
+      ================================================
     */
 
     let detectionActive = false;
@@ -58,19 +60,6 @@ export default function KycExitSurvey() {
 
       visitorInteracted = true;
       previousMouseY = event.clientY;
-    };
-
-    const showSurvey = () => {
-      if (triggered) return;
-
-      triggered = true;
-
-      sessionStorage.setItem(
-        "kyc_exit_survey_shown",
-        "1"
-      );
-
-      setOpen(true);
     };
 
     const handleMouseLeave = (event: MouseEvent) => {
@@ -89,59 +78,46 @@ export default function KycExitSurvey() {
     };
 
     /*
-      ==================================================
+      ================================================
       MOBILE BACK BUTTON
-      ==================================================
+      ================================================
 
-      We create one temporary browser-history entry.
+      We immediately add a temporary browser-history
+      entry on mobile.
 
-      When the visitor presses the phone/browser
-      Back button, the browser moves to that temporary
-      entry instead of immediately leaving.
+      When the visitor presses the actual Back button,
+      popstate fires and the survey appears.
 
-      We then show the survey.
-
-      Once the survey is dismissed, the temporary
-      history entry is removed so the NEXT Back action
-      genuinely takes the visitor away.
+      We then add the temporary entry again so the
+      visitor stays on the KYC page.
     */
+
+    let mobileGuardActive = false;
+
+    if (window.innerWidth <= 768) {
+      mobileGuardActive = true;
+
+      window.history.pushState(
+        { kycExitSurveyGuard: true },
+        "",
+        window.location.href
+      );
+    }
 
     const handlePopState = () => {
       if (window.innerWidth > 768) return;
+      if (!mobileGuardActive) return;
 
       if (!triggered) {
         showSurvey();
 
-        /*
-          Put the temporary history entry back so
-          the visitor remains on the landing page
-          while the survey is visible.
-        */
         window.history.pushState(
-          { kycExitSurvey: true },
+          { kycExitSurveyGuard: true },
           "",
           window.location.href
         );
-
-        historyEntryAdded = true;
       }
     };
-
-    /*
-      Add the temporary mobile history entry only
-      after the visitor has had time to interact.
-    */
-    const mobileHistoryTimer = window.setTimeout(() => {
-      if (window.innerWidth <= 768) {
-        window.history.pushState(
-          { kycExitSurvey: true },
-          "",
-          window.location.href
-        );
-
-        historyEntryAdded = true;
-      }
-    }, 4000);
 
     document.addEventListener(
       "mousemove",
@@ -160,7 +136,6 @@ export default function KycExitSurvey() {
 
     return () => {
       window.clearTimeout(activationTimer);
-      window.clearTimeout(mobileHistoryTimer);
 
       document.removeEventListener(
         "mousemove",
@@ -179,25 +154,11 @@ export default function KycExitSurvey() {
     };
   }, [pathname]);
 
-  if (
-    pathname !== "/know-your-customer" ||
-    !open
-  ) {
-    return null;
-  }
-
-  const closeSurvey = () => {
-    setOpen(false);
-
-    /*
-      Once the visitor dismisses the survey,
-      the browser's next Back action should
-      genuinely leave the landing page.
-
-      We don't manually navigate here because
-      the visitor may want to continue browsing.
-    */
-  };
+  /*
+    ================================================
+    SUBMIT SURVEY
+    ================================================
+  */
 
   const submitSurvey = () => {
     if (!selectedReason) return;
@@ -239,6 +200,29 @@ export default function KycExitSurvey() {
 
     setSubmitted(true);
   };
+
+  /*
+    ================================================
+    CLOSE SURVEY
+    ================================================
+  */
+
+  const closeSurvey = () => {
+    setOpen(false);
+  };
+
+  /*
+    ================================================
+    DON'T RENDER UNLESS OPEN
+    ================================================
+  */
+
+  if (
+    pathname !== "/know-your-customer" ||
+    !open
+  ) {
+    return null;
+  }
 
   return (
     <div
@@ -318,8 +302,10 @@ export default function KycExitSurvey() {
               onClick={submitSurvey}
               disabled={
                 !selectedReason ||
-                (selectedReason === "Other" &&
-                  !otherResponse.trim())
+                (
+                  selectedReason === "Other" &&
+                  !otherResponse.trim()
+                )
               }
             >
               SUBMIT

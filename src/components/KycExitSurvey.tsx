@@ -27,6 +27,7 @@ export default function KycExitSurvey() {
     if (pathname !== "/know-your-customer") return;
 
     let triggered = false;
+    let mobileGuardActive = false;
 
     /*
       ================================================
@@ -40,6 +41,56 @@ export default function KycExitSurvey() {
       triggered = true;
       setOpen(true);
     };
+
+    /*
+      ================================================
+      MOBILE BACK BUTTON
+      ================================================
+    */
+
+    const addMobileHistoryEntry = () => {
+      const currentState =
+        window.history.state || {};
+
+      window.history.pushState(
+        {
+          ...currentState,
+          kycExitSurveyGuard: true,
+        },
+        "",
+        window.location.href
+      );
+    };
+
+    const handlePopState = () => {
+      if (window.innerWidth > 768) return;
+      if (!mobileGuardActive) return;
+
+      if (!triggered) {
+        showSurvey();
+      }
+
+      /*
+        Immediately restore the history entry so
+        the visitor remains on the KYC page.
+      */
+      addMobileHistoryEntry();
+    };
+
+    if (window.innerWidth <= 768) {
+      mobileGuardActive = true;
+
+      /*
+        Give the browser one extra history entry.
+        We preserve Next.js's existing state.
+      */
+      addMobileHistoryEntry();
+
+      window.addEventListener(
+        "popstate",
+        handlePopState
+      );
+    }
 
     /*
       ================================================
@@ -77,48 +128,6 @@ export default function KycExitSurvey() {
       showSurvey();
     };
 
-    /*
-      ================================================
-      MOBILE BACK BUTTON
-      ================================================
-
-      We immediately add a temporary browser-history
-      entry on mobile.
-
-      When the visitor presses the actual Back button,
-      popstate fires and the survey appears.
-
-      We then add the temporary entry again so the
-      visitor stays on the KYC page.
-    */
-
-    let mobileGuardActive = false;
-
-    if (window.innerWidth <= 768) {
-      mobileGuardActive = true;
-
-      window.history.pushState(
-        { kycExitSurveyGuard: true },
-        "",
-        window.location.href
-      );
-    }
-
-    const handlePopState = () => {
-      if (window.innerWidth > 768) return;
-      if (!mobileGuardActive) return;
-
-      if (!triggered) {
-        showSurvey();
-
-        window.history.pushState(
-          { kycExitSurveyGuard: true },
-          "",
-          window.location.href
-        );
-      }
-    };
-
     document.addEventListener(
       "mousemove",
       handleMouseMove
@@ -127,11 +136,6 @@ export default function KycExitSurvey() {
     document.addEventListener(
       "mouseleave",
       handleMouseLeave
-    );
-
-    window.addEventListener(
-      "popstate",
-      handlePopState
     );
 
     return () => {
@@ -158,7 +162,7 @@ export default function KycExitSurvey() {
     ================================================
     SUBMIT SURVEY
     ================================================
-  */
+    */
 
   const submitSurvey = () => {
     if (!selectedReason) return;
@@ -205,7 +209,7 @@ export default function KycExitSurvey() {
     ================================================
     CLOSE SURVEY
     ================================================
-  */
+    */
 
   const closeSurvey = () => {
     setOpen(false);
@@ -215,7 +219,7 @@ export default function KycExitSurvey() {
     ================================================
     DON'T RENDER UNLESS OPEN
     ================================================
-  */
+    */
 
   if (
     pathname !== "/know-your-customer" ||

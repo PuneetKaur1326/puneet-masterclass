@@ -26,15 +26,11 @@ export default function WebinarExitSurvey() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
+    // This survey belongs ONLY on the ₹99 webinar landing page.
     if (pathname !== "/") return;
 
-    const alreadyShown = sessionStorage.getItem(
-      "webinar_exit_survey_shown"
-    );
-
-    if (alreadyShown) return;
-
     let triggered = false;
+    let mobileGuardActive = false;
 
     /*
       ==================================================
@@ -46,12 +42,6 @@ export default function WebinarExitSurvey() {
       if (triggered) return;
 
       triggered = true;
-
-      sessionStorage.setItem(
-        "webinar_exit_survey_shown",
-        "1"
-      );
-
       setOpen(true);
     };
 
@@ -59,9 +49,6 @@ export default function WebinarExitSurvey() {
       ==================================================
       DESKTOP EXIT INTENT
       ==================================================
-
-      Visitor must first interact with the page,
-      then move the cursor toward the top edge.
     */
 
     let detectionActive = false;
@@ -80,7 +67,9 @@ export default function WebinarExitSurvey() {
     };
 
     const handleMouseLeave = (event: MouseEvent) => {
+      // Desktop only
       if (window.innerWidth <= 768) return;
+
       if (!detectionActive) return;
       if (!visitorInteracted) return;
       if (triggered) return;
@@ -99,38 +88,51 @@ export default function WebinarExitSurvey() {
       MOBILE BACK BUTTON
       ==================================================
 
-      We create a temporary history entry.
+      IMPORTANT:
 
-      When the visitor taps the actual phone/browser
-      Back button, the survey appears instead of the
-      visitor immediately leaving.
+      We immediately add one temporary history entry.
 
-      After the survey is dismissed, the next Back
-      action is allowed to leave normally.
+      Example:
+
+      Previous Page
+           ↓
+      Webinar Page
+           ↓
+      Temporary Webinar Entry
+
+      When the visitor presses the REAL phone/browser
+      Back button, the temporary entry is removed and
+      popstate fires.
+
+      We then show the survey and immediately add the
+      temporary entry again.
+
+      This keeps the visitor on the webinar page while
+      the survey is displayed.
     */
 
-    const mobileHistoryTimer = window.setTimeout(() => {
-      if (window.innerWidth <= 768) {
-        window.history.pushState(
-          { webinarExitSurvey: true },
-          "",
-          window.location.href
-        );
-      }
-    }, 4000);
+    if (window.innerWidth <= 768) {
+      mobileGuardActive = true;
+
+      window.history.pushState(
+        { webinarExitSurveyGuard: true },
+        "",
+        window.location.href
+      );
+    }
 
     const handlePopState = () => {
+      if (!mobileGuardActive) return;
+
       if (window.innerWidth > 768) return;
 
+      // First Back press → show survey
       if (!triggered) {
         showSurvey();
 
-        /*
-          Keep the visitor on the webinar page
-          while the survey is displayed.
-        */
+        // Put the guard back immediately.
         window.history.pushState(
-          { webinarExitSurvey: true },
+          { webinarExitSurveyGuard: true },
           "",
           window.location.href
         );
@@ -154,7 +156,6 @@ export default function WebinarExitSurvey() {
 
     return () => {
       window.clearTimeout(activationTimer);
-      window.clearTimeout(mobileHistoryTimer);
 
       document.removeEventListener(
         "mousemove",
@@ -173,12 +174,11 @@ export default function WebinarExitSurvey() {
     };
   }, [pathname]);
 
-  if (
-   pathname !== "/" ||
-    !open
-  ) {
-    return null;
-  }
+  /*
+    ==================================================
+    SUBMIT SURVEY
+    ==================================================
+  */
 
   const submitSurvey = () => {
     if (!selectedReason) return;
@@ -221,9 +221,25 @@ export default function WebinarExitSurvey() {
     setSubmitted(true);
   };
 
+  /*
+    ==================================================
+    CLOSE SURVEY
+    ==================================================
+  */
+
   const closeSurvey = () => {
     setOpen(false);
   };
+
+  /*
+    ==================================================
+    DON'T RENDER UNLESS SURVEY IS OPEN
+    ==================================================
+  */
+
+  if (pathname !== "/" || !open) {
+    return null;
+  }
 
   return (
     <div
@@ -304,8 +320,10 @@ export default function WebinarExitSurvey() {
               onClick={submitSurvey}
               disabled={
                 !selectedReason ||
-                (selectedReason === "Other" &&
-                  !otherResponse.trim())
+                (
+                  selectedReason === "Other" &&
+                  !otherResponse.trim()
+                )
               }
             >
               SUBMIT
@@ -654,6 +672,7 @@ export default function WebinarExitSurvey() {
 
           .webinar-exit-overlay {
             align-items: flex-end;
+
             padding: 10px;
           }
 
@@ -669,11 +688,13 @@ export default function WebinarExitSurvey() {
 
           .webinar-exit-card h2 {
             font-size: 28px;
+
             line-height: 1;
           }
 
           .webinar-exit-subtitle {
             margin-bottom: 15px;
+
             font-size: 12px;
           }
 
@@ -691,7 +712,8 @@ export default function WebinarExitSurvey() {
 
         }
 
-      `}</style>
+      `}
+      </style>
     </div>
   );
 }

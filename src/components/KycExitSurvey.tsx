@@ -33,44 +33,46 @@ export default function KycExitSurvey() {
     if (alreadyShown) return;
 
     let triggered = false;
-    let visitorInteracted = false;
-    let previousMouseY = 0;
+    let historyEntryAdded = false;
 
     /*
-      We intentionally wait before activating
-      exit-intent detection.
+      ==================================================
+      DESKTOP EXIT INTENT
+      ==================================================
 
-      This prevents the popup from appearing
-      immediately when the page loads.
+      Desktop visitors trigger the survey when they
+      move their cursor toward the top of the browser
+      after interacting with the page.
     */
+
     let detectionActive = false;
+    let visitorInteracted = false;
+    let previousMouseY = 0;
 
     const activationTimer = window.setTimeout(() => {
       detectionActive = true;
     }, 3000);
 
-    /*
-      Mark that the visitor has actually
-      interacted with the page.
-    */
     const handleMouseMove = (event: MouseEvent) => {
       if (!detectionActive) return;
 
       visitorInteracted = true;
-
       previousMouseY = event.clientY;
     };
 
-    /*
-      DESKTOP EXIT INTENT
+    const showSurvey = () => {
+      if (triggered) return;
 
-      The visitor must:
-      1. Have interacted with the page
-      2. Have previously had the cursor lower
-         on the screen
-      3. Then move the cursor toward the top
-         browser area
-    */
+      triggered = true;
+
+      sessionStorage.setItem(
+        "kyc_exit_survey_shown",
+        "1"
+      );
+
+      setOpen(true);
+    };
+
     const handleMouseLeave = (event: MouseEvent) => {
       if (window.innerWidth <= 768) return;
       if (!detectionActive) return;
@@ -83,65 +85,63 @@ export default function KycExitSurvey() {
 
       if (!movingTowardTop) return;
 
-      triggered = true;
-
-      sessionStorage.setItem(
-        "kyc_exit_survey_shown",
-        "1"
-      );
-
-      setOpen(true);
+      showSurvey();
     };
 
     /*
+      ==================================================
       MOBILE BACK BUTTON
+      ==================================================
 
-      Mobile devices don't have a reliable
-      mouse-based exit intent.
+      We create one temporary browser-history entry.
 
-      We therefore use the browser's back
-      action after the visitor has been on
-      the page for a few seconds.
+      When the visitor presses the phone/browser
+      Back button, the browser moves to that temporary
+      entry instead of immediately leaving.
+
+      We then show the survey.
+
+      Once the survey is dismissed, the temporary
+      history entry is removed so the NEXT Back action
+      genuinely takes the visitor away.
     */
-
-    let mobileHistoryAdded = false;
-
-    const addMobileHistory = () => {
-      if (window.innerWidth > 768) return;
-
-      window.history.pushState(
-        { kycExitSurvey: true },
-        "",
-        window.location.href
-      );
-
-      mobileHistoryAdded = true;
-    };
 
     const handlePopState = () => {
       if (window.innerWidth > 768) return;
 
       if (!triggered) {
-        triggered = true;
-
-        sessionStorage.setItem(
-          "kyc_exit_survey_shown",
-          "1"
-        );
-
-        setOpen(true);
+        showSurvey();
 
         /*
-          Keep the visitor on the page while
-          the survey is visible.
+          Put the temporary history entry back so
+          the visitor remains on the landing page
+          while the survey is visible.
         */
         window.history.pushState(
           { kycExitSurvey: true },
           "",
           window.location.href
         );
+
+        historyEntryAdded = true;
       }
     };
+
+    /*
+      Add the temporary mobile history entry only
+      after the visitor has had time to interact.
+    */
+    const mobileHistoryTimer = window.setTimeout(() => {
+      if (window.innerWidth <= 768) {
+        window.history.pushState(
+          { kycExitSurvey: true },
+          "",
+          window.location.href
+        );
+
+        historyEntryAdded = true;
+      }
+    }, 4000);
 
     document.addEventListener(
       "mousemove",
@@ -158,13 +158,9 @@ export default function KycExitSurvey() {
       handlePopState
     );
 
-    const mobileTimer = window.setTimeout(() => {
-      addMobileHistory();
-    }, 5000);
-
     return () => {
       window.clearTimeout(activationTimer);
-      window.clearTimeout(mobileTimer);
+      window.clearTimeout(mobileHistoryTimer);
 
       document.removeEventListener(
         "mousemove",
@@ -180,11 +176,6 @@ export default function KycExitSurvey() {
         "popstate",
         handlePopState
       );
-
-      /*
-        Don't manipulate browser history
-        during cleanup.
-      */
     };
   }, [pathname]);
 
@@ -194,6 +185,19 @@ export default function KycExitSurvey() {
   ) {
     return null;
   }
+
+  const closeSurvey = () => {
+    setOpen(false);
+
+    /*
+      Once the visitor dismisses the survey,
+      the browser's next Back action should
+      genuinely leave the landing page.
+
+      We don't manually navigate here because
+      the visitor may want to continue browsing.
+    */
+  };
 
   const submitSurvey = () => {
     if (!selectedReason) return;
@@ -234,10 +238,6 @@ export default function KycExitSurvey() {
     });
 
     setSubmitted(true);
-  };
-
-  const closeSurvey = () => {
-    setOpen(false);
   };
 
   return (
@@ -668,7 +668,6 @@ export default function KycExitSurvey() {
 
           .kyc-exit-overlay {
             align-items: flex-end;
-
             padding: 10px;
           }
 

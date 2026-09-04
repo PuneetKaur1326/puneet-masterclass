@@ -33,9 +33,55 @@ export default function KycExitSurvey() {
     if (alreadyShown) return;
 
     let triggered = false;
+    let visitorInteracted = false;
+    let previousMouseY = 0;
 
-    const showSurvey = () => {
+    /*
+      We intentionally wait before activating
+      exit-intent detection.
+
+      This prevents the popup from appearing
+      immediately when the page loads.
+    */
+    let detectionActive = false;
+
+    const activationTimer = window.setTimeout(() => {
+      detectionActive = true;
+    }, 3000);
+
+    /*
+      Mark that the visitor has actually
+      interacted with the page.
+    */
+    const handleMouseMove = (event: MouseEvent) => {
+      if (!detectionActive) return;
+
+      visitorInteracted = true;
+
+      previousMouseY = event.clientY;
+    };
+
+    /*
+      DESKTOP EXIT INTENT
+
+      The visitor must:
+      1. Have interacted with the page
+      2. Have previously had the cursor lower
+         on the screen
+      3. Then move the cursor toward the top
+         browser area
+    */
+    const handleMouseLeave = (event: MouseEvent) => {
+      if (window.innerWidth <= 768) return;
+      if (!detectionActive) return;
+      if (!visitorInteracted) return;
       if (triggered) return;
+
+      const movingTowardTop =
+        previousMouseY > 50 &&
+        event.clientY <= 5;
+
+      if (!movingTowardTop) return;
 
       triggered = true;
 
@@ -48,31 +94,14 @@ export default function KycExitSurvey() {
     };
 
     /*
-      DESKTOP EXIT INTENT
+      MOBILE BACK BUTTON
 
-      When the visitor moves their mouse toward
-      the browser's top area, we treat it as
-      an intention to leave.
-    */
+      Mobile devices don't have a reliable
+      mouse-based exit intent.
 
-    const handleMouseLeave = (event: MouseEvent) => {
-      if (
-        window.innerWidth > 768 &&
-        event.clientY <= 5
-      ) {
-        showSurvey();
-      }
-    };
-
-    /*
-      MOBILE BACK-BUTTON INTENT
-
-      Mobile browsers don't provide reliable
-      traditional exit-intent detection.
-
-      So after the visitor has spent some time
-      on the page, we listen for the browser
-      back action and show the survey instead.
+      We therefore use the browser's back
+      action after the visitor has been on
+      the page for a few seconds.
     */
 
     let mobileHistoryAdded = false;
@@ -90,18 +119,34 @@ export default function KycExitSurvey() {
     };
 
     const handlePopState = () => {
-      if (window.innerWidth <= 768) {
-        if (!triggered) {
-          showSurvey();
+      if (window.innerWidth > 768) return;
 
-          window.history.pushState(
-            { kycExitSurvey: true },
-            "",
-            window.location.href
-          );
-        }
+      if (!triggered) {
+        triggered = true;
+
+        sessionStorage.setItem(
+          "kyc_exit_survey_shown",
+          "1"
+        );
+
+        setOpen(true);
+
+        /*
+          Keep the visitor on the page while
+          the survey is visible.
+        */
+        window.history.pushState(
+          { kycExitSurvey: true },
+          "",
+          window.location.href
+        );
       }
     };
+
+    document.addEventListener(
+      "mousemove",
+      handleMouseMove
+    );
 
     document.addEventListener(
       "mouseleave",
@@ -118,6 +163,14 @@ export default function KycExitSurvey() {
     }, 5000);
 
     return () => {
+      window.clearTimeout(activationTimer);
+      window.clearTimeout(mobileTimer);
+
+      document.removeEventListener(
+        "mousemove",
+        handleMouseMove
+      );
+
       document.removeEventListener(
         "mouseleave",
         handleMouseLeave
@@ -128,11 +181,10 @@ export default function KycExitSurvey() {
         handlePopState
       );
 
-      window.clearTimeout(mobileTimer);
-
-      if (mobileHistoryAdded) {
-        window.history.back();
-      }
+      /*
+        Don't manipulate browser history
+        during cleanup.
+      */
     };
   }, [pathname]);
 
@@ -178,8 +230,7 @@ export default function KycExitSurvey() {
       body: formData,
       keepalive: true,
     }).catch(() => {
-      // Keep the experience smooth even if
-      // the network request fails.
+      // Keep the user experience smooth.
     });
 
     setSubmitted(true);

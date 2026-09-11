@@ -211,7 +211,7 @@ export default function PsychologyBehindWritingPage() {
               </div>
 
               <div className="mt-2 text-base font-bold">
-                06 September 2026 • 11 AM IST
+                20 September 2026 • 11 AM IST
               </div>
 
             </div>
@@ -834,7 +834,7 @@ export default function PsychologyBehindWritingPage() {
 
 
           <div className="mt-8 text-sm font-black uppercase tracking-[0.12em] sm:text-base">
-            06 September 2026 • 11 AM IST
+            20 September 2026 • 11 AM IST
           </div>
 
 
@@ -999,7 +999,7 @@ export default function PsychologyBehindWritingPage() {
           </span>
 
           <span>
-            Puneet Kaur Saluja • 06 September 2026 • 11 AM IST
+            Puneet Kaur Saluja • 20 September 2026 • 11 AM IST
           </span>
 
         </div>

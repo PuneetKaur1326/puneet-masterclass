@@ -145,7 +145,7 @@ export default function PsychologyBehindWritingPage() {
         The Psychology Behind Writing
       </div>
 
-      <h1 className="mx-auto mt-6 max-w-5xl text-[clamp(3.5rem,8vw,7.5rem)] font-black uppercase leading-[0.8] tracking-[-0.065em]">
+      <h1 className="mx-auto mt-6 max-w-5xl text-[clamp(2.8rem,6.5vw,6rem)] font-black uppercase leading-[0.8] tracking-[-0.065em]">
         WHICH ONE
         <br />
         WOULD MAKE
@@ -153,7 +153,7 @@ export default function PsychologyBehindWritingPage() {
         <span className="text-[#F4B400]">YOU STOP?</span>
       </h1>
 
-      <p className="mx-auto mt-8 max-w-2xl text-lg font-bold leading-tight sm:text-2xl">
+      <p className="mx-auto mt-8 max-w-2xl text-lg font-bold leading-tight sm:text-lg">
         Same subject. Two completely different ways of communicating it.
       </p>
 
@@ -169,7 +169,7 @@ export default function PsychologyBehindWritingPage() {
         className="group min-h-[250px] border border-black/10 bg-white p-7 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.10)] sm:p-10"
       >
         <div className="flex items-start justify-between">
-          <span className="text-6xl font-black text-black/10">
+          <span className="text-lg font-black text-black/10">
             A
           </span>
 
@@ -178,7 +178,7 @@ export default function PsychologyBehindWritingPage() {
           </span>
         </div>
 
-        <p className="mt-10 max-w-lg text-3xl font-black leading-[0.95] tracking-[-0.035em] sm:text-4xl">
+        <p className="mt-10 max-w-lg text-lg font-black leading-[0.95] tracking-[-0.035em] sm:text-lg">
           5 Ways to Improve Your Content
         </p>
 
@@ -194,7 +194,7 @@ export default function PsychologyBehindWritingPage() {
         className="group min-h-[250px] bg-[#F4B400] p-7 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] sm:p-10"
       >
         <div className="flex items-start justify-between">
-          <span className="text-6xl font-black text-black/15">
+          <span className="text-lg font-black text-black/15">
             B
           </span>
 
@@ -203,7 +203,7 @@ export default function PsychologyBehindWritingPage() {
           </span>
         </div>
 
-        <p className="mt-10 max-w-lg text-3xl font-black leading-[0.95] tracking-[-0.035em] sm:text-4xl">
+        <p className="mt-10 max-w-lg text-lg font-black leading-[0.95] tracking-[-0.035em] sm:text-lg">
           Your content isn&apos;t boring.
           <br />
           Your audience just has no reason to care.
@@ -237,7 +237,7 @@ export default function PsychologyBehindWritingPage() {
               type="button"
               onClick={() => setPollChoice(null)}
               aria-label="Close"
-              className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center border border-black/15 text-xl font-black hover:bg-black hover:text-white"
+              className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center border border-black/15 text-lg font-black hover:bg-black hover:text-white"
             >
               ×
             </button>
@@ -249,7 +249,7 @@ export default function PsychologyBehindWritingPage() {
 
               {pollChoice === "A" ? (
                 <>
-                  <h2 className="mt-4 text-4xl font-black uppercase leading-[0.9] tracking-[-0.04em] sm:text-5xl">
+                  <h2 className="mt-4 text-lg font-black uppercase leading-[0.9] tracking-[-0.04em] sm:text-lg">
                     Clear is good.
                     <br />
                     <span className="text-[#F4B400]">
@@ -276,7 +276,7 @@ export default function PsychologyBehindWritingPage() {
                 </>
               ) : (
                 <>
-                  <h2 className="mt-4 text-4xl font-black uppercase leading-[0.9] tracking-[-0.04em] sm:text-5xl">
+                  <h2 className="mt-4 text-lg font-black uppercase leading-[0.9] tracking-[-0.04em] sm:text-lg">
                     You probably paused because it created a reaction.
                   </h2>
 
@@ -300,7 +300,7 @@ export default function PsychologyBehindWritingPage() {
               )}
 
               <div className="mt-8 border-l-4 border-[#F4B400] pl-5">
-                <p className="text-xl font-black leading-tight sm:text-2xl">
+                <p className="text-lg font-black leading-tight sm:text-lg">
                   Good communication doesn&apos;t just deliver information.
                   It creates a reason to pay attention.
                 </p>
@@ -311,7 +311,7 @@ export default function PsychologyBehindWritingPage() {
                   So... what do you want to do with that?
                 </p>
 
-                <div className="mt-3 text-2xl font-black leading-tight">
+                <div className="mt-3 text-lg font-black leading-tight">
                   Learn the psychology behind why some messages make people
                   stop, care and remember.
                 </div>
@@ -352,25 +352,25 @@ export default function PsychologyBehindWritingPage() {
                 And That Was The Point
               </div>
 
-              <h2 className="mt-5 text-5xl font-black uppercase leading-[0.87] tracking-[-0.05em] sm:text-7xl">
+              <h2 className="mt-5 text-lg font-black uppercase leading-[0.87] tracking-[-0.05em] sm:text-lg">
                 Same subject.
                 <br />
                 <span className="text-[#F4B400]">Different response.</span>
               </h2>
 
-              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/60 sm:text-xl">
+              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/60 sm:text-lg">
                 The difference wasn&apos;t the information.
               </p>
 
-              <p className="mt-2 text-2xl font-black sm:text-3xl">
+              <p className="mt-2 text-lg font-black sm:text-lg">
                 It was the psychology behind the message.
               </p>
             </div>
 
             <div className="border border-white/10 bg-white/5 p-8">
-              <div className="text-6xl font-black text-[#F4B400]">01</div>
+              <div className="text-lg font-black text-[#F4B400]">01</div>
 
-              <p className="mt-8 text-2xl font-black leading-tight">
+              <p className="mt-8 text-lg font-black leading-tight">
                 The way you communicate something can completely change how
                 someone responds to it.
               </p>
@@ -392,7 +392,7 @@ export default function PsychologyBehindWritingPage() {
                 See Me Think
               </div>
 
-              <h2 className="mt-4 text-4xl font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-6xl">
+              <h2 className="mt-4 text-lg font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-lg">
                 Don&apos;t just take my word for it.
               </h2>
 
@@ -443,25 +443,25 @@ export default function PsychologyBehindWritingPage() {
                 Why Listen To Me?
               </div>
 
-              <h2 className="mt-5 text-4xl font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-6xl">
+              <h2 className="mt-5 text-lg font-black uppercase leading-[0.9] tracking-[-0.05em] sm:text-lg">
                 I&apos;ve spent years trying to understand why people care.
               </h2>
 
-              <p className="mt-7 text-lg leading-relaxed text-black/60 sm:text-xl">
+              <p className="mt-7 text-lg leading-relaxed text-black/60 sm:text-lg">
                 I&apos;m Puneet Kaur Saluja — a writer, strategist and brand
                 communication specialist.
               </p>
 
               <div className="mt-8 grid grid-cols-2 gap-3">
                 <div className="bg-[#171717] p-5 text-white">
-                  <div className="text-3xl font-black">9+</div>
+                  <div className="text-lg font-black">9+</div>
                   <div className="mt-2 text-xs font-black uppercase tracking-[0.1em] text-white/45">
                     Years
                   </div>
                 </div>
 
                 <div className="bg-[#F4B400] p-5">
-                  <div className="text-3xl font-black">₹500</div>
+                  <div className="text-lg font-black">₹500</div>
                   <div className="mt-2 text-xs font-black uppercase tracking-[0.1em] text-black/45">
                     Where I Started
                   </div>
@@ -469,11 +469,11 @@ export default function PsychologyBehindWritingPage() {
               </div>
 
               <div className="mt-8 border-l-4 border-[#F4B400] pl-5">
-                <p className="text-xl font-black leading-tight sm:text-2xl">
+                <p className="text-lg font-black leading-tight sm:text-lg">
                   Good writing isn&apos;t really about words.
                 </p>
 
-                <p className="mt-2 text-xl font-black leading-tight text-[#F4B400] sm:text-2xl">
+                <p className="mt-2 text-lg font-black leading-tight text-[#F4B400] sm:text-lg">
                   It&apos;s about understanding the person reading them.
                 </p>
               </div>
@@ -494,11 +494,11 @@ export default function PsychologyBehindWritingPage() {
               Selected Work
             </div>
 
-            <h2 className="mt-5 text-5xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-7xl">
+            <h2 className="mt-5 text-lg font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-lg">
               This isn&apos;t just something I teach.
             </h2>
 
-            <p className="mt-6 text-lg leading-relaxed text-white/55 sm:text-xl">
+            <p className="mt-6 text-lg leading-relaxed text-white/55 sm:text-lg">
               I&apos;ve had to figure it out while working with real brands,
               real audiences and real communication problems.
             </p>
@@ -524,7 +524,7 @@ export default function PsychologyBehindWritingPage() {
                   A Fragrance Story
                 </div>
 
-                <h3 className="mt-2 text-2xl font-black">
+                <h3 className="mt-2 text-lg font-black">
                   Brand Communication
                 </h3>
               </div>
@@ -547,7 +547,7 @@ export default function PsychologyBehindWritingPage() {
                   Pop Fusion
                 </div>
 
-                <h3 className="mt-2 text-2xl font-black">
+                <h3 className="mt-2 text-lg font-black">
                   Brand Communication
                 </h3>
               </div>
@@ -570,7 +570,7 @@ export default function PsychologyBehindWritingPage() {
                   A Fragrance Story
                 </div>
 
-                <h3 className="mt-2 text-2xl font-black">
+                <h3 className="mt-2 text-lg font-black">
                   Product Launch
                 </h3>
               </div>
@@ -593,7 +593,7 @@ export default function PsychologyBehindWritingPage() {
                   FoodFox
                 </div>
 
-                <h3 className="mt-2 text-2xl font-black">
+                <h3 className="mt-2 text-lg font-black">
                   Social Media Copy
                 </h3>
               </div>
@@ -616,7 +616,7 @@ export default function PsychologyBehindWritingPage() {
                 Case Study
               </div>
 
-              <h2 className="mt-5 text-5xl font-black uppercase leading-[0.85] tracking-[-0.05em] sm:text-7xl">
+              <h2 className="mt-5 text-lg font-black uppercase leading-[0.85] tracking-[-0.05em] sm:text-lg">
                 #ThankYou
                 <br />
                 Skylee
@@ -686,7 +686,7 @@ export default function PsychologyBehindWritingPage() {
               <div className="mt-4 grid grid-cols-3 gap-3">
 
                 <div className="bg-[#171717] p-5 text-white">
-                  <div className="text-2xl font-black sm:text-3xl">
+                  <div className="text-lg font-black sm:text-lg">
                     90K+
                   </div>
 
@@ -696,7 +696,7 @@ export default function PsychologyBehindWritingPage() {
                 </div>
 
                 <div className="bg-[#171717] p-5 text-white">
-                  <div className="text-2xl font-black sm:text-3xl">
+                  <div className="text-lg font-black sm:text-lg">
                     1.29K+
                   </div>
 
@@ -706,7 +706,7 @@ export default function PsychologyBehindWritingPage() {
                 </div>
 
                 <div className="bg-[#F4B400] p-5">
-                  <div className="text-2xl font-black sm:text-3xl">
+                  <div className="text-lg font-black sm:text-lg">
                     3K+
                   </div>
 
@@ -724,7 +724,7 @@ export default function PsychologyBehindWritingPage() {
               The Psychology
             </div>
 
-            <p className="mt-5 max-w-4xl text-3xl font-black leading-tight tracking-[-0.03em] sm:text-5xl">
+            <p className="mt-5 max-w-4xl text-lg font-black leading-tight tracking-[-0.03em] sm:text-lg">
               The point wasn&apos;t just to sell an outfit.
               <br />
               <span className="text-black/45">
@@ -748,7 +748,7 @@ export default function PsychologyBehindWritingPage() {
                 Inside The Webinar
               </div>
 
-              <h2 className="mt-5 text-5xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-7xl">
+              <h2 className="mt-5 text-lg font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-lg">
                 You&apos;ll start seeing content differently.
               </h2>
             </div>
@@ -769,7 +769,7 @@ export default function PsychologyBehindWritingPage() {
                   {point.number}
                 </div>
 
-                <h3 className="mt-12 text-2xl font-black">
+                <h3 className="mt-12 text-lg font-black">
                   {point.title}
                 </h3>
 
@@ -796,23 +796,23 @@ export default function PsychologyBehindWritingPage() {
                 And This Matters Even More Now
               </div>
 
-              <h2 className="mt-5 text-5xl font-black uppercase leading-[0.87] tracking-[-0.05em] sm:text-7xl">
+              <h2 className="mt-5 text-lg font-black uppercase leading-[0.87] tracking-[-0.05em] sm:text-lg">
                 AI can write
                 <br />
                 your words.
               </h2>
 
-              <p className="mt-6 text-3xl font-black leading-tight sm:text-4xl">
+              <p className="mt-6 text-lg font-black leading-tight sm:text-lg">
                 But can it make people care?
               </p>
             </div>
 
             <div className="border border-black/15 bg-black/5 p-8">
-              <p className="text-xl font-black leading-tight">
+              <p className="text-lg font-black leading-tight">
                 AI helps you create faster.
               </p>
 
-              <p className="mt-5 text-xl font-black leading-tight">
+              <p className="mt-5 text-lg font-black leading-tight">
                 Psychology helps you understand what those words need to do.
               </p>
             </div>
@@ -832,7 +832,7 @@ export default function PsychologyBehindWritingPage() {
               Is This For You?
             </div>
 
-            <h2 className="mt-5 text-5xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-7xl">
+            <h2 className="mt-5 text-lg font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-lg">
               If you create content,
               <br />
               probably.
@@ -852,7 +852,7 @@ export default function PsychologyBehindWritingPage() {
             ].map((item) => (
               <div
                 key={item}
-                className="border border-white/10 bg-white/5 p-6 text-xl font-black"
+                className="border border-white/10 bg-white/5 p-6 text-lg font-black"
               >
                 <span className="mr-3 text-[#F4B400]">→</span>
                 {item}
@@ -874,7 +874,7 @@ export default function PsychologyBehindWritingPage() {
               The Real Shift
             </div>
 
-            <h2 className="mt-5 text-5xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-7xl">
+            <h2 className="mt-5 text-lg font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-lg">
               From creating content
               <br />
               to creating communication.
@@ -902,7 +902,7 @@ export default function PsychologyBehindWritingPage() {
                   Instead of
                 </div>
 
-                <p className="mt-5 text-2xl font-black text-black/35 line-through">
+                <p className="mt-5 text-lg font-black text-black/35 line-through">
                   {from}
                 </p>
 
@@ -912,14 +912,14 @@ export default function PsychologyBehindWritingPage() {
                   Start asking
                 </div>
 
-                <p className="mt-3 text-2xl font-black leading-tight">
+                <p className="mt-3 text-lg font-black leading-tight">
                   {to}
                 </p>
               </div>
             ))}
 
             <div className="flex items-center bg-[#F4B400] p-7 sm:p-9">
-              <p className="text-3xl font-black uppercase leading-[0.9] sm:text-4xl">
+              <p className="text-lg font-black uppercase leading-[0.9] sm:text-lg">
                 Your audience doesn&apos;t need more content.
                 <br />
                 <span className="text-black/45">
@@ -942,7 +942,7 @@ export default function PsychologyBehindWritingPage() {
             What People Say
           </div>
 
-          <h2 className="mt-5 max-w-3xl text-5xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-7xl">
+          <h2 className="mt-5 max-w-3xl text-lg font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-lg">
             When the way you see content changes.
           </h2>
 
@@ -959,9 +959,9 @@ export default function PsychologyBehindWritingPage() {
                 }`}
               >
                 <div>
-                  <div className="text-5xl font-black opacity-20">“</div>
+                  <div className="text-lg font-black opacity-20">“</div>
 
-                  <p className="mt-5 text-xl font-black leading-tight">
+                  <p className="mt-5 text-lg font-black leading-tight">
                     {testimonial.quote}
                   </p>
                 </div>
@@ -986,13 +986,13 @@ export default function PsychologyBehindWritingPage() {
             The Psychology Behind Writing
           </div>
 
-          <h2 className="mt-5 text-5xl font-black uppercase leading-[0.85] tracking-[-0.05em] sm:text-7xl">
+          <h2 className="mt-5 text-lg font-black uppercase leading-[0.85] tracking-[-0.05em] sm:text-lg">
             2-HOUR LIVE
             <br />
             WEBINAR
           </h2>
 
-          <div className="mt-8 text-7xl font-black tracking-[-0.07em]">
+          <div className="mt-8 text-lg font-black tracking-[-0.07em]">
             ₹99
           </div>
 
@@ -1038,7 +1038,7 @@ export default function PsychologyBehindWritingPage() {
             FAQ
           </div>
 
-          <h2 className="mt-5 text-5xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-7xl">
+          <h2 className="mt-5 text-lg font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-lg">
             Questions?
           </h2>
 
@@ -1058,12 +1058,12 @@ export default function PsychologyBehindWritingPage() {
                     }
                     className="flex w-full items-center justify-between gap-6 py-6 text-left"
                   >
-                    <span className="text-lg font-black sm:text-xl">
+                    <span className="text-lg font-black sm:text-lg">
                       {faq.question}
                     </span>
 
                     <span
-                      className={`flex h-9 w-9 shrink-0 items-center justify-center border border-black/20 text-xl transition ${
+                      className={`flex h-9 w-9 shrink-0 items-center justify-center border border-black/20 text-lg transition ${
                         isOpen ? "rotate-45" : ""
                       }`}
                     >
@@ -1102,11 +1102,11 @@ export default function PsychologyBehindWritingPage() {
             One Last Question
           </div>
 
-          <h2 className="mt-6 text-5xl font-black uppercase leading-[0.86] tracking-[-0.05em] sm:text-7xl">
+          <h2 className="mt-6 text-lg font-black uppercase leading-[0.86] tracking-[-0.05em] sm:text-lg">
             Your audience doesn&apos;t owe your content their attention.
           </h2>
 
-          <p className="mt-8 text-2xl font-black text-white/45 sm:text-4xl">
+          <p className="mt-8 text-lg font-black text-white/45 sm:text-lg">
             You have to give them a reason to care.
           </p>
 

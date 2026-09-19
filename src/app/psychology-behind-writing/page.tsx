@@ -532,21 +532,11 @@ export default function PsychologyBehindWritingPage() {
               <div className="group overflow-hidden bg-[#F4B400]">
                 <Image
                   src="/landing-assets/pop-fusion.jpeg"
-                  alt="Pop Fusion social media work"
+                  alt="Pop Fusion work"
                   width={1024}
                   height={768}
                   className="h-auto w-full object-contain mix-blend-multiply transition duration-700 group-hover:scale-[1.01]"
                 />
-              </div>
-
-              <div className="bg-white p-6 text-black">
-                <div className="text-xs font-black uppercase tracking-[0.15em] text-black/40">
-                  Pop Fusion
-                </div>
-
-                <h3 className="mt-2 text-2xl font-black">
-                  Social Media Copy
-                </h3>
               </div>
 
             </div>

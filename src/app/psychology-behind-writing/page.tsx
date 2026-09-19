@@ -279,7 +279,9 @@ export default function PsychologyBehindWritingPage() {
                   >
                     Clear is good.
                     <br />
-                    <span className="text-[#F4B400]">But clear isn't always enough.</span>
+                    <span className="text-[#F4B400]">
+                      But clear isn&apos;t always enough.
+                    </span>
                   </h2>
 
                   <div className="mt-7 space-y-4 text-base leading-relaxed text-black/65 sm:text-lg">
@@ -340,29 +342,38 @@ export default function PsychologyBehindWritingPage() {
                 </>
               )}
 
+              {/* POPUP CTA CHOICES */}
               <div className="mt-9 border-t border-black/10 pt-7">
                 <p className="text-sm font-black uppercase tracking-[0.16em] text-black/45">
-                  And that&apos;s exactly what we&apos;re going to explore.
+                  So... what do you want to do with that?
                 </p>
 
                 <p className="mt-3 text-2xl font-black leading-tight">
-                  The psychology behind why some messages make people stop,
-                  care and remember.
+                  Learn the psychology behind why some messages make people
+                  stop, care and remember.
                 </p>
 
-                <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center">
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Link
                     href="/register"
                     onClick={() => setPollChoice(null)}
-                    className="inline-flex items-center justify-center bg-[#171717] px-7 py-4 text-sm font-black uppercase tracking-[0.05em] text-white transition-all duration-300 hover:bg-[#F4B400] hover:text-[#171717]"
+                    className="inline-flex flex-1 items-center justify-center bg-[#171717] px-6 py-4 text-center text-sm font-black uppercase tracking-[0.04em] text-white transition-all duration-300 hover:bg-[#F4B400] hover:text-[#171717]"
                   >
-                    JOIN THE WEBINAR FOR ₹99 →
+                    YES — JOIN THE WEBINAR FOR ₹99 →
                   </Link>
 
-                  <span className="text-xs font-black uppercase tracking-[0.1em] text-black/45">
-                    27 September • 11 AM IST
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setPollChoice(null)}
+                    className="inline-flex flex-1 items-center justify-center border border-black/15 px-6 py-4 text-center text-sm font-black uppercase tracking-[0.04em] text-black/55 transition-all duration-300 hover:border-black hover:bg-black hover:text-white"
+                  >
+                    NO, I WISH TO STAY STUCK
+                  </button>
                 </div>
+
+                <p className="mt-4 text-center text-xs font-bold text-black/35">
+                  2-hour live webinar • 27 September 2026 • 11 AM IST
+                </p>
               </div>
             </div>
           </div>
@@ -401,16 +412,20 @@ export default function PsychologyBehindWritingPage() {
             </div>
 
             <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-              {["ATTENTION", "CURIOSITY", "RELEVANCE", "EMOTION", "MEMORY"].map(
-                (item) => (
-                  <div
-                    key={item}
-                    className="border border-white/10 bg-white/5 px-4 py-5 text-center text-xs font-black uppercase tracking-[0.1em]"
-                  >
-                    {item}
-                  </div>
-                )
-              )}
+              {[
+                "ATTENTION",
+                "CURIOSITY",
+                "RELEVANCE",
+                "EMOTION",
+                "MEMORY",
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="border border-white/10 bg-white/5 px-4 py-5 text-center text-xs font-black uppercase tracking-[0.1em]"
+                >
+                  {item}
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -467,8 +482,9 @@ export default function PsychologyBehindWritingPage() {
 
             <div className="space-y-6 text-lg leading-relaxed text-black/65 sm:text-xl">
               <p>
-                I&apos;m <strong className="text-black">Puneet Kaur Saluja</strong>{" "}
-                — a writer, strategist and brand communication specialist.
+                I&apos;m{" "}
+                <strong className="text-black">Puneet Kaur Saluja</strong> — a
+                writer, strategist and brand communication specialist.
               </p>
 
               <p className="font-black text-black">
@@ -481,9 +497,7 @@ export default function PsychologyBehindWritingPage() {
                 communication, consumer insights and strategy.
               </p>
 
-              <p>
-                And somewhere along the way, I realised something:
-              </p>
+              <p>And somewhere along the way, I realised something:</p>
 
               <div className="border-l-4 border-[#F4B400] pl-6">
                 <p className="text-2xl font-black leading-tight text-black sm:text-3xl">

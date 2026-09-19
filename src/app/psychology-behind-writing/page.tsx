@@ -513,7 +513,7 @@ export default function PsychologyBehindWritingPage() {
                 alt="A Fragrance Story brand communication work"
                 width={1024}
                 height={768}
-                className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                className="h-auto w-full object-contain transition duration-700 group-hover:scale-[1.01]"
               />
 
               <div className="bg-white p-6 text-black">
@@ -561,7 +561,7 @@ export default function PsychologyBehindWritingPage() {
                 alt="A Fragrance Story product launch work"
                 width={1024}
                 height={768}
-                className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                className="h-auto w-full object-contain transition duration-700 group-hover:scale-[1.01]"
               />
 
               <div className="p-6 text-black">
@@ -581,7 +581,7 @@ export default function PsychologyBehindWritingPage() {
                 alt="FoodFox social media work"
                 width={1024}
                 height={768}
-                className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]"
+                className="h-auto w-full object-contain transition duration-700 group-hover:scale-[1.01]"
               />
 
               <div className="p-6 text-black">

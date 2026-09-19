@@ -535,7 +535,7 @@ export default function PsychologyBehindWritingPage() {
                   alt="Pop Fusion social media work"
                   width={1024}
                   height={768}
-                  className="h-full w-full object-cover mix-blend-multiply transition duration-700 group-hover:scale-[1.03]"
+                  className="h-auto w-full object-contain mix-blend-multiply transition duration-700 group-hover:scale-[1.01]"
                 />
               </div>
 
@@ -555,7 +555,7 @@ export default function PsychologyBehindWritingPage() {
           {/* SECOND ROW */}
           <div className="mt-4 grid gap-4 md:grid-cols-2">
 
-            <div className="group overflow-hidden bg-white">
+           <div className="group overflow-hidden bg-white">
               <Image
                 src="/landing-assets/a-fragrance-story-product-launch.jpeg"
                 alt="A Fragrance Story product launch work"

@@ -130,139 +130,94 @@ export default function PsychologyBehindWritingPage() {
         </div>
       </header>
 
-      {/* =========================================================
-          HERO
-      ========================================================= */}
-      <section className="px-5 pb-16 pt-10 sm:px-8 lg:px-12 lg:pb-24 lg:pt-16">
-        <div className="mx-auto max-w-7xl">
+    {/* =========================================================
+    HERO
+========================================================= */}
+{/* =========================================================
+    HERO — POLL ONLY
+========================================================= */}
+<section className="px-5 pb-16 pt-14 sm:px-8 lg:px-12 lg:pb-20 lg:pt-20">
+  <div className="mx-auto max-w-6xl">
 
-          <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+    <div className="text-center">
 
-            {/* LEFT */}
-            <div>
-              <div className="mb-6 text-xs font-black uppercase tracking-[0.22em] text-black/45 sm:text-sm">
-                A live 2-hour webinar • ₹99
-              </div>
+      <div className="text-xs font-black uppercase tracking-[0.22em] text-black/40 sm:text-sm">
+        The Psychology Behind Writing
+      </div>
 
-              <h1 className="text-[clamp(3.4rem,8vw,7.7rem)] font-black uppercase leading-[0.79] tracking-[-0.065em]">
-                WHICH ONE
-                <br />
-                WOULD MAKE
-                <br />
-                <span className="text-[#F4B400]">YOU STOP?</span>
-              </h1>
+      <h1 className="mx-auto mt-6 max-w-5xl text-[clamp(3.5rem,8vw,7.5rem)] font-black uppercase leading-[0.8] tracking-[-0.065em]">
+        WHICH ONE
+        <br />
+        WOULD MAKE
+        <br />
+        <span className="text-[#F4B400]">YOU STOP?</span>
+      </h1>
 
-              <p className="mt-7 max-w-xl text-lg font-bold leading-tight sm:text-2xl">
-                Same subject. Two completely different ways of communicating
-                it.
-              </p>
+      <p className="mx-auto mt-8 max-w-2xl text-lg font-bold leading-tight sm:text-2xl">
+        Same subject. Two completely different ways of communicating it.
+      </p>
 
-              <p className="mt-4 max-w-xl text-base leading-relaxed text-black/50">
-                Click one. See what your choice reveals about attention,
-                curiosity and the psychology behind communication.
-              </p>
-            </div>
+    </div>
 
-            {/* REPLACEMENT HERO VISUAL — NO PERSONAL PHOTO */}
-            <div className="relative min-h-[360px] sm:min-h-[430px]">
-              <div className="absolute right-3 top-0 h-44 w-44 rounded-full bg-[#F4B400] sm:right-8 sm:h-56 sm:w-56" />
+    {/* POLL */}
+    <div className="mt-12 grid gap-4 md:grid-cols-2">
 
-              <div className="absolute left-3 top-14 z-10 w-[calc(100%-1.5rem)] border border-black bg-[#F8F6F0] p-8 shadow-[18px_18px_0_#171717] sm:left-8 sm:top-20 sm:w-[calc(100%-4rem)] sm:p-10">
-                <div className="h-1 w-16 bg-[#171717]" />
+      {/* OPTION A */}
+      <button
+        type="button"
+        onClick={() => setPollChoice("A")}
+        className="group min-h-[250px] border border-black/10 bg-white p-7 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.10)] sm:p-10"
+      >
+        <div className="flex items-start justify-between">
+          <span className="text-6xl font-black text-black/10">
+            A
+          </span>
 
-                <p className="mt-8 text-3xl font-black leading-[0.95] tracking-[-0.035em] sm:text-5xl">
-                  Words aren&apos;t enough.
-                  <br />
-                  Understanding people is.
-                </p>
-
-                <div className="mt-10 text-[10px] font-black uppercase tracking-[0.25em] text-black/45 sm:text-xs">
-                  Writing • Strategy • Brands
-                </div>
-              </div>
-
-              <div className="absolute bottom-0 right-0 z-20 bg-[#171717] px-6 py-5 text-white sm:right-4">
-                <div className="text-xs font-black uppercase tracking-[0.16em] text-[#F4B400]">
-                  THE REAL QUESTION
-                </div>
-
-                <p className="mt-2 max-w-[220px] text-sm font-bold leading-relaxed text-white/75">
-                  What makes someone stop, care and remember?
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* POLL */}
-          <div className="mt-16 grid gap-4 md:grid-cols-2">
-
-            <button
-              type="button"
-              onClick={() => setPollChoice("A")}
-              className="group min-h-[250px] border border-black/10 bg-white p-7 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.10)] sm:p-10"
-            >
-              <div className="flex items-start justify-between">
-                <span className="text-6xl font-black text-black/10">A</span>
-
-                <span className="border border-black/15 px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] group-hover:bg-black group-hover:text-white">
-                  Choose A
-                </span>
-              </div>
-
-              <p className="mt-10 max-w-lg text-3xl font-black leading-[0.95] tracking-[-0.035em] sm:text-4xl">
-                5 Ways to Improve Your Content
-              </p>
-
-              <p className="mt-5 text-xs font-black uppercase tracking-[0.15em] text-black/40">
-                Clear • Useful • Familiar
-              </p>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setPollChoice("B")}
-              className="group min-h-[250px] bg-[#F4B400] p-7 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] sm:p-10"
-            >
-              <div className="flex items-start justify-between">
-                <span className="text-6xl font-black text-black/15">B</span>
-
-                <span className="border border-black/20 px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] group-hover:bg-black group-hover:text-white">
-                  Choose B
-                </span>
-              </div>
-
-              <p className="mt-10 max-w-lg text-3xl font-black leading-[0.95] tracking-[-0.035em] sm:text-4xl">
-                Your content isn&apos;t boring.
-                <br />
-                Your audience just has no reason to care.
-              </p>
-
-              <p className="mt-5 text-xs font-black uppercase tracking-[0.15em] text-black/50">
-                Tension • Curiosity • Relevance
-              </p>
-            </button>
-          </div>
-
-          <div className="mt-8 flex flex-col gap-5 border-t border-black/10 pt-7 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <div className="text-xs font-black uppercase tracking-[0.15em] text-black/40">
-                Live Webinar
-              </div>
-
-              <div className="mt-2 font-black">
-                27 September 2026 • 11 AM IST
-              </div>
-            </div>
-
-            <Link
-              href="/register"
-              className="inline-flex items-center justify-center bg-[#171717] px-7 py-4 text-sm font-black uppercase tracking-[0.04em] text-white transition hover:bg-[#F4B400] hover:text-black"
-            >
-              RESERVE SEAT — ₹99 →
-            </Link>
-          </div>
+          <span className="border border-black/15 px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] group-hover:bg-black group-hover:text-white">
+            Choose A
+          </span>
         </div>
-      </section>
+
+        <p className="mt-10 max-w-lg text-3xl font-black leading-[0.95] tracking-[-0.035em] sm:text-4xl">
+          5 Ways to Improve Your Content
+        </p>
+
+        <p className="mt-5 text-xs font-black uppercase tracking-[0.15em] text-black/40">
+          Clear • Useful • Familiar
+        </p>
+      </button>
+
+      {/* OPTION B */}
+      <button
+        type="button"
+        onClick={() => setPollChoice("B")}
+        className="group min-h-[250px] bg-[#F4B400] p-7 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] sm:p-10"
+      >
+        <div className="flex items-start justify-between">
+          <span className="text-6xl font-black text-black/15">
+            B
+          </span>
+
+          <span className="border border-black/20 px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] group-hover:bg-black group-hover:text-white">
+            Choose B
+          </span>
+        </div>
+
+        <p className="mt-10 max-w-lg text-3xl font-black leading-[0.95] tracking-[-0.035em] sm:text-4xl">
+          Your content isn&apos;t boring.
+          <br />
+          Your audience just has no reason to care.
+        </p>
+
+        <p className="mt-5 text-xs font-black uppercase tracking-[0.15em] text-black/50">
+          Tension • Curiosity • Relevance
+        </p>
+      </button>
+
+    </div>
+
+  </div>
+</section>
 
       {/* =========================================================
           POLL MODAL

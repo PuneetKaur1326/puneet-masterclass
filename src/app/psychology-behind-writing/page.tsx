@@ -961,7 +961,7 @@ export default function PsychologyBehindWritingPage() {
                 <div>
                   <div className="text-lg font-black opacity-20">“</div>
 
-                  <p className="mt-5 text-lg font-black leading-tight">
+                  <p className="mt-5 text-lg font-black italic leading-tight">
                     {testimonial.quote}
                   </p>
                 </div>

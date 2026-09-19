@@ -504,20 +504,23 @@ export default function PsychologyBehindWritingPage() {
             </p>
           </div>
 
-          {/* BIG FEATURED VISUAL */}
-          <div className="mt-14 grid gap-4 lg:grid-cols-[1.35fr_0.65fr]">
+          {/* 2 × 2 PORTFOLIO GRID */}
+          <div className="mt-14 grid gap-4 md:grid-cols-2">
 
+            {/* A FRAGRANCE STORY — BRAND COMMUNICATION */}
             <div className="group overflow-hidden bg-white">
-              <Image
-                src="/landing-assets/a-fragrance-story-brand.jpeg"
-                alt="A Fragrance Story brand communication work"
-                width={1024}
-                height={768}
-                className="h-auto w-full object-contain transition duration-700 group-hover:scale-[1.01]"
-              />
+              <div className="bg-white">
+                <Image
+                  src="/landing-assets/a-fragrance-story-brand.jpeg"
+                  alt="A Fragrance Story brand communication work"
+                  width={1024}
+                  height={1024}
+                  className="block h-auto w-full object-contain transition duration-700 group-hover:scale-[1.01]"
+                />
+              </div>
 
-              <div className="bg-white p-6 text-black">
-                <div className="text-xs font-black uppercase tracking-[0.15em] text-black/40">
+              <div className="border-t border-black/5 p-6 text-black">
+                <div className="text-[10px] font-black uppercase tracking-[0.18em] text-black/40">
                   A Fragrance Story
                 </div>
 
@@ -527,31 +530,43 @@ export default function PsychologyBehindWritingPage() {
               </div>
             </div>
 
-            <div className="group overflow-hidden bg-[#F4B400]">
-              <Image
-                src="/landing-assets/pop-fusion.jpeg"
-                alt="Pop Fusion work"
-                width={1024}
-                height={768}
-                className="h-auto w-full object-contain mix-blend-multiply transition duration-700 group-hover:scale-[1.01]"
-              />
+            {/* POP FUSION — BRAND COMMUNICATION */}
+            <div className="group overflow-hidden bg-white">
+              <div className="bg-white">
+                <Image
+                  src="/landing-assets/pop-fusion.jpeg"
+                  alt="Pop Fusion brand communication work"
+                  width={1024}
+                  height={1024}
+                  className="block h-auto w-full object-contain transition duration-700 group-hover:scale-[1.01]"
+                />
+              </div>
+
+              <div className="border-t border-black/5 p-6 text-black">
+                <div className="text-[10px] font-black uppercase tracking-[0.18em] text-black/40">
+                  Pop Fusion
+                </div>
+
+                <h3 className="mt-2 text-2xl font-black">
+                  Brand Communication
+                </h3>
+              </div>
             </div>
-          </div>
 
-          {/* SECOND ROW */}
-          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            {/* A FRAGRANCE STORY — PRODUCT LAUNCH */}
+            <div className="group overflow-hidden bg-white">
+              <div className="bg-white">
+                <Image
+                  src="/landing-assets/a-fragrance-story-product-launch.jpeg"
+                  alt="A Fragrance Story product launch work"
+                  width={1024}
+                  height={1024}
+                  className="block h-auto w-full object-contain transition duration-700 group-hover:scale-[1.01]"
+                />
+              </div>
 
-           <div className="group overflow-hidden bg-white">
-              <Image
-                src="/landing-assets/a-fragrance-story-product-launch.jpeg"
-                alt="A Fragrance Story product launch work"
-                width={1024}
-                height={768}
-                className="h-auto w-full object-contain transition duration-700 group-hover:scale-[1.01]"
-              />
-
-              <div className="p-6 text-black">
-                <div className="text-xs font-black uppercase tracking-[0.15em] text-black/40">
+              <div className="border-t border-black/5 p-6 text-black">
+                <div className="text-[10px] font-black uppercase tracking-[0.18em] text-black/40">
                   A Fragrance Story
                 </div>
 
@@ -561,17 +576,20 @@ export default function PsychologyBehindWritingPage() {
               </div>
             </div>
 
+            {/* FOODFOX — SOCIAL MEDIA COPY */}
             <div className="group overflow-hidden bg-white">
-              <Image
-                src="/landing-assets/foodfox.jpeg"
-                alt="FoodFox social media work"
-                width={1024}
-                height={768}
-                className="h-auto w-full object-contain transition duration-700 group-hover:scale-[1.01]"
-              />
+              <div className="bg-white">
+                <Image
+                  src="/landing-assets/foodfox.jpeg"
+                  alt="FoodFox social media copy work"
+                  width={1024}
+                  height={1024}
+                  className="block h-auto w-full object-contain transition duration-700 group-hover:scale-[1.01]"
+                />
+              </div>
 
-              <div className="p-6 text-black">
-                <div className="text-xs font-black uppercase tracking-[0.15em] text-black/40">
+              <div className="border-t border-black/5 p-6 text-black">
+                <div className="text-[10px] font-black uppercase tracking-[0.18em] text-black/40">
                   FoodFox
                 </div>
 

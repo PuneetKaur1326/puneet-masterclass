@@ -527,18 +527,14 @@ export default function PsychologyBehindWritingPage() {
               </div>
             </div>
 
-            <div className="grid gap-4">
-
-              <div className="group overflow-hidden bg-[#F4B400]">
-                <Image
-                  src="/landing-assets/pop-fusion.jpeg"
-                  alt="Pop Fusion work"
-                  width={1024}
-                  height={768}
-                  className="h-auto w-full object-contain mix-blend-multiply transition duration-700 group-hover:scale-[1.01]"
-                />
-              </div>
-
+            <div className="group overflow-hidden bg-[#F4B400]">
+              <Image
+                src="/landing-assets/pop-fusion.jpeg"
+                alt="Pop Fusion work"
+                width={1024}
+                height={768}
+                className="h-auto w-full object-contain mix-blend-multiply transition duration-700 group-hover:scale-[1.01]"
+              />
             </div>
           </div>
 

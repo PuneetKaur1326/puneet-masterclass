@@ -177,6 +177,8 @@ export default function PsychologyBehindWritingPage() {
   const [quizAnswers, setQuizAnswers] = useState<Record<string, number>>({});
   const [quizComplete, setQuizComplete] = useState(false);
   const [leadSubmitted, setLeadSubmitted] = useState(false);
+  const [leadSubmitting, setLeadSubmitting] = useState(false);
+  const [leadError, setLeadError] = useState("");
   const [lead, setLead] = useState({
     name: "",
     phone: "",
@@ -226,9 +228,51 @@ export default function PsychologyBehindWritingPage() {
     }
   };
 
-  const handleLeadSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLeadSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
-    setLeadSubmitted(true);
+
+    setLeadError("");
+    setLeadSubmitting(true);
+
+    try {
+      const response = await fetch("/api/quiz-lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: lead.name.trim(),
+          phone: lead.phone.trim(),
+          email: lead.email.trim(),
+          occupation: lead.occupation,
+          quizAnswers,
+          resultKey,
+          resultTitle: resultProfiles[resultKey].title,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.message || "Unable to save your responses. Please try again."
+        );
+      }
+
+      setLeadSubmitted(true);
+    } catch (error) {
+      console.error("Quiz lead submission failed:", error);
+
+      setLeadError(
+        error instanceof Error
+          ? error.message
+          : "Unable to save your responses. Please try again."
+      );
+    } finally {
+      setLeadSubmitting(false);
+    }
   };
 
   return (
@@ -367,14 +411,23 @@ export default function PsychologyBehindWritingPage() {
                     </select>
                   </label>
                 </div>
+                 {leadError && (
+                   <p className="mt-5 border border-red-200 bg-red-50 px-4 py-3 text-center text-sm font-bold leading-relaxed text-red-700">
+                     {leadError}
+                   </p>
+                 )}
 
-                <button type="submit" className="mt-7 inline-flex w-full items-center justify-center bg-[#171717] px-8 py-5 text-sm font-black uppercase tracking-[0.05em] text-white transition hover:bg-[#F4B400] hover:text-black">
-                  SHOW MY RESULT →
-                </button>
+                 <button
+                   type="submit"
+                   disabled={leadSubmitting}
+                   className="mt-7 inline-flex w-full items-center justify-center bg-[#171717] px-8 py-5 text-sm font-black uppercase tracking-[0.05em] text-white transition hover:bg-[#F4B400] hover:text-black disabled:cursor-not-allowed disabled:opacity-60"
+                 >
+                   {leadSubmitting ? "SAVING YOUR RESULT..." : "SHOW MY RESULT →"}
+                 </button>
 
-                <p className="mt-4 text-center text-xs leading-relaxed text-black/35">
-                  Your details are used to show your result and provide webinar information.
-                </p>
+                 <p className="mt-4 text-center text-xs leading-relaxed text-black/35">
+                   Your details and quiz responses are stored securely to provide your result and webinar information.
+                 </p>
               </form>
             </>
           ) : (

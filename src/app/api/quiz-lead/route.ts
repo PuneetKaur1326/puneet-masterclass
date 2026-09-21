@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 
 function isValidIndianPhone(phone: string) {
-  return /^[6-9]\\d{9}$/.test(phone);
+  return /^[6-9]\d{9}$/.test(phone);
 }
 
 function isValidEmail(email: string) {
-  return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 export async function POST(req: Request) {

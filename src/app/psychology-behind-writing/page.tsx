@@ -265,7 +265,7 @@ export default function PsychologyBehindWritingPage() {
                 <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-5xl lg:text-6xl">
                   HOW STRONG IS YOUR
                   <br />
-                  <span className="text-[#F4B400]">CONTENT UNDERSTANDING?</span>
+                  <span className="text-[#F4B400]">CONTENT PSYCHOLOGY?</span>
                 </h1>
                 <p className="mx-auto mt-6 max-w-2xl text-lg font-bold leading-tight text-black/60 sm:text-xl">
                   Take this 60-second test before your next post goes live.
@@ -423,6 +423,8 @@ export default function PsychologyBehindWritingPage() {
         </div>
       </section>
 
+      {leadSubmitted && (
+        <>
       {/* =========================================================
           AND THAT WAS THE POINT
       ========================================================= */}
@@ -1207,6 +1209,9 @@ export default function PsychologyBehindWritingPage() {
 
         </div>
       </section>
+
+        </>
+      )}
 
       {/* =========================================================
           FOOTER

@@ -231,12 +231,6 @@ export default function PsychologyBehindWritingPage() {
     setLeadSubmitted(true);
   };
 
-  return () => {
-      document.body.style.overflow = originalOverflow;
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [pollChoice]);
-
   return (
     <main className="min-h-screen overflow-hidden bg-[#F8F6F0] text-[#171717]">
 

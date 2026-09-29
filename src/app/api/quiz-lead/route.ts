@@ -13,8 +13,7 @@ export async function POST(req: Request) {
 
   try {
     const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseServiceRoleKey =
-      process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     if (!supabaseUrl || !supabaseServiceRoleKey) {
       console.error(
@@ -33,6 +32,9 @@ export async function POST(req: Request) {
     const body = await req.json();
 
     const {
+      stage = "quiz",
+      page = "/psychology-behind-writing",
+      source = "content_psychology_quiz",
       name,
       phone,
       email,
@@ -43,6 +45,16 @@ export async function POST(req: Request) {
     } = body;
 
     if (
+      stage !== "lead" &&
+      stage !== "quiz"
+    ) {
+      return NextResponse.json(
+        { success: false, message: "Invalid submission stage." },
+        { status: 400 }
+      );
+    }
+
+    if (
       typeof name !== "string" ||
       name.trim().length < 2 ||
       typeof email !== "string" ||
@@ -50,31 +62,48 @@ export async function POST(req: Request) {
       typeof phone !== "string" ||
       !isValidIndianPhone(phone.trim()) ||
       typeof occupation !== "string" ||
-      !occupation.trim() ||
-      !quizAnswers ||
-      typeof quizAnswers !== "object" ||
-      typeof resultKey !== "string" ||
-      typeof resultTitle !== "string"
+      !occupation.trim()
     ) {
       return NextResponse.json(
         {
           success: false,
-          message: "Please enter valid details and complete the quiz.",
+          message: "Please enter valid details.",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (
+      stage === "quiz" &&
+      (!quizAnswers ||
+        typeof quizAnswers !== "object" ||
+        typeof resultKey !== "string" ||
+        typeof resultTitle !== "string")
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Please complete the quiz before submitting.",
         },
         { status: 400 }
       );
     }
 
     const payload = {
-      source: "content_psychology_quiz",
-      page: "/psychology-behind-writing",
+      source,
+      page,
+      stage,
       name: name.trim(),
       phone: phone.trim(),
       email: email.trim().toLowerCase(),
       occupation: occupation.trim(),
-      quiz_answers: quizAnswers,
-      result_key: resultKey,
-      result_title: resultTitle,
+      ...(stage === "quiz"
+        ? {
+            quiz_answers: quizAnswers,
+            result_key: resultKey,
+            result_title: resultTitle,
+          }
+        : {}),
       submitted_at: new Date().toISOString(),
     };
 
@@ -89,7 +118,10 @@ export async function POST(req: Request) {
           Prefer: "return=minimal",
         },
         body: JSON.stringify({
-          event_type: "content_psychology_quiz_lead",
+          event_type:
+            stage === "lead"
+              ? "content_psychology_lead"
+              : "content_psychology_quiz_lead",
           payload,
           status: "captured",
         }),
@@ -114,15 +146,10 @@ export async function POST(req: Request) {
     }
 
     console.log(
-      `[QUIZ LEAD ${requestId}] Quiz response captured successfully`
+      `[QUIZ LEAD ${requestId}] ${stage} response captured successfully`
     );
 
-    return NextResponse.json(
-      {
-        success: true,
-      },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
     console.error(`[QUIZ LEAD ${requestId}] Fatal error:`, error);
 

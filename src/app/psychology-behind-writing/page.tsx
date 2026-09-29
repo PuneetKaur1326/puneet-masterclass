@@ -85,12 +85,12 @@ const faqs = [
   },
 ];
 
-
 const quizQuestions = [
   {
     id: "attention",
     eyebrow: "01 • ATTENTION",
-    question: "You have to promote a new skincare product. Which opening would you use?",
+    question:
+      "You have to promote a new skincare product. Which opening would you use?",
     options: [
       "5 Benefits of Using a Vitamin C Serum",
       "Your Skin Doesn't Need Another Serum.",
@@ -101,7 +101,8 @@ const quizQuestions = [
   {
     id: "curiosity",
     eyebrow: "02 • CURIOSITY",
-    question: "You're writing a post about a common mistake founders make with their ads. Which opening creates more reason to continue?",
+    question:
+      "You're writing a post about a common mistake founders make with their ads. Which opening creates more reason to continue?",
     options: [
       "3 Common Mistakes Founders Make With Their Ads",
       "Your Ad Might Be Losing Money For A Reason You Haven't Checked.",
@@ -112,7 +113,8 @@ const quizQuestions = [
   {
     id: "relevance",
     eyebrow: "03 • RELEVANCE",
-    question: "You're selling a productivity product. Which message feels more personally relevant?",
+    question:
+      "You're selling a productivity product. Which message feels more personally relevant?",
     options: [
       "Work Smarter With Our Productivity System.",
       "A Better Way To Organise Your Workday.",
@@ -123,7 +125,8 @@ const quizQuestions = [
   {
     id: "emotion",
     eyebrow: "04 • EMOTION",
-    question: "A brand wants people to buy an affordable ethnic-wear collection. Which message is more likely to create an emotional response?",
+    question:
+      "A brand wants people to buy an affordable ethnic-wear collection. Which message is more likely to create an emotional response?",
     options: [
       "Festive Collection Starting At ₹999.",
       "Beautiful Festive Wear At Affordable Prices.",
@@ -134,7 +137,8 @@ const quizQuestions = [
   {
     id: "memory",
     eyebrow: "05 • MEMORY",
-    question: "You have two ways to end a brand post. Which one are you more likely to remember later?",
+    question:
+      "You have two ways to end a brand post. Which one are you more likely to remember later?",
     options: [
       "Shop Now & Experience The Collection.",
       "One outfit. One occasion. One more reason to dress up.",
@@ -147,27 +151,36 @@ const quizQuestions = [
 const resultProfiles = {
   attention: {
     title: "ATTENTION",
-    diagnosis: "Your content may be useful — but it isn't always giving people a reason to stop.",
-    need: "Learn how to make people pay attention before you give them information.",
+    diagnosis:
+      "Your content may be useful — but it isn't always giving people a reason to stop.",
+    need:
+      "Learn how to make people pay attention before you give them information.",
   },
   curiosity: {
     title: "CURIOSITY",
-    diagnosis: "Your content tells people what they need to know — but doesn't always make them want to know more.",
-    need: "Learn how to create curiosity without relying on clickbait.",
+    diagnosis:
+      "Your content tells people what they need to know — but doesn't always make them want to know more.",
+    need:
+      "Learn how to create curiosity without relying on clickbait.",
   },
   relevance: {
     title: "RELEVANCE",
-    diagnosis: "Your content may make sense, but your audience needs to feel that it is meant for them.",
-    need: "Learn how to make your message feel personally relevant.",
+    diagnosis:
+      "Your content may make sense, but your audience needs to feel that it is meant for them.",
+    need:
+      "Learn how to make your message feel personally relevant.",
   },
   emotion: {
     title: "EMOTION",
-    diagnosis: "Your content communicates information — but information alone doesn't always create action.",
-    need: "Learn how emotion influences the way people respond to a message.",
+    diagnosis:
+      "Your content communicates information — but information alone doesn't always create action.",
+    need:
+      "Learn how emotion influences the way people respond to a message.",
   },
   memory: {
     title: "MEMORY",
-    diagnosis: "People may consume your content and still forget it five minutes later.",
+    diagnosis:
+      "People may consume your content and still forget it five minutes later.",
     need: "Learn what makes a message stick.",
   },
 };
@@ -181,12 +194,15 @@ export default function PsychologyBehindWritingPage() {
   const [leadError, setLeadError] = useState("");
   const [quizSubmitting, setQuizSubmitting] = useState(false);
   const [quizError, setQuizError] = useState("");
+
   const [lead, setLead] = useState({
     name: "",
     phone: "",
     email: "",
     occupation: "",
+    whatsappConsent: false,
   });
+
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const currentQuestion = quizQuestions[quizStep];
@@ -203,14 +219,20 @@ export default function PsychologyBehindWritingPage() {
 
     quizQuestions.forEach((question) => {
       const answer = quizAnswers[question.id];
+
       if (answer === undefined) return;
+
       scores[question.id as keyof typeof resultProfiles] += 4 - answer;
     });
 
-    return Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0] as keyof typeof resultProfiles;
+    return Object.entries(scores).sort(
+      (a, b) => b[1] - a[1]
+    )[0][0] as keyof typeof resultProfiles;
   }, [quizAnswers]);
 
-  const saveQuizResponse = async (answers: Record<string, number>) => {
+  const saveQuizResponse = async (
+    answers: Record<string, number>
+  ) => {
     const scores: Record<keyof typeof resultProfiles, number> = {
       attention: 0,
       curiosity: 0,
@@ -221,11 +243,15 @@ export default function PsychologyBehindWritingPage() {
 
     quizQuestions.forEach((question) => {
       const answer = answers[question.id];
+
       if (answer === undefined) return;
+
       scores[question.id as keyof typeof resultProfiles] += 4 - answer;
     });
 
-    const nextResultKey = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0] as keyof typeof resultProfiles;
+    const nextResultKey = Object.entries(scores).sort(
+      (a, b) => b[1] - a[1]
+    )[0][0] as keyof typeof resultProfiles;
 
     setQuizError("");
     setQuizSubmitting(true);
@@ -244,6 +270,7 @@ export default function PsychologyBehindWritingPage() {
           phone: lead.phone.trim(),
           email: lead.email.trim(),
           occupation: lead.occupation.trim(),
+          whatsappConsent: lead.whatsappConsent,
           quizAnswers: answers,
           resultKey: nextResultKey,
           resultTitle: resultProfiles[nextResultKey].title,
@@ -254,13 +281,18 @@ export default function PsychologyBehindWritingPage() {
 
       if (!response.ok || !result.success) {
         throw new Error(
-          result.message || "Unable to save your quiz response. Please try again."
+          result.message ||
+            "Unable to save your quiz response. Please try again."
         );
       }
 
       setQuizComplete(true);
     } catch (error) {
-      console.error("Quiz response submission failed:", error);
+      console.error(
+        "Quiz response submission failed:",
+        error
+      );
+
       setQuizError(
         error instanceof Error
           ? error.message
@@ -282,7 +314,10 @@ export default function PsychologyBehindWritingPage() {
     setQuizAnswers(nextAnswers);
 
     if (quizStep < quizQuestions.length - 1) {
-      window.setTimeout(() => setQuizStep((current) => current + 1), 180);
+      window.setTimeout(
+        () => setQuizStep((current) => current + 1),
+        180
+      );
     } else {
       void saveQuizResponse(nextAnswers);
     }
@@ -310,6 +345,7 @@ export default function PsychologyBehindWritingPage() {
           phone: lead.phone.trim(),
           email: lead.email.trim(),
           occupation: lead.occupation.trim(),
+          whatsappConsent: lead.whatsappConsent,
         }),
       });
 
@@ -317,13 +353,18 @@ export default function PsychologyBehindWritingPage() {
 
       if (!response.ok || !result.success) {
         throw new Error(
-          result.message || "Unable to save your details. Please try again."
+          result.message ||
+            "Unable to save your details. Please try again."
         );
       }
 
       setLeadSubmitted(true);
     } catch (error) {
-      console.error("Content psychology lead submission failed:", error);
+      console.error(
+        "Content psychology lead submission failed:",
+        error
+      );
+
       setLeadError(
         error instanceof Error
           ? error.message
@@ -344,6 +385,7 @@ export default function PsychologyBehindWritingPage() {
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="h-3 w-3 rounded-full bg-[#F4B400]" />
+
             <span className="text-xs font-black uppercase tracking-[0.18em] sm:text-sm">
               Puneet Kaur Saluja
             </span>
@@ -354,125 +396,366 @@ export default function PsychologyBehindWritingPage() {
           </div>
         </div>
       </header>
+
       {/* =========================================================
           LEAD → QUIZ → RESULT
       ========================================================= */}
       <section className="px-5 pb-20 pt-14 sm:px-8 lg:px-12 lg:pb-24 lg:pt-20">
         <div className="mx-auto max-w-4xl">
+
           {!leadSubmitted ? (
             <>
               <div className="text-center">
                 <div className="text-xs font-black uppercase tracking-[0.2em] text-[#F4B400]">
                   The Content Psychology Test
                 </div>
+
                 <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-5xl lg:text-6xl">
                   BEFORE YOUR NEXT POST,
                   <br />
-                  <span className="text-[#F4B400]">TAKE THIS TEST.</span>
+                  <span className="text-[#F4B400]">
+                    TAKE THIS TEST.
+                  </span>
                 </h1>
+
                 <p className="mx-auto mt-6 max-w-2xl text-lg font-bold leading-tight text-black/60 sm:text-xl">
-                  Enter your details first. Then take the 60-second Content Psychology Test and discover your blind spot.
+                  Enter your details first. Then take the 60-second
+                  Content Psychology Test and discover your blind spot.
                 </p>
               </div>
 
-              <form onSubmit={handleLeadSubmit} className="mx-auto mt-10 max-w-2xl border border-black/10 bg-white p-6 sm:p-10">
+              <form
+                onSubmit={handleLeadSubmit}
+                className="mx-auto mt-10 max-w-2xl border border-black/10 bg-white p-6 sm:p-10"
+              >
                 <div className="mb-8">
-                  <div className="text-xs font-black uppercase tracking-[0.15em] text-black/35">Step 1 of 2</div>
-                  <h2 className="mt-2 text-2xl font-black uppercase tracking-[-0.03em] sm:text-3xl">Get your test started</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-black/50">We&apos;ll use these details to save your result and share the webinar information with you.</p>
+                  <div className="text-xs font-black uppercase tracking-[0.15em] text-black/35">
+                    Step 1 of 2
+                  </div>
+
+                  <h2 className="mt-2 text-2xl font-black uppercase tracking-[-0.03em] sm:text-3xl">
+                    Get your test started
+                  </h2>
+
+                  <p className="mt-2 text-sm leading-relaxed text-black/50">
+                    We&apos;ll use these details to save your result
+                    and share the webinar information with you.
+                  </p>
                 </div>
 
                 <div className="grid gap-5 sm:grid-cols-2">
+
                   <label className="block">
-                    <span className="text-xs font-black uppercase tracking-[0.12em] text-black/45">Name</span>
-                    <input required value={lead.name} onChange={(event) => setLead((current) => ({ ...current, name: event.target.value }))} className="mt-2 w-full border border-black/15 bg-[#F8F6F0] px-4 py-4 text-base outline-none focus:border-[#F4B400]" placeholder="Your name" />
+                    <span className="text-xs font-black uppercase tracking-[0.12em] text-black/45">
+                      Name
+                    </span>
+
+                    <input
+                      required
+                      value={lead.name}
+                      onChange={(event) =>
+                        setLead((current) => ({
+                          ...current,
+                          name: event.target.value,
+                        }))
+                      }
+                      className="mt-2 w-full border border-black/15 bg-[#F8F6F0] px-4 py-4 text-base outline-none focus:border-[#F4B400]"
+                      placeholder="Your name"
+                    />
                   </label>
 
                   <label className="block">
-                    <span className="text-xs font-black uppercase tracking-[0.12em] text-black/45">Phone</span>
-                    <input required type="tel" inputMode="numeric" pattern="[6-9][0-9]{9}" value={lead.phone} onChange={(event) => setLead((current) => ({ ...current, phone: event.target.value.replace(/\D/g, "").slice(0, 10) }))} className="mt-2 w-full border border-black/15 bg-[#F8F6F0] px-4 py-4 text-base outline-none focus:border-[#F4B400]" placeholder="10-digit mobile" />
+                    <span className="text-xs font-black uppercase tracking-[0.12em] text-black/45">
+                      Phone
+                    </span>
+
+                    <input
+                      required
+                      type="tel"
+                      inputMode="numeric"
+                      pattern="[6-9][0-9]{9}"
+                      value={lead.phone}
+                      onChange={(event) =>
+                        setLead((current) => ({
+                          ...current,
+                          phone: event.target.value
+                            .replace(/\D/g, "")
+                            .slice(0, 10),
+                        }))
+                      }
+                      className="mt-2 w-full border border-black/15 bg-[#F8F6F0] px-4 py-4 text-base outline-none focus:border-[#F4B400]"
+                      placeholder="10-digit mobile"
+                    />
                   </label>
 
                   <label className="block">
-                    <span className="text-xs font-black uppercase tracking-[0.12em] text-black/45">Email</span>
-                    <input required type="email" value={lead.email} onChange={(event) => setLead((current) => ({ ...current, email: event.target.value }))} className="mt-2 w-full border border-black/15 bg-[#F8F6F0] px-4 py-4 text-base outline-none focus:border-[#F4B400]" placeholder="you@example.com" />
+                    <span className="text-xs font-black uppercase tracking-[0.12em] text-black/45">
+                      Email
+                    </span>
+
+                    <input
+                      required
+                      type="email"
+                      value={lead.email}
+                      onChange={(event) =>
+                        setLead((current) => ({
+                          ...current,
+                          email: event.target.value,
+                        }))
+                      }
+                      className="mt-2 w-full border border-black/15 bg-[#F8F6F0] px-4 py-4 text-base outline-none focus:border-[#F4B400]"
+                      placeholder="you@example.com"
+                    />
                   </label>
 
                   <label className="block">
-                    <span className="text-xs font-black uppercase tracking-[0.12em] text-black/45">Occupation</span>
-                    <select required value={lead.occupation} onChange={(event) => setLead((current) => ({ ...current, occupation: event.target.value }))} className="mt-2 w-full border border-black/15 bg-[#F8F6F0] px-4 py-4 text-base outline-none focus:border-[#F4B400]">
-                      <option value="">Select one</option>
-                      <option>Founder / Business Owner</option>
-                      <option>Content Creator</option>
-                      <option>Marketer</option>
-                      <option>Social Media Manager</option>
-                      <option>Freelancer / Writer</option>
-                      <option>Student</option>
-                      <option>Other</option>
+                    <span className="text-xs font-black uppercase tracking-[0.12em] text-black/45">
+                      Occupation
+                    </span>
+
+                    <select
+                      required
+                      value={lead.occupation}
+                      onChange={(event) =>
+                        setLead((current) => ({
+                          ...current,
+                          occupation: event.target.value,
+                        }))
+                      }
+                      className="mt-2 w-full border border-black/15 bg-[#F8F6F0] px-4 py-4 text-base outline-none focus:border-[#F4B400]"
+                    >
+                      <option value="">
+                        Select one
+                      </option>
+
+                      <option>
+                        Founder / Business Owner
+                      </option>
+
+                      <option>
+                        Content Creator
+                      </option>
+
+                      <option>
+                        Marketer
+                      </option>
+
+                      <option>
+                        Social Media Manager
+                      </option>
+
+                      <option>
+                        Freelancer / Writer
+                      </option>
+
+                      <option>
+                        Student
+                      </option>
+
+                      <option>
+                        Other
+                      </option>
                     </select>
                   </label>
+
                 </div>
 
-                {leadError && <p className="mt-5 border border-red-200 bg-red-50 px-4 py-3 text-center text-sm font-bold leading-relaxed text-red-700">{leadError}</p>}
+                {/* =====================================================
+                    WHATSAPP CONSENT
+                ===================================================== */}
+                <label className="mt-6 flex cursor-pointer items-start gap-3 border border-black/10 bg-[#F8F6F0] p-4">
+                  <input
+                    type="checkbox"
+                    required
+                    checked={lead.whatsappConsent}
+                    onChange={(event) =>
+                      setLead((current) => ({
+                        ...current,
+                        whatsappConsent:
+                          event.target.checked,
+                      }))
+                    }
+                    className="mt-1 h-4 w-4 shrink-0 accent-[#F4B400]"
+                  />
 
-                <button type="submit" disabled={leadSubmitting} className="mt-7 inline-flex w-full items-center justify-center bg-[#171717] px-8 py-5 text-sm font-black uppercase tracking-[0.05em] text-white transition hover:bg-[#F4B400] hover:text-black disabled:cursor-not-allowed disabled:opacity-60">
-                  {leadSubmitting ? "SAVING YOUR DETAILS..." : "CONTINUE TO THE TEST →"}
+                  <span className="text-xs font-bold leading-relaxed text-black/55">
+                    I agree to receive my quiz result, webinar
+                    information and relevant follow-up messages
+                    on WhatsApp at this number.
+                  </span>
+                </label>
+
+                {leadError && (
+                  <p className="mt-5 border border-red-200 bg-red-50 px-4 py-3 text-center text-sm font-bold leading-relaxed text-red-700">
+                    {leadError}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={leadSubmitting}
+                  className="mt-7 inline-flex w-full items-center justify-center bg-[#171717] px-8 py-5 text-sm font-black uppercase tracking-[0.05em] text-white transition hover:bg-[#F4B400] hover:text-black disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {leadSubmitting
+                    ? "SAVING YOUR DETAILS..."
+                    : "CONTINUE TO THE TEST →"}
                 </button>
 
-                <p className="mt-4 text-center text-xs leading-relaxed text-black/35">Your information is used to provide your test result and webinar information.</p>
+                <p className="mt-4 text-center text-xs leading-relaxed text-black/35">
+                  Your information is used to provide your test
+                  result and webinar information.
+                </p>
               </form>
             </>
           ) : !quizComplete ? (
             <>
               <div className="text-center">
-                <div className="text-xs font-black uppercase tracking-[0.2em] text-[#F4B400]">The Content Psychology Test</div>
-                <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-5xl lg:text-6xl">HOW STRONG IS YOUR<br /><span className="text-[#F4B400]">CONTENT PSYCHOLOGY?</span></h1>
-                <p className="mx-auto mt-6 max-w-2xl text-lg font-bold leading-tight text-black/60 sm:text-xl">Take this 60-second test before your next post goes live.</p>
+                <div className="text-xs font-black uppercase tracking-[0.2em] text-[#F4B400]">
+                  The Content Psychology Test
+                </div>
+
+                <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-5xl lg:text-6xl">
+                  HOW STRONG IS YOUR
+                  <br />
+                  <span className="text-[#F4B400]">
+                    CONTENT PSYCHOLOGY?
+                  </span>
+                </h1>
+
+                <p className="mx-auto mt-6 max-w-2xl text-lg font-bold leading-tight text-black/60 sm:text-xl">
+                  Take this 60-second test before your next post
+                  goes live.
+                </p>
               </div>
 
               <div className="mt-12 border border-black/10 bg-white p-6 sm:p-10">
+
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-xs font-black uppercase tracking-[0.16em] text-[#F4B400]">{currentQuestion.eyebrow}</span>
-                  <span className="text-xs font-black uppercase tracking-[0.12em] text-black/35">{quizStep + 1} / {quizQuestions.length}</span>
+                  <span className="text-xs font-black uppercase tracking-[0.16em] text-[#F4B400]">
+                    {currentQuestion.eyebrow}
+                  </span>
+
+                  <span className="text-xs font-black uppercase tracking-[0.12em] text-black/35">
+                    {quizStep + 1} / {quizQuestions.length}
+                  </span>
                 </div>
 
-                <div className="mt-4 h-1 bg-black/5"><div className="h-full bg-[#F4B400] transition-all duration-300" style={{ width: `${((quizStep + 1) / quizQuestions.length) * 100}%` }} /></div>
+                <div className="mt-4 h-1 bg-black/5">
+                  <div
+                    className="h-full bg-[#F4B400] transition-all duration-300"
+                    style={{
+                      width: `${
+                        ((quizStep + 1) /
+                          quizQuestions.length) *
+                        100
+                      }%`,
+                    }}
+                  />
+                </div>
 
-                <h2 className="mt-10 max-w-3xl text-2xl font-black leading-tight tracking-[-0.03em] sm:text-3xl">{currentQuestion.question}</h2>
+                <h2 className="mt-10 max-w-3xl text-2xl font-black leading-tight tracking-[-0.03em] sm:text-3xl">
+                  {currentQuestion.question}
+                </h2>
 
                 <div className="mt-8 grid gap-3">
-                  {currentQuestion.options.map((option, index) => (
-                    <button key={option} type="button" disabled={quizSubmitting} onClick={() => handleQuizAnswer(index)} className={`flex items-start gap-4 border p-5 text-left transition-all duration-200 ${selectedAnswer === index ? "border-[#F4B400] bg-[#F4B400]" : "border-black/10 bg-[#F8F6F0] hover:-translate-y-0.5 hover:border-black/30 hover:bg-white"} disabled:cursor-not-allowed disabled:opacity-60`}>
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-black/15 text-xs font-black">{String.fromCharCode(65 + index)}</span>
-                      <span className="text-base font-bold leading-snug sm:text-lg">{option}</span>
-                    </button>
-                  ))}
+                  {currentQuestion.options.map(
+                    (option, index) => (
+                      <button
+                        key={option}
+                        type="button"
+                        disabled={quizSubmitting}
+                        onClick={() =>
+                          handleQuizAnswer(index)
+                        }
+                        className={`flex items-start gap-4 border p-5 text-left transition-all duration-200 ${
+                          selectedAnswer === index
+                            ? "border-[#F4B400] bg-[#F4B400]"
+                            : "border-black/10 bg-[#F8F6F0] hover:-translate-y-0.5 hover:border-black/30 hover:bg-white"
+                        } disabled:cursor-not-allowed disabled:opacity-60`}
+                      >
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-black/15 text-xs font-black">
+                          {String.fromCharCode(65 + index)}
+                        </span>
+
+                        <span className="text-base font-bold leading-snug sm:text-lg">
+                          {option}
+                        </span>
+                      </button>
+                    )
+                  )}
                 </div>
 
-                {quizError && <p className="mt-6 border border-red-200 bg-red-50 px-4 py-3 text-center text-sm font-bold leading-relaxed text-red-700">{quizError}</p>}
+                {quizError && (
+                  <p className="mt-6 border border-red-200 bg-red-50 px-4 py-3 text-center text-sm font-bold leading-relaxed text-red-700">
+                    {quizError}
+                  </p>
+                )}
 
-                <p className="mt-6 text-center text-xs font-bold uppercase tracking-[0.12em] text-black/30">{quizSubmitting ? "Saving your result..." : "Go with your first instinct."}</p>
+                <p className="mt-6 text-center text-xs font-bold uppercase tracking-[0.12em] text-black/30">
+                  {quizSubmitting
+                    ? "Saving your result..."
+                    : "Go with your first instinct."}
+                </p>
               </div>
             </>
           ) : (
             <>
               <div className="text-center">
-                <div className="text-xs font-black uppercase tracking-[0.2em] text-[#F4B400]">Your Content Psychology Result</div>
-                <h1 className="mx-auto mt-5 text-5xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-6xl">YOUR BLIND SPOT:<br /><span className="text-[#F4B400]">{resultProfiles[resultKey].title}</span></h1>
+                <div className="text-xs font-black uppercase tracking-[0.2em] text-[#F4B400]">
+                  Your Content Psychology Result
+                </div>
+
+                <h1 className="mx-auto mt-5 text-5xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-6xl">
+                  YOUR BLIND SPOT:
+                  <br />
+                  <span className="text-[#F4B400]">
+                    {resultProfiles[resultKey].title}
+                  </span>
+                </h1>
               </div>
 
               <div className="mx-auto mt-10 max-w-2xl border border-black/10 bg-white p-7 sm:p-10">
-                <p className="text-xl font-black leading-tight sm:text-2xl">{resultProfiles[resultKey].diagnosis}</p>
+
+                <p className="text-xl font-black leading-tight sm:text-2xl">
+                  {resultProfiles[resultKey].diagnosis}
+                </p>
+
                 <div className="mt-8 border-l-4 border-[#F4B400] pl-5">
-                  <div className="text-xs font-black uppercase tracking-[0.15em] text-black/40">What you need</div>
-                  <p className="mt-2 text-lg font-bold leading-relaxed">{resultProfiles[resultKey].need}</p>
+                  <div className="text-xs font-black uppercase tracking-[0.15em] text-black/40">
+                    What you need
+                  </div>
+
+                  <p className="mt-2 text-lg font-bold leading-relaxed">
+                    {resultProfiles[resultKey].need}
+                  </p>
                 </div>
+
                 <div className="mt-9 border-t border-black/10 pt-8 text-center">
-                  <div className="text-xs font-black uppercase tracking-[0.15em] text-[#F4B400]">This is what we&apos;ll work on.</div>
-                  <h2 className="mt-3 text-3xl font-black uppercase leading-[0.9] tracking-[-0.04em] sm:text-4xl">The Psychology Behind Writing</h2>
-                  <p className="mt-4 text-base leading-relaxed text-black/55">Learn how Attention, Curiosity, Relevance, Emotion &amp; Memory shape the way people respond to your content.</p>
-                  <div className="mt-5 text-xs font-black uppercase tracking-[0.12em] text-black/40">27 September 2026 • 11 AM IST</div>
-                  <Link href="/register" className="mt-7 inline-flex w-full items-center justify-center bg-[#F4B400] px-8 py-5 text-sm font-black uppercase tracking-[0.05em] text-black transition hover:bg-black hover:text-white">JOIN THE WEBINAR — ₹99 →</Link>
+
+                  <div className="text-xs font-black uppercase tracking-[0.15em] text-[#F4B400]">
+                    This is what we&apos;ll work on.
+                  </div>
+
+                  <h2 className="mt-3 text-3xl font-black uppercase leading-[0.9] tracking-[-0.04em] sm:text-4xl">
+                    The Psychology Behind Writing
+                  </h2>
+
+                  <p className="mt-4 text-base leading-relaxed text-black/55">
+                    Learn how Attention, Curiosity, Relevance,
+                    Emotion &amp; Memory shape the way people
+                    respond to your content.
+                  </p>
+
+                  <div className="mt-5 text-xs font-black uppercase tracking-[0.12em] text-black/40">
+                    27 September 2026 • 11 AM IST
+                  </div>
+
+                  <Link
+                    href="/register"
+                    className="mt-7 inline-flex w-full items-center justify-center bg-[#F4B400] px-8 py-5 text-sm font-black uppercase tracking-[0.05em] text-black transition hover:bg-black hover:text-white"
+                  >
+                    JOIN THE WEBINAR — ₹99 →
+                  </Link>
                 </div>
               </div>
             </>
@@ -496,7 +779,9 @@ export default function PsychologyBehindWritingPage() {
               <h2 className="mt-5 text-lg font-black uppercase leading-[0.87] tracking-[-0.05em] sm:text-lg">
                 Same subject.
                 <br />
-                <span className="text-[#F4B400]">Different response.</span>
+                <span className="text-[#F4B400]">
+                  Different response.
+                </span>
               </h2>
 
               <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/60 sm:text-lg">
@@ -509,11 +794,13 @@ export default function PsychologyBehindWritingPage() {
             </div>
 
             <div className="border border-white/10 bg-white/5 p-8">
-              <div className="text-lg font-black text-[#F4B400]">01</div>
+              <div className="text-lg font-black text-[#F4B400]">
+                01
+              </div>
 
               <p className="mt-8 text-lg font-black leading-tight">
-                The way you communicate something can completely change how
-                someone responds to it.
+                The way you communicate something can completely
+                change how someone responds to it.
               </p>
             </div>
 
@@ -528,6 +815,7 @@ export default function PsychologyBehindWritingPage() {
         <div className="mx-auto max-w-6xl">
 
           <div className="grid items-end gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+
             <div>
               <div className="text-xs font-black uppercase tracking-[0.2em] text-[#F4B400]">
                 See Me Think
@@ -538,8 +826,8 @@ export default function PsychologyBehindWritingPage() {
               </h2>
 
               <p className="mt-6 max-w-md text-base leading-relaxed text-black/55 sm:text-lg">
-                See how I approach content, communication and the psychology
-                behind what makes people pay attention.
+                See how I approach content, communication and the
+                psychology behind what makes people pay attention.
               </p>
             </div>
 
@@ -552,8 +840,8 @@ export default function PsychologyBehindWritingPage() {
                 allowFullScreen
               />
             </div>
-          </div>
 
+          </div>
         </div>
       </section>
 
@@ -589,24 +877,32 @@ export default function PsychologyBehindWritingPage() {
               </h2>
 
               <p className="mt-7 text-lg leading-relaxed text-black/60 sm:text-lg">
-                I&apos;m Puneet Kaur Saluja — a writer, strategist and brand
-                communication specialist.
+                I&apos;m Puneet Kaur Saluja — a writer, strategist and
+                brand communication specialist.
               </p>
 
               <div className="mt-8 grid grid-cols-2 gap-3">
+
                 <div className="bg-[#171717] p-5 text-white">
-                  <div className="text-lg font-black">9+</div>
+                  <div className="text-lg font-black">
+                    9+
+                  </div>
+
                   <div className="mt-2 text-xs font-black uppercase tracking-[0.1em] text-white/45">
                     Years
                   </div>
                 </div>
 
                 <div className="bg-[#F4B400] p-5">
-                  <div className="text-lg font-black">₹500</div>
+                  <div className="text-lg font-black">
+                    ₹500
+                  </div>
+
                   <div className="mt-2 text-xs font-black uppercase tracking-[0.1em] text-black/45">
                     Where I Started
                   </div>
                 </div>
+
               </div>
 
               <div className="mt-8 border-l-4 border-[#F4B400] pl-5">
@@ -640,12 +936,11 @@ export default function PsychologyBehindWritingPage() {
             </h2>
 
             <p className="mt-6 text-lg leading-relaxed text-white/55 sm:text-lg">
-              I&apos;ve had to figure it out while working with real brands,
-              real audiences and real communication problems.
+              I&apos;ve had to figure it out while working with real
+              brands, real audiences and real communication problems.
             </p>
           </div>
 
-          {/* 2 × 2 PORTFOLIO GRID */}
           <div className="mt-14 grid gap-4 md:grid-cols-2">
 
             {/* A FRAGRANCE STORY — BRAND COMMUNICATION */}
@@ -764,9 +1059,9 @@ export default function PsychologyBehindWritingPage() {
               </h2>
 
               <p className="mt-7 text-lg font-bold leading-relaxed text-black/55">
-                A communication idea built around appreciation, affordability
-                and the feeling of finding something that simply makes life
-                easier.
+                A communication idea built around appreciation,
+                affordability and the feeling of finding something
+                that simply makes life easier.
               </p>
             </div>
 
@@ -780,9 +1075,9 @@ export default function PsychologyBehindWritingPage() {
                   </div>
 
                   <p className="mt-5 text-lg font-bold leading-relaxed text-white/70">
-                    Women appreciated getting good-quality outfits at prices
-                    that allowed them to have more options without spending a
-                    fortune.
+                    Women appreciated getting good-quality outfits
+                    at prices that allowed them to have more options
+                    without spending a fortune.
                   </p>
                 </div>
 
@@ -792,9 +1087,9 @@ export default function PsychologyBehindWritingPage() {
                   </div>
 
                   <p className="mt-5 text-lg font-black leading-relaxed">
-                    Instead of the brand telling women why they should buy,
-                    create communication that felt like appreciation coming
-                    from the audience.
+                    Instead of the brand telling women why they
+                    should buy, create communication that felt like
+                    appreciation coming from the audience.
                   </p>
                 </div>
 
@@ -804,9 +1099,9 @@ export default function PsychologyBehindWritingPage() {
                   </div>
 
                   <p className="mt-5 text-lg leading-relaxed text-black/60">
-                    Festive storylines, UGC direction, scripts, digital media
-                    planning and shoot supervision built around relatable
-                    “Skylee moments.”
+                    Festive storylines, UGC direction, scripts,
+                    digital media planning and shoot supervision
+                    built around relatable “Skylee moments.”
                   </p>
                 </div>
 
@@ -816,9 +1111,9 @@ export default function PsychologyBehindWritingPage() {
                   </div>
 
                   <p className="mt-5 text-lg leading-relaxed text-black/60">
-                    Senior Brand Manager — customer conversations, strategy,
-                    communication, digital media plan, scripts, UGC direction
-                    and shoot supervision.
+                    Senior Brand Manager — customer conversations,
+                    strategy, communication, digital media plan,
+                    scripts, UGC direction and shoot supervision.
                   </p>
                 </div>
 
@@ -895,8 +1190,8 @@ export default function PsychologyBehindWritingPage() {
             </div>
 
             <p className="text-base leading-relaxed text-black/50 sm:text-lg">
-              Five psychological lenses that change how you approach a
-              headline, caption, script, ad or brand message.
+              Five psychological lenses that change how you approach
+              a headline, caption, script, ad or brand message.
             </p>
           </div>
 
@@ -954,7 +1249,8 @@ export default function PsychologyBehindWritingPage() {
               </p>
 
               <p className="mt-5 text-lg font-black leading-tight">
-                Psychology helps you understand what those words need to do.
+                Psychology helps you understand what those words
+                need to do.
               </p>
             </div>
 
@@ -995,7 +1291,10 @@ export default function PsychologyBehindWritingPage() {
                 key={item}
                 className="border border-white/10 bg-white/5 p-6 text-lg font-black"
               >
-                <span className="mr-3 text-[#F4B400]">→</span>
+                <span className="mr-3 text-[#F4B400]">
+                  →
+                </span>
+
                 {item}
               </div>
             ))}
@@ -1025,7 +1324,10 @@ export default function PsychologyBehindWritingPage() {
           <div className="mt-12 grid gap-3 md:grid-cols-2">
 
             {[
-              ["What should I post?", "What will make someone stop?"],
+              [
+                "What should I post?",
+                "What will make someone stop?",
+              ],
               [
                 "How do I make this sound better?",
                 "How will someone interpret this?",
@@ -1100,7 +1402,9 @@ export default function PsychologyBehindWritingPage() {
                 }`}
               >
                 <div>
-                  <div className="text-lg font-black opacity-20">“</div>
+                  <div className="text-lg font-black opacity-20">
+                    “
+                  </div>
 
                   <p className="mt-5 text-lg font-black italic leading-tight">
                     {testimonial.quote}
@@ -1195,7 +1499,9 @@ export default function PsychologyBehindWritingPage() {
                   <button
                     type="button"
                     onClick={() =>
-                      setOpenFaq(isOpen ? null : index)
+                      setOpenFaq(
+                        isOpen ? null : index
+                      )
                     }
                     className="flex w-full items-center justify-between gap-6 py-6 text-left"
                   >
@@ -1265,13 +1571,14 @@ export default function PsychologyBehindWritingPage() {
         </div>
       </section>
 
-
       {/* =========================================================
           FOOTER
       ========================================================= */}
       <footer className="border-t border-black/10 bg-[#F8F6F0] px-5 py-8 sm:px-8 lg:px-12">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 text-xs font-bold uppercase tracking-[0.1em] text-black/40 sm:flex-row sm:items-center sm:justify-between">
-          <span>The Psychology Behind Writing</span>
+          <span>
+            The Psychology Behind Writing
+          </span>
 
           <span>
             Puneet Kaur Saluja • 27 September 2026 • 11 AM IST

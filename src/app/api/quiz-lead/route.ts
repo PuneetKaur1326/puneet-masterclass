@@ -13,7 +13,8 @@ export async function POST(req: Request) {
 
   try {
     const supabaseUrl = process.env.SUPABASE_URL;
-    const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabaseServiceRoleKey =
+      process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     if (!supabaseUrl || !supabaseServiceRoleKey) {
       console.error(
@@ -23,7 +24,8 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           success: false,
-          message: "Server misconfiguration. Please try again later.",
+          message:
+            "Server misconfiguration. Please try again later.",
         },
         { status: 500 }
       );
@@ -39,17 +41,18 @@ export async function POST(req: Request) {
       phone,
       email,
       occupation,
+      whatsappConsent = false,
       quizAnswers,
       resultKey,
       resultTitle,
     } = body;
 
-    if (
-      stage !== "lead" &&
-      stage !== "quiz"
-    ) {
+    if (stage !== "lead" && stage !== "quiz") {
       return NextResponse.json(
-        { success: false, message: "Invalid submission stage." },
+        {
+          success: false,
+          message: "Invalid submission stage.",
+        },
         { status: 400 }
       );
     }
@@ -73,6 +76,16 @@ export async function POST(req: Request) {
       );
     }
 
+    if (typeof whatsappConsent !== "boolean") {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Invalid WhatsApp consent value.",
+        },
+        { status: 400 }
+      );
+    }
+
     if (
       stage === "quiz" &&
       (!quizAnswers ||
@@ -83,7 +96,8 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           success: false,
-          message: "Please complete the quiz before submitting.",
+          message:
+            "Please complete the quiz before submitting.",
         },
         { status: 400 }
       );
@@ -97,6 +111,7 @@ export async function POST(req: Request) {
       phone: phone.trim(),
       email: email.trim().toLowerCase(),
       occupation: occupation.trim(),
+      whatsapp_consent: whatsappConsent,
       ...(stage === "quiz"
         ? {
             quiz_answers: quizAnswers,
@@ -139,7 +154,8 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           success: false,
-          message: "Unable to save your responses. Please try again.",
+          message:
+            "Unable to save your responses. Please try again.",
         },
         { status: 500 }
       );
@@ -149,14 +165,21 @@ export async function POST(req: Request) {
       `[QUIZ LEAD ${requestId}] ${stage} response captured successfully`
     );
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    return NextResponse.json(
+      { success: true },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error(`[QUIZ LEAD ${requestId}] Fatal error:`, error);
+    console.error(
+      `[QUIZ LEAD ${requestId}] Fatal error:`,
+      error
+    );
 
     return NextResponse.json(
       {
         success: false,
-        message: "Unable to save your responses. Please try again.",
+        message:
+          "Unable to save your responses. Please try again.",
       },
       { status: 500 }
     );

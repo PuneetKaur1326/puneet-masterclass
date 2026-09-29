@@ -264,7 +264,7 @@ export default function PsychologyBehindWritingPage() {
         },
         body: JSON.stringify({
           stage: "quiz",
-          page: "/content-psychology",
+          page: "/psychology-behind-writing",
           source: "content_psychology_quiz",
           name: lead.name.trim(),
           phone: lead.phone.trim(),

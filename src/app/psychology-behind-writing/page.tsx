@@ -76,7 +76,7 @@ const faqs = [
   {
     question: "Is this a live webinar?",
     answer:
-      "Yes. It's a 2-hour live webinar on 27 September 2026 at 11 AM IST.",
+      "Yes. It's a 2-hour live webinar on 4th October 2026 at 11 AM IST.",
   },
   {
     question: "Is this only for social media?",
@@ -747,7 +747,7 @@ export default function PsychologyBehindWritingPage() {
                   </p>
 
                   <div className="mt-5 text-xs font-black uppercase tracking-[0.12em] text-black/40">
-                    27 September 2026 • 11 AM IST
+                    4th October 2026 • 11 AM IST
                   </div>
 
                   <Link
@@ -1442,7 +1442,7 @@ export default function PsychologyBehindWritingPage() {
           </div>
 
           <div className="mt-4 text-sm font-black uppercase tracking-[0.12em]">
-            27 September 2026 • 11 AM IST
+            4th October 2026 • 11 AM IST
           </div>
 
           <div className="mx-auto mt-10 grid max-w-2xl gap-3 text-left sm:grid-cols-2">
@@ -1558,7 +1558,7 @@ export default function PsychologyBehindWritingPage() {
           </p>
 
           <div className="mt-8 text-sm font-black uppercase tracking-[0.12em] text-[#F4B400]">
-            27 September 2026 • 11 AM IST
+            4th October 2026 • 11 AM IST
           </div>
 
           <Link
@@ -1581,7 +1581,7 @@ export default function PsychologyBehindWritingPage() {
           </span>
 
           <span>
-            Puneet Kaur Saluja • 27 September 2026 • 11 AM IST
+            Puneet Kaur Saluja • 4th October 2026 • 11 AM IST
           </span>
         </div>
       </footer>

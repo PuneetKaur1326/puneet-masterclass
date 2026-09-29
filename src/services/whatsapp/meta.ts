@@ -49,7 +49,7 @@ export class MetaWhatsAppService {
   private static getContentPsychologyQuizUrl(): string {
     return (
       process.env.CONTENT_PSYCHOLOGY_QUIZ_URL ||
-      "https://www.puneetkaursaluja.com/content-psychology"
+      "https://www.puneetkaursaluja.com/psychology-behind-writing"
     );
   }
 

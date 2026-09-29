@@ -339,7 +339,7 @@ export default function PsychologyBehindWritingPage() {
         },
         body: JSON.stringify({
           stage: "lead",
-          page: "/content-psychology",
+          page: "/psychology-behind-writing",
           source: "content_psychology_landing_page",
           name: lead.name.trim(),
           phone: lead.phone.trim(),

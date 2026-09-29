@@ -44,6 +44,26 @@ export class MetaWhatsAppService {
   }
 
   /**
+   * Content Psychology quiz URL.
+   */
+  private static getContentPsychologyQuizUrl(): string {
+    return (
+      process.env.CONTENT_PSYCHOLOGY_QUIZ_URL ||
+      "https://www.puneetkaursaluja.com/content-psychology"
+    );
+  }
+
+  /**
+   * Content Psychology webinar registration URL.
+   */
+  private static getContentPsychologyRegistrationUrl(): string {
+    return (
+      process.env.CONTENT_PSYCHOLOGY_REGISTER_URL ||
+      "https://www.puneetkaursaluja.com/register"
+    );
+  }
+
+  /**
    * Save automated outbound message to Supabase
    * so it appears in the WhatsApp Inbox.
    */
@@ -658,6 +678,63 @@ export class MetaWhatsAppService {
       "en",
       [
         this.getFirstName(name),
+      ]
+    );
+  }
+
+  /**
+   * CONTENT PSYCHOLOGY QUIZ FOLLOW-UP
+   *
+   * Template:
+   * content_psychology_quiz_followup
+   *
+   * {{1}} = first name
+   * {{2}} = quiz URL
+   *
+   * Sent when someone submitted the lead form
+   * but did not complete the quiz.
+   */
+  static async sendContentPsychologyQuizFollowup(
+    phone: string,
+    name: string
+  ) {
+    return this.sendTemplateMessage(
+      phone,
+      "content_psychology_quiz_followup",
+      "en_US",
+      [
+        this.getFirstName(name),
+        this.getContentPsychologyQuizUrl(),
+      ]
+    );
+  }
+
+  /**
+   * CONTENT PSYCHOLOGY WEBINAR FOLLOW-UP
+   *
+   * Template:
+   * content_psychology_webinar_followup
+   *
+   * {{1}} = first name
+   * {{2}} = result / blind spot
+   * {{3}} = registration URL
+   *
+   * Sent when someone completed the quiz
+   * but has not purchased the webinar.
+   */
+  static async sendContentPsychologyWebinarFollowup(
+    phone: string,
+    name: string,
+    resultTitle: string
+  ) {
+    return this.sendTemplateMessage(
+      phone,
+      "content_psychology_webinar_followup",
+      "en_US",
+      [
+        this.getFirstName(name),
+        resultTitle,
+        this.getContentPsychologyRegistrationUrl(),
       ]
     );
   }

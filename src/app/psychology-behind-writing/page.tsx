@@ -179,6 +179,8 @@ export default function PsychologyBehindWritingPage() {
   const [leadSubmitted, setLeadSubmitted] = useState(false);
   const [leadSubmitting, setLeadSubmitting] = useState(false);
   const [leadError, setLeadError] = useState("");
+  const [quizSubmitting, setQuizSubmitting] = useState(false);
+  const [quizError, setQuizError] = useState("");
   const [lead, setLead] = useState({
     name: "",
     phone: "",
@@ -191,10 +193,6 @@ export default function PsychologyBehindWritingPage() {
   const selectedAnswer = quizAnswers[currentQuestion.id];
 
   const resultKey = useMemo(() => {
-    if (!quizComplete) return "attention" as keyof typeof resultProfiles;
-
-    // The first question most directly identifies the respondent's strongest
-    // attention preference; the remaining answers provide supporting signals.
     const scores: Record<keyof typeof resultProfiles, number> = {
       attention: 0,
       curiosity: 0,
@@ -203,28 +201,90 @@ export default function PsychologyBehindWritingPage() {
       memory: 0,
     };
 
-    quizQuestions.forEach((question, questionIndex) => {
+    quizQuestions.forEach((question) => {
       const answer = quizAnswers[question.id];
       if (answer === undefined) return;
       scores[question.id as keyof typeof resultProfiles] += 4 - answer;
-      if (questionIndex !== answer) {
-        scores[question.id as keyof typeof resultProfiles] += 0;
-      }
     });
 
     return Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0] as keyof typeof resultProfiles;
-  }, [quizAnswers, quizComplete]);
+  }, [quizAnswers]);
+
+  const saveQuizResponse = async (answers: Record<string, number>) => {
+    const scores: Record<keyof typeof resultProfiles, number> = {
+      attention: 0,
+      curiosity: 0,
+      relevance: 0,
+      emotion: 0,
+      memory: 0,
+    };
+
+    quizQuestions.forEach((question) => {
+      const answer = answers[question.id];
+      if (answer === undefined) return;
+      scores[question.id as keyof typeof resultProfiles] += 4 - answer;
+    });
+
+    const nextResultKey = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0] as keyof typeof resultProfiles;
+
+    setQuizError("");
+    setQuizSubmitting(true);
+
+    try {
+      const response = await fetch("/api/quiz-lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          stage: "quiz",
+          page: "/content-psychology",
+          source: "content_psychology_quiz",
+          name: lead.name.trim(),
+          phone: lead.phone.trim(),
+          email: lead.email.trim(),
+          occupation: lead.occupation.trim(),
+          quizAnswers: answers,
+          resultKey: nextResultKey,
+          resultTitle: resultProfiles[nextResultKey].title,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.message || "Unable to save your quiz response. Please try again."
+        );
+      }
+
+      setQuizComplete(true);
+    } catch (error) {
+      console.error("Quiz response submission failed:", error);
+      setQuizError(
+        error instanceof Error
+          ? error.message
+          : "Unable to save your quiz response. Please try again."
+      );
+    } finally {
+      setQuizSubmitting(false);
+    }
+  };
 
   const handleQuizAnswer = (answerIndex: number) => {
-    setQuizAnswers((current) => ({
-      ...current,
+    if (quizSubmitting) return;
+
+    const nextAnswers = {
+      ...quizAnswers,
       [currentQuestion.id]: answerIndex,
-    }));
+    };
+
+    setQuizAnswers(nextAnswers);
 
     if (quizStep < quizQuestions.length - 1) {
       window.setTimeout(() => setQuizStep((current) => current + 1), 180);
     } else {
-      window.setTimeout(() => setQuizComplete(true), 180);
+      void saveQuizResponse(nextAnswers);
     }
   };
 
@@ -243,13 +303,13 @@ export default function PsychologyBehindWritingPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          stage: "lead",
+          page: "/content-psychology",
+          source: "content_psychology_landing_page",
           name: lead.name.trim(),
           phone: lead.phone.trim(),
           email: lead.email.trim(),
-          occupation: lead.occupation,
-          quizAnswers,
-          resultKey,
-          resultTitle: resultProfiles[resultKey].title,
+          occupation: lead.occupation.trim(),
         }),
       });
 
@@ -257,18 +317,17 @@ export default function PsychologyBehindWritingPage() {
 
       if (!response.ok || !result.success) {
         throw new Error(
-          result.message || "Unable to save your responses. Please try again."
+          result.message || "Unable to save your details. Please try again."
         );
       }
 
       setLeadSubmitted(true);
     } catch (error) {
-      console.error("Quiz lead submission failed:", error);
-
+      console.error("Content psychology lead submission failed:", error);
       setLeadError(
         error instanceof Error
           ? error.message
-          : "Unable to save your responses. Please try again."
+          : "Unable to save your details. Please try again."
       );
     } finally {
       setLeadSubmitting(false);
@@ -296,91 +355,33 @@ export default function PsychologyBehindWritingPage() {
         </div>
       </header>
       {/* =========================================================
-          QUIZ-FIRST JOURNEY
+          LEAD → QUIZ → RESULT
       ========================================================= */}
       <section className="px-5 pb-20 pt-14 sm:px-8 lg:px-12 lg:pb-24 lg:pt-20">
         <div className="mx-auto max-w-4xl">
-          {!quizComplete ? (
+          {!leadSubmitted ? (
             <>
               <div className="text-center">
                 <div className="text-xs font-black uppercase tracking-[0.2em] text-[#F4B400]">
                   The Content Psychology Test
                 </div>
                 <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-5xl lg:text-6xl">
-                  HOW STRONG IS YOUR
+                  BEFORE YOUR NEXT POST,
                   <br />
-                  <span className="text-[#F4B400]">CONTENT PSYCHOLOGY?</span>
+                  <span className="text-[#F4B400]">TAKE THIS TEST.</span>
                 </h1>
                 <p className="mx-auto mt-6 max-w-2xl text-lg font-bold leading-tight text-black/60 sm:text-xl">
-                  Take this 60-second test before your next post goes live.
-                </p>
-              </div>
-
-              <div className="mt-12 border border-black/10 bg-white p-6 sm:p-10">
-                <div className="flex items-center justify-between gap-4">
-                  <span className="text-xs font-black uppercase tracking-[0.16em] text-[#F4B400]">
-                    {currentQuestion.eyebrow}
-                  </span>
-                  <span className="text-xs font-black uppercase tracking-[0.12em] text-black/35">
-                    {quizStep + 1} / {quizQuestions.length}
-                  </span>
-                </div>
-
-                <div className="mt-4 h-1 bg-black/5">
-                  <div
-                    className="h-full bg-[#F4B400] transition-all duration-300"
-                    style={{ width: `${((quizStep + 1) / quizQuestions.length) * 100}%` }}
-                  />
-                </div>
-
-                <h2 className="mt-10 max-w-3xl text-2xl font-black leading-tight tracking-[-0.03em] sm:text-3xl">
-                  {currentQuestion.question}
-                </h2>
-
-                <div className="mt-8 grid gap-3">
-                  {currentQuestion.options.map((option, index) => (
-                    <button
-                      key={option}
-                      type="button"
-                      onClick={() => handleQuizAnswer(index)}
-                      className={`flex items-start gap-4 border p-5 text-left transition-all duration-200 ${
-                        selectedAnswer === index
-                          ? "border-[#F4B400] bg-[#F4B400]"
-                          : "border-black/10 bg-[#F8F6F0] hover:-translate-y-0.5 hover:border-black/30 hover:bg-white"
-                      }`}
-                    >
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-black/15 text-xs font-black">
-                        {String.fromCharCode(65 + index)}
-                      </span>
-                      <span className="text-base font-bold leading-snug sm:text-lg">
-                        {option}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-
-                <p className="mt-6 text-center text-xs font-bold uppercase tracking-[0.12em] text-black/30">
-                  Go with your first instinct.
-                </p>
-              </div>
-            </>
-          ) : !leadSubmitted ? (
-            <>
-              <div className="text-center">
-                <div className="text-xs font-black uppercase tracking-[0.2em] text-[#F4B400]">
-                  Test Complete
-                </div>
-                <h1 className="mx-auto mt-5 max-w-3xl text-4xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-5xl lg:text-6xl">
-                  YOUR RESULT
-                  <br />
-                  <span className="text-[#F4B400]">IS READY.</span>
-                </h1>
-                <p className="mx-auto mt-6 max-w-xl text-lg font-bold leading-tight text-black/60 sm:text-xl">
-                  Enter your details to see your content psychology result.
+                  Enter your details first. Then take the 60-second Content Psychology Test and discover your blind spot.
                 </p>
               </div>
 
               <form onSubmit={handleLeadSubmit} className="mx-auto mt-10 max-w-2xl border border-black/10 bg-white p-6 sm:p-10">
+                <div className="mb-8">
+                  <div className="text-xs font-black uppercase tracking-[0.15em] text-black/35">Step 1 of 2</div>
+                  <h2 className="mt-2 text-2xl font-black uppercase tracking-[-0.03em] sm:text-3xl">Get your test started</h2>
+                  <p className="mt-2 text-sm leading-relaxed text-black/50">We&apos;ll use these details to save your result and share the webinar information with you.</p>
+                </div>
+
                 <div className="grid gap-5 sm:grid-cols-2">
                   <label className="block">
                     <span className="text-xs font-black uppercase tracking-[0.12em] text-black/45">Name</span>
@@ -389,7 +390,7 @@ export default function PsychologyBehindWritingPage() {
 
                   <label className="block">
                     <span className="text-xs font-black uppercase tracking-[0.12em] text-black/45">Phone</span>
-                    <input required type="tel" inputMode="numeric" pattern="[6-9][0-9]{9}" value={lead.phone} onChange={(event) => setLead((current) => ({ ...current, phone: event.target.value.replace(/\\D/g, "").slice(0, 10) }))} className="mt-2 w-full border border-black/15 bg-[#F8F6F0] px-4 py-4 text-base outline-none focus:border-[#F4B400]" placeholder="10-digit mobile" />
+                    <input required type="tel" inputMode="numeric" pattern="[6-9][0-9]{9}" value={lead.phone} onChange={(event) => setLead((current) => ({ ...current, phone: event.target.value.replace(/\D/g, "").slice(0, 10) }))} className="mt-2 w-full border border-black/15 bg-[#F8F6F0] px-4 py-4 text-base outline-none focus:border-[#F4B400]" placeholder="10-digit mobile" />
                   </label>
 
                   <label className="block">
@@ -411,64 +412,67 @@ export default function PsychologyBehindWritingPage() {
                     </select>
                   </label>
                 </div>
-                 {leadError && (
-                   <p className="mt-5 border border-red-200 bg-red-50 px-4 py-3 text-center text-sm font-bold leading-relaxed text-red-700">
-                     {leadError}
-                   </p>
-                 )}
 
-                 <button
-                   type="submit"
-                   disabled={leadSubmitting}
-                   className="mt-7 inline-flex w-full items-center justify-center bg-[#171717] px-8 py-5 text-sm font-black uppercase tracking-[0.05em] text-white transition hover:bg-[#F4B400] hover:text-black disabled:cursor-not-allowed disabled:opacity-60"
-                 >
-                   {leadSubmitting ? "SAVING YOUR RESULT..." : "SHOW MY RESULT →"}
-                 </button>
+                {leadError && <p className="mt-5 border border-red-200 bg-red-50 px-4 py-3 text-center text-sm font-bold leading-relaxed text-red-700">{leadError}</p>}
 
-                 <p className="mt-4 text-center text-xs leading-relaxed text-black/35">
-                   Your details and quiz responses are stored securely to provide your result and webinar information.
-                 </p>
+                <button type="submit" disabled={leadSubmitting} className="mt-7 inline-flex w-full items-center justify-center bg-[#171717] px-8 py-5 text-sm font-black uppercase tracking-[0.05em] text-white transition hover:bg-[#F4B400] hover:text-black disabled:cursor-not-allowed disabled:opacity-60">
+                  {leadSubmitting ? "SAVING YOUR DETAILS..." : "CONTINUE TO THE TEST →"}
+                </button>
+
+                <p className="mt-4 text-center text-xs leading-relaxed text-black/35">Your information is used to provide your test result and webinar information.</p>
               </form>
+            </>
+          ) : !quizComplete ? (
+            <>
+              <div className="text-center">
+                <div className="text-xs font-black uppercase tracking-[0.2em] text-[#F4B400]">The Content Psychology Test</div>
+                <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-5xl lg:text-6xl">HOW STRONG IS YOUR<br /><span className="text-[#F4B400]">CONTENT PSYCHOLOGY?</span></h1>
+                <p className="mx-auto mt-6 max-w-2xl text-lg font-bold leading-tight text-black/60 sm:text-xl">Take this 60-second test before your next post goes live.</p>
+              </div>
+
+              <div className="mt-12 border border-black/10 bg-white p-6 sm:p-10">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-xs font-black uppercase tracking-[0.16em] text-[#F4B400]">{currentQuestion.eyebrow}</span>
+                  <span className="text-xs font-black uppercase tracking-[0.12em] text-black/35">{quizStep + 1} / {quizQuestions.length}</span>
+                </div>
+
+                <div className="mt-4 h-1 bg-black/5"><div className="h-full bg-[#F4B400] transition-all duration-300" style={{ width: `${((quizStep + 1) / quizQuestions.length) * 100}%` }} /></div>
+
+                <h2 className="mt-10 max-w-3xl text-2xl font-black leading-tight tracking-[-0.03em] sm:text-3xl">{currentQuestion.question}</h2>
+
+                <div className="mt-8 grid gap-3">
+                  {currentQuestion.options.map((option, index) => (
+                    <button key={option} type="button" disabled={quizSubmitting} onClick={() => handleQuizAnswer(index)} className={`flex items-start gap-4 border p-5 text-left transition-all duration-200 ${selectedAnswer === index ? "border-[#F4B400] bg-[#F4B400]" : "border-black/10 bg-[#F8F6F0] hover:-translate-y-0.5 hover:border-black/30 hover:bg-white"} disabled:cursor-not-allowed disabled:opacity-60`}>
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-black/15 text-xs font-black">{String.fromCharCode(65 + index)}</span>
+                      <span className="text-base font-bold leading-snug sm:text-lg">{option}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {quizError && <p className="mt-6 border border-red-200 bg-red-50 px-4 py-3 text-center text-sm font-bold leading-relaxed text-red-700">{quizError}</p>}
+
+                <p className="mt-6 text-center text-xs font-bold uppercase tracking-[0.12em] text-black/30">{quizSubmitting ? "Saving your result..." : "Go with your first instinct."}</p>
+              </div>
             </>
           ) : (
             <>
               <div className="text-center">
-                <div className="text-xs font-black uppercase tracking-[0.2em] text-[#F4B400]">
-                  Your Content Psychology Result
-                </div>
-                <h1 className="mx-auto mt-5 text-5xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-6xl">
-                  YOUR BLIND SPOT:
-                  <br />
-                  <span className="text-[#F4B400]">{resultProfiles[resultKey].title}</span>
-                </h1>
+                <div className="text-xs font-black uppercase tracking-[0.2em] text-[#F4B400]">Your Content Psychology Result</div>
+                <h1 className="mx-auto mt-5 text-5xl font-black uppercase leading-[0.88] tracking-[-0.05em] sm:text-6xl">YOUR BLIND SPOT:<br /><span className="text-[#F4B400]">{resultProfiles[resultKey].title}</span></h1>
               </div>
 
               <div className="mx-auto mt-10 max-w-2xl border border-black/10 bg-white p-7 sm:p-10">
-                <p className="text-xl font-black leading-tight sm:text-2xl">
-                  {resultProfiles[resultKey].diagnosis}
-                </p>
-
+                <p className="text-xl font-black leading-tight sm:text-2xl">{resultProfiles[resultKey].diagnosis}</p>
                 <div className="mt-8 border-l-4 border-[#F4B400] pl-5">
                   <div className="text-xs font-black uppercase tracking-[0.15em] text-black/40">What you need</div>
                   <p className="mt-2 text-lg font-bold leading-relaxed">{resultProfiles[resultKey].need}</p>
                 </div>
-
                 <div className="mt-9 border-t border-black/10 pt-8 text-center">
-                  <div className="text-xs font-black uppercase tracking-[0.15em] text-[#F4B400]">
-                    This is what we&apos;ll work on.
-                  </div>
-                  <h2 className="mt-3 text-3xl font-black uppercase leading-[0.9] tracking-[-0.04em] sm:text-4xl">
-                    The Psychology Behind Writing
-                  </h2>
-                  <p className="mt-4 text-base leading-relaxed text-black/55">
-                    Learn how Attention, Curiosity, Relevance, Emotion &amp; Memory shape the way people respond to your content.
-                  </p>
-                  <div className="mt-5 text-xs font-black uppercase tracking-[0.12em] text-black/40">
-                    27 September 2026 • 11 AM IST
-                  </div>
-                  <Link href="/register" className="mt-7 inline-flex w-full items-center justify-center bg-[#F4B400] px-8 py-5 text-sm font-black uppercase tracking-[0.05em] text-black transition hover:bg-black hover:text-white">
-                    JOIN THE WEBINAR — ₹99 →
-                  </Link>
+                  <div className="text-xs font-black uppercase tracking-[0.15em] text-[#F4B400]">This is what we&apos;ll work on.</div>
+                  <h2 className="mt-3 text-3xl font-black uppercase leading-[0.9] tracking-[-0.04em] sm:text-4xl">The Psychology Behind Writing</h2>
+                  <p className="mt-4 text-base leading-relaxed text-black/55">Learn how Attention, Curiosity, Relevance, Emotion &amp; Memory shape the way people respond to your content.</p>
+                  <div className="mt-5 text-xs font-black uppercase tracking-[0.12em] text-black/40">27 September 2026 • 11 AM IST</div>
+                  <Link href="/register" className="mt-7 inline-flex w-full items-center justify-center bg-[#F4B400] px-8 py-5 text-sm font-black uppercase tracking-[0.05em] text-black transition hover:bg-black hover:text-white">JOIN THE WEBINAR — ₹99 →</Link>
                 </div>
               </div>
             </>
@@ -476,8 +480,6 @@ export default function PsychologyBehindWritingPage() {
         </div>
       </section>
 
-      {leadSubmitted && (
-        <>
       {/* =========================================================
           AND THAT WAS THE POINT
       ========================================================= */}
@@ -1263,8 +1265,6 @@ export default function PsychologyBehindWritingPage() {
         </div>
       </section>
 
-        </>
-      )}
 
       {/* =========================================================
           FOOTER
